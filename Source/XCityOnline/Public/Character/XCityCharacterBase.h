@@ -7,18 +7,18 @@
 #include "Interfaces/PlayerCameraManagerInterface.h"
 #include "InputActionValue.h"
 #include "InputMappingContext.h"
-#include "XCityCharacter.generated.h"
+#include "XCityCharacterBase.generated.h"
 
 class UInputAction;
 //class UInputMappingContext;
 
 UCLASS()
-class XCITYONLINE_API AXCityCharacter : public ACharacter, public IPlayerCameraManagerInterface
+class XCITYONLINE_API AXCityCharacterBase : public ACharacter, public IPlayerCameraManagerInterface
 {
 	GENERATED_BODY()
 
 public:
-	AXCityCharacter();
+	AXCityCharacterBase();
 
 protected:
 	virtual void BeginPlay() override;

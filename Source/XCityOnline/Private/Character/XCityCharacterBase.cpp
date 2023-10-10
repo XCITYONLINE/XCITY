@@ -1,14 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Character/XCityCharacter.h"
+#include "Character/XCityCharacterBase.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CameraManagerComponent.h"
 
-AXCityCharacter::AXCityCharacter()
+AXCityCharacterBase::AXCityCharacterBase()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -21,7 +21,7 @@ AXCityCharacter::AXCityCharacter()
 	CameraComponent->SetupAttachment(SpringArmComponent.Get(), SpringArmComponent->SocketName);
 }
 
-void AXCityCharacter::BeginPlay()
+void AXCityCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
 	
@@ -34,14 +34,14 @@ void AXCityCharacter::BeginPlay()
 	InputSubsystem->AddMappingContext(MappingContext.Get(), 0);
 }
 
-void AXCityCharacter::Tick(float DeltaSeconds)
+void AXCityCharacterBase::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
 	UpdateCameraTransformByMode();
 }
 
-void AXCityCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void AXCityCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
@@ -50,28 +50,28 @@ void AXCityCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 	if (LookAction.IsValid())
 	{
-		EnhancedInput->BindAction(LookAction.Get(), ETriggerEvent::Triggered, this, &AXCityCharacter::LookInput);
+		EnhancedInput->BindAction(LookAction.Get(), ETriggerEvent::Triggered, this, &AXCityCharacterBase::LookInput);
 	}
 }
 
-void AXCityCharacter::SetCameraManagerMode(const ECameraMode& InNewCameraMode)
+void AXCityCharacterBase::SetCameraManagerMode(const ECameraMode& InNewCameraMode)
 {
 	IPlayerCameraManagerInterface::SetCameraManagerMode(InNewCameraMode);
 
 	CameraManagerComponent->SetCameraMode(InNewCameraMode);
 }
 
-void AXCityCharacter::InitCameraManager()
+void AXCityCharacterBase::InitCameraManager()
 {
 	SetCameraManagerMode(ECameraMode::ECM_Default);
 }
 
-void AXCityCharacter::UpdateCameraTransformByMode()
+void AXCityCharacterBase::UpdateCameraTransformByMode()
 {
 	CameraManagerComponent->UpdateCameraOffset(SpringArmComponent);
 }
 
-void AXCityCharacter::LookInput(const FInputActionValue& Value)
+void AXCityCharacterBase::LookInput(const FInputActionValue& Value)
 {
 	const FVector2D MouseVector = Value.Get<FVector2D>();
 
