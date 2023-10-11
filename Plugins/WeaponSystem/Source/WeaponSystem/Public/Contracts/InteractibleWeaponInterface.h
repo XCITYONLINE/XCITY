@@ -36,13 +36,13 @@ public:
 	void InitializeWeapon();
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Weapon")
-	int GetAmmo();
+	int32 GetAmmo();
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Weapon")
-	void SetAmmo(const int& InNewAmmoValue);
+	void SetAmmo(const int32 InNewAmmoValue);
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Weapon")
-	void AddAmmo(const int& InAmmoValue);
+	void AddAmmo(const int32 InAmmoValue);
 	
 	UFUNCTION(BlueprintNativeEvent,  Category = "Internal")
 	void Internal_Initialize(const FWeaponsDataStruct& InInitialWeaponStruct);

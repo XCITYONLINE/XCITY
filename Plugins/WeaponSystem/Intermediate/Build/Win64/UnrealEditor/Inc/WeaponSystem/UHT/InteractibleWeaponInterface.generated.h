@@ -20,8 +20,8 @@ struct FWeaponsDataStruct;
 #define FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_EDITOR_ONLY_SPARSE_DATA_PROPERTY_ACCESSORS
 #define FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_RPC_WRAPPERS_NO_PURE_DECLS \
 	virtual void Internal_Initialize_Implementation(FWeaponsDataStruct const& InInitialWeaponStruct) {}; \
-	virtual void AddAmmo_Implementation(int32 const& InAmmoValue) {}; \
-	virtual void SetAmmo_Implementation(int32 const& InNewAmmoValue) {}; \
+	virtual void AddAmmo_Implementation(const int32 InAmmoValue) {}; \
+	virtual void SetAmmo_Implementation(const int32 InNewAmmoValue) {}; \
 	virtual int32 GetAmmo_Implementation() { return 0; }; \
 	virtual void InitializeWeapon_Implementation() {}; \
 	virtual bool IsReloading_Implementation() { return false; }; \
@@ -79,7 +79,7 @@ protected: \
 public: \
 	typedef UInteractibleWeaponInterface UClassType; \
 	typedef IInteractibleWeaponInterface ThisClass; \
-	static void Execute_AddAmmo(UObject* O, int32 const& InAmmoValue); \
+	static void Execute_AddAmmo(UObject* O, const int32 InAmmoValue); \
 	static int32 Execute_GetAmmo(UObject* O); \
 	static void Execute_InitializeWeapon(UObject* O); \
 	static void Execute_Internal_Initialize(UObject* O, FWeaponsDataStruct const& InInitialWeaponStruct); \
@@ -87,7 +87,7 @@ public: \
 	static void Execute_OnFireStart(UObject* O); \
 	static void Execute_OnFireStop(UObject* O); \
 	static void Execute_OnReload(UObject* O); \
-	static void Execute_SetAmmo(UObject* O, int32 const& InNewAmmoValue); \
+	static void Execute_SetAmmo(UObject* O, const int32 InNewAmmoValue); \
 	virtual UObject* _getUObject() const { return nullptr; }
 
 

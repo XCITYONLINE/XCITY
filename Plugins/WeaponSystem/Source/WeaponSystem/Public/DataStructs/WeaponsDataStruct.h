@@ -59,14 +59,16 @@ public:
 
 	FWeaponsDataStruct();
 
+public:
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Visual")
 	class UStaticMesh* WeaponMesh;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shoot Component Class")
 	TSubclassOf<class UShootComponentBase> ShootComponentClass;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shoot Component Class")
-	TSubclassOf<class UShootComponentBase> ShootComponentClass;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo Actor Class")
+	TSubclassOf<class AAmmoProjectileBase> AmmoProjectileClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shoot settings")
 	FShootSettingsDesc ShootSettings;

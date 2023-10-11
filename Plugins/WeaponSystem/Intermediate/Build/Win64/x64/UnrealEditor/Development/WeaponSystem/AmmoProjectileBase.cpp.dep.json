@@ -1,0 +1,23 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\source\\weaponsystem\\private\\weaponactors\\ammoprojectilebase.cpp",
+        "ProvidedModule": "",
+        "PCH": "e:\\outsource\\unreal\\xcity\\xcity\\intermediate\\build\\win64\\x64\\xcityonlineeditor\\development\\engine\\sharedpch.engine.cpp20.h.pch",
+        "Includes": [
+            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\weaponsystem\\definitions.weaponsystem.h",
+            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\source\\weaponsystem\\public\\weaponactors\\ammoprojectilebase.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\gameframework\\projectilemovementcomponent.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\gameframework\\movementcomponent.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\movementcomponent.generated.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\projectilemovementcomponent.generated.h",
+            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\intermediate\\build\\win64\\unrealeditor\\inc\\weaponsystem\\uht\\ammoprojectilebase.generated.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\kismet\\kismetsystemlibrary.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\coreuobject\\public\\uobject\\propertyaccessutil.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\coreuobject\\public\\assetregistry\\arfilter.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\kismetsystemlibrary.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}
