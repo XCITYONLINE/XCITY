@@ -6,4 +6,8 @@
 UCameraModeData::UCameraModeData()
 {
 	LocationSocketOffset = FVector::ZeroVector;
+
+	LocationXInterpSpeed = 0.0f;
+	LocationYInterpSpeed = 0.0f;
+	LocationZInterpSpeed = 0.0f;
 }

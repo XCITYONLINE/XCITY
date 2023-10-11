@@ -31,12 +31,18 @@ void UCameraManagerComponent::SetupAttachments(const AActor* ParentActor)
 
 void UCameraManagerComponent::UpdateCameraOffset()
 {
-	if (!CurrentCameraMode || !SpringArmComponent) return;
+	if (!CurrentCameraMode.IsValid() || !IsValid(SpringArmComponent)) return;
 
 	const FVector CurrentOffset = SpringArmComponent->SocketOffset;
 	const FVector TargetOffset = CurrentCameraMode->LocationSocketOffset;
 
-	SpringArmComponent->SocketOffset = FMath::VInterpTo(CurrentOffset, TargetOffset, GetWorld()->GetDeltaSeconds(), LocationInterpSpeed);
+	const float XInterp = FMath::FInterpConstantTo(CurrentOffset.X, TargetOffset.X, GetWorld()->GetDeltaSeconds(), CurrentCameraMode->LocationXInterpSpeed);
+	const float YInterp = FMath::FInterpConstantTo(CurrentOffset.Y, TargetOffset.Y, GetWorld()->GetDeltaSeconds(), CurrentCameraMode->LocationYInterpSpeed);
+	const float ZInterp = FMath::FInterpConstantTo(CurrentOffset.Z, TargetOffset.Z, GetWorld()->GetDeltaSeconds(), CurrentCameraMode->LocationZInterpSpeed);
+
+	const FVector FinalOffset = FVector(XInterp, YInterp, ZInterp);
+
+	SpringArmComponent->SocketOffset = FinalOffset;
 }
 
 void UCameraManagerComponent::SetCameraMode(const ECameraMode& CameraMode)

@@ -23,9 +23,6 @@ public:
 	void SetCameraMode(const ECameraMode& CameraMode);
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Camera System")
-	float LocationInterpSpeed;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Camera System")
 	TObjectPtr<class USpringArmComponent> SpringArmComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Camera System")
