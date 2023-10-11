@@ -101,17 +101,17 @@ bool AInteractibleWeaponBase::IsReloading_Implementation()
 	return IInteractibleWeaponInterface::IsReloading_Implementation();
 }
 
-int AInteractibleWeaponBase::GetAmmo_Implementation()
+int32 AInteractibleWeaponBase::GetAmmo_Implementation()
 {
 	return IInteractibleWeaponInterface::GetAmmo_Implementation();
 }
 
-void AInteractibleWeaponBase::SetAmmo_Implementation(const int& InNewAmmoValue)
+void AInteractibleWeaponBase::SetAmmo_Implementation(const int32 InNewAmmoValue)
 {
 	IInteractibleWeaponInterface::SetAmmo_Implementation(InNewAmmoValue);
 }
 
-void AInteractibleWeaponBase::AddAmmo_Implementation(const int& InAmmoValue)
+void AInteractibleWeaponBase::AddAmmo_Implementation(const int32 InAmmoValue)
 {
 	IInteractibleWeaponInterface::AddAmmo_Implementation(InAmmoValue);
 }

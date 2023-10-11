@@ -26,18 +26,18 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleWeaponInterface() {}
 	}
 	DEFINE_FUNCTION(IInteractibleWeaponInterface::execAddAmmo)
 	{
-		P_GET_PROPERTY_REF(FIntProperty,Z_Param_Out_InAmmoValue);
+		P_GET_PROPERTY(FIntProperty,Z_Param_InAmmoValue);
 		P_FINISH;
 		P_NATIVE_BEGIN;
-		P_THIS->AddAmmo_Implementation(Z_Param_Out_InAmmoValue);
+		P_THIS->AddAmmo_Implementation(Z_Param_InAmmoValue);
 		P_NATIVE_END;
 	}
 	DEFINE_FUNCTION(IInteractibleWeaponInterface::execSetAmmo)
 	{
-		P_GET_PROPERTY_REF(FIntProperty,Z_Param_Out_InNewAmmoValue);
+		P_GET_PROPERTY(FIntProperty,Z_Param_InNewAmmoValue);
 		P_FINISH;
 		P_NATIVE_BEGIN;
-		P_THIS->SetAmmo_Implementation(Z_Param_Out_InNewAmmoValue);
+		P_THIS->SetAmmo_Implementation(Z_Param_InNewAmmoValue);
 		P_NATIVE_END;
 	}
 	DEFINE_FUNCTION(IInteractibleWeaponInterface::execGetAmmo)
@@ -114,7 +114,7 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleWeaponInterface() {}
 	{
 		int32 InNewAmmoValue;
 	};
-	void IInteractibleWeaponInterface::AddAmmo(int32 const& InAmmoValue)
+	void IInteractibleWeaponInterface::AddAmmo(const int32 InAmmoValue)
 	{
 		check(0 && "Do not directly call Event functions in Interfaces. Call Execute_AddAmmo instead.");
 	}
@@ -150,7 +150,7 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleWeaponInterface() {}
 	{
 		check(0 && "Do not directly call Event functions in Interfaces. Call Execute_OnReload instead.");
 	}
-	void IInteractibleWeaponInterface::SetAmmo(int32 const& InNewAmmoValue)
+	void IInteractibleWeaponInterface::SetAmmo(const int32 InNewAmmoValue)
 	{
 		check(0 && "Do not directly call Event functions in Interfaces. Call Execute_SetAmmo instead.");
 	}
@@ -187,7 +187,7 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleWeaponInterface() {}
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UInteractibleWeaponInterface_AddAmmo_Statics::NewProp_InAmmoValue = { "InAmmoValue", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(InteractibleWeaponInterface_eventAddAmmo_Parms, InAmmoValue), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractibleWeaponInterface_AddAmmo_Statics::NewProp_InAmmoValue_MetaData), Z_Construct_UFunction_UInteractibleWeaponInterface_AddAmmo_Statics::NewProp_InAmmoValue_MetaData) };
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UInteractibleWeaponInterface_AddAmmo_Statics::NewProp_InAmmoValue = { "InAmmoValue", nullptr, (EPropertyFlags)0x0010000000000082, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(InteractibleWeaponInterface_eventAddAmmo_Parms, InAmmoValue), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractibleWeaponInterface_AddAmmo_Statics::NewProp_InAmmoValue_MetaData), Z_Construct_UFunction_UInteractibleWeaponInterface_AddAmmo_Statics::NewProp_InAmmoValue_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UInteractibleWeaponInterface_AddAmmo_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UInteractibleWeaponInterface_AddAmmo_Statics::NewProp_InAmmoValue,
 	};
@@ -197,7 +197,7 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleWeaponInterface() {}
 		{ "ModuleRelativePath", "Public/Contracts/InteractibleWeaponInterface.h" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UInteractibleWeaponInterface_AddAmmo_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UInteractibleWeaponInterface, nullptr, "AddAmmo", nullptr, nullptr, Z_Construct_UFunction_UInteractibleWeaponInterface_AddAmmo_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractibleWeaponInterface_AddAmmo_Statics::PropPointers), sizeof(InteractibleWeaponInterface_eventAddAmmo_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x0C420C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractibleWeaponInterface_AddAmmo_Statics::Function_MetaDataParams), Z_Construct_UFunction_UInteractibleWeaponInterface_AddAmmo_Statics::Function_MetaDataParams) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UInteractibleWeaponInterface_AddAmmo_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UInteractibleWeaponInterface, nullptr, "AddAmmo", nullptr, nullptr, Z_Construct_UFunction_UInteractibleWeaponInterface_AddAmmo_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractibleWeaponInterface_AddAmmo_Statics::PropPointers), sizeof(InteractibleWeaponInterface_eventAddAmmo_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x0C020C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractibleWeaponInterface_AddAmmo_Statics::Function_MetaDataParams), Z_Construct_UFunction_UInteractibleWeaponInterface_AddAmmo_Statics::Function_MetaDataParams) };
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractibleWeaponInterface_AddAmmo_Statics::PropPointers) < 2048);
 	static_assert(sizeof(InteractibleWeaponInterface_eventAddAmmo_Parms) < MAX_uint16);
 	UFunction* Z_Construct_UFunction_UInteractibleWeaponInterface_AddAmmo()
@@ -280,7 +280,7 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleWeaponInterface() {}
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UInteractibleWeaponInterface_Internal_Initialize_Statics::NewProp_InInitialWeaponStruct = { "InInitialWeaponStruct", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(InteractibleWeaponInterface_eventInternal_Initialize_Parms, InInitialWeaponStruct), Z_Construct_UScriptStruct_FWeaponsDataStruct, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractibleWeaponInterface_Internal_Initialize_Statics::NewProp_InInitialWeaponStruct_MetaData), Z_Construct_UFunction_UInteractibleWeaponInterface_Internal_Initialize_Statics::NewProp_InInitialWeaponStruct_MetaData) }; // 451918511
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UInteractibleWeaponInterface_Internal_Initialize_Statics::NewProp_InInitialWeaponStruct = { "InInitialWeaponStruct", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(InteractibleWeaponInterface_eventInternal_Initialize_Parms, InInitialWeaponStruct), Z_Construct_UScriptStruct_FWeaponsDataStruct, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractibleWeaponInterface_Internal_Initialize_Statics::NewProp_InInitialWeaponStruct_MetaData), Z_Construct_UFunction_UInteractibleWeaponInterface_Internal_Initialize_Statics::NewProp_InInitialWeaponStruct_MetaData) }; // 582785028
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UInteractibleWeaponInterface_Internal_Initialize_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UInteractibleWeaponInterface_Internal_Initialize_Statics::NewProp_InInitialWeaponStruct,
 	};
@@ -424,7 +424,7 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleWeaponInterface() {}
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UInteractibleWeaponInterface_SetAmmo_Statics::NewProp_InNewAmmoValue = { "InNewAmmoValue", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(InteractibleWeaponInterface_eventSetAmmo_Parms, InNewAmmoValue), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractibleWeaponInterface_SetAmmo_Statics::NewProp_InNewAmmoValue_MetaData), Z_Construct_UFunction_UInteractibleWeaponInterface_SetAmmo_Statics::NewProp_InNewAmmoValue_MetaData) };
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UInteractibleWeaponInterface_SetAmmo_Statics::NewProp_InNewAmmoValue = { "InNewAmmoValue", nullptr, (EPropertyFlags)0x0010000000000082, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(InteractibleWeaponInterface_eventSetAmmo_Parms, InNewAmmoValue), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractibleWeaponInterface_SetAmmo_Statics::NewProp_InNewAmmoValue_MetaData), Z_Construct_UFunction_UInteractibleWeaponInterface_SetAmmo_Statics::NewProp_InNewAmmoValue_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UInteractibleWeaponInterface_SetAmmo_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UInteractibleWeaponInterface_SetAmmo_Statics::NewProp_InNewAmmoValue,
 	};
@@ -434,7 +434,7 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleWeaponInterface() {}
 		{ "ModuleRelativePath", "Public/Contracts/InteractibleWeaponInterface.h" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UInteractibleWeaponInterface_SetAmmo_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UInteractibleWeaponInterface, nullptr, "SetAmmo", nullptr, nullptr, Z_Construct_UFunction_UInteractibleWeaponInterface_SetAmmo_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractibleWeaponInterface_SetAmmo_Statics::PropPointers), sizeof(InteractibleWeaponInterface_eventSetAmmo_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x0C420C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractibleWeaponInterface_SetAmmo_Statics::Function_MetaDataParams), Z_Construct_UFunction_UInteractibleWeaponInterface_SetAmmo_Statics::Function_MetaDataParams) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UInteractibleWeaponInterface_SetAmmo_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UInteractibleWeaponInterface, nullptr, "SetAmmo", nullptr, nullptr, Z_Construct_UFunction_UInteractibleWeaponInterface_SetAmmo_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractibleWeaponInterface_SetAmmo_Statics::PropPointers), sizeof(InteractibleWeaponInterface_eventSetAmmo_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x0C020C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractibleWeaponInterface_SetAmmo_Statics::Function_MetaDataParams), Z_Construct_UFunction_UInteractibleWeaponInterface_SetAmmo_Statics::Function_MetaDataParams) };
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractibleWeaponInterface_SetAmmo_Statics::PropPointers) < 2048);
 	static_assert(sizeof(InteractibleWeaponInterface_eventSetAmmo_Parms) < MAX_uint16);
 	UFunction* Z_Construct_UFunction_UInteractibleWeaponInterface_SetAmmo()
@@ -467,15 +467,15 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleWeaponInterface() {}
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UInteractibleWeaponInterface_Statics::DependentSingletons) < 16);
 	const FClassFunctionLinkInfo Z_Construct_UClass_UInteractibleWeaponInterface_Statics::FuncInfo[] = {
-		{ &Z_Construct_UFunction_UInteractibleWeaponInterface_AddAmmo, "AddAmmo" }, // 2343641489
+		{ &Z_Construct_UFunction_UInteractibleWeaponInterface_AddAmmo, "AddAmmo" }, // 3619774732
 		{ &Z_Construct_UFunction_UInteractibleWeaponInterface_GetAmmo, "GetAmmo" }, // 681415270
 		{ &Z_Construct_UFunction_UInteractibleWeaponInterface_InitializeWeapon, "InitializeWeapon" }, // 2831802670
-		{ &Z_Construct_UFunction_UInteractibleWeaponInterface_Internal_Initialize, "Internal_Initialize" }, // 730227953
+		{ &Z_Construct_UFunction_UInteractibleWeaponInterface_Internal_Initialize, "Internal_Initialize" }, // 3973905586
 		{ &Z_Construct_UFunction_UInteractibleWeaponInterface_IsReloading, "IsReloading" }, // 174040517
 		{ &Z_Construct_UFunction_UInteractibleWeaponInterface_OnFireStart, "OnFireStart" }, // 1129078472
 		{ &Z_Construct_UFunction_UInteractibleWeaponInterface_OnFireStop, "OnFireStop" }, // 3275243451
 		{ &Z_Construct_UFunction_UInteractibleWeaponInterface_OnReload, "OnReload" }, // 2626629546
-		{ &Z_Construct_UFunction_UInteractibleWeaponInterface_SetAmmo, "SetAmmo" }, // 2672125798
+		{ &Z_Construct_UFunction_UInteractibleWeaponInterface_SetAmmo, "SetAmmo" }, // 2105852026
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UInteractibleWeaponInterface_Statics::FuncInfo) < 2048);
 #if WITH_METADATA
@@ -517,7 +517,7 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleWeaponInterface() {}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UInteractibleWeaponInterface);
 	UInteractibleWeaponInterface::~UInteractibleWeaponInterface() {}
 	static FName NAME_UInteractibleWeaponInterface_AddAmmo = FName(TEXT("AddAmmo"));
-	void IInteractibleWeaponInterface::Execute_AddAmmo(UObject* O, int32 const& InAmmoValue)
+	void IInteractibleWeaponInterface::Execute_AddAmmo(UObject* O, const int32 InAmmoValue)
 	{
 		check(O != NULL);
 		check(O->GetClass()->ImplementsInterface(UInteractibleWeaponInterface::StaticClass()));
@@ -645,7 +645,7 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleWeaponInterface() {}
 		}
 	}
 	static FName NAME_UInteractibleWeaponInterface_SetAmmo = FName(TEXT("SetAmmo"));
-	void IInteractibleWeaponInterface::Execute_SetAmmo(UObject* O, int32 const& InNewAmmoValue)
+	void IInteractibleWeaponInterface::Execute_SetAmmo(UObject* O, const int32 InNewAmmoValue)
 	{
 		check(O != NULL);
 		check(O->GetClass()->ImplementsInterface(UInteractibleWeaponInterface::StaticClass()));
@@ -666,9 +666,9 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleWeaponInterface() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UInteractibleWeaponInterface, UInteractibleWeaponInterface::StaticClass, TEXT("UInteractibleWeaponInterface"), &Z_Registration_Info_UClass_UInteractibleWeaponInterface, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UInteractibleWeaponInterface), 2239350536U) },
+		{ Z_Construct_UClass_UInteractibleWeaponInterface, UInteractibleWeaponInterface::StaticClass, TEXT("UInteractibleWeaponInterface"), &Z_Registration_Info_UClass_UInteractibleWeaponInterface, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UInteractibleWeaponInterface), 2661966974U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_746138592(TEXT("/Script/WeaponSystem"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_34646908(TEXT("/Script/WeaponSystem"),
 		Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

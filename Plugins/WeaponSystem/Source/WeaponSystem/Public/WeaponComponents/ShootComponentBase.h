@@ -23,8 +23,8 @@ public:
 	virtual void OnFireStop_Implementation() override;
 	virtual void OnReload_Implementation() override;
 	virtual bool IsReloading_Implementation() override;
-	virtual int GetAmmo_Implementation() override;
-	virtual void SetAmmo_Implementation(const int& InNewAmmoValue) override;
-	virtual void AddAmmo_Implementation(const int& InAmmoValue) override;
+	virtual int32 GetAmmo_Implementation() override;
+	virtual void SetAmmo_Implementation(const int32 InNewAmmoValue) override;
+	virtual void AddAmmo_Implementation(const int32 InAmmoValue) override;
 	//~
 };

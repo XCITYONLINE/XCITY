@@ -1,0 +1,17 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\source\\weaponsystem\\private\\contracts\\interactibleweaponinterface.cpp",
+        "ProvidedModule": "",
+        "PCH": "e:\\outsource\\unreal\\xcity\\xcity\\intermediate\\build\\win64\\x64\\xcityonlineeditor\\development\\engine\\sharedpch.engine.cpp20.h.pch",
+        "Includes": [
+            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\weaponsystem\\definitions.weaponsystem.h",
+            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\source\\weaponsystem\\public\\contracts\\interactibleweaponinterface.h",
+            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\source\\weaponsystem\\public\\datastructs\\weaponsdatastruct.h",
+            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\intermediate\\build\\win64\\unrealeditor\\inc\\weaponsystem\\uht\\weaponsdatastruct.generated.h",
+            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\intermediate\\build\\win64\\unrealeditor\\inc\\weaponsystem\\uht\\interactibleweaponinterface.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

@@ -32,17 +32,17 @@ bool UShootComponentBase::IsReloading_Implementation()
 	return IInteractibleWeaponInterface::IsReloading_Implementation();
 }
 
-int UShootComponentBase::GetAmmo_Implementation()
+int32 UShootComponentBase::GetAmmo_Implementation()
 {
 	return IInteractibleWeaponInterface::GetAmmo_Implementation();
 }
 
-void UShootComponentBase::SetAmmo_Implementation(const int& InNewAmmoValue)
+void UShootComponentBase::SetAmmo_Implementation(const int32 InNewAmmoValue)
 {
 	IInteractibleWeaponInterface::SetAmmo_Implementation(InNewAmmoValue);
 }
 
-void UShootComponentBase::AddAmmo_Implementation(const int& InAmmoValue)
+void UShootComponentBase::AddAmmo_Implementation(const int32 InAmmoValue)
 {
 	IInteractibleWeaponInterface::AddAmmo_Implementation(InAmmoValue);
 }
