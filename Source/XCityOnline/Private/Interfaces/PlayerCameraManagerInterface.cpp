@@ -16,6 +16,8 @@ const ECameraMode& IPlayerCameraManagerInterface::GetCameraManagerMode() const
 
 void IPlayerCameraManagerInterface::SetCameraManagerMode(const ECameraMode& InNewCameraMode)
 {
+	if (InNewCameraMode == CurrentCameraMode) return;
+
 	CurrentCameraMode = InNewCameraMode;
 }
 

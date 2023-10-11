@@ -19,7 +19,4 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "CameraData")
 	FVector LocationSocketOffset;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "CameraData")
-	float LocationInterpSpeed;
 };

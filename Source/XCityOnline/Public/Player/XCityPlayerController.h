@@ -19,16 +19,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Camera System")
 	virtual void SetCameraManagerMode(const ECameraMode& InNewCameraMode) override;
 
-	virtual void InitCameraManager() override;
-
 protected:
 	AXCityPlayerController();
 
 	virtual void BeginPlay() override;
-
-private:
-	UPROPERTY()
-	TScriptInterface<IPlayerCameraManagerInterface> ChildCameraInterface;
-	
-	virtual void UpdateCameraTransformByMode() override;
 };

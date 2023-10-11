@@ -5,8 +5,8 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "Camera/CameraComponent.h"
 #include "Components/CameraManagerComponent.h"
+#include "Camera/CameraComponent.h"
 
 AXCityCharacterBase::AXCityCharacterBase()
 {
@@ -14,24 +14,27 @@ AXCityCharacterBase::AXCityCharacterBase()
 
 	CameraManagerComponent = CreateDefaultSubobject<UCameraManagerComponent>(TEXT("CameraManager"));
 
-	SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
-	SpringArmComponent->SetupAttachment(GetRootComponent());
-
-	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
-	CameraComponent->SetupAttachment(SpringArmComponent.Get(), SpringArmComponent->SocketName);
+	// I attaching other components in this code because if i attach them in Camera Manager constructors it does not works
+	CameraManagerComponent->SetupAttachments(this);
 }
 
 void AXCityCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	APlayerController* PlayerController = Cast<APlayerController>(GetController());
-	if (!PlayerController) return;
+	InitCameraManager();
 
-	UEnhancedInputLocalPlayerSubsystem* InputSubsystem = PlayerController->GetLocalPlayer()->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>();
-	if (!InputSubsystem) return;
+	APlayerController* PlayerController = Cast<APlayerController>(GetOwner());
+	
+	if (IsValid(PlayerController))
+	{
+		UEnhancedInputLocalPlayerSubsystem* InputSubsystem = PlayerController->GetLocalPlayer()->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>();
 
-	InputSubsystem->AddMappingContext(MappingContext.Get(), 0);
+		if (IsValid(InputSubsystem) && IsValid(MappingContext))
+		{
+			InputSubsystem->AddMappingContext(MappingContext, 0);
+		}
+	}
 }
 
 void AXCityCharacterBase::Tick(float DeltaSeconds)
@@ -46,11 +49,13 @@ void AXCityCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInput
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	UEnhancedInputComponent* EnhancedInput = Cast<UEnhancedInputComponent>(PlayerInputComponent);
-	if (!EnhancedInput) return;
 
-	if (LookAction.IsValid())
+	if (IsValid(EnhancedInput))
 	{
-		EnhancedInput->BindAction(LookAction.Get(), ETriggerEvent::Triggered, this, &AXCityCharacterBase::LookInput);
+		if (IsValid(LookAction))
+		{
+			EnhancedInput->BindAction(LookAction, ETriggerEvent::Triggered, this, &AXCityCharacterBase::LookInput);
+		}
 	}
 }
 
@@ -68,7 +73,7 @@ void AXCityCharacterBase::InitCameraManager()
 
 void AXCityCharacterBase::UpdateCameraTransformByMode()
 {
-	CameraManagerComponent->UpdateCameraOffset(SpringArmComponent);
+	CameraManagerComponent->UpdateCameraOffset();
 }
 
 void AXCityCharacterBase::LookInput(const FInputActionValue& Value)

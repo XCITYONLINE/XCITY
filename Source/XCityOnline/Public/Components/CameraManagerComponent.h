@@ -17,13 +17,21 @@ class XCITYONLINE_API UCameraManagerComponent : public UActorComponent
 public:
 	UCameraManagerComponent();
 
-	void UpdateCameraOffset(class USpringArmComponent* SpringArm);
+	void SetupAttachments(const AActor* ParentActor);
+
+	void UpdateCameraOffset();
 	void SetCameraMode(const ECameraMode& CameraMode);
 
-	UPROPERTY(EditAnywhere, Category = "Data")
-	TMap<ECameraMode, UCameraModeData*> CameraModes;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Camera System")
+	float LocationInterpSpeed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Camera System")
+	TObjectPtr<class USpringArmComponent> SpringArmComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Camera System")
+	TObjectPtr<class UCameraComponent> CameraComponent;
 
 private:
 	UPROPERTY()
-	TObjectPtr<UCameraModeData> CurrentCameraMode;
+	TSoftObjectPtr<UCameraModeData> CurrentCameraMode;
 };

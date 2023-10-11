@@ -34,18 +34,12 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Camera System")
 	TObjectPtr<class UCameraManagerComponent> CameraManagerComponent;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Camera System")
-	TObjectPtr<class USpringArmComponent> SpringArmComponent;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Camera System")
-	TObjectPtr<class UCameraComponent> CameraComponent;
-
 	// Input
 	UPROPERTY(EditAnywhere, Category = "Input")
-	TSoftObjectPtr<UInputAction> LookAction;
+	TObjectPtr<UInputAction> LookAction;
 
 	UPROPERTY(EditAnywhere, Category = "Input")
-	TSoftObjectPtr<UInputMappingContext> MappingContext;
+	TObjectPtr<UInputMappingContext> MappingContext;
 
 	void LookInput(const FInputActionValue& Value);
 
