@@ -39,10 +39,25 @@ public:
 	int32 GetAmmo();
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Weapon")
+	int32 GetAmmoPerStore();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Weapon")
 	void SetAmmo(const int32 InNewAmmoValue);
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Weapon")
 	void AddAmmo(const int32 InAmmoValue);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Weapon")
+	void ToggleWeaponMode();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Weapon")
+	FTransform GetFireSocketTransform(const FName& InSocketName);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Weapon")
+	void SetAimMode(const bool bAim);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Weapon")
+	bool IsAimMode();
 	
 	UFUNCTION(BlueprintNativeEvent,  Category = "Internal")
 	void Internal_Initialize(const FWeaponsDataStruct& InInitialWeaponStruct);

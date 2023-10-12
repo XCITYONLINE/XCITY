@@ -1,20 +1,15 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "Character/XCityCharacterBase.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
-#include "GameFramework/SpringArmComponent.h"
 #include "Components/CameraManagerComponent.h"
-#include "Camera/CameraComponent.h"
 
 AXCityCharacterBase::AXCityCharacterBase()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
 	CameraManagerComponent = CreateDefaultSubobject<UCameraManagerComponent>(TEXT("CameraManager"));
-
-	// I attaching other components in this code because if i attach them in Camera Manager constructors it does not works
 	CameraManagerComponent->SetupAttachments(this);
 }
 
@@ -24,13 +19,12 @@ void AXCityCharacterBase::BeginPlay()
 	
 	InitCameraManager();
 
-	APlayerController* PlayerController = Cast<APlayerController>(GetOwner());
-	
-	if (IsValid(PlayerController))
+	if (const APlayerController* PlayerController =
+		Cast<APlayerController>(GetOwner()); IsValid(PlayerController))
 	{
-		UEnhancedInputLocalPlayerSubsystem* InputSubsystem = PlayerController->GetLocalPlayer()->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>();
-
-		if (IsValid(InputSubsystem) && IsValid(MappingContext))
+		if (UEnhancedInputLocalPlayerSubsystem* InputSubsystem =
+			PlayerController->GetLocalPlayer()->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>();
+			IsValid(InputSubsystem) && IsValid(MappingContext))
 		{
 			InputSubsystem->AddMappingContext(MappingContext, 0);
 		}
@@ -40,7 +34,6 @@ void AXCityCharacterBase::BeginPlay()
 void AXCityCharacterBase::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-
 	UpdateCameraTransformByMode();
 }
 
@@ -48,9 +41,8 @@ void AXCityCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInput
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	UEnhancedInputComponent* EnhancedInput = Cast<UEnhancedInputComponent>(PlayerInputComponent);
-
-	if (IsValid(EnhancedInput))
+	if (UEnhancedInputComponent* EnhancedInput =
+		Cast<UEnhancedInputComponent>(PlayerInputComponent); IsValid(EnhancedInput))
 	{
 		if (IsValid(LookAction))
 		{
@@ -59,11 +51,12 @@ void AXCityCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInput
 	}
 }
 
-void AXCityCharacterBase::SetCameraManagerMode(const ECameraMode& InNewCameraMode)
+void AXCityCharacterBase::LookInput(const FInputActionValue& Value)
 {
-	IPlayerCameraManagerInterface::SetCameraManagerMode(InNewCameraMode);
+	const FVector2D MouseVector = Value.Get<FVector2D>();
 
-	CameraManagerComponent->SetCameraMode(InNewCameraMode);
+	APawn::AddControllerPitchInput(MouseVector.Y * -1);
+	APawn::AddControllerYawInput(MouseVector.X);
 }
 
 void AXCityCharacterBase::InitCameraManager()
@@ -71,15 +64,18 @@ void AXCityCharacterBase::InitCameraManager()
 	SetCameraManagerMode(ECameraMode::ECM_Default);
 }
 
-void AXCityCharacterBase::UpdateCameraTransformByMode()
+void AXCityCharacterBase::SetCameraManagerMode(const ECameraMode& InNewCameraMode)
 {
-	CameraManagerComponent->UpdateCameraOffset();
+	if (IsValid(CameraManagerComponent.Get()))
+	{
+		CameraManagerComponent->SetCameraMode(InNewCameraMode);
+	}
 }
 
-void AXCityCharacterBase::LookInput(const FInputActionValue& Value)
+void AXCityCharacterBase::UpdateCameraTransformByMode()
 {
-	const FVector2D MouseVector = Value.Get<FVector2D>();
-
-	APawn::AddControllerPitchInput(MouseVector.Y * -1);
-	APawn::AddControllerYawInput(MouseVector.X);
+	if (IsValid(CameraManagerComponent.Get()))
+	{
+		CameraManagerComponent->UpdateCameraOffset();
+	}
 }

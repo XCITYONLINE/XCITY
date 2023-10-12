@@ -15,13 +15,18 @@ struct FWeaponsDataStruct;
 #endif
 #define WEAPONSYSTEM_InteractibleWeaponInterface_generated_h
 
-#define FID_UnrealProjects_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_SPARSE_DATA
-#define FID_UnrealProjects_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_SPARSE_DATA_PROPERTY_ACCESSORS
-#define FID_UnrealProjects_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_EDITOR_ONLY_SPARSE_DATA_PROPERTY_ACCESSORS
-#define FID_UnrealProjects_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_RPC_WRAPPERS_NO_PURE_DECLS \
+#define FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_SPARSE_DATA
+#define FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_SPARSE_DATA_PROPERTY_ACCESSORS
+#define FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_EDITOR_ONLY_SPARSE_DATA_PROPERTY_ACCESSORS
+#define FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_RPC_WRAPPERS_NO_PURE_DECLS \
 	virtual void Internal_Initialize_Implementation(FWeaponsDataStruct const& InInitialWeaponStruct) {}; \
+	virtual bool IsAimMode_Implementation() { return false; }; \
+	virtual void SetAimMode_Implementation(bool bAim) {}; \
+	virtual FTransform GetFireSocketTransform_Implementation(FName const& InSocketName) { return FTransform(); }; \
+	virtual void ToggleWeaponMode_Implementation() {}; \
 	virtual void AddAmmo_Implementation(const int32 InAmmoValue) {}; \
 	virtual void SetAmmo_Implementation(const int32 InNewAmmoValue) {}; \
+	virtual int32 GetAmmoPerStore_Implementation() { return 0; }; \
 	virtual int32 GetAmmo_Implementation() { return 0; }; \
 	virtual void InitializeWeapon_Implementation() {}; \
 	virtual bool IsReloading_Implementation() { return false; }; \
@@ -30,8 +35,13 @@ struct FWeaponsDataStruct;
 	virtual void OnFireStart_Implementation() {}; \
  \
 	DECLARE_FUNCTION(execInternal_Initialize); \
+	DECLARE_FUNCTION(execIsAimMode); \
+	DECLARE_FUNCTION(execSetAimMode); \
+	DECLARE_FUNCTION(execGetFireSocketTransform); \
+	DECLARE_FUNCTION(execToggleWeaponMode); \
 	DECLARE_FUNCTION(execAddAmmo); \
 	DECLARE_FUNCTION(execSetAmmo); \
+	DECLARE_FUNCTION(execGetAmmoPerStore); \
 	DECLARE_FUNCTION(execGetAmmo); \
 	DECLARE_FUNCTION(execInitializeWeapon); \
 	DECLARE_FUNCTION(execIsReloading); \
@@ -40,9 +50,9 @@ struct FWeaponsDataStruct;
 	DECLARE_FUNCTION(execOnFireStart);
 
 
-#define FID_UnrealProjects_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_ACCESSORS
-#define FID_UnrealProjects_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_CALLBACK_WRAPPERS
-#define FID_UnrealProjects_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_ENHANCED_CONSTRUCTORS \
+#define FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_ACCESSORS
+#define FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_CALLBACK_WRAPPERS
+#define FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	WEAPONSYSTEM_API UInteractibleWeaponInterface(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 private: \
@@ -56,7 +66,7 @@ public: \
 	WEAPONSYSTEM_API virtual ~UInteractibleWeaponInterface();
 
 
-#define FID_UnrealProjects_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_GENERATED_UINTERFACE_BODY() \
+#define FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_GENERATED_UINTERFACE_BODY() \
 private: \
 	static void StaticRegisterNativesUInteractibleWeaponInterface(); \
 	friend struct Z_Construct_UClass_UInteractibleWeaponInterface_Statics; \
@@ -65,15 +75,15 @@ public: \
 	DECLARE_SERIALIZER(UInteractibleWeaponInterface)
 
 
-#define FID_UnrealProjects_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_GENERATED_BODY \
+#define FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_GENERATED_BODY \
 	PRAGMA_DISABLE_DEPRECATION_WARNINGS \
-	FID_UnrealProjects_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_GENERATED_UINTERFACE_BODY() \
-	FID_UnrealProjects_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_ENHANCED_CONSTRUCTORS \
+	FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_GENERATED_UINTERFACE_BODY() \
+	FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_ENHANCED_CONSTRUCTORS \
 private: \
 	PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define FID_UnrealProjects_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_INCLASS_IINTERFACE_NO_PURE_DECLS \
+#define FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_INCLASS_IINTERFACE_NO_PURE_DECLS \
 protected: \
 	virtual ~IInteractibleWeaponInterface() {} \
 public: \
@@ -81,27 +91,32 @@ public: \
 	typedef IInteractibleWeaponInterface ThisClass; \
 	static void Execute_AddAmmo(UObject* O, const int32 InAmmoValue); \
 	static int32 Execute_GetAmmo(UObject* O); \
+	static int32 Execute_GetAmmoPerStore(UObject* O); \
+	static FTransform Execute_GetFireSocketTransform(UObject* O, FName const& InSocketName); \
 	static void Execute_InitializeWeapon(UObject* O); \
 	static void Execute_Internal_Initialize(UObject* O, FWeaponsDataStruct const& InInitialWeaponStruct); \
+	static bool Execute_IsAimMode(UObject* O); \
 	static bool Execute_IsReloading(UObject* O); \
 	static void Execute_OnFireStart(UObject* O); \
 	static void Execute_OnFireStop(UObject* O); \
 	static void Execute_OnReload(UObject* O); \
+	static void Execute_SetAimMode(UObject* O, bool bAim); \
 	static void Execute_SetAmmo(UObject* O, const int32 InNewAmmoValue); \
+	static void Execute_ToggleWeaponMode(UObject* O); \
 	virtual UObject* _getUObject() const { return nullptr; }
 
 
-#define FID_UnrealProjects_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_11_PROLOG
-#define FID_UnrealProjects_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_19_GENERATED_BODY \
+#define FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_11_PROLOG
+#define FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_19_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_UnrealProjects_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_SPARSE_DATA \
-	FID_UnrealProjects_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_SPARSE_DATA_PROPERTY_ACCESSORS \
-	FID_UnrealProjects_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_EDITOR_ONLY_SPARSE_DATA_PROPERTY_ACCESSORS \
-	FID_UnrealProjects_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_UnrealProjects_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_ACCESSORS \
-	FID_UnrealProjects_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_CALLBACK_WRAPPERS \
-	FID_UnrealProjects_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_INCLASS_IINTERFACE_NO_PURE_DECLS \
+	FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_SPARSE_DATA \
+	FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_SPARSE_DATA_PROPERTY_ACCESSORS \
+	FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_EDITOR_ONLY_SPARSE_DATA_PROPERTY_ACCESSORS \
+	FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_ACCESSORS \
+	FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_CALLBACK_WRAPPERS \
+	FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_INCLASS_IINTERFACE_NO_PURE_DECLS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -109,7 +124,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> WEAPONSYSTEM_API UClass* StaticClass<class UInteractibleWeaponInterface>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_UnrealProjects_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h
+#define CURRENT_FILE_ID FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

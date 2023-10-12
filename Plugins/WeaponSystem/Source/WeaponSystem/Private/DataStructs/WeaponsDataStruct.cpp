@@ -8,7 +8,7 @@ FShootSettingsDesc::FShootSettingsDesc()
 	ReloadTime = 3.0f;
 	InitialAmmo = 20;
 	AmmoPerStore = 8;
-	bIsAutoFire = false;
+	FireSocketName = FName("Muzzle");
 	ShootModes.Add(EShootMode::ESM_Single);
 	SemiShootsCount = 3;
 }

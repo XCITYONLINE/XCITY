@@ -1,0 +1,11 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.CommonContractsPlugin.cpp.obj": [
+			"CommonContractsPlugin.init.gen.cpp.obj",
+			"InteractibleItemInterface.gen.cpp.obj",
+			"CommonContractsPlugin.cpp.obj",
+			"InteractibleItemInterface.cpp.obj"
+		]
+	}
+}

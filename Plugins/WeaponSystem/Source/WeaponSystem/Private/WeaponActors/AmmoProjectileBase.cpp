@@ -1,8 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "WeaponActors/AmmoProjectileBase.h"
+#include "Kismet/GameplayStatics.h"
 
-#include "Kismet/KismetSystemLibrary.h"
+const float AAmmoProjectileBase::LifeSpanTime = 60.0f;
 
 AAmmoProjectileBase::AAmmoProjectileBase()
 {
@@ -11,7 +12,28 @@ AAmmoProjectileBase::AAmmoProjectileBase()
 	RootComponent = StaticMeshComponent;
 	
 	PrimaryActorTick.bCanEverTick = true;
+	
 	PreviousLocation = FVector::ZeroVector;
+	InitialProjectileSettings = FProjectileSettings();
+}
+
+bool AAmmoProjectileBase::TryInitializeProjectile(const FProjectileSettings& InInitialProjectileSettings)
+{
+	if (InInitialProjectileSettings.IsValid())
+	{
+		InitialProjectileSettings = InInitialProjectileSettings;
+	}
+
+	const bool bIsInitialized = InitialProjectileSettings.IsValid() && IsValid(ProjectileMovementComponent);
+	if (bIsInitialized)
+	{
+		ProjectileMovementComponent->InitialSpeed = InitialProjectileSettings.ProjectileInitialSpeed;
+		ProjectileMovementComponent->MaxSpeed = InitialProjectileSettings.ProjectileMaxSpeed;
+
+		SetLifeSpan(LifeSpanTime);
+	}
+
+	return bIsInitialized;
 }
 
 void AAmmoProjectileBase::BeginPlay()
@@ -30,29 +52,43 @@ void AAmmoProjectileBase::TickActor(float DeltaTime, ELevelTick TickType, FActor
 
 void AAmmoProjectileBase::CheckHitProcess()
 {
-	const FVector& CurrentProjectileLocation = GetActorLocation();
-	FHitResult Hit;
+	const UWorld* World = GetWorld();
+	APlayerController * PlayerController = UGameplayStatics::GetPlayerController(this, 0);
 	
-	UKismetSystemLibrary::LineTraceSingle(
-		this,
-		CurrentProjectileLocation,
-		PreviousLocation,
-		TraceTypeQuery_MAX,
-		true,
-		{},
-		EDrawDebugTrace::None,
-		Hit,
-		true
-		);
-	
-	if (Hit.bBlockingHit)
+	if (!IsValid(World) || !IsValid(PlayerController))
 	{
-		//ToDo: Hit processing here...
+		return;
 	}
 	
-	if (OnProjectileHit.IsBound())
+	FHitResult HitResult;
+	const FVector& CurrentProjectileLocation = GetActorLocation();
+	
+	const bool WasBlocked = World->LineTraceSingleByChannel(
+		HitResult,
+		CurrentProjectileLocation,
+		PreviousLocation,
+		InitialProjectileSettings.CollisionChannel);
+	
+	if (!WasBlocked || !HitResult.bBlockingHit)
 	{
-		OnProjectileHit.Broadcast(Hit);
-		K2_HitNotify(Hit);
+		return;
+	}
+
+	if (AActor* HitActor = HitResult.GetActor(); IsValid(HitActor))
+	{
+		UGameplayStatics::ApplyDamage(
+			HitActor,
+			InitialProjectileSettings.Damage,
+			PlayerController,
+			this,
+			UDamageType::StaticClass());
+
+		if (OnProjectileHit.IsBound())
+		{
+			OnProjectileHit.Broadcast(HitResult);
+		}
+		
+		K2_HitNotify(HitResult);
+		Destroy();
 	}
 }

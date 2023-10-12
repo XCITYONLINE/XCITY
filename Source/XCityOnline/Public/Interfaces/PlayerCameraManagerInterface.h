@@ -5,24 +5,21 @@
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
 #include "Data/CameraSystemTypes.h"
+
 #include "PlayerCameraManagerInterface.generated.h"
 
-// This class does not need to be modified.
 UINTERFACE(MinimalAPI, NotBlueprintable)
 class UPlayerCameraManagerInterface : public UInterface
 {
 	GENERATED_BODY()
 };
 
-/**
- * 
- */
 class XCITYONLINE_API IPlayerCameraManagerInterface
 {
 	GENERATED_BODY()
 
-	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
+	
 	UFUNCTION(BlueprintCallable, Category = "Camera System")
 	virtual void InitCameraManager();
 
@@ -33,6 +30,8 @@ public:
 	virtual void SetCameraManagerMode(const ECameraMode& InNewCameraMode);
 
 private:
-	ECameraMode CurrentCameraMode;
+	
+	ECameraMode CurrentCameraMode = ECameraMode::ECM_Default;
+	
 	virtual void UpdateCameraTransformByMode();
 };

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "Data/CameraSystemTypes.h"
+
 #include "CameraManagerComponent.generated.h"
 
 class UCameraModeData;
@@ -15,13 +16,15 @@ class XCITYONLINE_API UCameraManagerComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:
+	
 	UCameraManagerComponent();
 
-	void SetupAttachments(const AActor* ParentActor);
-
-	void UpdateCameraOffset();
+	void SetupAttachments(const AActor* ParentActor) const;
+	void UpdateCameraOffset() const;
 	void SetCameraMode(const ECameraMode& CameraMode);
 
+public:
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Camera System")
 	TObjectPtr<class USpringArmComponent> SpringArmComponent;
 
@@ -29,6 +32,7 @@ public:
 	TObjectPtr<class UCameraComponent> CameraComponent;
 
 private:
+	
 	UPROPERTY()
 	TSoftObjectPtr<UCameraModeData> CurrentCameraMode;
 };

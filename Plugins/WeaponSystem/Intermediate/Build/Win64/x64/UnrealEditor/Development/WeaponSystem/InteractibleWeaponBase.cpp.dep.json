@@ -7,6 +7,8 @@
         "Includes": [
             "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\weaponsystem\\definitions.weaponsystem.h",
             "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\source\\weaponsystem\\public\\weaponactors\\interactibleweaponbase.h",
+            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\commoncontractsplugin\\source\\commoncontractsplugin\\public\\contracts\\interactibleiteminterface.h",
+            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\commoncontractsplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\commoncontractsplugin\\uht\\interactibleiteminterface.generated.h",
             "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\source\\weaponsystem\\public\\contracts\\interactibleweaponinterface.h",
             "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\source\\weaponsystem\\public\\datastructs\\weaponsdatastruct.h",
             "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\intermediate\\build\\win64\\unrealeditor\\inc\\weaponsystem\\uht\\weaponsdatastruct.generated.h",

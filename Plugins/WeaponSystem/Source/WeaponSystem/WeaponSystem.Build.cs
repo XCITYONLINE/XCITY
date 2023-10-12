@@ -12,7 +12,8 @@ public class WeaponSystem : ModuleRules
 			new string[]
 			{
 				"Core",
-				"Engine",
+				"Engine", 
+				"CommonContractsPlugin",
 			}
 			);
 			
