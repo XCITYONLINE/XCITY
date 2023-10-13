@@ -51,6 +51,7 @@ void UCameraManagerComponent::UpdateCameraOffset() const
 
 void UCameraManagerComponent::SetCameraMode(const ECameraMode& CameraMode)
 {
-	CurrentCameraMode =
+	const TSoftObjectPtr<UCameraModeData> PreloadDataAsset =
 		*UCameraSystemSettings::GetCameraSystemSettings()->CameraModes.Find(CameraMode);
+	CurrentCameraMode = PreloadDataAsset.LoadSynchronous();
 }

@@ -6,13 +6,8 @@
         "PCH": "e:\\outsource\\unreal\\xcity\\xcity\\intermediate\\build\\win64\\x64\\xcityonlineeditor\\development\\engine\\sharedpch.engine.cpp20.h.pch",
         "Includes": [
             "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\commoncontractsplugin\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\commoncontractsplugin\\definitions.commoncontractsplugin.h",
-            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\commoncontractsplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\commoncontractsplugin\\uht\\commoncontractsplugin.init.gen.cpp",
-            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\commoncontractsplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\commoncontractsplugin\\uht\\interactibleiteminterface.gen.cpp",
-            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\commoncontractsplugin\\source\\commoncontractsplugin\\public\\contracts\\interactibleiteminterface.h",
-            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\commoncontractsplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\commoncontractsplugin\\uht\\interactibleiteminterface.generated.h",
             "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\commoncontractsplugin\\source\\commoncontractsplugin\\private\\commoncontractsplugin.cpp",
-            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\commoncontractsplugin\\source\\commoncontractsplugin\\public\\commoncontractsplugin.h",
-            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\commoncontractsplugin\\source\\commoncontractsplugin\\private\\contracts\\interactibleiteminterface.cpp"
+            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\commoncontractsplugin\\source\\commoncontractsplugin\\public\\commoncontractsplugin.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

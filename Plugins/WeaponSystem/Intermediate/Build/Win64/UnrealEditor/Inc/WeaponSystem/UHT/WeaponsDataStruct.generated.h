@@ -21,14 +21,14 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
 template<> WEAPONSYSTEM_API UScriptStruct* StaticStruct<struct FProjectileSettings>();
 
-#define FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_DataStructs_WeaponsDataStruct_h_80_GENERATED_BODY \
+#define FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_DataStructs_WeaponsDataStruct_h_79_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FShootSettingsDesc_Statics; \
 	static class UScriptStruct* StaticStruct();
 
 
 template<> WEAPONSYSTEM_API UScriptStruct* StaticStruct<struct FShootSettingsDesc>();
 
-#define FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_DataStructs_WeaponsDataStruct_h_119_GENERATED_BODY \
+#define FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_DataStructs_WeaponsDataStruct_h_118_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics; \
 	static class UScriptStruct* StaticStruct(); \
 	typedef FTableRowBase Super;

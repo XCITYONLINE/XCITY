@@ -2,14 +2,14 @@
 	"RemapUnityFiles": 
 	{
 		"Module.CommonContractsPlugin.cpp.obj": [
+			"FinderOdjectsInterface.gen.cpp.obj",
+			"CommonContractsPlugin.cpp.obj",
 			"CommonContractsPlugin.init.gen.cpp.obj",
 			"InteractibleItemInterface.gen.cpp.obj",
-			"InteractibleWeaponInterface.gen.cpp.obj",
-			"WeaponsDataStruct.gen.cpp.obj",
-			"CommonContractsPlugin.cpp.obj",
-			"WeaponsDataStruct.cpp.obj",
+			"InventorySystemInterface.gen.cpp.obj",
+			"FinderObjectsInterface.cpp.obj",
 			"InteractibleItemInterface.cpp.obj",
-			"InteractibleWeaponInterface.cpp.obj"
+			"InventorySystemInterface.cpp.obj"
 		]
 	}
 }

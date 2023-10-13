@@ -19,7 +19,8 @@ public:
 	UShootComponentBase();
 
 	//IInteractibleWeaponInterface implements
-	virtual void Internal_Initialize_Implementation(const FWeaponsDataStruct& InInitialWeaponStruct) override;
+	virtual void Internal_Initialize_Implementation(
+		const FWeaponsDataStruct& InInitialWeaponStruct, const bool bAlternative) override;
 	virtual void OnFireStart_Implementation() override;
 	virtual void OnFireStop_Implementation() override;
 	virtual void OnReload_Implementation() override;
@@ -48,6 +49,8 @@ public:
 
 private:
 
+	TSubclassOf<AAmmoProjectileBase> AmmoProjectileClass;
+
 	bool bIsFireProcessActive;
 	bool bIsReloadProcessActive;
 	bool bIsFireProcessHold;
@@ -55,7 +58,7 @@ private:
 	
 	int32 CurrentAmmo;
 	int32 CurrentAmmoPerStore;
-	FWeaponsDataStruct InitialWeaponSettings;
+	FShootSettingsDesc InitialShootSettings;
 	int32 CurrentShootModeIndex;
 	int32 CurrentSemiShootIndex;
 

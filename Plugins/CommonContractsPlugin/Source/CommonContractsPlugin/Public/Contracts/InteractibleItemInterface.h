@@ -20,7 +20,22 @@ class COMMONCONTRACTSPLUGIN_API IInteractibleItemInterface
 public:
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Iteractible Item")
-	void OnInteract();
+	void OnStartHover();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Iteractible Item")
+	void OnStopHover();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Iteractible Item")
+	void OnStartMainInteract();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Iteractible Item")
+	void OnStopMainInteract();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Iteractible Item")
+	void OnStartAlternativeInteract();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Iteractible Item")
+	void OnStopAlternativeInteract();
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Iteractible Item")
 	void OnTake();
@@ -31,7 +46,13 @@ public:
 protected:
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Iteractible Item")
-	void K2_OnInteract();
+	void K2_OnHover(const bool bIsHover);
+	
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Iteractible Item")
+	void K2_OnMainInteract(const bool bIsInteract);
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Iteractible Item")
+	void K2_OnAlternativeInteract(const bool bIsInteract);
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Iteractible Item")
 	void K2_OnTake();

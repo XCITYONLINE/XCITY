@@ -2,18 +2,18 @@
 	"RemapUnityFiles": 
 	{
 		"Module.WeaponSystem.cpp.obj": [
-			"WeaponSystemSettings.cpp.obj",
-			"WeaponSystem.cpp.obj",
 			"AmmoProjectileBase.gen.cpp.obj",
+			"WeaponSystemSettings.gen.cpp.obj",
+			"WeaponSystemSettings.cpp.obj",
+			"AmmoProjectileBase.cpp.obj",
+			"WeaponSystem.cpp.obj",
 			"InteractibleWeaponBase.gen.cpp.obj",
 			"InteractibleWeaponInterface.gen.cpp.obj",
 			"ShootComponentBase.gen.cpp.obj",
 			"WeaponsDataStruct.gen.cpp.obj",
 			"WeaponSystem.init.gen.cpp.obj",
-			"WeaponSystemSettings.gen.cpp.obj",
 			"InteractibleWeaponInterface.cpp.obj",
 			"WeaponsDataStruct.cpp.obj",
-			"AmmoProjectileBase.cpp.obj",
 			"InteractibleWeaponBase.cpp.obj",
 			"ShootComponentBase.cpp.obj"
 		]

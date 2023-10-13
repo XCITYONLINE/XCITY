@@ -33,8 +33,7 @@ public:
 	{
 		return !(Damage == 0.0f ||
 			ProjectileInitialSpeed == 0.0f ||
-			ProjectileMaxSpeed == 0.0f ||
-			CollisionChannel == ECollisionChannel::ECC_Visibility);
+			ProjectileMaxSpeed == 0.0f);
 	}
 
 	bool operator==(const FProjectileSettings& RValue) const
@@ -127,12 +126,27 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Visual")
 	class UStaticMesh* WeaponMesh;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shoot Component Class")
-	TSubclassOf<class UShootComponentBase> ShootComponentClass;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo Actor Class")
-	TSubclassOf<class AAmmoProjectileBase> AmmoProjectileClass;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shoot settings")
-	FShootSettingsDesc ShootSettings;
+	bool bUseAlternativeMode;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main|Shoot Component Class")
+	TSubclassOf<class UShootComponentBase> MainShootComponentClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main|Ammo Actor Class")
+	TSubclassOf<class AAmmoProjectileBase> MainAmmoProjectileClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main|Shoot settings")
+	FShootSettingsDesc MainShootSettings;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Alternative|Shoot Component Class",
+		meta = (EditCondition = "bUseAlternativeMode", EditConditionHides))
+	TSubclassOf<class UShootComponentBase> AlternativeShootComponentClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Alternative|Ammo Actor Class",
+		meta = (EditCondition = "bUseAlternativeMode", EditConditionHides))
+	TSubclassOf<class AAmmoProjectileBase> AlternativeAmmoProjectileClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Alternative|Shoot settings",
+		meta = (EditCondition = "bUseAlternativeMode", EditConditionHides))
+	FShootSettingsDesc AlternativeShootSettings;
 };

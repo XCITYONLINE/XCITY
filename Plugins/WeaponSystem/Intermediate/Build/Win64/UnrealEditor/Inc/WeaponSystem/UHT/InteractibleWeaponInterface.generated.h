@@ -19,7 +19,7 @@ struct FWeaponsDataStruct;
 #define FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_SPARSE_DATA_PROPERTY_ACCESSORS
 #define FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_EDITOR_ONLY_SPARSE_DATA_PROPERTY_ACCESSORS
 #define FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_RPC_WRAPPERS_NO_PURE_DECLS \
-	virtual void Internal_Initialize_Implementation(FWeaponsDataStruct const& InInitialWeaponStruct) {}; \
+	virtual void Internal_Initialize_Implementation(FWeaponsDataStruct const& InInitialWeaponStruct, bool bAlternative) {}; \
 	virtual bool IsAimMode_Implementation() { return false; }; \
 	virtual void SetAimMode_Implementation(bool bAim) {}; \
 	virtual FTransform GetFireSocketTransform_Implementation(FName const& InSocketName) { return FTransform(); }; \
@@ -33,6 +33,8 @@ struct FWeaponsDataStruct;
 	virtual void OnReload_Implementation() {}; \
 	virtual void OnFireStop_Implementation() {}; \
 	virtual void OnFireStart_Implementation() {}; \
+	virtual void OnUseAlternativeFire_Implementation() {}; \
+	virtual void OnUseMainFire_Implementation() {}; \
  \
 	DECLARE_FUNCTION(execInternal_Initialize); \
 	DECLARE_FUNCTION(execIsAimMode); \
@@ -47,7 +49,9 @@ struct FWeaponsDataStruct;
 	DECLARE_FUNCTION(execIsReloading); \
 	DECLARE_FUNCTION(execOnReload); \
 	DECLARE_FUNCTION(execOnFireStop); \
-	DECLARE_FUNCTION(execOnFireStart);
+	DECLARE_FUNCTION(execOnFireStart); \
+	DECLARE_FUNCTION(execOnUseAlternativeFire); \
+	DECLARE_FUNCTION(execOnUseMainFire);
 
 
 #define FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_14_ACCESSORS
@@ -94,12 +98,14 @@ public: \
 	static int32 Execute_GetAmmoPerStore(UObject* O); \
 	static FTransform Execute_GetFireSocketTransform(UObject* O, FName const& InSocketName); \
 	static void Execute_InitializeWeapon(UObject* O); \
-	static void Execute_Internal_Initialize(UObject* O, FWeaponsDataStruct const& InInitialWeaponStruct); \
+	static void Execute_Internal_Initialize(UObject* O, FWeaponsDataStruct const& InInitialWeaponStruct, bool bAlternative); \
 	static bool Execute_IsAimMode(UObject* O); \
 	static bool Execute_IsReloading(UObject* O); \
 	static void Execute_OnFireStart(UObject* O); \
 	static void Execute_OnFireStop(UObject* O); \
 	static void Execute_OnReload(UObject* O); \
+	static void Execute_OnUseAlternativeFire(UObject* O); \
+	static void Execute_OnUseMainFire(UObject* O); \
 	static void Execute_SetAimMode(UObject* O, bool bAim); \
 	static void Execute_SetAmmo(UObject* O, const int32 InNewAmmoValue); \
 	static void Execute_ToggleWeaponMode(UObject* O); \

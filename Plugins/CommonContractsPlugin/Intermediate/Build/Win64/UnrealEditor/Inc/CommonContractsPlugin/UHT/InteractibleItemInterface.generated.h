@@ -20,11 +20,21 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #define FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InteractibleItemInterface_h_13_RPC_WRAPPERS_NO_PURE_DECLS \
 	virtual void OnDrop_Implementation() {}; \
 	virtual void OnTake_Implementation() {}; \
-	virtual void OnInteract_Implementation() {}; \
+	virtual void OnStopAlternativeInteract_Implementation() {}; \
+	virtual void OnStartAlternativeInteract_Implementation() {}; \
+	virtual void OnStopMainInteract_Implementation() {}; \
+	virtual void OnStartMainInteract_Implementation() {}; \
+	virtual void OnStopHover_Implementation() {}; \
+	virtual void OnStartHover_Implementation() {}; \
  \
 	DECLARE_FUNCTION(execOnDrop); \
 	DECLARE_FUNCTION(execOnTake); \
-	DECLARE_FUNCTION(execOnInteract);
+	DECLARE_FUNCTION(execOnStopAlternativeInteract); \
+	DECLARE_FUNCTION(execOnStartAlternativeInteract); \
+	DECLARE_FUNCTION(execOnStopMainInteract); \
+	DECLARE_FUNCTION(execOnStartMainInteract); \
+	DECLARE_FUNCTION(execOnStopHover); \
+	DECLARE_FUNCTION(execOnStartHover);
 
 
 #define FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InteractibleItemInterface_h_13_ACCESSORS
@@ -66,11 +76,18 @@ protected: \
 public: \
 	typedef UInteractibleItemInterface UClassType; \
 	typedef IInteractibleItemInterface ThisClass; \
+	static void Execute_K2_OnAlternativeInteract(UObject* O, bool bIsInteract); \
 	static void Execute_K2_OnDrop(UObject* O); \
-	static void Execute_K2_OnInteract(UObject* O); \
+	static void Execute_K2_OnHover(UObject* O, bool bIsHover); \
+	static void Execute_K2_OnMainInteract(UObject* O, bool bIsInteract); \
 	static void Execute_K2_OnTake(UObject* O); \
 	static void Execute_OnDrop(UObject* O); \
-	static void Execute_OnInteract(UObject* O); \
+	static void Execute_OnStartAlternativeInteract(UObject* O); \
+	static void Execute_OnStartHover(UObject* O); \
+	static void Execute_OnStartMainInteract(UObject* O); \
+	static void Execute_OnStopAlternativeInteract(UObject* O); \
+	static void Execute_OnStopHover(UObject* O); \
+	static void Execute_OnStopMainInteract(UObject* O); \
 	static void Execute_OnTake(UObject* O); \
 	virtual UObject* _getUObject() const { return nullptr; }
 

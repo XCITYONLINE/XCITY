@@ -15,7 +15,9 @@ AInteractibleWeaponBase::AInteractibleWeaponBase()
 	PrimaryActorTick.bCanEverTick = true;
 	
 	WeaponID = FName();
-	ShootComponentObject = nullptr;
+	MainShootComponentObject = nullptr;
+	AlternativeShootComponentObject = nullptr;
+	SelectedShootComponent = nullptr;
 }
 
 void AInteractibleWeaponBase::BeginPlay()
@@ -44,46 +46,118 @@ void AInteractibleWeaponBase::OnLoadComplete()
 	}
 
 	const FWeaponsDataStruct* FoundRow = WeaponsTable->FindRow<FWeaponsDataStruct>(WeaponID, "");
-	if (!FoundRow || !IsValid(FoundRow->ShootComponentClass))
+	if (!FoundRow || !IsValid(FoundRow->MainShootComponentClass))
 	{
 		return;
 	}
 
-	IInteractibleWeaponInterface::Execute_Internal_Initialize(this, *FoundRow);
+	IInteractibleWeaponInterface::Execute_Internal_Initialize(this, *FoundRow, false);
 }
 
-void AInteractibleWeaponBase::Internal_Initialize_Implementation(const FWeaponsDataStruct& InInitialWeaponStruct)
+void AInteractibleWeaponBase::Internal_Initialize_Implementation(
+	const FWeaponsDataStruct& InInitialWeaponStruct, const bool bAlternative)
 {
 	if (IsValid(InInitialWeaponStruct.WeaponMesh))
 	{
 		WeaponStaticMeshComponent->SetStaticMesh(InInitialWeaponStruct.WeaponMesh);
 	}
 	
-	UActorComponent* SpawnedComponent = AddComponentByClass(
-			InInitialWeaponStruct.ShootComponentClass,
+	CreateShootComponent(InInitialWeaponStruct, MainShootComponentObject, false);
+	if (InInitialWeaponStruct.bUseAlternativeMode)
+	{
+		CreateShootComponent(InInitialWeaponStruct, AlternativeShootComponentObject, true);
+	}
+
+	IInteractibleWeaponInterface::Execute_OnUseMainFire(this);
+}
+
+void AInteractibleWeaponBase::CreateShootComponent(
+	const FWeaponsDataStruct& InInitialWeaponStruct,
+	TObjectPtr<UShootComponentBase>& OutShootComponent,
+	const bool bAlternative)
+{
+	const TSubclassOf<UShootComponentBase> SelectShootComponent = bAlternative
+	? InInitialWeaponStruct.AlternativeShootComponentClass
+	: InInitialWeaponStruct.MainShootComponentClass;
+	
+	UActorComponent* SpawnedShootComponent = AddComponentByClass(
+			SelectShootComponent,
 			true,
 			FTransform::Identity,
 			false
 			);
 		
-	if (!IsValid(SpawnedComponent))
+	if (!IsValid(SpawnedShootComponent))
 	{
 		return;
 	}
 		
-	SpawnedComponent->RegisterComponent();
-	AddInstanceComponent(SpawnedComponent);
+	SpawnedShootComponent->RegisterComponent();
+	AddInstanceComponent(SpawnedShootComponent);
 
-	ShootComponentObject = Cast<UShootComponentBase>(SpawnedComponent);
-	if (ShootComponentObject->Implements<UInteractibleWeaponInterface>())
+	OutShootComponent = Cast<UShootComponentBase>(SpawnedShootComponent);
+	if (OutShootComponent->Implements<UInteractibleWeaponInterface>())
 	{
-		IInteractibleWeaponInterface::Execute_Internal_Initialize(ShootComponentObject.Get(), InInitialWeaponStruct);
+		IInteractibleWeaponInterface::Execute_Internal_Initialize(
+			OutShootComponent.Get(),
+			InInitialWeaponStruct,
+			bAlternative);
 	}
 }
 
-void AInteractibleWeaponBase::OnInteract_Implementation()
+void AInteractibleWeaponBase::OnUseMainFire_Implementation()
 {
-	IInteractibleItemInterface::Execute_K2_OnInteract(this);
+	SelectedShootComponent = MainShootComponentObject;
+	if (OnAlternativeFireChanged.IsBound())
+	{
+		OnAlternativeFireChanged.Broadcast(false);
+	}
+}
+
+void AInteractibleWeaponBase::OnUseAlternativeFire_Implementation()
+{
+	SelectedShootComponent = AlternativeShootComponentObject;
+	if (OnAlternativeFireChanged.IsBound())
+	{
+		OnAlternativeFireChanged.Broadcast(true);
+	}
+}
+
+void AInteractibleWeaponBase::OnStartMainInteract_Implementation()
+{
+	IInteractibleItemInterface::Execute_K2_OnMainInteract(this, true);
+	IInteractibleWeaponInterface::Execute_OnFireStart(this);
+}
+
+void AInteractibleWeaponBase::OnStopMainInteract_Implementation()
+{
+	IInteractibleItemInterface::Execute_K2_OnMainInteract(this, false);
+	IInteractibleWeaponInterface::Execute_OnFireStop(this);
+}
+
+void AInteractibleWeaponBase::OnStartAlternativeInteract_Implementation()
+{
+	IInteractibleItemInterface::Execute_K2_OnAlternativeInteract(this, true);
+	IInteractibleWeaponInterface::Execute_OnUseAlternativeFire(this);
+	if (IsValid(SelectedShootComponent))
+	{
+		IInteractibleWeaponInterface::Execute_OnFireStart(SelectedShootComponent.Get());
+		return;
+	}
+
+	IInteractibleWeaponInterface::Execute_SetAimMode(this, true);
+}
+
+void AInteractibleWeaponBase::OnStopAlternativeInteract_Implementation()
+{
+	IInteractibleItemInterface::Execute_K2_OnAlternativeInteract(this, false);
+	IInteractibleWeaponInterface::Execute_OnUseMainFire(this);
+	if (IsValid(SelectedShootComponent))
+	{
+		IInteractibleWeaponInterface::Execute_OnFireStop(SelectedShootComponent.Get());
+	}
+
+	IInteractibleWeaponInterface::Execute_SetAimMode(this, false);
 }
 
 void AInteractibleWeaponBase::OnTake_Implementation()
@@ -98,33 +172,33 @@ void AInteractibleWeaponBase::OnDrop_Implementation()
 
 void AInteractibleWeaponBase::OnFireStart_Implementation()
 {
-	if (IsValid(ShootComponentObject.Get()))
+	if (IsValid(SelectedShootComponent.Get()))
 	{
-		IInteractibleWeaponInterface::Execute_OnFireStart(ShootComponentObject.Get());
+		IInteractibleWeaponInterface::Execute_OnFireStart(SelectedShootComponent.Get());
 	}
 }
 
 void AInteractibleWeaponBase::OnFireStop_Implementation()
 {
-	if (IsValid(ShootComponentObject.Get()))
+	if (IsValid(SelectedShootComponent.Get()))
 	{
-		IInteractibleWeaponInterface::Execute_OnFireStop(ShootComponentObject.Get());
+		IInteractibleWeaponInterface::Execute_OnFireStop(SelectedShootComponent.Get());
 	}
 }
 
 void AInteractibleWeaponBase::OnReload_Implementation()
 {
-	if (IsValid(ShootComponentObject.Get()))
+	if (IsValid(SelectedShootComponent.Get()))
 	{
-		IInteractibleWeaponInterface::Execute_OnReload(ShootComponentObject.Get());
+		IInteractibleWeaponInterface::Execute_OnReload(SelectedShootComponent.Get());
 	}
 }
 
 bool AInteractibleWeaponBase::IsReloading_Implementation()
 {
-	if (IsValid(ShootComponentObject.Get()))
+	if (IsValid(SelectedShootComponent.Get()))
 	{
-		return IInteractibleWeaponInterface::Execute_IsReloading(ShootComponentObject.Get());
+		return IInteractibleWeaponInterface::Execute_IsReloading(SelectedShootComponent.Get());
 	}
 
 	return false;
@@ -132,9 +206,9 @@ bool AInteractibleWeaponBase::IsReloading_Implementation()
 
 int32 AInteractibleWeaponBase::GetAmmo_Implementation()
 {
-	if (IsValid(ShootComponentObject.Get()))
+	if (IsValid(SelectedShootComponent.Get()))
 	{
-		return IInteractibleWeaponInterface::Execute_GetAmmo(ShootComponentObject.Get());
+		return IInteractibleWeaponInterface::Execute_GetAmmo(SelectedShootComponent.Get());
 	}
 
 	return 0;
@@ -142,17 +216,17 @@ int32 AInteractibleWeaponBase::GetAmmo_Implementation()
 
 void AInteractibleWeaponBase::SetAmmo_Implementation(const int32 InNewAmmoValue)
 {
-	if (IsValid(ShootComponentObject.Get()))
+	if (IsValid(SelectedShootComponent.Get()))
 	{
-		IInteractibleWeaponInterface::Execute_SetAmmo(ShootComponentObject.Get(), InNewAmmoValue);
+		IInteractibleWeaponInterface::Execute_SetAmmo(SelectedShootComponent.Get(), InNewAmmoValue);
 	}
 }
 
 void AInteractibleWeaponBase::AddAmmo_Implementation(const int32 InAmmoValue)
 {
-	if (IsValid(ShootComponentObject.Get()))
+	if (IsValid(SelectedShootComponent.Get()))
 	{
-		IInteractibleWeaponInterface::Execute_AddAmmo(ShootComponentObject.Get(), InAmmoValue);
+		IInteractibleWeaponInterface::Execute_AddAmmo(SelectedShootComponent.Get(), InAmmoValue);
 	}
 }
 
@@ -168,9 +242,9 @@ FTransform AInteractibleWeaponBase::GetFireSocketTransform_Implementation(const 
 
 int32 AInteractibleWeaponBase::GetAmmoPerStore_Implementation()
 {
-	if (IsValid(ShootComponentObject.Get()))
+	if (IsValid(SelectedShootComponent.Get()))
 	{
-		IInteractibleWeaponInterface::Execute_GetAmmoPerStore(ShootComponentObject.Get());
+		IInteractibleWeaponInterface::Execute_GetAmmoPerStore(SelectedShootComponent.Get());
 	}
 	
 	return 0;
@@ -178,26 +252,36 @@ int32 AInteractibleWeaponBase::GetAmmoPerStore_Implementation()
 
 void AInteractibleWeaponBase::ToggleWeaponMode_Implementation()
 {
-	if (IsValid(ShootComponentObject.Get()))
+	if (IsValid(SelectedShootComponent.Get()))
 	{
-		IInteractibleWeaponInterface::Execute_ToggleWeaponMode(ShootComponentObject.Get());
+		IInteractibleWeaponInterface::Execute_ToggleWeaponMode(SelectedShootComponent.Get());
 	}
 }
 
 void AInteractibleWeaponBase::SetAimMode_Implementation(const bool bAim)
 {
-	if (IsValid(ShootComponentObject.Get()))
+	if (IsValid(SelectedShootComponent.Get()))
 	{
-		IInteractibleWeaponInterface::Execute_SetAimMode(ShootComponentObject.Get(), bAim);
+		IInteractibleWeaponInterface::Execute_SetAimMode(SelectedShootComponent.Get(), bAim);
 	}
 }
 
 bool AInteractibleWeaponBase::IsAimMode_Implementation()
 {
-	if (IsValid(ShootComponentObject.Get()))
+	if (IsValid(SelectedShootComponent.Get()))
 	{
-		return IInteractibleWeaponInterface::Execute_IsAimMode(ShootComponentObject.Get());
+		return IInteractibleWeaponInterface::Execute_IsAimMode(SelectedShootComponent.Get());
 	}
 	
 	return false;
+}
+
+void AInteractibleWeaponBase::OnStartHover_Implementation()
+{
+	IInteractibleItemInterface::Execute_K2_OnHover(this, true);
+}
+
+void AInteractibleWeaponBase::OnStopHover_Implementation()
+{
+	IInteractibleItemInterface::Execute_K2_OnHover(this, false);
 }

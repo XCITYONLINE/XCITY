@@ -21,6 +21,12 @@ class WEAPONSYSTEM_API IInteractibleWeaponInterface
 public:
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Weapon")
+	void OnUseMainFire();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Weapon")
+	void OnUseAlternativeFire();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Weapon")
 	void OnFireStart();
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Weapon")
@@ -60,5 +66,5 @@ public:
 	bool IsAimMode();
 	
 	UFUNCTION(BlueprintNativeEvent,  Category = "Internal")
-	void Internal_Initialize(const FWeaponsDataStruct& InInitialWeaponStruct);
+	void Internal_Initialize(const FWeaponsDataStruct& InInitialWeaponStruct, const bool bAlternative);
 };

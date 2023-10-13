@@ -2,7 +2,12 @@
 	"RemapUnityFiles": 
 	{
 		"Module.InventorySystem.cpp.obj": [
-			"InventorySystem.cpp.obj"
+			"InventorySystem.cpp.obj",
+			"FindObjectsComponent.gen.cpp.obj",
+			"InventoryComponentBase.gen.cpp.obj",
+			"InventorySystem.init.gen.cpp.obj",
+			"FindObjectsComponent.cpp.obj",
+			"InventoryComponentBase.cpp.obj"
 		]
 	}
 }

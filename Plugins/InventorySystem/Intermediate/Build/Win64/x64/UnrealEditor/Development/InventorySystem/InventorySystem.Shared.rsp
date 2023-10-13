@@ -257,8 +257,12 @@
 /I "Developer\PhysicsUtilities\Public"
 /I "..\Intermediate\Build\Win64\UnrealEditor\Inc\WidgetRegistration\UHT"
 /I "Developer\WidgetRegistration\Public"
+/I "E:\Outsource\Unreal\XCity\XCITY\Plugins\InventorySystem\Intermediate\Build\Win64\UnrealEditor\Inc\InventorySystem\UHT"
 /I "E:\Outsource\Unreal\XCity\XCITY\Plugins\InventorySystem\Source"
 /I "E:\Outsource\Unreal\XCity\XCITY\Plugins\InventorySystem\Source\InventorySystem\Public"
+/I "E:\Outsource\Unreal\XCity\XCITY\Plugins\CommonContractsPlugin\Intermediate\Build\Win64\UnrealEditor\Inc\CommonContractsPlugin\UHT"
+/I "E:\Outsource\Unreal\XCity\XCITY\Plugins\CommonContractsPlugin\Source"
+/I "E:\Outsource\Unreal\XCity\XCITY\Plugins\CommonContractsPlugin\Source\CommonContractsPlugin\Public"
 /external:W0
 /external:I "ThirdParty\mimalloc\include"
 /external:I "ThirdParty\LibTiff\Source\Win64"

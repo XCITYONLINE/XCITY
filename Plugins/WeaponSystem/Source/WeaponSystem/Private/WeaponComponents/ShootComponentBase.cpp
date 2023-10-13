@@ -16,13 +16,24 @@ UShootComponentBase::UShootComponentBase()
 	CurrentAmmoPerStore = 0;
 	CurrentShootModeIndex = 0;
 	CurrentSemiShootIndex = 0;
+	
+	AmmoProjectileClass = nullptr;
+	InitialShootSettings = FShootSettingsDesc();
 }
 
-void UShootComponentBase::Internal_Initialize_Implementation(const FWeaponsDataStruct& InInitialWeaponStruct)
+void UShootComponentBase::Internal_Initialize_Implementation(
+	const FWeaponsDataStruct& InInitialWeaponStruct, const bool bAlternative)
 {
-	InitialWeaponSettings = InInitialWeaponStruct;
-	CurrentAmmo = InitialWeaponSettings.ShootSettings.InitialAmmo;
-	CurrentAmmoPerStore = InitialWeaponSettings.ShootSettings.AmmoPerStore;
+	InitialShootSettings = bAlternative
+	? InInitialWeaponStruct.AlternativeShootSettings
+	: InInitialWeaponStruct.MainShootSettings;
+	
+	CurrentAmmo = InitialShootSettings.InitialAmmo;
+	CurrentAmmoPerStore = InitialShootSettings.AmmoPerStore;
+	
+	AmmoProjectileClass = bAlternative
+	? InInitialWeaponStruct.AlternativeAmmoProjectileClass
+	: InInitialWeaponStruct.MainAmmoProjectileClass;
 }
 
 void UShootComponentBase::OnFireStart_Implementation()
@@ -46,10 +57,10 @@ void UShootComponentBase::OnFireStart_Implementation()
 	{
 		const FTransform MuzzleSocketTransform = IInteractibleWeaponInterface::Execute_GetFireSocketTransform(
 			OwnerActor,
-			InitialWeaponSettings.ShootSettings.FireSocketName);
+			InitialShootSettings.FireSocketName);
 		
 		AAmmoProjectileBase* SpawnProjectile = GetWorld()->SpawnActorDeferred<AAmmoProjectileBase>(
-			InitialWeaponSettings.AmmoProjectileClass,
+			AmmoProjectileClass,
 			MuzzleSocketTransform,
 			GetOwner());
 
@@ -58,7 +69,7 @@ void UShootComponentBase::OnFireStart_Implementation()
 			return;
 		}
 
-		if (!SpawnProjectile->TryInitializeProjectile(InitialWeaponSettings.ShootSettings.ProjectileSettings))
+		if (!SpawnProjectile->TryInitializeProjectile(InitialShootSettings.ProjectileSettings))
 		{
 			SpawnProjectile->Destroy();
 			return;
@@ -90,7 +101,7 @@ void UShootComponentBase::OnAfterFireProcessStart()
 			{
 				FireProcessByShootMode();
 			}),
-			InitialWeaponSettings.ShootSettings.FireRate,
+			InitialShootSettings.FireRate,
 			false);
 
 		ShootDataOperations();
@@ -102,7 +113,7 @@ void UShootComponentBase::FireProcessByShootMode()
 	bIsFireProcessActive = false;
 	
 	if (const TEnumAsByte<EShootMode>* CurrentShootMode =
-		InitialWeaponSettings.ShootSettings.ShootModes.FindByKey(CurrentShootModeIndex); CurrentShootMode)
+		InitialShootSettings.ShootModes.FindByKey(CurrentShootModeIndex); CurrentShootMode)
 	{
 		switch (CurrentShootMode->GetValue())
 		{
@@ -114,7 +125,7 @@ void UShootComponentBase::FireProcessByShootMode()
 			
 			case ESM_Semi:
 				{
-					if (CurrentSemiShootIndex <= InitialWeaponSettings.ShootSettings.SemiShootsCount)
+					if (CurrentSemiShootIndex <= InitialShootSettings.SemiShootsCount)
 					{
 						CurrentSemiShootIndex++;
 						IInteractibleWeaponInterface::Execute_OnFireStart(this);
@@ -162,7 +173,7 @@ void UShootComponentBase::OnReload_Implementation()
 			{
 				ReloadedDataOperations();
 			}),
-			InitialWeaponSettings.ShootSettings.ReloadTime,
+			InitialShootSettings.ReloadTime,
 			false);
 
 		K2_OnReload();
@@ -174,7 +185,7 @@ void UShootComponentBase::ReloadedDataOperations()
 	bIsReloadProcessActive = false;
 	bIsFireProcessActive = false;
 
-	const int32 StoreSize = InitialWeaponSettings.ShootSettings.AmmoPerStore;
+	const int32 StoreSize = InitialShootSettings.AmmoPerStore;
 	const int32 AmmoDifference = StoreSize - CurrentAmmoPerStore;
 	
 	if (CurrentAmmo >= AmmoDifference)
@@ -191,7 +202,7 @@ void UShootComponentBase::ReloadedDataOperations()
 
 void UShootComponentBase::ToggleWeaponMode_Implementation()
 {
-	if (InitialWeaponSettings.ShootSettings.ShootModes.Num() <= 0)
+	if (InitialShootSettings.ShootModes.Num() <= 0)
 	{
 		CurrentShootModeIndex = 0;
 		return;
@@ -199,7 +210,7 @@ void UShootComponentBase::ToggleWeaponMode_Implementation()
 	
 	CurrentShootModeIndex++;
 	if (const TEnumAsByte<EShootMode>* NextShootMode =
-		InitialWeaponSettings.ShootSettings.ShootModes.FindByKey(CurrentShootModeIndex); !NextShootMode)
+		InitialShootSettings.ShootModes.FindByKey(CurrentShootModeIndex); !NextShootMode)
 	{
 		CurrentShootModeIndex = 0;
 	}

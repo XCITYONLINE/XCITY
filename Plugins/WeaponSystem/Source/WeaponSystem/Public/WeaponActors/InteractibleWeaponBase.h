@@ -10,6 +10,8 @@
 
 #include "InteractibleWeaponBase.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAlternativeFireChanged, bool, Value);
+
 UCLASS()
 class WEAPONSYSTEM_API AInteractibleWeaponBase : public AActor,
 public IInteractibleWeaponInterface,
@@ -35,11 +37,19 @@ public:
 	virtual void ToggleWeaponMode_Implementation() override;
 	virtual void SetAimMode_Implementation(const bool bAim) override;
 	virtual bool IsAimMode_Implementation() override;
-	virtual void Internal_Initialize_Implementation(const FWeaponsDataStruct& InInitialWeaponStruct) override;
+	virtual void OnUseMainFire_Implementation() override;
+	virtual void OnUseAlternativeFire_Implementation() override;
+	virtual void Internal_Initialize_Implementation(
+		const FWeaponsDataStruct& InInitialWeaponStruct, const bool bAlternative) override;
 	//~
 
 	//IInteractibleItemInterface implements
-	virtual void OnInteract_Implementation() override;
+	virtual void OnStartHover_Implementation() override;
+	virtual void OnStopHover_Implementation() override;
+	virtual void OnStartMainInteract_Implementation() override;
+	virtual void OnStopMainInteract_Implementation() override;
+	virtual void OnStartAlternativeInteract_Implementation() override;
+	virtual void OnStopAlternativeInteract_Implementation() override;
 	virtual void OnTake_Implementation() override;
 	virtual void OnDrop_Implementation() override;
 	//~
@@ -51,6 +61,9 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UStaticMeshComponent* WeaponStaticMeshComponent;
+
+	UPROPERTY(BlueprintAssignable, BlueprintCallable)
+	FOnAlternativeFireChanged OnAlternativeFireChanged;
 	
 protected:
 
@@ -61,5 +74,15 @@ private:
 	UFUNCTION()
 	void OnLoadComplete();
 
-	TObjectPtr<UShootComponentBase> ShootComponentObject;
+	void CreateShootComponent(
+		const FWeaponsDataStruct& InInitialWeaponStruct,
+		TObjectPtr<UShootComponentBase>& OutShootComponent,
+		const bool bAlternative);
+	
+	TObjectPtr<UShootComponentBase> MainShootComponentObject;
+	TObjectPtr<UShootComponentBase> AlternativeShootComponentObject;
+
+	TObjectPtr<UShootComponentBase> SelectedShootComponent;
+
+	
 };

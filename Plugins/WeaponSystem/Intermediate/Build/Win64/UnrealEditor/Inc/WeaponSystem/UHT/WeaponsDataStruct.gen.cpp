@@ -391,17 +391,34 @@ template<> WEAPONSYSTEM_API UScriptStruct* StaticStruct<FWeaponsDataStruct>()
 #endif
 		static const UECodeGen_Private::FObjectPropertyParams NewProp_WeaponMesh;
 #if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_ShootComponentClass_MetaData[];
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_bUseAlternativeMode_MetaData[];
 #endif
-		static const UECodeGen_Private::FClassPropertyParams NewProp_ShootComponentClass;
+		static void NewProp_bUseAlternativeMode_SetBit(void* Obj);
+		static const UECodeGen_Private::FBoolPropertyParams NewProp_bUseAlternativeMode;
 #if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_AmmoProjectileClass_MetaData[];
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_MainShootComponentClass_MetaData[];
 #endif
-		static const UECodeGen_Private::FClassPropertyParams NewProp_AmmoProjectileClass;
+		static const UECodeGen_Private::FClassPropertyParams NewProp_MainShootComponentClass;
 #if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_ShootSettings_MetaData[];
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_MainAmmoProjectileClass_MetaData[];
 #endif
-		static const UECodeGen_Private::FStructPropertyParams NewProp_ShootSettings;
+		static const UECodeGen_Private::FClassPropertyParams NewProp_MainAmmoProjectileClass;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_MainShootSettings_MetaData[];
+#endif
+		static const UECodeGen_Private::FStructPropertyParams NewProp_MainShootSettings;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_AlternativeShootComponentClass_MetaData[];
+#endif
+		static const UECodeGen_Private::FClassPropertyParams NewProp_AlternativeShootComponentClass;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_AlternativeAmmoProjectileClass_MetaData[];
+#endif
+		static const UECodeGen_Private::FClassPropertyParams NewProp_AlternativeAmmoProjectileClass;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_AlternativeShootSettings_MetaData[];
+#endif
+		static const UECodeGen_Private::FStructPropertyParams NewProp_AlternativeShootSettings;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const UECodeGen_Private::FStructParams ReturnStructParams;
 	};
@@ -422,31 +439,73 @@ template<> WEAPONSYSTEM_API UScriptStruct* StaticStruct<FWeaponsDataStruct>()
 #endif
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_WeaponMesh = { "WeaponMesh", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWeaponsDataStruct, WeaponMesh), Z_Construct_UClass_UStaticMesh_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_WeaponMesh_MetaData), Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_WeaponMesh_MetaData) };
 #if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_ShootComponentClass_MetaData[] = {
-		{ "Category", "Shoot Component Class" },
-		{ "ModuleRelativePath", "Public/DataStructs/WeaponsDataStruct.h" },
-	};
-#endif
-	const UECodeGen_Private::FClassPropertyParams Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_ShootComponentClass = { "ShootComponentClass", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWeaponsDataStruct, ShootComponentClass), Z_Construct_UClass_UClass, Z_Construct_UClass_UShootComponentBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_ShootComponentClass_MetaData), Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_ShootComponentClass_MetaData) };
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_AmmoProjectileClass_MetaData[] = {
-		{ "Category", "Ammo Actor Class" },
-		{ "ModuleRelativePath", "Public/DataStructs/WeaponsDataStruct.h" },
-	};
-#endif
-	const UECodeGen_Private::FClassPropertyParams Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_AmmoProjectileClass = { "AmmoProjectileClass", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWeaponsDataStruct, AmmoProjectileClass), Z_Construct_UClass_UClass, Z_Construct_UClass_AAmmoProjectileBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_AmmoProjectileClass_MetaData), Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_AmmoProjectileClass_MetaData) };
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_ShootSettings_MetaData[] = {
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_bUseAlternativeMode_MetaData[] = {
 		{ "Category", "Shoot settings" },
 		{ "ModuleRelativePath", "Public/DataStructs/WeaponsDataStruct.h" },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_ShootSettings = { "ShootSettings", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWeaponsDataStruct, ShootSettings), Z_Construct_UScriptStruct_FShootSettingsDesc, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_ShootSettings_MetaData), Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_ShootSettings_MetaData) }; // 1850942594
+	void Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_bUseAlternativeMode_SetBit(void* Obj)
+	{
+		((FWeaponsDataStruct*)Obj)->bUseAlternativeMode = 1;
+	}
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_bUseAlternativeMode = { "bUseAlternativeMode", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(FWeaponsDataStruct), &Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_bUseAlternativeMode_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_bUseAlternativeMode_MetaData), Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_bUseAlternativeMode_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_MainShootComponentClass_MetaData[] = {
+		{ "Category", "Main|Shoot Component Class" },
+		{ "ModuleRelativePath", "Public/DataStructs/WeaponsDataStruct.h" },
+	};
+#endif
+	const UECodeGen_Private::FClassPropertyParams Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_MainShootComponentClass = { "MainShootComponentClass", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWeaponsDataStruct, MainShootComponentClass), Z_Construct_UClass_UClass, Z_Construct_UClass_UShootComponentBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_MainShootComponentClass_MetaData), Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_MainShootComponentClass_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_MainAmmoProjectileClass_MetaData[] = {
+		{ "Category", "Main|Ammo Actor Class" },
+		{ "ModuleRelativePath", "Public/DataStructs/WeaponsDataStruct.h" },
+	};
+#endif
+	const UECodeGen_Private::FClassPropertyParams Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_MainAmmoProjectileClass = { "MainAmmoProjectileClass", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWeaponsDataStruct, MainAmmoProjectileClass), Z_Construct_UClass_UClass, Z_Construct_UClass_AAmmoProjectileBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_MainAmmoProjectileClass_MetaData), Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_MainAmmoProjectileClass_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_MainShootSettings_MetaData[] = {
+		{ "Category", "Main|Shoot settings" },
+		{ "ModuleRelativePath", "Public/DataStructs/WeaponsDataStruct.h" },
+	};
+#endif
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_MainShootSettings = { "MainShootSettings", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWeaponsDataStruct, MainShootSettings), Z_Construct_UScriptStruct_FShootSettingsDesc, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_MainShootSettings_MetaData), Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_MainShootSettings_MetaData) }; // 1850942594
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_AlternativeShootComponentClass_MetaData[] = {
+		{ "Category", "Alternative|Shoot Component Class" },
+		{ "EditCondition", "bUseAlternativeMode" },
+		{ "EditConditionHides", "" },
+		{ "ModuleRelativePath", "Public/DataStructs/WeaponsDataStruct.h" },
+	};
+#endif
+	const UECodeGen_Private::FClassPropertyParams Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_AlternativeShootComponentClass = { "AlternativeShootComponentClass", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWeaponsDataStruct, AlternativeShootComponentClass), Z_Construct_UClass_UClass, Z_Construct_UClass_UShootComponentBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_AlternativeShootComponentClass_MetaData), Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_AlternativeShootComponentClass_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_AlternativeAmmoProjectileClass_MetaData[] = {
+		{ "Category", "Alternative|Ammo Actor Class" },
+		{ "EditCondition", "bUseAlternativeMode" },
+		{ "EditConditionHides", "" },
+		{ "ModuleRelativePath", "Public/DataStructs/WeaponsDataStruct.h" },
+	};
+#endif
+	const UECodeGen_Private::FClassPropertyParams Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_AlternativeAmmoProjectileClass = { "AlternativeAmmoProjectileClass", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWeaponsDataStruct, AlternativeAmmoProjectileClass), Z_Construct_UClass_UClass, Z_Construct_UClass_AAmmoProjectileBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_AlternativeAmmoProjectileClass_MetaData), Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_AlternativeAmmoProjectileClass_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_AlternativeShootSettings_MetaData[] = {
+		{ "Category", "Alternative|Shoot settings" },
+		{ "EditCondition", "bUseAlternativeMode" },
+		{ "EditConditionHides", "" },
+		{ "ModuleRelativePath", "Public/DataStructs/WeaponsDataStruct.h" },
+	};
+#endif
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_AlternativeShootSettings = { "AlternativeShootSettings", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWeaponsDataStruct, AlternativeShootSettings), Z_Construct_UScriptStruct_FShootSettingsDesc, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_AlternativeShootSettings_MetaData), Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_AlternativeShootSettings_MetaData) }; // 1850942594
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_WeaponMesh,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_ShootComponentClass,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_AmmoProjectileClass,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_ShootSettings,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_bUseAlternativeMode,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_MainShootComponentClass,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_MainAmmoProjectileClass,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_MainShootSettings,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_AlternativeShootComponentClass,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_AlternativeAmmoProjectileClass,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_AlternativeShootSettings,
 	};
 	const UECodeGen_Private::FStructParams Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::ReturnStructParams = {
 		(UObject* (*)())Z_Construct_UPackage__Script_WeaponSystem,
@@ -481,9 +540,9 @@ template<> WEAPONSYSTEM_API UScriptStruct* StaticStruct<FWeaponsDataStruct>()
 	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_DataStructs_WeaponsDataStruct_h_Statics::ScriptStructInfo[] = {
 		{ FProjectileSettings::StaticStruct, Z_Construct_UScriptStruct_FProjectileSettings_Statics::NewStructOps, TEXT("ProjectileSettings"), &Z_Registration_Info_UScriptStruct_ProjectileSettings, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FProjectileSettings), 1667832687U) },
 		{ FShootSettingsDesc::StaticStruct, Z_Construct_UScriptStruct_FShootSettingsDesc_Statics::NewStructOps, TEXT("ShootSettingsDesc"), &Z_Registration_Info_UScriptStruct_ShootSettingsDesc, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FShootSettingsDesc), 1850942594U) },
-		{ FWeaponsDataStruct::StaticStruct, Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewStructOps, TEXT("WeaponsDataStruct"), &Z_Registration_Info_UScriptStruct_WeaponsDataStruct, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWeaponsDataStruct), 107108883U) },
+		{ FWeaponsDataStruct::StaticStruct, Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewStructOps, TEXT("WeaponsDataStruct"), &Z_Registration_Info_UScriptStruct_WeaponsDataStruct, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWeaponsDataStruct), 1381105534U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_DataStructs_WeaponsDataStruct_h_2646971777(TEXT("/Script/WeaponSystem"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_DataStructs_WeaponsDataStruct_h_2178661183(TEXT("/Script/WeaponSystem"),
 		nullptr, 0,
 		Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_DataStructs_WeaponsDataStruct_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_DataStructs_WeaponsDataStruct_h_Statics::ScriptStructInfo),
 		Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_DataStructs_WeaponsDataStruct_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_DataStructs_WeaponsDataStruct_h_Statics::EnumInfo));
