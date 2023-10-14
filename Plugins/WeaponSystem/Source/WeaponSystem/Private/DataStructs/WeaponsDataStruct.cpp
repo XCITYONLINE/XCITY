@@ -8,16 +8,21 @@ FShootSettingsDesc::FShootSettingsDesc()
 	ReloadTime = 3.0f;
 	InitialAmmo = 20;
 	AmmoPerStore = 8;
-	bIsAutoFire = false;
+	FireSocketName = FName("Muzzle");
 	ShootModes.Add(EShootMode::ESM_Single);
 	SemiShootsCount = 3;
+	bAim = false;
 }
 
 FWeaponsDataStruct::FWeaponsDataStruct()
 {
-	WeaponMesh = nullptr;
-	ShootComponentClass = nullptr;
-	AmmoProjectileClass = nullptr;
+	WeaponSkeletal = nullptr;
+	WeaponAnimInstance = nullptr;
+	MainShootComponentClass = nullptr;
+	MainAmmoProjectileClass = nullptr;
+
+	bUseAlternativeMode = false;
 	
-	ShootSettings = FShootSettingsDesc();
+	MainShootSettings = FShootSettingsDesc();
+	AlternativeShootSettings = FShootSettingsDesc();
 }

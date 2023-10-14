@@ -1,15 +1,15 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "d:\\unrealprojects\\xcity\\plugins\\weaponsystem\\intermediate\\build\\win64\\unrealeditor\\inc\\weaponsystem\\uht\\interactibleweaponinterface.gen.cpp",
+        "Source": "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\intermediate\\build\\win64\\unrealeditor\\inc\\weaponsystem\\uht\\interactibleweaponinterface.gen.cpp",
         "ProvidedModule": "",
-        "PCH": "d:\\unrealprojects\\xcity\\intermediate\\build\\win64\\x64\\xcityonlineeditor\\development\\engine\\sharedpch.engine.cpp20.h.pch",
+        "PCH": "e:\\outsource\\unreal\\xcity\\xcity\\intermediate\\build\\win64\\x64\\xcityonlineeditor\\development\\engine\\sharedpch.engine.cpp20.h.pch",
         "Includes": [
-            "d:\\unrealprojects\\xcity\\plugins\\weaponsystem\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\weaponsystem\\definitions.weaponsystem.h",
-            "d:\\unrealprojects\\xcity\\plugins\\weaponsystem\\source\\weaponsystem\\public\\contracts\\interactibleweaponinterface.h",
-            "d:\\unrealprojects\\xcity\\plugins\\weaponsystem\\source\\weaponsystem\\public\\datastructs\\weaponsdatastruct.h",
-            "d:\\unrealprojects\\xcity\\plugins\\weaponsystem\\intermediate\\build\\win64\\unrealeditor\\inc\\weaponsystem\\uht\\weaponsdatastruct.generated.h",
-            "d:\\unrealprojects\\xcity\\plugins\\weaponsystem\\intermediate\\build\\win64\\unrealeditor\\inc\\weaponsystem\\uht\\interactibleweaponinterface.generated.h"
+            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\weaponsystem\\definitions.weaponsystem.h",
+            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\source\\weaponsystem\\public\\contracts\\interactibleweaponinterface.h",
+            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\source\\weaponsystem\\public\\datastructs\\weaponsdatastruct.h",
+            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\intermediate\\build\\win64\\unrealeditor\\inc\\weaponsystem\\uht\\weaponsdatastruct.generated.h",
+            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\intermediate\\build\\win64\\unrealeditor\\inc\\weaponsystem\\uht\\interactibleweaponinterface.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

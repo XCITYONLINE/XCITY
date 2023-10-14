@@ -1,4 +1,4 @@
-#include "D:/UnrealProjects/XCITY/Intermediate/Build/Win64/x64/XCityOnlineEditor/Development/Engine/SharedDefinitions.Engine.Cpp20.h"
+#include "E:/Outsource/Unreal/XCity/XCITY/Intermediate/Build/Win64/x64/XCityOnlineEditor/Development/Engine/SharedDefinitions.Engine.Cpp20.h"
 #undef UE_IS_ENGINE_MODULE
 #undef DEPRECATED_FORGAME
 #define DEPRECATED_FORGAME DEPRECATED
@@ -22,3 +22,4 @@
 #define DEPRECATED_FORGAME DEPRECATED
 #define UE_DEPRECATED_FORGAME UE_DEPRECATED
 #define WEAPONSYSTEM_API DLLEXPORT
+#define COMMONCONTRACTSPLUGIN_API DLLIMPORT

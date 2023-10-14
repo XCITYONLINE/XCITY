@@ -1,0 +1,8 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.InteractibleitemsSystem.cpp.obj": [
+			"InteractibleitemsSystem.cpp.obj"
+		]
+	}
+}

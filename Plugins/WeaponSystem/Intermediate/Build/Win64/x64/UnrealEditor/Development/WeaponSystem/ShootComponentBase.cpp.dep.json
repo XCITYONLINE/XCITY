@@ -11,7 +11,13 @@
             "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\source\\weaponsystem\\public\\datastructs\\weaponsdatastruct.h",
             "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\intermediate\\build\\win64\\unrealeditor\\inc\\weaponsystem\\uht\\weaponsdatastruct.generated.h",
             "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\intermediate\\build\\win64\\unrealeditor\\inc\\weaponsystem\\uht\\interactibleweaponinterface.generated.h",
-            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\intermediate\\build\\win64\\unrealeditor\\inc\\weaponsystem\\uht\\shootcomponentbase.generated.h"
+            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\intermediate\\build\\win64\\unrealeditor\\inc\\weaponsystem\\uht\\shootcomponentbase.generated.h",
+            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\source\\weaponsystem\\public\\weaponactors\\ammoprojectilebase.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\gameframework\\projectilemovementcomponent.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\gameframework\\movementcomponent.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\movementcomponent.generated.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\projectilemovementcomponent.generated.h",
+            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\intermediate\\build\\win64\\unrealeditor\\inc\\weaponsystem\\uht\\ammoprojectilebase.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "DataStructs/WeaponsDataStruct.h"
 #include "GameFramework/Actor.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 
@@ -21,6 +22,8 @@ public:
 	
 	virtual void BeginPlay() override;
 	virtual void TickActor(float DeltaTime, ELevelTick TickType, FActorTickFunction& ThisTickFunction) override;
+
+	virtual bool TryInitializeProjectile(const FProjectileSettings& InInitialProjectileSettings);
 
 public:
 
@@ -46,6 +49,9 @@ private:
 	void CheckHitProcess();
 
 private:
-
+	
 	FVector PreviousLocation;
+	FProjectileSettings InitialProjectileSettings;
+
+	static const float LifeSpanTime;
 };
