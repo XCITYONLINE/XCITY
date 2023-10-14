@@ -8,13 +8,5 @@
 /NODEFAULTLIB
 "D:\UnrealProjects\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.obj"
 "D:\UnrealProjects\XCITY\Plugins\WeaponSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\WeaponSystem\Module.WeaponSystem.cpp.obj"
-"D:\UnrealProjects\XCITY\Plugins\WeaponSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\WeaponSystem\AmmoProjectileBase.gen.cpp.obj"
-"D:\UnrealProjects\XCITY\Plugins\WeaponSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\WeaponSystem\InteractibleItemInterface.gen.cpp.obj"
-"D:\UnrealProjects\XCITY\Plugins\WeaponSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\WeaponSystem\InteractibleWeaponBase.gen.cpp.obj"
-"D:\UnrealProjects\XCITY\Plugins\WeaponSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\WeaponSystem\InteractibleWeaponInterface.gen.cpp.obj"
-"D:\UnrealProjects\XCITY\Plugins\WeaponSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\WeaponSystem\ShootComponentBase.gen.cpp.obj"
-"D:\UnrealProjects\XCITY\Plugins\WeaponSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\WeaponSystem\WeaponsDataStruct.gen.cpp.obj"
-"D:\UnrealProjects\XCITY\Plugins\WeaponSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\WeaponSystem\WeaponSystem.init.gen.cpp.obj"
-"D:\UnrealProjects\XCITY\Plugins\WeaponSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\WeaponSystem\WeaponSystemSettings.gen.cpp.obj"
 "D:\UnrealProjects\XCITY\Plugins\WeaponSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\WeaponSystem\Default.rc2.res"
 /OUT:"D:\UnrealProjects\XCITY\Plugins\WeaponSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\WeaponSystem\UnrealEditor-WeaponSystem.lib"
