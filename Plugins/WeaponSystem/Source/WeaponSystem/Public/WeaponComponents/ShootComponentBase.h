@@ -9,6 +9,11 @@
 
 #include "ShootComponentBase.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnReload);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnFire);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnReloadFireMiss);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAimModeChanged, const bool, Value);
+
 UCLASS(ClassGroup = (Custom), Blueprintable, meta = (BlueprintSpawnableComponent))
 class WEAPONSYSTEM_API UShootComponentBase : public UActorComponent, public IInteractibleWeaponInterface
 {
@@ -34,18 +39,17 @@ public:
 	virtual bool IsAimMode_Implementation() override;
 	//~
 
-	UFUNCTION(BlueprintImplementableEvent)
-	void K2_OnFire();
-	
-	UFUNCTION(BlueprintImplementableEvent)
-	void K2_OnFireMiss();
+	UPROPERTY(BlueprintAssignable, BlueprintCallable)
+	FOnFire OnFire;
 
-	UFUNCTION(BlueprintImplementableEvent)
-	void K2_OnReload();
+	UPROPERTY(BlueprintAssignable, BlueprintCallable)
+	FOnReloadFireMiss OnReloadFireMiss;
 
-	UFUNCTION(BlueprintImplementableEvent)
-	void K2_OnAimModeChanged(const bool bIsAimMode);
+	UPROPERTY(BlueprintAssignable, BlueprintCallable)
+	FOnReload OnReload;
 
+	UPROPERTY(BlueprintAssignable, BlueprintCallable)
+	FOnAimModeChanged OnAimModeChanged;
 
 private:
 
@@ -74,4 +78,6 @@ private:
 	void ReloadedDataOperations();
 
 	void FireProcessByShootMode();
+
+	virtual void Internal_OnFireStart();
 };

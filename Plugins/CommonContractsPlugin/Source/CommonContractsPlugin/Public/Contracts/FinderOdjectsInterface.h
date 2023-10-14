@@ -23,4 +23,7 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Finder")
 	bool TryFindInteractibleObjects(TArray<TScriptInterface<IInteractibleItemInterface>>& OutObjects);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Finder")
+	void ResetPreviousItems();
 };

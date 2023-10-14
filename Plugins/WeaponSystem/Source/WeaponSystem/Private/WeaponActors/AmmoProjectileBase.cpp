@@ -62,12 +62,18 @@ void AAmmoProjectileBase::CheckHitProcess()
 	
 	FHitResult HitResult;
 	const FVector& CurrentProjectileLocation = GetActorLocation();
-	
-	const bool WasBlocked = World->LineTraceSingleByChannel(
-		HitResult,
+
+	const bool WasBlocked = UKismetSystemLibrary::LineTraceSingle(
+		this,
 		CurrentProjectileLocation,
 		PreviousLocation,
-		InitialProjectileSettings.CollisionChannel);
+		ETraceTypeQuery { InitialProjectileSettings.CollisionChannel.GetValue() },
+		true,
+		{ GetOwner(), this },
+		EDrawDebugTrace::None,
+		HitResult,
+		true
+		);
 	
 	if (!WasBlocked || !HitResult.bBlockingHit)
 	{

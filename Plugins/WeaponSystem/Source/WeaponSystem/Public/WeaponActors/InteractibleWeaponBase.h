@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Components/BoxComponent.h"
 #include "Contracts/InteractibleItemInterface.h"
 #include "Contracts/InteractibleWeaponInterface.h"
 #include "GameFramework/Actor.h"
@@ -51,6 +52,7 @@ public:
 	virtual void OnStartAlternativeInteract_Implementation() override;
 	virtual void OnStopAlternativeInteract_Implementation() override;
 	virtual void OnTake_Implementation() override;
+	virtual void OnUnselect_Implementation() override;
 	virtual void OnDrop_Implementation() override;
 	//~
 	
@@ -60,10 +62,27 @@ public:
 	FName WeaponID;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	USkeletalMeshComponent* WeaponSkeletalMeshComponent;
+	TObjectPtr<UBoxComponent> BoxCollision;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TObjectPtr<USkeletalMeshComponent> WeaponSkeletalMeshComponent;
 
 	UPROPERTY(BlueprintAssignable, BlueprintCallable)
 	FOnAlternativeFireChanged OnAlternativeFireChanged;
+
+public:
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void K2_OnFire();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void K2_OnFireMiss();
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void K2_OnReload();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void K2_OnAimModeChanged(const bool bIsAim);
 	
 protected:
 

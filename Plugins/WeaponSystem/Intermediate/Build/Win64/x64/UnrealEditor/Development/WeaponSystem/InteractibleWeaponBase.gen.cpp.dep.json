@@ -7,6 +7,10 @@
         "Includes": [
             "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\weaponsystem\\definitions.weaponsystem.h",
             "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\source\\weaponsystem\\public\\weaponactors\\interactibleweaponbase.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\components\\boxcomponent.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\components\\shapecomponent.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\shapecomponent.generated.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\boxcomponent.generated.h",
             "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\commoncontractsplugin\\source\\commoncontractsplugin\\public\\contracts\\interactibleiteminterface.h",
             "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\commoncontractsplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\commoncontractsplugin\\uht\\interactibleiteminterface.generated.h",
             "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\source\\weaponsystem\\public\\contracts\\interactibleweaponinterface.h",

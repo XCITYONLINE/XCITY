@@ -21,6 +21,13 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleItemInterface() {}
 		P_THIS->OnDrop_Implementation();
 		P_NATIVE_END;
 	}
+	DEFINE_FUNCTION(IInteractibleItemInterface::execOnUnselect)
+	{
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->OnUnselect_Implementation();
+		P_NATIVE_END;
+	}
 	DEFINE_FUNCTION(IInteractibleItemInterface::execOnTake)
 	{
 		P_FINISH;
@@ -102,6 +109,10 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleItemInterface() {}
 	{
 		check(0 && "Do not directly call Event functions in Interfaces. Call Execute_K2_OnTake instead.");
 	}
+	void IInteractibleItemInterface::K2_OnUnselect()
+	{
+		check(0 && "Do not directly call Event functions in Interfaces. Call Execute_K2_OnUnselect instead.");
+	}
 	void IInteractibleItemInterface::OnDrop()
 	{
 		check(0 && "Do not directly call Event functions in Interfaces. Call Execute_OnDrop instead.");
@@ -134,6 +145,10 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleItemInterface() {}
 	{
 		check(0 && "Do not directly call Event functions in Interfaces. Call Execute_OnTake instead.");
 	}
+	void IInteractibleItemInterface::OnUnselect()
+	{
+		check(0 && "Do not directly call Event functions in Interfaces. Call Execute_OnUnselect instead.");
+	}
 	void UInteractibleItemInterface::StaticRegisterNativesUInteractibleItemInterface()
 	{
 		UClass* Class = UInteractibleItemInterface::StaticClass();
@@ -146,6 +161,7 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleItemInterface() {}
 			{ "OnStopHover", &IInteractibleItemInterface::execOnStopHover },
 			{ "OnStopMainInteract", &IInteractibleItemInterface::execOnStopMainInteract },
 			{ "OnTake", &IInteractibleItemInterface::execOnTake },
+			{ "OnUnselect", &IInteractibleItemInterface::execOnUnselect },
 		};
 		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
 	}
@@ -324,6 +340,29 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleItemInterface() {}
 		if (!ReturnFunction)
 		{
 			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UInteractibleItemInterface_K2_OnTake_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UFunction_UInteractibleItemInterface_K2_OnUnselect_Statics
+	{
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UInteractibleItemInterface_K2_OnUnselect_Statics::Function_MetaDataParams[] = {
+		{ "Category", "Iteractible Item" },
+		{ "ModuleRelativePath", "Public/Contracts/InteractibleItemInterface.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UInteractibleItemInterface_K2_OnUnselect_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UInteractibleItemInterface, nullptr, "K2_OnUnselect", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x0C080800, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractibleItemInterface_K2_OnUnselect_Statics::Function_MetaDataParams), Z_Construct_UFunction_UInteractibleItemInterface_K2_OnUnselect_Statics::Function_MetaDataParams) };
+	UFunction* Z_Construct_UFunction_UInteractibleItemInterface_K2_OnUnselect()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UInteractibleItemInterface_K2_OnUnselect_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -511,6 +550,29 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleItemInterface() {}
 		}
 		return ReturnFunction;
 	}
+	struct Z_Construct_UFunction_UInteractibleItemInterface_OnUnselect_Statics
+	{
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UInteractibleItemInterface_OnUnselect_Statics::Function_MetaDataParams[] = {
+		{ "Category", "Iteractible Item" },
+		{ "ModuleRelativePath", "Public/Contracts/InteractibleItemInterface.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UInteractibleItemInterface_OnUnselect_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UInteractibleItemInterface, nullptr, "OnUnselect", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x0C020C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractibleItemInterface_OnUnselect_Statics::Function_MetaDataParams), Z_Construct_UFunction_UInteractibleItemInterface_OnUnselect_Statics::Function_MetaDataParams) };
+	UFunction* Z_Construct_UFunction_UInteractibleItemInterface_OnUnselect()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UInteractibleItemInterface_OnUnselect_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
 	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(UInteractibleItemInterface);
 	UClass* Z_Construct_UClass_UInteractibleItemInterface_NoRegister()
 	{
@@ -537,6 +599,7 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleItemInterface() {}
 		{ &Z_Construct_UFunction_UInteractibleItemInterface_K2_OnHover, "K2_OnHover" }, // 3747610671
 		{ &Z_Construct_UFunction_UInteractibleItemInterface_K2_OnMainInteract, "K2_OnMainInteract" }, // 3470118454
 		{ &Z_Construct_UFunction_UInteractibleItemInterface_K2_OnTake, "K2_OnTake" }, // 97462198
+		{ &Z_Construct_UFunction_UInteractibleItemInterface_K2_OnUnselect, "K2_OnUnselect" }, // 2312649067
 		{ &Z_Construct_UFunction_UInteractibleItemInterface_OnDrop, "OnDrop" }, // 1551419500
 		{ &Z_Construct_UFunction_UInteractibleItemInterface_OnStartAlternativeInteract, "OnStartAlternativeInteract" }, // 1209241289
 		{ &Z_Construct_UFunction_UInteractibleItemInterface_OnStartHover, "OnStartHover" }, // 1255829080
@@ -545,6 +608,7 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleItemInterface() {}
 		{ &Z_Construct_UFunction_UInteractibleItemInterface_OnStopHover, "OnStopHover" }, // 2555600596
 		{ &Z_Construct_UFunction_UInteractibleItemInterface_OnStopMainInteract, "OnStopMainInteract" }, // 1730157635
 		{ &Z_Construct_UFunction_UInteractibleItemInterface_OnTake, "OnTake" }, // 4058637914
+		{ &Z_Construct_UFunction_UInteractibleItemInterface_OnUnselect, "OnUnselect" }, // 3575280180
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UInteractibleItemInterface_Statics::FuncInfo) < 2048);
 #if WITH_METADATA
@@ -641,6 +705,17 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleItemInterface() {}
 		check(O != NULL);
 		check(O->GetClass()->ImplementsInterface(UInteractibleItemInterface::StaticClass()));
 		UFunction* const Func = O->FindFunction(NAME_UInteractibleItemInterface_K2_OnTake);
+		if (Func)
+		{
+			O->ProcessEvent(Func, NULL);
+		}
+	}
+	static FName NAME_UInteractibleItemInterface_K2_OnUnselect = FName(TEXT("K2_OnUnselect"));
+	void IInteractibleItemInterface::Execute_K2_OnUnselect(UObject* O)
+	{
+		check(O != NULL);
+		check(O->GetClass()->ImplementsInterface(UInteractibleItemInterface::StaticClass()));
+		UFunction* const Func = O->FindFunction(NAME_UInteractibleItemInterface_K2_OnUnselect);
 		if (Func)
 		{
 			O->ProcessEvent(Func, NULL);
@@ -766,14 +841,29 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleItemInterface() {}
 			I->OnTake_Implementation();
 		}
 	}
+	static FName NAME_UInteractibleItemInterface_OnUnselect = FName(TEXT("OnUnselect"));
+	void IInteractibleItemInterface::Execute_OnUnselect(UObject* O)
+	{
+		check(O != NULL);
+		check(O->GetClass()->ImplementsInterface(UInteractibleItemInterface::StaticClass()));
+		UFunction* const Func = O->FindFunction(NAME_UInteractibleItemInterface_OnUnselect);
+		if (Func)
+		{
+			O->ProcessEvent(Func, NULL);
+		}
+		else if (auto I = (IInteractibleItemInterface*)(O->GetNativeInterfaceAddress(UInteractibleItemInterface::StaticClass())))
+		{
+			I->OnUnselect_Implementation();
+		}
+	}
 	struct Z_CompiledInDeferFile_FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InteractibleItemInterface_h_Statics
 	{
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InteractibleItemInterface_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UInteractibleItemInterface, UInteractibleItemInterface::StaticClass, TEXT("UInteractibleItemInterface"), &Z_Registration_Info_UClass_UInteractibleItemInterface, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UInteractibleItemInterface), 1470966688U) },
+		{ Z_Construct_UClass_UInteractibleItemInterface, UInteractibleItemInterface::StaticClass, TEXT("UInteractibleItemInterface"), &Z_Registration_Info_UClass_UInteractibleItemInterface, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UInteractibleItemInterface), 1850238733U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InteractibleItemInterface_h_2479473843(TEXT("/Script/CommonContractsPlugin"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InteractibleItemInterface_h_892820839(TEXT("/Script/CommonContractsPlugin"),
 		Z_CompiledInDeferFile_FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InteractibleItemInterface_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InteractibleItemInterface_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

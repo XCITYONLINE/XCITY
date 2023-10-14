@@ -40,7 +40,7 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent)
 	void K2_AttachTo(AActor* OutActor);
 
-	virtual void FindObjectsAround();
+	virtual void FindObjectsAround(const bool bForce);
 
 protected:
 	

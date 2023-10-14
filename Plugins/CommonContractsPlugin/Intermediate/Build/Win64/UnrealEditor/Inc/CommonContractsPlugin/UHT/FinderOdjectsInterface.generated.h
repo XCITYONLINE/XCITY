@@ -19,8 +19,10 @@ class IInteractibleItemInterface;
 #define FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_FinderOdjectsInterface_h_14_SPARSE_DATA_PROPERTY_ACCESSORS
 #define FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_FinderOdjectsInterface_h_14_EDITOR_ONLY_SPARSE_DATA_PROPERTY_ACCESSORS
 #define FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_FinderOdjectsInterface_h_14_RPC_WRAPPERS_NO_PURE_DECLS \
+	virtual void ResetPreviousItems_Implementation() {}; \
 	virtual bool TryFindInteractibleObjects_Implementation(TArray<TScriptInterface<IInteractibleItemInterface> >& OutObjects) { return false; }; \
  \
+	DECLARE_FUNCTION(execResetPreviousItems); \
 	DECLARE_FUNCTION(execTryFindInteractibleObjects);
 
 
@@ -63,6 +65,7 @@ protected: \
 public: \
 	typedef UFinderObjectsInterface UClassType; \
 	typedef IFinderObjectsInterface ThisClass; \
+	static void Execute_ResetPreviousItems(UObject* O); \
 	static bool Execute_TryFindInteractibleObjects(UObject* O, TArray<TScriptInterface<IInteractibleItemInterface> >& OutObjects); \
 	virtual UObject* _getUObject() const { return nullptr; }
 

@@ -15,6 +15,13 @@ void EmptyLinkFunctionForGeneratedCodeFinderOdjectsInterface() {}
 	COREUOBJECT_API UClass* Z_Construct_UClass_UInterface();
 	UPackage* Z_Construct_UPackage__Script_CommonContractsPlugin();
 // End Cross Module References
+	DEFINE_FUNCTION(IFinderObjectsInterface::execResetPreviousItems)
+	{
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->ResetPreviousItems_Implementation();
+		P_NATIVE_END;
+	}
 	DEFINE_FUNCTION(IFinderObjectsInterface::execTryFindInteractibleObjects)
 	{
 		P_GET_TARRAY_REF(TScriptInterface<IInteractibleItemInterface>,Z_Param_Out_OutObjects);
@@ -34,6 +41,10 @@ void EmptyLinkFunctionForGeneratedCodeFinderOdjectsInterface() {}
 		{
 		}
 	};
+	void IFinderObjectsInterface::ResetPreviousItems()
+	{
+		check(0 && "Do not directly call Event functions in Interfaces. Call Execute_ResetPreviousItems instead.");
+	}
 	bool IFinderObjectsInterface::TryFindInteractibleObjects(TArray<TScriptInterface<IInteractibleItemInterface> >& OutObjects)
 	{
 		check(0 && "Do not directly call Event functions in Interfaces. Call Execute_TryFindInteractibleObjects instead.");
@@ -44,9 +55,33 @@ void EmptyLinkFunctionForGeneratedCodeFinderOdjectsInterface() {}
 	{
 		UClass* Class = UFinderObjectsInterface::StaticClass();
 		static const FNameNativePtrPair Funcs[] = {
+			{ "ResetPreviousItems", &IFinderObjectsInterface::execResetPreviousItems },
 			{ "TryFindInteractibleObjects", &IFinderObjectsInterface::execTryFindInteractibleObjects },
 		};
 		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
+	}
+	struct Z_Construct_UFunction_UFinderObjectsInterface_ResetPreviousItems_Statics
+	{
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UFinderObjectsInterface_ResetPreviousItems_Statics::Function_MetaDataParams[] = {
+		{ "Category", "Finder" },
+		{ "ModuleRelativePath", "Public/Contracts/FinderOdjectsInterface.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UFinderObjectsInterface_ResetPreviousItems_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UFinderObjectsInterface, nullptr, "ResetPreviousItems", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x0C020C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UFinderObjectsInterface_ResetPreviousItems_Statics::Function_MetaDataParams), Z_Construct_UFunction_UFinderObjectsInterface_ResetPreviousItems_Statics::Function_MetaDataParams) };
+	UFunction* Z_Construct_UFunction_UFinderObjectsInterface_ResetPreviousItems()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UFinderObjectsInterface_ResetPreviousItems_Statics::FuncParams);
+		}
+		return ReturnFunction;
 	}
 	struct Z_Construct_UFunction_UFinderObjectsInterface_TryFindInteractibleObjects_Statics
 	{
@@ -111,6 +146,7 @@ void EmptyLinkFunctionForGeneratedCodeFinderOdjectsInterface() {}
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UFinderObjectsInterface_Statics::DependentSingletons) < 16);
 	const FClassFunctionLinkInfo Z_Construct_UClass_UFinderObjectsInterface_Statics::FuncInfo[] = {
+		{ &Z_Construct_UFunction_UFinderObjectsInterface_ResetPreviousItems, "ResetPreviousItems" }, // 606995247
 		{ &Z_Construct_UFunction_UFinderObjectsInterface_TryFindInteractibleObjects, "TryFindInteractibleObjects" }, // 1892184651
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UFinderObjectsInterface_Statics::FuncInfo) < 2048);
@@ -152,6 +188,21 @@ void EmptyLinkFunctionForGeneratedCodeFinderOdjectsInterface() {}
 	UFinderObjectsInterface::UFinderObjectsInterface(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UFinderObjectsInterface);
 	UFinderObjectsInterface::~UFinderObjectsInterface() {}
+	static FName NAME_UFinderObjectsInterface_ResetPreviousItems = FName(TEXT("ResetPreviousItems"));
+	void IFinderObjectsInterface::Execute_ResetPreviousItems(UObject* O)
+	{
+		check(O != NULL);
+		check(O->GetClass()->ImplementsInterface(UFinderObjectsInterface::StaticClass()));
+		UFunction* const Func = O->FindFunction(NAME_UFinderObjectsInterface_ResetPreviousItems);
+		if (Func)
+		{
+			O->ProcessEvent(Func, NULL);
+		}
+		else if (auto I = (IFinderObjectsInterface*)(O->GetNativeInterfaceAddress(UFinderObjectsInterface::StaticClass())))
+		{
+			I->ResetPreviousItems_Implementation();
+		}
+	}
 	static FName NAME_UFinderObjectsInterface_TryFindInteractibleObjects = FName(TEXT("TryFindInteractibleObjects"));
 	bool IFinderObjectsInterface::Execute_TryFindInteractibleObjects(UObject* O, TArray<TScriptInterface<IInteractibleItemInterface> >& OutObjects)
 	{
@@ -176,9 +227,9 @@ void EmptyLinkFunctionForGeneratedCodeFinderOdjectsInterface() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_FinderOdjectsInterface_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UFinderObjectsInterface, UFinderObjectsInterface::StaticClass, TEXT("UFinderObjectsInterface"), &Z_Registration_Info_UClass_UFinderObjectsInterface, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UFinderObjectsInterface), 259855486U) },
+		{ Z_Construct_UClass_UFinderObjectsInterface, UFinderObjectsInterface::StaticClass, TEXT("UFinderObjectsInterface"), &Z_Registration_Info_UClass_UFinderObjectsInterface, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UFinderObjectsInterface), 763171924U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_FinderOdjectsInterface_h_1067962359(TEXT("/Script/CommonContractsPlugin"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_FinderOdjectsInterface_h_1153125382(TEXT("/Script/CommonContractsPlugin"),
 		Z_CompiledInDeferFile_FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_FinderOdjectsInterface_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_FinderOdjectsInterface_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

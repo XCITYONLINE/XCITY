@@ -64,6 +64,10 @@ void AXCityCharacterBase::OnInventoryItemChanged(
 	const TScriptInterface<IInteractibleItemInterface>& InInventoryItemChanged)
 {
 	SelectedInventoryItem = InInventoryItemChanged;
+	if (IsValid(SelectedInventoryItem.GetObject()))
+	{
+		IInteractibleItemInterface::Execute_OnTake(SelectedInventoryItem.GetObject());
+	}
 }
 
 void AXCityCharacterBase::Tick(float DeltaSeconds)
@@ -71,7 +75,7 @@ void AXCityCharacterBase::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 	
 	UpdateCameraTransformByMode();
-	FindObjectsAround();
+	FindObjectsAround(false);
 }
 
 void AXCityCharacterBase::UpdateCameraTransformByMode()
@@ -82,7 +86,7 @@ void AXCityCharacterBase::UpdateCameraTransformByMode()
 	}
 }
 
-void AXCityCharacterBase::FindObjectsAround()
+void AXCityCharacterBase::FindObjectsAround(const bool bForce)
 {
 	TArray<TScriptInterface<class IInteractibleItemInterface>> FoundObjects;
 	if (IsValid(FindItemComponent.Get()) &&
@@ -262,12 +266,21 @@ void AXCityCharacterBase::OnStopAlternativeInteractInputChanged(const FInputActi
 
 void AXCityCharacterBase::OnTakeInputChanged(const FInputActionValue& Value)
 {
-	if (IsValid(InventoryComponent.Get()) && IsValid(TriggeredObject.GetObject()))
+	if (IsValid(InventoryComponent.Get())
+		&& IsValid(TriggeredObject.GetObject())
+		&& IsValid(FindItemComponent.Get()))
 	{
+		if (IsValid(SelectedInventoryItem.GetObject()))
+		{
+			IInteractibleItemInterface::Execute_OnUnselect(SelectedInventoryItem.GetObject());
+		}
+		
 		IInventorySystemInterface::Execute_AddInventoryItem(InventoryComponent.Get(), TriggeredObject);
 		IInteractibleItemInterface::Execute_OnTake(TriggeredObject.GetObject());
+		IFinderObjectsInterface::Execute_ResetPreviousItems(FindItemComponent.Get());
+		
 		SelectedInventoryItem = TriggeredObject;
-
+		
 		//For attach testing...
 		if (AActor* TriggeredActor = Cast<AActor>(TriggeredObject.GetObject()))
 		{
@@ -302,5 +315,9 @@ void AXCityCharacterBase::OnWheelAxisInputChanged(const FInputActionValue& Value
 		return;
 	}
 
-	IInventorySystemInterface::Execute_OnBackwardItemChanged(InventoryComponent.Get());
+	if (const float WheelAxis = Value.Get<float>(); WheelAxis < 0)
+	{
+		IInventorySystemInterface::Execute_OnBackwardItemChanged(InventoryComponent.Get());
+		return;
+	}
 }

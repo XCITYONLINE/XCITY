@@ -39,25 +39,38 @@ void UShootComponentBase::Internal_Initialize_Implementation(
 void UShootComponentBase::OnFireStart_Implementation()
 {
 	bIsFireProcessHold = true;
-	
+	Internal_OnFireStart();
+}
+
+void UShootComponentBase::Internal_OnFireStart()
+{
 	if (!CheckPossibilityShot())
 	{
-		K2_OnFireMiss();
+		if (IInteractibleWeaponInterface::Execute_IsReloading(this) && OnReloadFireMiss.IsBound())
+		{
+			OnReloadFireMiss.Broadcast();
+		}
+		
 		return;
 	}
 
 	AActor* OwnerActor = GetOwner();
 	if (!IsValid(OwnerActor))
 	{
-		K2_OnFireMiss();
+		if (IInteractibleWeaponInterface::Execute_IsReloading(this) && OnReloadFireMiss.IsBound())
+		{
+			OnReloadFireMiss.Broadcast();
+		}
+		
 		return;
 	}
 
 	if (OwnerActor->Implements<UInteractibleWeaponInterface>())
 	{
-		const FTransform MuzzleSocketTransform = IInteractibleWeaponInterface::Execute_GetFireSocketTransform(
+		FTransform MuzzleSocketTransform = IInteractibleWeaponInterface::Execute_GetFireSocketTransform(
 			OwnerActor,
 			InitialShootSettings.FireSocketName);
+		MuzzleSocketTransform.SetScale3D(FVector(1.0f, 1.0f, 1.0f));
 		
 		AAmmoProjectileBase* SpawnProjectile = GetWorld()->SpawnActorDeferred<AAmmoProjectileBase>(
 			AmmoProjectileClass,
@@ -76,14 +89,20 @@ void UShootComponentBase::OnFireStart_Implementation()
 		}
 
 		SpawnProjectile->FinishSpawning(MuzzleSocketTransform);
-
-		K2_OnFire();
-		OnAfterFireProcessStart();
 		
+		if (OnFire.IsBound())
+		{
+			OnFire.Broadcast();
+		}
+		
+		OnAfterFireProcessStart();
 		return;
 	}
 
-	K2_OnFireMiss();
+	if (OnReloadFireMiss.IsBound())
+	{
+		OnReloadFireMiss.Broadcast();
+	}
 }
 
 bool UShootComponentBase::CheckPossibilityShot() const
@@ -111,12 +130,14 @@ void UShootComponentBase::OnAfterFireProcessStart()
 void UShootComponentBase::FireProcessByShootMode()
 {
 	bIsFireProcessActive = false;
-	
-	if (const TEnumAsByte<EShootMode>* CurrentShootMode =
-		InitialShootSettings.ShootModes.FindByKey(CurrentShootModeIndex); CurrentShootMode)
+
+	if (CurrentShootModeIndex >= 0 && CurrentShootModeIndex < InitialShootSettings.ShootModes.Num())
 	{
-		switch (CurrentShootMode->GetValue())
+		if (const TEnumAsByte<EShootMode> CurrentShootMode =
+			InitialShootSettings.ShootModes[CurrentShootModeIndex]; CurrentShootMode)
 		{
+			switch (CurrentShootMode.GetValue())
+			{
 			case ESM_Single:
 				{
 					bIsFireProcessHold = false;
@@ -125,10 +146,10 @@ void UShootComponentBase::FireProcessByShootMode()
 			
 			case ESM_Semi:
 				{
-					if (CurrentSemiShootIndex <= InitialShootSettings.SemiShootsCount)
+					if (CurrentSemiShootIndex < InitialShootSettings.SemiShootsCount - 1)
 					{
 						CurrentSemiShootIndex++;
-						IInteractibleWeaponInterface::Execute_OnFireStart(this);
+						Internal_OnFireStart();
 					}
 					else
 					{
@@ -141,9 +162,10 @@ void UShootComponentBase::FireProcessByShootMode()
 			
 			case ESM_FullAuto:
 				{
-					IInteractibleWeaponInterface::Execute_OnFireStart(this);
+					Internal_OnFireStart();
 					break;
 				}
+			}
 		}
 	}
 }
@@ -176,7 +198,10 @@ void UShootComponentBase::OnReload_Implementation()
 			InitialShootSettings.ReloadTime,
 			false);
 
-		K2_OnReload();
+		if (OnReload.IsBound())
+		{
+			OnReload.Broadcast();
+		}
 	}
 }
 
@@ -184,6 +209,7 @@ void UShootComponentBase::ReloadedDataOperations()
 {
 	bIsReloadProcessActive = false;
 	bIsFireProcessActive = false;
+	CurrentSemiShootIndex = 0;
 
 	const int32 StoreSize = InitialShootSettings.AmmoPerStore;
 	const int32 AmmoDifference = StoreSize - CurrentAmmoPerStore;
@@ -219,7 +245,10 @@ void UShootComponentBase::ToggleWeaponMode_Implementation()
 void UShootComponentBase::SetAimMode_Implementation(const bool bAim)
 {
 	bIsAim = bAim;
-	K2_OnAimModeChanged(bIsAim);
+	if (OnAimModeChanged.IsBound())
+	{
+		OnAimModeChanged.Broadcast(bIsAim);
+	}
 }
 
 bool UShootComponentBase::IsAimMode_Implementation()

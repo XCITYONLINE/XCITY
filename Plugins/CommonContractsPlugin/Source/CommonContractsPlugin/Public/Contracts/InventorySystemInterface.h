@@ -36,6 +36,9 @@ public:
 	TScriptInterface<IInteractibleItemInterface> GetSelectedItem();
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Inventory Item")
+	void GetAllInventoryItems(TArray<TScriptInterface<IInteractibleItemInterface>>& OutInventoryItems);
+	
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Inventory Item")
 	void AddInventoryItem(TScriptInterface<IInteractibleItemInterface>& InNewInventoryItem);
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Inventory Item")

@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "WeaponActors/InteractibleWeaponBase.h"
+#include "Components/BoxComponent.h"
 #include "DataStructs/WeaponsDataStruct.h"
 #include "Engine/AssetManager.h"
 #include "Engine/StreamableManager.h"
@@ -9,8 +10,11 @@
 
 AInteractibleWeaponBase::AInteractibleWeaponBase()
 {
+	BoxCollision = CreateDefaultSubobject<UBoxComponent>("RootCollision");
+	RootComponent = BoxCollision;
+	
 	WeaponSkeletalMeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("WeaponMesh"));
-	RootComponent = WeaponSkeletalMeshComponent;
+	WeaponSkeletalMeshComponent->SetupAttachment(RootComponent);
 	
 	PrimaryActorTick.bCanEverTick = true;
 	
@@ -102,6 +106,11 @@ void AInteractibleWeaponBase::CreateShootComponent(
 			OutShootComponent.Get(),
 			InInitialWeaponStruct,
 			bAlternative);
+
+		OutShootComponent->OnFire.AddUniqueDynamic(this, &AInteractibleWeaponBase::K2_OnFire);
+		OutShootComponent->OnReloadFireMiss.AddUniqueDynamic(this, &AInteractibleWeaponBase::K2_OnFireMiss);
+		OutShootComponent->OnReload.AddUniqueDynamic(this, &AInteractibleWeaponBase::K2_OnReload);
+		OutShootComponent->OnAimModeChanged.AddUniqueDynamic(this, &AInteractibleWeaponBase::K2_OnAimModeChanged);
 	}
 }
 
@@ -163,6 +172,11 @@ void AInteractibleWeaponBase::OnStopAlternativeInteract_Implementation()
 void AInteractibleWeaponBase::OnTake_Implementation()
 {
 	IInteractibleItemInterface::Execute_K2_OnTake(this);
+}
+
+void AInteractibleWeaponBase::OnUnselect_Implementation()
+{
+	IInteractibleItemInterface::Execute_K2_OnUnselect(this);
 }
 
 void AInteractibleWeaponBase::OnDrop_Implementation()

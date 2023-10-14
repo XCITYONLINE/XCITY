@@ -41,6 +41,9 @@ public:
 	void OnTake();
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Iteractible Item")
+	void OnUnselect();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Iteractible Item")
 	void OnDrop();
 
 protected:
@@ -56,6 +59,9 @@ protected:
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Iteractible Item")
 	void K2_OnTake();
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Iteractible Item")
+	void K2_OnUnselect();
 	
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Iteractible Item")
 	void K2_OnDrop();

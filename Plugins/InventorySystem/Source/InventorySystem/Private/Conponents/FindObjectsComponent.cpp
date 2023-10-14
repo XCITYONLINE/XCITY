@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Conponents/FindObjectsComponent.h"
-
 #include "Camera/CameraComponent.h"
+#include "Conponents/InventoryComponentBase.h"
 #include "Contracts/InteractibleItemInterface.h"
 #include "Kismet/KismetSystemLibrary.h"
 
@@ -15,6 +15,11 @@ UFindObjectsComponent::UFindObjectsComponent()
 	TraceOffset = 0.0f;
 	TraceMode = EFinderTraceMode::FTM_MultiSphereAround;
 	bDrawDebug = false;
+}
+
+void UFindObjectsComponent::ResetPreviousItems_Implementation()
+{
+	PreviousFoundObjects.Empty();
 }
 
 bool UFindObjectsComponent::TryFindInteractibleObjects_Implementation(
@@ -93,12 +98,27 @@ bool UFindObjectsComponent::TryFindInteractibleObjects_Implementation(
 
 	if (WasBlocked)
 	{
+		UActorComponent* InventoryComponent = OwnerActor->FindComponentByClass<UInventoryComponentBase>();
+		TArray<TScriptInterface<IInteractibleItemInterface>> InventoryItems;
+		if (IsValid(InventoryComponent) && InventoryComponent->Implements<UInventorySystemInterface>())
+		{
+			IInventorySystemInterface::Execute_GetAllInventoryItems(InventoryComponent, InventoryItems);
+		}
+
+		for (const TScriptInterface<IInteractibleItemInterface>& CurrentInventoryItem : InventoryItems)
+		{
+			if (PreviousFoundObjects.Find(CurrentInventoryItem) != INDEX_NONE)
+			{
+				PreviousFoundObjects.Remove(CurrentInventoryItem);
+			}
+		}
+		
 		OutObjects.Empty();
 		for (const FHitResult& HitResult : HitResults)
 		{
 			if (HitResult.bBlockingHit &&
-				IsValid(HitResult.GetActor()) &&
-				HitResult.GetActor()->Implements<UInteractibleItemInterface>())
+			IsValid(HitResult.GetActor()) &&
+			HitResult.GetActor()->Implements<UInteractibleItemInterface>())
 			{
 				TScriptInterface<IInteractibleItemInterface> NewInteractibleObject;
 				NewInteractibleObject.SetInterface(Cast<IInteractibleItemInterface>(HitResult.GetActor()));
@@ -107,7 +127,7 @@ bool UFindObjectsComponent::TryFindInteractibleObjects_Implementation(
 				OutObjects.Add(NewInteractibleObject);
 			}
 		}
-
+		
 		TArray<TScriptInterface<IInteractibleItemInterface>> UniqueObjects;
 		for (auto NewFoundObject : OutObjects)
 		{

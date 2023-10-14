@@ -34,6 +34,8 @@ public:
 		TScriptInterface<IInteractibleItemInterface>& InInventoryItem) override;
 	virtual void RemoveInventoryItemByIndex_Implementation(const int32 InInventoryIndex) override;
 	virtual TScriptInterface<IInteractibleItemInterface> GetSelectedItem_Implementation() override;
+	virtual void GetAllInventoryItems_Implementation(
+		TArray<TScriptInterface<IInteractibleItemInterface>>& OutInventoryItems) override;
 	virtual void UnselectItem_Implementation() override;
 	//~
 

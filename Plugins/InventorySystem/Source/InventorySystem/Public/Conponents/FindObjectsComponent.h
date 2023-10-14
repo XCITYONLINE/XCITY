@@ -30,6 +30,7 @@ public:
 	//IFinderObjectsInterface implements
 	virtual bool TryFindInteractibleObjects_Implementation(
 		TArray<TScriptInterface<IInteractibleItemInterface>>& OutObjects) override;
+	virtual void ResetPreviousItems_Implementation() override;
 	//~
 
 public:

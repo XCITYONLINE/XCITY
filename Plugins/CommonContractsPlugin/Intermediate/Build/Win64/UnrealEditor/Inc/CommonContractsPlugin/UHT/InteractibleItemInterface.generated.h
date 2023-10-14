@@ -19,6 +19,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #define FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InteractibleItemInterface_h_13_EDITOR_ONLY_SPARSE_DATA_PROPERTY_ACCESSORS
 #define FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InteractibleItemInterface_h_13_RPC_WRAPPERS_NO_PURE_DECLS \
 	virtual void OnDrop_Implementation() {}; \
+	virtual void OnUnselect_Implementation() {}; \
 	virtual void OnTake_Implementation() {}; \
 	virtual void OnStopAlternativeInteract_Implementation() {}; \
 	virtual void OnStartAlternativeInteract_Implementation() {}; \
@@ -28,6 +29,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 	virtual void OnStartHover_Implementation() {}; \
  \
 	DECLARE_FUNCTION(execOnDrop); \
+	DECLARE_FUNCTION(execOnUnselect); \
 	DECLARE_FUNCTION(execOnTake); \
 	DECLARE_FUNCTION(execOnStopAlternativeInteract); \
 	DECLARE_FUNCTION(execOnStartAlternativeInteract); \
@@ -81,6 +83,7 @@ public: \
 	static void Execute_K2_OnHover(UObject* O, bool bIsHover); \
 	static void Execute_K2_OnMainInteract(UObject* O, bool bIsInteract); \
 	static void Execute_K2_OnTake(UObject* O); \
+	static void Execute_K2_OnUnselect(UObject* O); \
 	static void Execute_OnDrop(UObject* O); \
 	static void Execute_OnStartAlternativeInteract(UObject* O); \
 	static void Execute_OnStartHover(UObject* O); \
@@ -89,6 +92,7 @@ public: \
 	static void Execute_OnStopHover(UObject* O); \
 	static void Execute_OnStopMainInteract(UObject* O); \
 	static void Execute_OnTake(UObject* O); \
+	static void Execute_OnUnselect(UObject* O); \
 	virtual UObject* _getUObject() const { return nullptr; }
 
 
