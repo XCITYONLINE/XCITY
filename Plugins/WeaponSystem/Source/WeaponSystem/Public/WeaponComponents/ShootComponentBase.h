@@ -72,6 +72,7 @@ private:
 private:
 
 	inline bool CheckPossibilityShot() const;
+	inline bool CheckPossibilityReload() const;
 	void OnAfterFireProcessStart();
 	
 	void ShootDataOperations();

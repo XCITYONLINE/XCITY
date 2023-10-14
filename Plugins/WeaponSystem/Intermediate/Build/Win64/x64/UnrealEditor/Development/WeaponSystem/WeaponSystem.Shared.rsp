@@ -257,6 +257,8 @@
 /I "Developer\PhysicsUtilities\Public"
 /I "..\Intermediate\Build\Win64\UnrealEditor\Inc\WidgetRegistration\UHT"
 /I "Developer\WidgetRegistration\Public"
+/I "..\Plugins\EnhancedInput\Intermediate\Build\Win64\UnrealEditor\Inc\EnhancedInput\UHT"
+/I "..\Plugins\EnhancedInput\Source\EnhancedInput\Public"
 /I "E:\Outsource\Unreal\XCity\XCITY\Plugins\WeaponSystem\Intermediate\Build\Win64\UnrealEditor\Inc\WeaponSystem\UHT"
 /I "E:\Outsource\Unreal\XCity\XCITY\Plugins\WeaponSystem\Source"
 /I "E:\Outsource\Unreal\XCity\XCITY\Plugins\WeaponSystem\Source\WeaponSystem\Public"

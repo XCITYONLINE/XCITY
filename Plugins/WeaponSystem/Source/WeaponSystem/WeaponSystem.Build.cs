@@ -13,7 +13,8 @@ public class WeaponSystem : ModuleRules
 			{
 				"Core",
 				"Engine", 
-				"CommonContractsPlugin",
+				"CommonContractsPlugin", 
+				"EnhancedInput"
 			}
 			);
 			
@@ -25,7 +26,8 @@ public class WeaponSystem : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
-				"DeveloperSettings"
+				"DeveloperSettings", 
+				"EnhancedInput"
 			}
 			);
 	}

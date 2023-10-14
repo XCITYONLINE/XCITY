@@ -9,6 +9,7 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+class AActor;
 #ifdef COMMONCONTRACTSPLUGIN_InteractibleItemInterface_generated_h
 #error "InteractibleItemInterface.generated.h already included, missing '#pragma once' in InteractibleItemInterface.h"
 #endif
@@ -20,7 +21,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #define FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InteractibleItemInterface_h_13_RPC_WRAPPERS_NO_PURE_DECLS \
 	virtual void OnDrop_Implementation() {}; \
 	virtual void OnUnselect_Implementation() {}; \
-	virtual void OnTake_Implementation() {}; \
+	virtual void OnTake_Implementation(AActor* OwnerActor) {}; \
 	virtual void OnStopAlternativeInteract_Implementation() {}; \
 	virtual void OnStartAlternativeInteract_Implementation() {}; \
 	virtual void OnStopMainInteract_Implementation() {}; \
@@ -91,7 +92,7 @@ public: \
 	static void Execute_OnStopAlternativeInteract(UObject* O); \
 	static void Execute_OnStopHover(UObject* O); \
 	static void Execute_OnStopMainInteract(UObject* O); \
-	static void Execute_OnTake(UObject* O); \
+	static void Execute_OnTake(UObject* O, AActor* OwnerActor); \
 	static void Execute_OnUnselect(UObject* O); \
 	virtual UObject* _getUObject() const { return nullptr; }
 

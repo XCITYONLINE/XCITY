@@ -6,6 +6,7 @@
 #include "Components/CameraManagerComponent.h"
 #include "Conponents/FindObjectsComponent.h"
 #include "Conponents/InventoryComponentBase.h"
+#include "Contracts/InteractibleItemInterface.h"
 #include "Kismet/KismetMathLibrary.h"
 
 AXCityCharacterBase::AXCityCharacterBase()
@@ -23,15 +24,6 @@ void AXCityCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	if (const APlayerController* PlayerController = Cast<APlayerController>(Controller))
-	{
-		if (UEnhancedInputLocalPlayerSubsystem* Subsystem =
-			ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
-		{
-			Subsystem->AddMappingContext(MappingContext, 0);
-		}
-	}
-
 	InitCameraManager();
 	InitInventorySystem();
 }
@@ -66,7 +58,7 @@ void AXCityCharacterBase::OnInventoryItemChanged(
 	SelectedInventoryItem = InInventoryItemChanged;
 	if (IsValid(SelectedInventoryItem.GetObject()))
 	{
-		IInteractibleItemInterface::Execute_OnTake(SelectedInventoryItem.GetObject());
+		IInteractibleItemInterface::Execute_OnTake(SelectedInventoryItem.GetObject(), this);
 	}
 }
 
@@ -138,6 +130,16 @@ void AXCityCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInput
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	if (const APlayerController* PlayerController = Cast<APlayerController>(Controller))
+	{
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem =
+			ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+		{
+			Subsystem->ClearAllMappings();
+			Subsystem->AddMappingContext(MappingContext, 0);
+		}
+	}
+	
 	if (UEnhancedInputComponent* EnhancedInput =
 		Cast<UEnhancedInputComponent>(PlayerInputComponent); IsValid(EnhancedInput))
 	{
@@ -155,18 +157,6 @@ void AXCityCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInput
 		{
 			EnhancedInput->BindAction(JumpAction, ETriggerEvent::Started, this, &AXCityCharacterBase::OnJumpInputChanged);
 			EnhancedInput->BindAction(JumpAction, ETriggerEvent::Completed, this, &AXCityCharacterBase::OnStopJumpInputChanged);
-		}
-		
-		if (IsValid(MainInteractAction))
-		{
-			EnhancedInput->BindAction(MainInteractAction, ETriggerEvent::Started, this, &AXCityCharacterBase::OnMainInteractInputChanged);
-			EnhancedInput->BindAction(MainInteractAction, ETriggerEvent::Completed, this, &AXCityCharacterBase::OnStopMainInteractInputChanged);
-		}
-
-		if (IsValid(AlternativeInteractAction))
-		{
-			EnhancedInput->BindAction(AlternativeInteractAction, ETriggerEvent::Started, this, &AXCityCharacterBase::OnAlternativeInteractInputChanged);
-			EnhancedInput->BindAction(AlternativeInteractAction, ETriggerEvent::Completed, this, &AXCityCharacterBase::OnStopAlternativeInteractInputChanged);
 		}
 
 		if (IsValid(TakeAction))
@@ -222,48 +212,6 @@ void AXCityCharacterBase::OnStopJumpInputChanged(const FInputActionValue& Value)
 	K2_OnJumpChanged(false);
 }
 
-void AXCityCharacterBase::OnMainInteractInputChanged(const FInputActionValue& Value)
-{
-	if (IsValid(SelectedInventoryItem.GetObject()))
-	{
-		IInteractibleItemInterface::Execute_OnStartMainInteract(SelectedInventoryItem.GetObject());
-	}
-}
-
-void AXCityCharacterBase::OnStopMainInteractInputChanged(const FInputActionValue& Value)
-{
-	if (IsValid(SelectedInventoryItem.GetObject()))
-	{
-		IInteractibleItemInterface::Execute_OnStopMainInteract(SelectedInventoryItem.GetObject());
-	}
-}
-
-void AXCityCharacterBase::OnAlternativeInteractInputChanged(const FInputActionValue& Value)
-{
-	if (IsValid(SelectedInventoryItem.GetObject()))
-	{
-		IInteractibleItemInterface::Execute_OnStartAlternativeInteract(SelectedInventoryItem.GetObject());
-	}
-	
-	if (IsValid(CameraManagerComponent.Get()))
-	{
-		CameraManagerComponent->SetCameraMode(ECameraMode::ECM_Aim);
-	}
-}
-
-void AXCityCharacterBase::OnStopAlternativeInteractInputChanged(const FInputActionValue& Value)
-{
-	if (IsValid(SelectedInventoryItem.GetObject()))
-	{
-		IInteractibleItemInterface::Execute_OnStopAlternativeInteract(SelectedInventoryItem.GetObject());
-	}
-	
-	if (IsValid(CameraManagerComponent.Get()))
-	{
-		CameraManagerComponent->SetCameraMode(ECameraMode::ECM_Default);
-	}
-}
-
 void AXCityCharacterBase::OnTakeInputChanged(const FInputActionValue& Value)
 {
 	if (IsValid(InventoryComponent.Get())
@@ -276,7 +224,7 @@ void AXCityCharacterBase::OnTakeInputChanged(const FInputActionValue& Value)
 		}
 		
 		IInventorySystemInterface::Execute_AddInventoryItem(InventoryComponent.Get(), TriggeredObject);
-		IInteractibleItemInterface::Execute_OnTake(TriggeredObject.GetObject());
+		IInteractibleItemInterface::Execute_OnTake(TriggeredObject.GetObject(), this);
 		IFinderObjectsInterface::Execute_ResetPreviousItems(FindItemComponent.Get());
 		
 		SelectedInventoryItem = TriggeredObject;

@@ -10,12 +10,12 @@
 			"InteractibleWeaponInterface.cpp.obj",
 			"WeaponsDataStruct.cpp.obj",
 			"WeaponSystemSettings.cpp.obj",
+			"AmmoProjectileBase.cpp.obj",
+			"ShootComponentBase.cpp.obj",
 			"WeaponSystem.cpp.obj",
 			"InteractibleWeaponBase.gen.cpp.obj",
 			"WeaponSystem.init.gen.cpp.obj",
-			"AmmoProjectileBase.cpp.obj",
-			"InteractibleWeaponBase.cpp.obj",
-			"ShootComponentBase.cpp.obj"
+			"InteractibleWeaponBase.cpp.obj"
 		]
 	}
 }

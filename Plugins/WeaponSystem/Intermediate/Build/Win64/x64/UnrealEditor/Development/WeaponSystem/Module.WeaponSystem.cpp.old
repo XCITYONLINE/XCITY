@@ -7,4 +7,6 @@
 #include "E:/Outsource/Unreal/XCity/XCITY/Plugins/WeaponSystem/Source/WeaponSystem/Private/Contracts/InteractibleWeaponInterface.cpp"
 #include "E:/Outsource/Unreal/XCity/XCITY/Plugins/WeaponSystem/Source/WeaponSystem/Private/DataStructs/WeaponsDataStruct.cpp"
 #include "E:/Outsource/Unreal/XCity/XCITY/Plugins/WeaponSystem/Source/WeaponSystem/Private/Settings/WeaponSystemSettings.cpp"
+#include "E:/Outsource/Unreal/XCity/XCITY/Plugins/WeaponSystem/Source/WeaponSystem/Private/WeaponActors/AmmoProjectileBase.cpp"
+#include "E:/Outsource/Unreal/XCity/XCITY/Plugins/WeaponSystem/Source/WeaponSystem/Private/WeaponComponents/ShootComponentBase.cpp"
 #include "E:/Outsource/Unreal/XCity/XCITY/Plugins/WeaponSystem/Source/WeaponSystem/Private/WeaponSystem.cpp"

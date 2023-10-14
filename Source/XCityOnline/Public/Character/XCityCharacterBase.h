@@ -61,12 +61,6 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputAction> JumpAction;
-	
-	UPROPERTY(EditAnywhere, Category = "Input")
-	TObjectPtr<UInputAction> MainInteractAction;
-	
-	UPROPERTY(EditAnywhere, Category = "Input")
-	TObjectPtr<UInputAction> AlternativeInteractAction;
 
 	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputAction> TakeAction;
@@ -91,10 +85,6 @@ private:
 	void OnMoveInputChanged(const FInputActionValue& Value);
 	void OnJumpInputChanged(const FInputActionValue& Value);
 	void OnStopJumpInputChanged(const FInputActionValue& Value);
-	void OnMainInteractInputChanged(const FInputActionValue& Value);
-	void OnStopMainInteractInputChanged(const FInputActionValue& Value);
-	void OnAlternativeInteractInputChanged(const FInputActionValue& Value);
-	void OnStopAlternativeInteractInputChanged(const FInputActionValue& Value);
 	void OnTakeInputChanged(const FInputActionValue& Value);
 	void OnDropInputChanged(const FInputActionValue& Value);
 	void OnWheelAxisInputChanged(const FInputActionValue& Value);

@@ -50,7 +50,8 @@ void UShootComponentBase::Internal_OnFireStart()
 		{
 			OnReloadFireMiss.Broadcast();
 		}
-		
+
+		CurrentSemiShootIndex = 0;
 		return;
 	}
 
@@ -182,6 +183,11 @@ void UShootComponentBase::ShootDataOperations()
 
 void UShootComponentBase::OnReload_Implementation()
 {
+	if (!CheckPossibilityReload())
+	{
+		return;
+	}
+	
 	bIsReloadProcessActive = true;
 	bIsFireProcessHold = false;
 	
@@ -203,6 +209,11 @@ void UShootComponentBase::OnReload_Implementation()
 			OnReload.Broadcast();
 		}
 	}
+}
+
+bool UShootComponentBase::CheckPossibilityReload() const
+{
+	return !(bIsReloadProcessActive || CurrentAmmoPerStore == InitialShootSettings.AmmoPerStore || CurrentAmmo == 0);
 }
 
 void UShootComponentBase::ReloadedDataOperations()
@@ -259,6 +270,7 @@ bool UShootComponentBase::IsAimMode_Implementation()
 void UShootComponentBase::OnFireStop_Implementation()
 {
 	bIsFireProcessHold = false;
+	CurrentSemiShootIndex = 0;
 }
 
 bool UShootComponentBase::IsReloading_Implementation()
