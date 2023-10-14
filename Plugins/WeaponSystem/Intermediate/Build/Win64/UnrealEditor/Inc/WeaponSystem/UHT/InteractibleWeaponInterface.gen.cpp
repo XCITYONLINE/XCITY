@@ -482,7 +482,7 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleWeaponInterface() {}
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UInteractibleWeaponInterface_Internal_Initialize_Statics::NewProp_InInitialWeaponStruct = { "InInitialWeaponStruct", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(InteractibleWeaponInterface_eventInternal_Initialize_Parms, InInitialWeaponStruct), Z_Construct_UScriptStruct_FWeaponsDataStruct, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractibleWeaponInterface_Internal_Initialize_Statics::NewProp_InInitialWeaponStruct_MetaData), Z_Construct_UFunction_UInteractibleWeaponInterface_Internal_Initialize_Statics::NewProp_InInitialWeaponStruct_MetaData) }; // 1381105534
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UInteractibleWeaponInterface_Internal_Initialize_Statics::NewProp_InInitialWeaponStruct = { "InInitialWeaponStruct", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(InteractibleWeaponInterface_eventInternal_Initialize_Parms, InInitialWeaponStruct), Z_Construct_UScriptStruct_FWeaponsDataStruct, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractibleWeaponInterface_Internal_Initialize_Statics::NewProp_InInitialWeaponStruct_MetaData), Z_Construct_UFunction_UInteractibleWeaponInterface_Internal_Initialize_Statics::NewProp_InInitialWeaponStruct_MetaData) }; // 1991016369
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UInteractibleWeaponInterface_Internal_Initialize_Statics::NewProp_bAlternative_MetaData[] = {
 		{ "NativeConst", "" },
@@ -834,7 +834,7 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleWeaponInterface() {}
 		{ &Z_Construct_UFunction_UInteractibleWeaponInterface_GetAmmoPerStore, "GetAmmoPerStore" }, // 1006445304
 		{ &Z_Construct_UFunction_UInteractibleWeaponInterface_GetFireSocketTransform, "GetFireSocketTransform" }, // 2392197127
 		{ &Z_Construct_UFunction_UInteractibleWeaponInterface_InitializeWeapon, "InitializeWeapon" }, // 2831802670
-		{ &Z_Construct_UFunction_UInteractibleWeaponInterface_Internal_Initialize, "Internal_Initialize" }, // 1247075590
+		{ &Z_Construct_UFunction_UInteractibleWeaponInterface_Internal_Initialize, "Internal_Initialize" }, // 3701919250
 		{ &Z_Construct_UFunction_UInteractibleWeaponInterface_IsAimMode, "IsAimMode" }, // 2246906246
 		{ &Z_Construct_UFunction_UInteractibleWeaponInterface_IsReloading, "IsReloading" }, // 174040517
 		{ &Z_Construct_UFunction_UInteractibleWeaponInterface_OnFireStart, "OnFireStart" }, // 1129078472
@@ -1150,9 +1150,9 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleWeaponInterface() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UInteractibleWeaponInterface, UInteractibleWeaponInterface::StaticClass, TEXT("UInteractibleWeaponInterface"), &Z_Registration_Info_UClass_UInteractibleWeaponInterface, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UInteractibleWeaponInterface), 2792749425U) },
+		{ Z_Construct_UClass_UInteractibleWeaponInterface, UInteractibleWeaponInterface::StaticClass, TEXT("UInteractibleWeaponInterface"), &Z_Registration_Info_UClass_UInteractibleWeaponInterface, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UInteractibleWeaponInterface), 3749013010U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_3946695402(TEXT("/Script/WeaponSystem"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_2108210039(TEXT("/Script/WeaponSystem"),
 		Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_Contracts_InteractibleWeaponInterface_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

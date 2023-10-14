@@ -37,6 +37,9 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void InitInventorySystem();
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void K2_AttachTo(AActor* OutActor);
+
 	virtual void FindObjectsAround();
 
 protected:
@@ -101,6 +104,9 @@ private:
 	UFUNCTION()
 	virtual void OnInventoryItemChanged(
 		const TScriptInterface<class IInteractibleItemInterface>& InInventoryItemChanged);
+
+	TScriptInterface<class IInteractibleItemInterface> GetCloserObject(
+		const TArray<TScriptInterface<class IInteractibleItemInterface>>& InFoundObjects) const;
 	
 	TScriptInterface<class IInteractibleItemInterface> SelectedInventoryItem;
 	TScriptInterface<class IInteractibleItemInterface> TriggeredObject;

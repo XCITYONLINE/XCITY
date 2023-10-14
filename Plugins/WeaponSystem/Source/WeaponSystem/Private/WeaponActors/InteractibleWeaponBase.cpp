@@ -9,8 +9,8 @@
 
 AInteractibleWeaponBase::AInteractibleWeaponBase()
 {
-	WeaponStaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WeaponMesh"));
-	RootComponent = WeaponStaticMeshComponent;
+	WeaponSkeletalMeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("WeaponMesh"));
+	RootComponent = WeaponSkeletalMeshComponent;
 	
 	PrimaryActorTick.bCanEverTick = true;
 	
@@ -57,9 +57,9 @@ void AInteractibleWeaponBase::OnLoadComplete()
 void AInteractibleWeaponBase::Internal_Initialize_Implementation(
 	const FWeaponsDataStruct& InInitialWeaponStruct, const bool bAlternative)
 {
-	if (IsValid(InInitialWeaponStruct.WeaponMesh))
+	if (IsValid(InInitialWeaponStruct.WeaponSkeletal))
 	{
-		WeaponStaticMeshComponent->SetStaticMesh(InInitialWeaponStruct.WeaponMesh);
+		WeaponSkeletalMeshComponent->SetSkeletalMesh(InInitialWeaponStruct.WeaponSkeletal);
 	}
 	
 	CreateShootComponent(InInitialWeaponStruct, MainShootComponentObject, false);
@@ -232,9 +232,9 @@ void AInteractibleWeaponBase::AddAmmo_Implementation(const int32 InAmmoValue)
 
 FTransform AInteractibleWeaponBase::GetFireSocketTransform_Implementation(const FName& InSocketName)
 {
-	if (IsValid(WeaponStaticMeshComponent))
+	if (IsValid(WeaponSkeletalMeshComponent))
 	{
-		return WeaponStaticMeshComponent->GetSocketTransform(InSocketName);
+		return WeaponSkeletalMeshComponent->GetSocketTransform(InSocketName);
 	}
 
 	return FTransform();

@@ -2,9 +2,9 @@
 	"RemapUnityFiles": 
 	{
 		"Module.CommonContractsPlugin.cpp.obj": [
-			"FinderOdjectsInterface.gen.cpp.obj",
 			"CommonContractsPlugin.cpp.obj",
 			"CommonContractsPlugin.init.gen.cpp.obj",
+			"FinderOdjectsInterface.gen.cpp.obj",
 			"InteractibleItemInterface.gen.cpp.obj",
 			"InventorySystemInterface.gen.cpp.obj",
 			"FinderObjectsInterface.cpp.obj",

@@ -6,6 +6,7 @@
 #include "Components/CameraManagerComponent.h"
 #include "Conponents/FindObjectsComponent.h"
 #include "Conponents/InventoryComponentBase.h"
+#include "Kismet/KismetMathLibrary.h"
 
 AXCityCharacterBase::AXCityCharacterBase()
 {
@@ -87,14 +88,46 @@ void AXCityCharacterBase::FindObjectsAround()
 	if (IsValid(FindItemComponent.Get()) &&
 		IFinderObjectsInterface::Execute_TryFindInteractibleObjects(FindItemComponent.Get(), FoundObjects))
 	{
-		if (FoundObjects.Num() > 0)
+		TriggeredObject = GetCloserObject(FoundObjects);
+		if (IsValid(TriggeredObject.GetObject()))
 		{
-			TriggeredObject = FoundObjects[0];
+			TriggeredObject = GetCloserObject(FoundObjects);
 			IInteractibleItemInterface::Execute_K2_OnHover(TriggeredObject.GetObject(), true);
 
 			return;
 		}
 	}
+}
+
+TScriptInterface<IInteractibleItemInterface> AXCityCharacterBase::GetCloserObject(
+	const TArray<TScriptInterface<IInteractibleItemInterface>>& InFoundObjects) const
+{
+	if (InFoundObjects.IsEmpty())
+	{
+		return nullptr;
+	}
+
+	TArray<float> ToPlayerDistances;
+	const FVector MainLocation = GetActorLocation();
+	
+	for (const TScriptInterface<IInteractibleItemInterface>& CurrentFoundObject : InFoundObjects)
+	{
+		if (const AActor* FoundObjectActor = Cast<AActor>(CurrentFoundObject.GetObject()))
+		{
+			ToPlayerDistances.Add(FVector::Distance(MainLocation, FoundObjectActor->GetActorLocation()));
+		}
+	}
+
+	int32 IndexOfMinValue = INDEX_NONE;
+	float MinValue = KINDA_SMALL_NUMBER;
+	UKismetMathLibrary::MinOfFloatArray(ToPlayerDistances, IndexOfMinValue, MinValue);
+
+	if (IndexOfMinValue == INDEX_NONE)
+	{
+		return InFoundObjects[0];
+	}
+
+	return InFoundObjects[IndexOfMinValue];
 }
 
 void AXCityCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -232,8 +265,16 @@ void AXCityCharacterBase::OnTakeInputChanged(const FInputActionValue& Value)
 	if (IsValid(InventoryComponent.Get()) && IsValid(TriggeredObject.GetObject()))
 	{
 		IInventorySystemInterface::Execute_AddInventoryItem(InventoryComponent.Get(), TriggeredObject);
+		IInteractibleItemInterface::Execute_OnTake(TriggeredObject.GetObject());
 		SelectedInventoryItem = TriggeredObject;
 
+		//For attach testing...
+		if (AActor* TriggeredActor = Cast<AActor>(TriggeredObject.GetObject()))
+		{
+			K2_AttachTo(TriggeredActor);
+		}
+		//~
+		
 		//ToDo:: Hide logic for selected object here...
 		//ToDo:~
 	}

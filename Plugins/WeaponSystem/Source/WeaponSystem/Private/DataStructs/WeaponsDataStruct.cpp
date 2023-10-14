@@ -16,7 +16,8 @@ FShootSettingsDesc::FShootSettingsDesc()
 
 FWeaponsDataStruct::FWeaponsDataStruct()
 {
-	WeaponMesh = nullptr;
+	WeaponSkeletal = nullptr;
+	WeaponAnimInstance = nullptr;
 	MainShootComponentClass = nullptr;
 	MainAmmoProjectileClass = nullptr;
 

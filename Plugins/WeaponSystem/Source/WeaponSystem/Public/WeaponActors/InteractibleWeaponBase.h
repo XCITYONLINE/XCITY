@@ -60,7 +60,7 @@ public:
 	FName WeaponID;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	UStaticMeshComponent* WeaponStaticMeshComponent;
+	USkeletalMeshComponent* WeaponSkeletalMeshComponent;
 
 	UPROPERTY(BlueprintAssignable, BlueprintCallable)
 	FOnAlternativeFireChanged OnAlternativeFireChanged;

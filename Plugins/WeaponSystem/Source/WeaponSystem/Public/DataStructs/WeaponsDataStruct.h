@@ -124,29 +124,32 @@ public:
 public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Visual")
-	class UStaticMesh* WeaponMesh;
+	class USkeletalMesh* WeaponSkeletal;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Visual")
+	TSubclassOf<UAnimInstance> WeaponAnimInstance;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shoot settings")
 	bool bUseAlternativeMode;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main|Shoot Component Class")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shoot settings|Main|Shoot Component Class")
 	TSubclassOf<class UShootComponentBase> MainShootComponentClass;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main|Ammo Actor Class")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shoot settings|Main|Ammo Actor Class")
 	TSubclassOf<class AAmmoProjectileBase> MainAmmoProjectileClass;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Main|Shoot settings")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shoot settings|Main|Shoot settings")
 	FShootSettingsDesc MainShootSettings;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Alternative|Shoot Component Class",
-		meta = (EditCondition = "bUseAlternativeMode", EditConditionHides))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shoot settings|Alternative|Shoot Component Class",
+		meta = (EditCondition = "bUseAlternativeMode", EditConditionHide))
 	TSubclassOf<class UShootComponentBase> AlternativeShootComponentClass;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Alternative|Ammo Actor Class",
-		meta = (EditCondition = "bUseAlternativeMode", EditConditionHides))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shoot settings|Alternative|Ammo Actor Class",
+		meta = (EditCondition = "bUseAlternativeMode", EditConditionHide))
 	TSubclassOf<class AAmmoProjectileBase> AlternativeAmmoProjectileClass;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Alternative|Shoot settings",
-		meta = (EditCondition = "bUseAlternativeMode", EditConditionHides))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shoot settings|Alternative|Shoot settings",
+		meta = (EditCondition = "bUseAlternativeMode", EditConditionHide))
 	FShootSettingsDesc AlternativeShootSettings;
 };
