@@ -4,28 +4,21 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
+
 #include "CameraModeData.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class XCITYONLINE_API UCameraModeData : public UDataAsset
 {
 	GENERATED_BODY()
 	
 public:
+	
 	UCameraModeData();
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "CameraData")
 	FVector LocationSocketOffset;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "CameraData")
-	float LocationXInterpSpeed;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "CameraData")
-	float LocationYInterpSpeed;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "CameraData")
-	float LocationZInterpSpeed;
+	float InterpSpeed;
 };

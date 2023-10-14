@@ -1,0 +1,12 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UnrealEditor-InteractibleitemsSystem.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"E:\Outsource\Unreal\XCity\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.obj"
+"E:\Outsource\Unreal\XCity\XCITY\Plugins\InteractibleitemsSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InteractibleitemsSystem\Module.InteractibleitemsSystem.cpp.obj"
+"E:\Outsource\Unreal\XCity\XCITY\Plugins\InteractibleitemsSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InteractibleitemsSystem\Default.rc2.res"
+/OUT:"E:\Outsource\Unreal\XCity\XCITY\Plugins\InteractibleitemsSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InteractibleitemsSystem\UnrealEditor-InteractibleitemsSystem.lib"

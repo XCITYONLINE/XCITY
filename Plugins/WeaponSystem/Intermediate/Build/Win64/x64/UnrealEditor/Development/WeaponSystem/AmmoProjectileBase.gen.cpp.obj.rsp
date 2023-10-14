@@ -1,11 +1,11 @@
-"D:\UnrealProjects\XCITY\Plugins\WeaponSystem\Intermediate\Build\Win64\UnrealEditor\Inc\WeaponSystem\UHT\AmmoProjectileBase.gen.cpp"
-/FI"D:\UnrealProjects\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h"
-/FI"D:\UnrealProjects\XCITY\Plugins\WeaponSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\WeaponSystem\Definitions.WeaponSystem.h"
-/Yu"D:\UnrealProjects\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h"
-/Fp"D:\UnrealProjects\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.pch"
-/Fo"D:\UnrealProjects\XCITY\Plugins\WeaponSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\WeaponSystem\AmmoProjectileBase.gen.cpp.obj"
-/sourceDependencies "D:\UnrealProjects\XCITY\Plugins\WeaponSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\WeaponSystem\AmmoProjectileBase.gen.cpp.dep.json"
-@"D:\UnrealProjects\XCITY\Plugins\WeaponSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\WeaponSystem\WeaponSystem.Shared.rsp"
+"E:\Outsource\Unreal\XCity\XCITY\Plugins\WeaponSystem\Intermediate\Build\Win64\UnrealEditor\Inc\WeaponSystem\UHT\AmmoProjectileBase.gen.cpp"
+/FI"E:\Outsource\Unreal\XCity\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h"
+/FI"E:\Outsource\Unreal\XCity\XCITY\Plugins\WeaponSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\WeaponSystem\Definitions.WeaponSystem.h"
+/Yu"E:\Outsource\Unreal\XCity\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h"
+/Fp"E:\Outsource\Unreal\XCity\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.pch"
+/Fo"E:\Outsource\Unreal\XCity\XCITY\Plugins\WeaponSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\WeaponSystem\AmmoProjectileBase.gen.cpp.obj"
+/sourceDependencies "E:\Outsource\Unreal\XCity\XCITY\Plugins\WeaponSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\WeaponSystem\AmmoProjectileBase.gen.cpp.dep.json"
+@"E:\Outsource\Unreal\XCity\XCITY\Plugins\WeaponSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\WeaponSystem\WeaponSystem.Shared.rsp"
 /Zc:inline
 /nologo
 /Oi
