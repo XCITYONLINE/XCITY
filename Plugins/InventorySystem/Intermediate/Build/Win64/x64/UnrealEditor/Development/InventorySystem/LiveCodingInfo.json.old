@@ -3,10 +3,10 @@
 	{
 		"Module.InventorySystem.cpp.obj": [
 			"FindObjectsComponent.gen.cpp.obj",
-			"InventorySystem.cpp.obj",
 			"InventoryComponentBase.gen.cpp.obj",
 			"InventorySystem.init.gen.cpp.obj",
 			"FindObjectsComponent.cpp.obj",
+			"InventorySystem.cpp.obj",
 			"InventoryComponentBase.cpp.obj"
 		]
 	}

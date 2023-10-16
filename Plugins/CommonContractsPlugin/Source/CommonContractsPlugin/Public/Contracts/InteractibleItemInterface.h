@@ -38,7 +38,7 @@ public:
 	void OnStopAlternativeInteract();
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Iteractible Item")
-	void OnTake();
+	void OnTake(AActor* OwnerActor);
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Iteractible Item")
 	void OnUnselect();

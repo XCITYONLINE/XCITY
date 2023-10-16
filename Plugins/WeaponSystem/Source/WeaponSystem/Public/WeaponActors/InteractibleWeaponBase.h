@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "InputAction.h"
 #include "Components/BoxComponent.h"
 #include "Contracts/InteractibleItemInterface.h"
 #include "Contracts/InteractibleWeaponInterface.h"
@@ -51,7 +52,7 @@ public:
 	virtual void OnStopMainInteract_Implementation() override;
 	virtual void OnStartAlternativeInteract_Implementation() override;
 	virtual void OnStopAlternativeInteract_Implementation() override;
-	virtual void OnTake_Implementation() override;
+	virtual void OnTake_Implementation(AActor* OwnerActor) override;
 	virtual void OnUnselect_Implementation() override;
 	virtual void OnDrop_Implementation() override;
 	//~
@@ -69,6 +70,26 @@ public:
 
 	UPROPERTY(BlueprintAssignable, BlueprintCallable)
 	FOnAlternativeFireChanged OnAlternativeFireChanged;
+
+public:
+
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> MainFire;
+
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> AlternativeFire;
+
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> Reload;
+
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> AimMode;
+
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<class UInputMappingContext> MappingContext;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Initial Data")
+	FWeaponsDataStruct InitialWeaponStruct;
 
 public:
 
@@ -92,16 +113,17 @@ private:
 	
 	UFUNCTION()
 	void OnLoadComplete();
-
+	
 	void CreateShootComponent(
 		const FWeaponsDataStruct& InInitialWeaponStruct,
 		TObjectPtr<UShootComponentBase>& OutShootComponent,
 		const bool bAlternative);
+
+	void AddMappingContext();
+	void RemoveMappingContext();
+	void BindInputActions();
 	
 	TObjectPtr<UShootComponentBase> MainShootComponentObject;
 	TObjectPtr<UShootComponentBase> AlternativeShootComponentObject;
-
 	TObjectPtr<UShootComponentBase> SelectedShootComponent;
-
-	
 };

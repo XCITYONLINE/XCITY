@@ -52,7 +52,10 @@ void UInventoryComponentBase::OnBackwardItemChanged_Implementation()
 		if (const TScriptInterface<IInteractibleItemInterface> PreviousInventoryItem =
 			AllInventoryItems[NewInventoryIndex]; IsValid(PreviousInventoryItem.GetObject()))
 		{
-			IInteractibleItemInterface::Execute_OnUnselect(SelectedItem.GetObject());
+			if (IsValid(SelectedItem.GetObject()))
+			{
+				IInteractibleItemInterface::Execute_OnUnselect(SelectedItem.GetObject());
+			}
 			
 			SelectedItem = PreviousInventoryItem;
 			if (OnInventoryItemSelected.IsBound())

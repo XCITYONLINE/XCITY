@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 
-UENUM()
+UENUM(BlueprintType)
 enum class ECameraMode : uint8
 {
 	ECM_Default UMETA(DisplayName="Default"),

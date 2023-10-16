@@ -12,12 +12,14 @@ void EmptyLinkFunctionForGeneratedCodeWeaponsDataStruct() {}
 	COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 	ENGINE_API UClass* Z_Construct_UClass_UAnimInstance_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_USkeletalMesh_NoRegister();
+	ENGINE_API UClass* Z_Construct_UClass_UTexture_NoRegister();
 	ENGINE_API UEnum* Z_Construct_UEnum_Engine_ECollisionChannel();
 	ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FTableRowBase();
 	UPackage* Z_Construct_UPackage__Script_WeaponSystem();
 	WEAPONSYSTEM_API UClass* Z_Construct_UClass_AAmmoProjectileBase_NoRegister();
 	WEAPONSYSTEM_API UClass* Z_Construct_UClass_UShootComponentBase_NoRegister();
 	WEAPONSYSTEM_API UEnum* Z_Construct_UEnum_WeaponSystem_EShootMode();
+	WEAPONSYSTEM_API UEnum* Z_Construct_UEnum_WeaponSystem_EWeaponType();
 	WEAPONSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FProjectileSettings();
 	WEAPONSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FShootSettingsDesc();
 	WEAPONSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FWeaponsDataStruct();
@@ -86,6 +88,86 @@ void EmptyLinkFunctionForGeneratedCodeWeaponsDataStruct() {}
 			UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_EShootMode.InnerSingleton, Z_Construct_UEnum_WeaponSystem_EShootMode_Statics::EnumParams);
 		}
 		return Z_Registration_Info_UEnum_EShootMode.InnerSingleton;
+	}
+	static FEnumRegistrationInfo Z_Registration_Info_UEnum_EWeaponType;
+	static UEnum* EWeaponType_StaticEnum()
+	{
+		if (!Z_Registration_Info_UEnum_EWeaponType.OuterSingleton)
+		{
+			Z_Registration_Info_UEnum_EWeaponType.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_WeaponSystem_EWeaponType, (UObject*)Z_Construct_UPackage__Script_WeaponSystem(), TEXT("EWeaponType"));
+		}
+		return Z_Registration_Info_UEnum_EWeaponType.OuterSingleton;
+	}
+	template<> WEAPONSYSTEM_API UEnum* StaticEnum<EWeaponType>()
+	{
+		return EWeaponType_StaticEnum();
+	}
+	struct Z_Construct_UEnum_WeaponSystem_EWeaponType_Statics
+	{
+		static const UECodeGen_Private::FEnumeratorParam Enumerators[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FEnumParams EnumParams;
+	};
+	const UECodeGen_Private::FEnumeratorParam Z_Construct_UEnum_WeaponSystem_EWeaponType_Statics::Enumerators[] = {
+		{ "EWT_None", (int64)EWT_None },
+		{ "EWT_Pistol", (int64)EWT_Pistol },
+		{ "EWT_Rifle", (int64)EWT_Rifle },
+		{ "EWT_CombatRifle", (int64)EWT_CombatRifle },
+		{ "EWT_Snipe", (int64)EWT_Snipe },
+		{ "EWT_Hand", (int64)EWT_Hand },
+		{ "EWT_Shotgun", (int64)EWT_Shotgun },
+		{ "EWT_GrenadeLauncher", (int64)EWT_GrenadeLauncher },
+		{ "EWT_ThrowItem", (int64)EWT_ThrowItem },
+		{ "EWT_MAX", (int64)EWT_MAX },
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UEnum_WeaponSystem_EWeaponType_Statics::Enum_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+		{ "EWT_CombatRifle.DisplayName", "Combat Rifle" },
+		{ "EWT_CombatRifle.Name", "EWT_CombatRifle" },
+		{ "EWT_GrenadeLauncher.DisplayName", "Grenade Launcher" },
+		{ "EWT_GrenadeLauncher.Name", "EWT_GrenadeLauncher" },
+		{ "EWT_Hand.DisplayName", "Hand Item" },
+		{ "EWT_Hand.Name", "EWT_Hand" },
+		{ "EWT_MAX.Hidden", "" },
+		{ "EWT_MAX.Name", "EWT_MAX" },
+		{ "EWT_None.Hidden", "" },
+		{ "EWT_None.Name", "EWT_None" },
+		{ "EWT_Pistol.DisplayName", "Pistol" },
+		{ "EWT_Pistol.Name", "EWT_Pistol" },
+		{ "EWT_Rifle.DisplayName", "Rifle" },
+		{ "EWT_Rifle.Name", "EWT_Rifle" },
+		{ "EWT_Shotgun.DisplayName", "Shotgun" },
+		{ "EWT_Shotgun.Name", "EWT_Shotgun" },
+		{ "EWT_Snipe.DisplayName", "Snipe" },
+		{ "EWT_Snipe.Name", "EWT_Snipe" },
+		{ "EWT_ThrowItem.DisplayName", "Throw Item" },
+		{ "EWT_ThrowItem.Name", "EWT_ThrowItem" },
+		{ "IsBlueprintBase", "true" },
+		{ "ModuleRelativePath", "Public/DataStructs/WeaponsDataStruct.h" },
+	};
+#endif
+	const UECodeGen_Private::FEnumParams Z_Construct_UEnum_WeaponSystem_EWeaponType_Statics::EnumParams = {
+		(UObject*(*)())Z_Construct_UPackage__Script_WeaponSystem,
+		nullptr,
+		"EWeaponType",
+		"EWeaponType",
+		Z_Construct_UEnum_WeaponSystem_EWeaponType_Statics::Enumerators,
+		RF_Public|RF_Transient|RF_MarkAsNative,
+		UE_ARRAY_COUNT(Z_Construct_UEnum_WeaponSystem_EWeaponType_Statics::Enumerators),
+		EEnumFlags::None,
+		(uint8)UEnum::ECppForm::Regular,
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UEnum_WeaponSystem_EWeaponType_Statics::Enum_MetaDataParams), Z_Construct_UEnum_WeaponSystem_EWeaponType_Statics::Enum_MetaDataParams)
+	};
+	UEnum* Z_Construct_UEnum_WeaponSystem_EWeaponType()
+	{
+		if (!Z_Registration_Info_UEnum_EWeaponType.InnerSingleton)
+		{
+			UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_EWeaponType.InnerSingleton, Z_Construct_UEnum_WeaponSystem_EWeaponType_Statics::EnumParams);
+		}
+		return Z_Registration_Info_UEnum_EWeaponType.InnerSingleton;
 	}
 	static FStructRegistrationInfo Z_Registration_Info_UScriptStruct_ProjectileSettings;
 class UScriptStruct* FProjectileSettings::StaticStruct()
@@ -396,6 +478,14 @@ template<> WEAPONSYSTEM_API UScriptStruct* StaticStruct<FWeaponsDataStruct>()
 #endif
 		static const UECodeGen_Private::FClassPropertyParams NewProp_WeaponAnimInstance;
 #if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_WeaponIcon_MetaData[];
+#endif
+		static const UECodeGen_Private::FSoftObjectPropertyParams NewProp_WeaponIcon;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_WeaponType_MetaData[];
+#endif
+		static const UECodeGen_Private::FBytePropertyParams NewProp_WeaponType;
+#if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_bUseAlternativeMode_MetaData[];
 #endif
 		static void NewProp_bUseAlternativeMode_SetBit(void* Obj);
@@ -429,6 +519,8 @@ template<> WEAPONSYSTEM_API UScriptStruct* StaticStruct<FWeaponsDataStruct>()
 	};
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::Struct_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+		{ "IsBlueprintBase", "true" },
 		{ "ModuleRelativePath", "Public/DataStructs/WeaponsDataStruct.h" },
 	};
 #endif
@@ -450,6 +542,20 @@ template<> WEAPONSYSTEM_API UScriptStruct* StaticStruct<FWeaponsDataStruct>()
 	};
 #endif
 	const UECodeGen_Private::FClassPropertyParams Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_WeaponAnimInstance = { "WeaponAnimInstance", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWeaponsDataStruct, WeaponAnimInstance), Z_Construct_UClass_UClass, Z_Construct_UClass_UAnimInstance_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_WeaponAnimInstance_MetaData), Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_WeaponAnimInstance_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_WeaponIcon_MetaData[] = {
+		{ "Category", "Visual" },
+		{ "ModuleRelativePath", "Public/DataStructs/WeaponsDataStruct.h" },
+	};
+#endif
+	const UECodeGen_Private::FSoftObjectPropertyParams Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_WeaponIcon = { "WeaponIcon", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::SoftObject, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWeaponsDataStruct, WeaponIcon), Z_Construct_UClass_UTexture_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_WeaponIcon_MetaData), Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_WeaponIcon_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_WeaponType_MetaData[] = {
+		{ "Category", "Visual" },
+		{ "ModuleRelativePath", "Public/DataStructs/WeaponsDataStruct.h" },
+	};
+#endif
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_WeaponType = { "WeaponType", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWeaponsDataStruct, WeaponType), Z_Construct_UEnum_WeaponSystem_EWeaponType, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_WeaponType_MetaData), Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_WeaponType_MetaData) }; // 94907175
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_bUseAlternativeMode_MetaData[] = {
 		{ "Category", "Shoot settings" },
@@ -512,6 +618,8 @@ template<> WEAPONSYSTEM_API UScriptStruct* StaticStruct<FWeaponsDataStruct>()
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_WeaponSkeletal,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_WeaponAnimInstance,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_WeaponIcon,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_WeaponType,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_bUseAlternativeMode,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_MainShootComponentClass,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewProp_MainAmmoProjectileClass,
@@ -549,13 +657,14 @@ template<> WEAPONSYSTEM_API UScriptStruct* StaticStruct<FWeaponsDataStruct>()
 	};
 	const FEnumRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_DataStructs_WeaponsDataStruct_h_Statics::EnumInfo[] = {
 		{ EShootMode_StaticEnum, TEXT("EShootMode"), &Z_Registration_Info_UEnum_EShootMode, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3046783219U) },
+		{ EWeaponType_StaticEnum, TEXT("EWeaponType"), &Z_Registration_Info_UEnum_EWeaponType, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 94907175U) },
 	};
 	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_DataStructs_WeaponsDataStruct_h_Statics::ScriptStructInfo[] = {
 		{ FProjectileSettings::StaticStruct, Z_Construct_UScriptStruct_FProjectileSettings_Statics::NewStructOps, TEXT("ProjectileSettings"), &Z_Registration_Info_UScriptStruct_ProjectileSettings, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FProjectileSettings), 1667832687U) },
 		{ FShootSettingsDesc::StaticStruct, Z_Construct_UScriptStruct_FShootSettingsDesc_Statics::NewStructOps, TEXT("ShootSettingsDesc"), &Z_Registration_Info_UScriptStruct_ShootSettingsDesc, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FShootSettingsDesc), 1850942594U) },
-		{ FWeaponsDataStruct::StaticStruct, Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewStructOps, TEXT("WeaponsDataStruct"), &Z_Registration_Info_UScriptStruct_WeaponsDataStruct, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWeaponsDataStruct), 1991016369U) },
+		{ FWeaponsDataStruct::StaticStruct, Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics::NewStructOps, TEXT("WeaponsDataStruct"), &Z_Registration_Info_UScriptStruct_WeaponsDataStruct, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWeaponsDataStruct), 4134014018U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_DataStructs_WeaponsDataStruct_h_31639614(TEXT("/Script/WeaponSystem"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_DataStructs_WeaponsDataStruct_h_3160165801(TEXT("/Script/WeaponSystem"),
 		nullptr, 0,
 		Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_DataStructs_WeaponsDataStruct_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_DataStructs_WeaponsDataStruct_h_Statics::ScriptStructInfo),
 		Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_DataStructs_WeaponsDataStruct_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_DataStructs_WeaponsDataStruct_h_Statics::EnumInfo));

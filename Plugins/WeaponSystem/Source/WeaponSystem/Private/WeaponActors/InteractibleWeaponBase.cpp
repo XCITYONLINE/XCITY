@@ -1,10 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "WeaponActors/InteractibleWeaponBase.h"
+#include "EnhancedInputComponent.h"
+#include "EnhancedInputSubsystems.h"
 #include "Components/BoxComponent.h"
 #include "DataStructs/WeaponsDataStruct.h"
 #include "Engine/AssetManager.h"
 #include "Engine/StreamableManager.h"
+#include "Kismet/GameplayStatics.h"
 #include "Settings/WeaponSystemSettings.h"
 #include "WeaponComponents/ShootComponentBase.h"
 
@@ -22,6 +25,7 @@ AInteractibleWeaponBase::AInteractibleWeaponBase()
 	MainShootComponentObject = nullptr;
 	AlternativeShootComponentObject = nullptr;
 	SelectedShootComponent = nullptr;
+	InitialWeaponStruct = FWeaponsDataStruct();
 }
 
 void AInteractibleWeaponBase::BeginPlay()
@@ -66,12 +70,14 @@ void AInteractibleWeaponBase::Internal_Initialize_Implementation(
 		WeaponSkeletalMeshComponent->SetSkeletalMesh(InInitialWeaponStruct.WeaponSkeletal);
 	}
 	
+	InitialWeaponStruct = InInitialWeaponStruct;
+	
 	CreateShootComponent(InInitialWeaponStruct, MainShootComponentObject, false);
 	if (InInitialWeaponStruct.bUseAlternativeMode)
 	{
 		CreateShootComponent(InInitialWeaponStruct, AlternativeShootComponentObject, true);
 	}
-
+	
 	IInteractibleWeaponInterface::Execute_OnUseMainFire(this);
 }
 
@@ -114,6 +120,70 @@ void AInteractibleWeaponBase::CreateShootComponent(
 	}
 }
 
+void AInteractibleWeaponBase::BindInputActions()
+{
+	if (const APlayerController* OwnerController = UGameplayStatics::GetPlayerController(this, 0))
+	{
+		UActorComponent* EnhancedComponent =  OwnerController->FindComponentByClass<UEnhancedInputComponent>();
+		if (UEnhancedInputComponent* PlayerInputComponent = Cast<UEnhancedInputComponent>(EnhancedComponent))
+		{
+			if (IsValid(MainFire.Get()))
+			{
+				PlayerInputComponent->BindAction(
+				MainFire,
+				ETriggerEvent::Started,
+				this,
+				&AInteractibleWeaponBase::OnStartMainInteract_Implementation);
+				
+				PlayerInputComponent->BindAction(
+				MainFire,
+				ETriggerEvent::Completed,
+				this,
+				&AInteractibleWeaponBase::OnStopMainInteract_Implementation);
+			}
+
+			if (IsValid(AlternativeFire.Get()))
+			{
+				PlayerInputComponent->BindAction(
+				AlternativeFire,
+				ETriggerEvent::Started,
+				this,
+				&AInteractibleWeaponBase::OnStartAlternativeInteract_Implementation);
+				
+				PlayerInputComponent->BindAction(
+				AlternativeFire,
+				ETriggerEvent::Completed,
+				this,
+				&AInteractibleWeaponBase::OnStopAlternativeInteract_Implementation);
+			}
+
+			if (IsValid(Reload.Get()))
+			{
+				PlayerInputComponent->BindAction(
+				Reload,
+				ETriggerEvent::Triggered,
+				this,
+				&AInteractibleWeaponBase::OnReload_Implementation);
+			}
+				
+			if (IsValid(AimMode.Get()))
+			{
+				PlayerInputComponent->BindAction(
+				AimMode,
+				ETriggerEvent::Started,
+				this,
+				&AInteractibleWeaponBase::OnStartAlternativeInteract_Implementation);
+				
+				PlayerInputComponent->BindAction(
+				AimMode,
+				ETriggerEvent::Completed,
+				this,
+				&AInteractibleWeaponBase::OnStopAlternativeInteract_Implementation);
+			}
+		}
+	}
+}
+
 void AInteractibleWeaponBase::OnUseMainFire_Implementation()
 {
 	SelectedShootComponent = MainShootComponentObject;
@@ -153,7 +223,7 @@ void AInteractibleWeaponBase::OnStartAlternativeInteract_Implementation()
 		IInteractibleWeaponInterface::Execute_OnFireStart(SelectedShootComponent.Get());
 		return;
 	}
-
+	
 	IInteractibleWeaponInterface::Execute_SetAimMode(this, true);
 }
 
@@ -169,19 +239,68 @@ void AInteractibleWeaponBase::OnStopAlternativeInteract_Implementation()
 	IInteractibleWeaponInterface::Execute_SetAimMode(this, false);
 }
 
-void AInteractibleWeaponBase::OnTake_Implementation()
+void AInteractibleWeaponBase::OnTake_Implementation(AActor* OwnerActor)
 {
 	IInteractibleItemInterface::Execute_K2_OnTake(this);
+	
+	SetOwner(OwnerActor);
+	AddMappingContext();
+	BindInputActions();
+}
+
+void AInteractibleWeaponBase::AddMappingContext()
+{
+	if (MappingContext)
+	{
+		if (APlayerController* OwnerController = UGameplayStatics::GetPlayerController(this, 0))
+		{
+			if (UEnhancedInputLocalPlayerSubsystem* Subsystem =
+			ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(OwnerController->GetLocalPlayer()))
+			{
+				Subsystem->AddMappingContext(MappingContext, 0);
+				EnableInput(OwnerController);
+			}
+		}
+	}
 }
 
 void AInteractibleWeaponBase::OnUnselect_Implementation()
 {
 	IInteractibleItemInterface::Execute_K2_OnUnselect(this);
+	RemoveMappingContext();
 }
 
 void AInteractibleWeaponBase::OnDrop_Implementation()
 {
 	IInteractibleItemInterface::Execute_K2_OnDrop(this);
+	
+	RemoveMappingContext();
+	SetOwner(nullptr);
+}
+
+void AInteractibleWeaponBase::RemoveMappingContext()
+{
+	if (MappingContext)
+	{
+		if (APlayerController* OwnerController = UGameplayStatics::GetPlayerController(this, 0))
+		{
+			if (UEnhancedInputLocalPlayerSubsystem* Subsystem =
+			ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(OwnerController->GetLocalPlayer()))
+			{
+				FModifyContextOptions ModifyContextOptions;
+				ModifyContextOptions.bIgnoreAllPressedKeysUntilRelease = true;
+				
+				Subsystem->RemoveMappingContext(MappingContext, ModifyContextOptions);
+				DisableInput(OwnerController);
+
+				UActorComponent* EnhancedComponent = OwnerController->FindComponentByClass<UEnhancedInputComponent>();
+				if (UEnhancedInputComponent* PlayerInputComponent = Cast<UEnhancedInputComponent>(EnhancedComponent))
+				{
+					PlayerInputComponent->ClearActionBindings();
+				}
+			}
+		}
+	}
 }
 
 void AInteractibleWeaponBase::OnFireStart_Implementation()

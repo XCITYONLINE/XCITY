@@ -12,6 +12,7 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleItemInterface() {}
 	COMMONCONTRACTSPLUGIN_API UClass* Z_Construct_UClass_UInteractibleItemInterface();
 	COMMONCONTRACTSPLUGIN_API UClass* Z_Construct_UClass_UInteractibleItemInterface_NoRegister();
 	COREUOBJECT_API UClass* Z_Construct_UClass_UInterface();
+	ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 	UPackage* Z_Construct_UPackage__Script_CommonContractsPlugin();
 // End Cross Module References
 	DEFINE_FUNCTION(IInteractibleItemInterface::execOnDrop)
@@ -30,9 +31,10 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleItemInterface() {}
 	}
 	DEFINE_FUNCTION(IInteractibleItemInterface::execOnTake)
 	{
+		P_GET_OBJECT(AActor,Z_Param_OwnerActor);
 		P_FINISH;
 		P_NATIVE_BEGIN;
-		P_THIS->OnTake_Implementation();
+		P_THIS->OnTake_Implementation(Z_Param_OwnerActor);
 		P_NATIVE_END;
 	}
 	DEFINE_FUNCTION(IInteractibleItemInterface::execOnStopAlternativeInteract)
@@ -89,6 +91,10 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleItemInterface() {}
 	{
 		bool bIsInteract;
 	};
+	struct InteractibleItemInterface_eventOnTake_Parms
+	{
+		AActor* OwnerActor;
+	};
 	void IInteractibleItemInterface::K2_OnAlternativeInteract(bool bIsInteract)
 	{
 		check(0 && "Do not directly call Event functions in Interfaces. Call Execute_K2_OnAlternativeInteract instead.");
@@ -141,7 +147,7 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleItemInterface() {}
 	{
 		check(0 && "Do not directly call Event functions in Interfaces. Call Execute_OnStopMainInteract instead.");
 	}
-	void IInteractibleItemInterface::OnTake()
+	void IInteractibleItemInterface::OnTake(AActor* OwnerActor)
 	{
 		check(0 && "Do not directly call Event functions in Interfaces. Call Execute_OnTake instead.");
 	}
@@ -529,10 +535,16 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleItemInterface() {}
 	}
 	struct Z_Construct_UFunction_UInteractibleItemInterface_OnTake_Statics
 	{
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_OwnerActor;
+		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
 #endif
 		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UInteractibleItemInterface_OnTake_Statics::NewProp_OwnerActor = { "OwnerActor", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(InteractibleItemInterface_eventOnTake_Parms, OwnerActor), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(0, nullptr) };
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UInteractibleItemInterface_OnTake_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UInteractibleItemInterface_OnTake_Statics::NewProp_OwnerActor,
 	};
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UInteractibleItemInterface_OnTake_Statics::Function_MetaDataParams[] = {
@@ -540,7 +552,9 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleItemInterface() {}
 		{ "ModuleRelativePath", "Public/Contracts/InteractibleItemInterface.h" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UInteractibleItemInterface_OnTake_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UInteractibleItemInterface, nullptr, "OnTake", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x0C020C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractibleItemInterface_OnTake_Statics::Function_MetaDataParams), Z_Construct_UFunction_UInteractibleItemInterface_OnTake_Statics::Function_MetaDataParams) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UInteractibleItemInterface_OnTake_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UInteractibleItemInterface, nullptr, "OnTake", nullptr, nullptr, Z_Construct_UFunction_UInteractibleItemInterface_OnTake_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractibleItemInterface_OnTake_Statics::PropPointers), sizeof(InteractibleItemInterface_eventOnTake_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x0C020C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractibleItemInterface_OnTake_Statics::Function_MetaDataParams), Z_Construct_UFunction_UInteractibleItemInterface_OnTake_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractibleItemInterface_OnTake_Statics::PropPointers) < 2048);
+	static_assert(sizeof(InteractibleItemInterface_eventOnTake_Parms) < MAX_uint16);
 	UFunction* Z_Construct_UFunction_UInteractibleItemInterface_OnTake()
 	{
 		static UFunction* ReturnFunction = nullptr;
@@ -607,7 +621,7 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleItemInterface() {}
 		{ &Z_Construct_UFunction_UInteractibleItemInterface_OnStopAlternativeInteract, "OnStopAlternativeInteract" }, // 5251797
 		{ &Z_Construct_UFunction_UInteractibleItemInterface_OnStopHover, "OnStopHover" }, // 2555600596
 		{ &Z_Construct_UFunction_UInteractibleItemInterface_OnStopMainInteract, "OnStopMainInteract" }, // 1730157635
-		{ &Z_Construct_UFunction_UInteractibleItemInterface_OnTake, "OnTake" }, // 4058637914
+		{ &Z_Construct_UFunction_UInteractibleItemInterface_OnTake, "OnTake" }, // 1898092501
 		{ &Z_Construct_UFunction_UInteractibleItemInterface_OnUnselect, "OnUnselect" }, // 3575280180
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UInteractibleItemInterface_Statics::FuncInfo) < 2048);
@@ -827,18 +841,20 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleItemInterface() {}
 		}
 	}
 	static FName NAME_UInteractibleItemInterface_OnTake = FName(TEXT("OnTake"));
-	void IInteractibleItemInterface::Execute_OnTake(UObject* O)
+	void IInteractibleItemInterface::Execute_OnTake(UObject* O, AActor* OwnerActor)
 	{
 		check(O != NULL);
 		check(O->GetClass()->ImplementsInterface(UInteractibleItemInterface::StaticClass()));
+		InteractibleItemInterface_eventOnTake_Parms Parms;
 		UFunction* const Func = O->FindFunction(NAME_UInteractibleItemInterface_OnTake);
 		if (Func)
 		{
-			O->ProcessEvent(Func, NULL);
+			Parms.OwnerActor=OwnerActor;
+			O->ProcessEvent(Func, &Parms);
 		}
 		else if (auto I = (IInteractibleItemInterface*)(O->GetNativeInterfaceAddress(UInteractibleItemInterface::StaticClass())))
 		{
-			I->OnTake_Implementation();
+			I->OnTake_Implementation(OwnerActor);
 		}
 	}
 	static FName NAME_UInteractibleItemInterface_OnUnselect = FName(TEXT("OnUnselect"));
@@ -861,9 +877,9 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleItemInterface() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InteractibleItemInterface_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UInteractibleItemInterface, UInteractibleItemInterface::StaticClass, TEXT("UInteractibleItemInterface"), &Z_Registration_Info_UClass_UInteractibleItemInterface, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UInteractibleItemInterface), 1850238733U) },
+		{ Z_Construct_UClass_UInteractibleItemInterface, UInteractibleItemInterface::StaticClass, TEXT("UInteractibleItemInterface"), &Z_Registration_Info_UClass_UInteractibleItemInterface, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UInteractibleItemInterface), 3338019103U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InteractibleItemInterface_h_892820839(TEXT("/Script/CommonContractsPlugin"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InteractibleItemInterface_h_1693287534(TEXT("/Script/CommonContractsPlugin"),
 		Z_CompiledInDeferFile_FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InteractibleItemInterface_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InteractibleItemInterface_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

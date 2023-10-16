@@ -17,7 +17,22 @@ enum EShootMode : uint8
 	ESM_MAX =      1 << 3	UMETA(Hidden)
 };
 
-USTRUCT(Blueprintable)
+UENUM(Blueprintable)
+enum EWeaponType : uint8
+{
+	EWT_None =            0			UMETA(Hidden),
+	EWT_Pistol =	      1 << 0	UMETA(DisplayName = "Pistol"),
+	EWT_Rifle =			  1 << 1	UMETA(DisplayName = "Rifle"),
+	EWT_CombatRifle =	  1 << 2	UMETA(DisplayName = "Combat Rifle"),
+	EWT_Snipe =           1 << 3	UMETA(DisplayName = "Snipe"),
+	EWT_Hand =			  1 << 4	UMETA(DisplayName = "Hand Item"),
+	EWT_Shotgun =		  1 << 5	UMETA(DisplayName = "Shotgun"),
+	EWT_GrenadeLauncher = 1 << 6	UMETA(DisplayName = "Grenade Launcher"),
+	EWT_ThrowItem =		  1 << 7	UMETA(DisplayName = "Throw Item"),
+	EWT_MAX =			  2 << 0	UMETA(Hidden)
+};
+
+USTRUCT(Blueprintable, BlueprintType)
 struct WEAPONSYSTEM_API FProjectileSettings
 {
 	GENERATED_BODY()
@@ -73,7 +88,7 @@ public:
 	TEnumAsByte<ECollisionChannel> CollisionChannel;
 };
 
-USTRUCT(Blueprintable)
+USTRUCT(Blueprintable, BlueprintType)
 struct WEAPONSYSTEM_API FShootSettingsDesc
 {
 	GENERATED_BODY()
@@ -112,7 +127,7 @@ public:
 	FProjectileSettings ProjectileSettings;
 };
 
-USTRUCT()
+USTRUCT(Blueprintable, BlueprintType)
 struct WEAPONSYSTEM_API FWeaponsDataStruct : public FTableRowBase
 {
 	GENERATED_BODY()
@@ -128,6 +143,12 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Visual")
 	TSubclassOf<UAnimInstance> WeaponAnimInstance;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Visual")
+	TSoftObjectPtr<UTexture> WeaponIcon;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Visual")
+	TEnumAsByte<EWeaponType> WeaponType;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shoot settings")
 	bool bUseAlternativeMode;
