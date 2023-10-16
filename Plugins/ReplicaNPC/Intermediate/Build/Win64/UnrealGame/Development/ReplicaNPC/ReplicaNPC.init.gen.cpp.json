@@ -1,0 +1,13 @@
+{
+    "Version": "1.1",
+    "Data": {
+        "Source": "e:\\unrealprojects\\replica-npc-unreal-demo\\plugins\\replicanpc\\intermediate\\build\\win64\\unrealgame\\inc\\replicanpc\\replicanpc.init.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "e:\\unrealprojects\\replica-npc-unreal-demo\\intermediate\\build\\win64\\replicademo\\development\\engine\\sharedpch.engine.shadowerrors.h.pch",
+        "Includes": [
+            "e:\\unrealprojects\\replica-npc-unreal-demo\\plugins\\replicanpc\\intermediate\\build\\win64\\unrealgame\\development\\replicanpc\\definitions.replicanpc.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

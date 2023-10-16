@@ -1,0 +1,14 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UnrealEditor-ReplicaNPC.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"E:\UnrealProjects\replica-npc-unreal-demo\Intermediate\Build\Win64\ReplicaDemoEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.obj"
+"E:\UnrealProjects\replica-npc-unreal-demo\Plugins\ReplicaNPC\Intermediate\Build\Win64\UnrealEditor\Development\ReplicaNPC\ReplicaNPC.cpp.obj"
+"E:\UnrealProjects\replica-npc-unreal-demo\Plugins\ReplicaNPC\Intermediate\Build\Win64\UnrealEditor\Development\ReplicaNPC\ReplicaNPC.gen.cpp.obj"
+"E:\UnrealProjects\replica-npc-unreal-demo\Plugins\ReplicaNPC\Intermediate\Build\Win64\UnrealEditor\Development\ReplicaNPC\ReplicaNPC.init.gen.cpp.obj"
+"E:\UnrealProjects\replica-npc-unreal-demo\Plugins\ReplicaNPC\Intermediate\Build\Win64\UnrealEditor\Development\ReplicaNPC\Default.rc2.res"
+/OUT:"E:\UnrealProjects\replica-npc-unreal-demo\Plugins\ReplicaNPC\Intermediate\Build\Win64\UnrealEditor\Development\ReplicaNPC\UnrealEditor-ReplicaNPC.lib"

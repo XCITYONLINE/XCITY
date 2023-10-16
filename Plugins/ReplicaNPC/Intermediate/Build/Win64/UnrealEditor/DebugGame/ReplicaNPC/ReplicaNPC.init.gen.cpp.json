@@ -1,0 +1,13 @@
+{
+    "Version": "1.1",
+    "Data": {
+        "Source": "e:\\unrealprojects\\replicademo\\plugins\\replicanpc\\intermediate\\build\\win64\\unrealeditor\\inc\\replicanpc\\replicanpc.init.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "e:\\unrealprojects\\replicademo\\intermediate\\build\\win64\\replicademoeditor\\debuggame\\engine\\sharedpch.engine.nonoptimized.shadowerrors.h.pch",
+        "Includes": [
+            "e:\\unrealprojects\\replicademo\\plugins\\replicanpc\\intermediate\\build\\win64\\unrealeditor\\debuggame\\replicanpc\\definitions.replicanpc.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}
