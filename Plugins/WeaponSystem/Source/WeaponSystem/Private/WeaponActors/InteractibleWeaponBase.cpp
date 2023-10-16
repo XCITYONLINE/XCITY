@@ -25,6 +25,7 @@ AInteractibleWeaponBase::AInteractibleWeaponBase()
 	MainShootComponentObject = nullptr;
 	AlternativeShootComponentObject = nullptr;
 	SelectedShootComponent = nullptr;
+	InitialWeaponStruct = FWeaponsDataStruct();
 }
 
 void AInteractibleWeaponBase::BeginPlay()
@@ -68,6 +69,8 @@ void AInteractibleWeaponBase::Internal_Initialize_Implementation(
 	{
 		WeaponSkeletalMeshComponent->SetSkeletalMesh(InInitialWeaponStruct.WeaponSkeletal);
 	}
+	
+	InitialWeaponStruct = InInitialWeaponStruct;
 	
 	CreateShootComponent(InInitialWeaponStruct, MainShootComponentObject, false);
 	if (InInitialWeaponStruct.bUseAlternativeMode)

@@ -20,7 +20,9 @@ FWeaponsDataStruct::FWeaponsDataStruct()
 	WeaponAnimInstance = nullptr;
 	MainShootComponentClass = nullptr;
 	MainAmmoProjectileClass = nullptr;
+	WeaponIcon = nullptr;
 
+	WeaponType = EWeaponType::EWT_None;
 	bUseAlternativeMode = false;
 	
 	MainShootSettings = FShootSettingsDesc();

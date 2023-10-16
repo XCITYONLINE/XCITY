@@ -6,6 +6,7 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "WeaponSystem/Public/WeaponActors/InteractibleWeaponBase.h"
+#include "WeaponSystem/Public/DataStructs/WeaponsDataStruct.h"
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeInteractibleWeaponBase() {}
 // Cross Module References
@@ -20,6 +21,7 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleWeaponBase() {}
 	WEAPONSYSTEM_API UClass* Z_Construct_UClass_AInteractibleWeaponBase_NoRegister();
 	WEAPONSYSTEM_API UClass* Z_Construct_UClass_UInteractibleWeaponInterface_NoRegister();
 	WEAPONSYSTEM_API UFunction* Z_Construct_UDelegateFunction_WeaponSystem_OnAlternativeFireChanged__DelegateSignature();
+	WEAPONSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FWeaponsDataStruct();
 // End Cross Module References
 	struct Z_Construct_UDelegateFunction_WeaponSystem_OnAlternativeFireChanged__DelegateSignature_Statics
 	{
@@ -290,6 +292,10 @@ void FOnAlternativeFireChanged_DelegateWrapper(const FMulticastScriptDelegate& O
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_MappingContext_MetaData[];
 #endif
 		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_MappingContext;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_InitialWeaponStruct_MetaData[];
+#endif
+		static const UECodeGen_Private::FStructPropertyParams NewProp_InitialWeaponStruct;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const UECodeGen_Private::FImplementedInterfaceParams InterfaceParams[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
@@ -378,6 +384,13 @@ void FOnAlternativeFireChanged_DelegateWrapper(const FMulticastScriptDelegate& O
 	};
 #endif
 	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_AInteractibleWeaponBase_Statics::NewProp_MappingContext = { "MappingContext", nullptr, (EPropertyFlags)0x0014000000000001, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AInteractibleWeaponBase, MappingContext), Z_Construct_UClass_UInputMappingContext_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AInteractibleWeaponBase_Statics::NewProp_MappingContext_MetaData), Z_Construct_UClass_AInteractibleWeaponBase_Statics::NewProp_MappingContext_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AInteractibleWeaponBase_Statics::NewProp_InitialWeaponStruct_MetaData[] = {
+		{ "Category", "Initial Data" },
+		{ "ModuleRelativePath", "Public/WeaponActors/InteractibleWeaponBase.h" },
+	};
+#endif
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AInteractibleWeaponBase_Statics::NewProp_InitialWeaponStruct = { "InitialWeaponStruct", nullptr, (EPropertyFlags)0x0010000000000014, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AInteractibleWeaponBase, InitialWeaponStruct), Z_Construct_UScriptStruct_FWeaponsDataStruct, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AInteractibleWeaponBase_Statics::NewProp_InitialWeaponStruct_MetaData), Z_Construct_UClass_AInteractibleWeaponBase_Statics::NewProp_InitialWeaponStruct_MetaData) }; // 4134014018
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AInteractibleWeaponBase_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AInteractibleWeaponBase_Statics::NewProp_WeaponID,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AInteractibleWeaponBase_Statics::NewProp_BoxCollision,
@@ -388,9 +401,10 @@ void FOnAlternativeFireChanged_DelegateWrapper(const FMulticastScriptDelegate& O
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AInteractibleWeaponBase_Statics::NewProp_Reload,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AInteractibleWeaponBase_Statics::NewProp_AimMode,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AInteractibleWeaponBase_Statics::NewProp_MappingContext,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AInteractibleWeaponBase_Statics::NewProp_InitialWeaponStruct,
 	};
 		const UECodeGen_Private::FImplementedInterfaceParams Z_Construct_UClass_AInteractibleWeaponBase_Statics::InterfaceParams[] = {
-			{ Z_Construct_UClass_UInteractibleWeaponInterface_NoRegister, (int32)VTABLE_OFFSET(AInteractibleWeaponBase, IInteractibleWeaponInterface), false },  // 3749013010
+			{ Z_Construct_UClass_UInteractibleWeaponInterface_NoRegister, (int32)VTABLE_OFFSET(AInteractibleWeaponBase, IInteractibleWeaponInterface), false },  // 2132437005
 			{ Z_Construct_UClass_UInteractibleItemInterface_NoRegister, (int32)VTABLE_OFFSET(AInteractibleWeaponBase, IInteractibleItemInterface), false },  // 3338019103
 		};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AInteractibleWeaponBase_Statics::InterfaceParams) < 64);
@@ -432,9 +446,9 @@ void FOnAlternativeFireChanged_DelegateWrapper(const FMulticastScriptDelegate& O
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_WeaponActors_InteractibleWeaponBase_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_AInteractibleWeaponBase, AInteractibleWeaponBase::StaticClass, TEXT("AInteractibleWeaponBase"), &Z_Registration_Info_UClass_AInteractibleWeaponBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AInteractibleWeaponBase), 4039995560U) },
+		{ Z_Construct_UClass_AInteractibleWeaponBase, AInteractibleWeaponBase::StaticClass, TEXT("AInteractibleWeaponBase"), &Z_Registration_Info_UClass_AInteractibleWeaponBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AInteractibleWeaponBase), 4290739193U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_WeaponActors_InteractibleWeaponBase_h_1015839039(TEXT("/Script/WeaponSystem"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_WeaponActors_InteractibleWeaponBase_h_3268301895(TEXT("/Script/WeaponSystem"),
 		Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_WeaponActors_InteractibleWeaponBase_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_WeaponActors_InteractibleWeaponBase_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

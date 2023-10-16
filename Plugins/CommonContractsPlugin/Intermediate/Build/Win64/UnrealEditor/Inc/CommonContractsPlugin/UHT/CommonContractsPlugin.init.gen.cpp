@@ -17,13 +17,13 @@ void EmptyLinkFunctionForGeneratedCodeCommonContractsPlugin_init() {}
 				nullptr,
 				0,
 				PKG_CompiledIn | 0x00000000,
-				0x82B6242F,
-				0x0638938D,
+				0x71A2D3C2,
+				0xB76C2B42,
 				METADATA_PARAMS(0, nullptr)
 			};
 			UECodeGen_Private::ConstructUPackage(Z_Registration_Info_UPackage__Script_CommonContractsPlugin.OuterSingleton, PackageParams);
 		}
 		return Z_Registration_Info_UPackage__Script_CommonContractsPlugin.OuterSingleton;
 	}
-	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_CommonContractsPlugin(Z_Construct_UPackage__Script_CommonContractsPlugin, TEXT("/Script/CommonContractsPlugin"), Z_Registration_Info_UPackage__Script_CommonContractsPlugin, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x82B6242F, 0x0638938D));
+	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_CommonContractsPlugin(Z_Construct_UPackage__Script_CommonContractsPlugin, TEXT("/Script/CommonContractsPlugin"), Z_Registration_Info_UPackage__Script_CommonContractsPlugin, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x71A2D3C2, 0xB76C2B42));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

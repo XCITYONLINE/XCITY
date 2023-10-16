@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "EnhancedInputComponent.h"
 #include "InputAction.h"
 #include "Components/BoxComponent.h"
 #include "Contracts/InteractibleItemInterface.h"
@@ -89,6 +88,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<class UInputMappingContext> MappingContext;
 
+	UPROPERTY(BlueprintReadOnly, Category = "Initial Data")
+	FWeaponsDataStruct InitialWeaponStruct;
+
 public:
 
 	UFUNCTION(BlueprintImplementableEvent)
@@ -111,7 +113,7 @@ private:
 	
 	UFUNCTION()
 	void OnLoadComplete();
-
+	
 	void CreateShootComponent(
 		const FWeaponsDataStruct& InInitialWeaponStruct,
 		TObjectPtr<UShootComponentBase>& OutShootComponent,
