@@ -7,7 +7,7 @@
 #include "RadialMenuSlotInterface.generated.h"
 
 // This class does not need to be modified.
-UINTERFACE()
+UINTERFACE(MinimalAPI)
 class URadialMenuSlotInterface : public UInterface
 {
 	GENERATED_BODY()
@@ -25,20 +25,24 @@ public:
 	/**
 	 * Calls when player hovered this slot
 	 */
-	virtual void BeginFocus();
+	UFUNCTION(BlueprintNativeEvent, Category = "Radial Menu Slot Interface")
+	void BeginFocus();
 
 	/**
 	 * Calls when player unhovered this slot
 	 */
-	virtual void EndFocus();
+	UFUNCTION(BlueprintNativeEvent, Category = "Radial Menu Slot Interface")
+	void EndFocus();
 
 	/**
 	 * Calls when player confirmed this slot
 	 */
-	virtual void OnSelected();
+	UFUNCTION(BlueprintNativeEvent, Category = "Radial Menu Slot Interface")
+	void OnSelected();
 
 	/**
 	 * Calls when slot is created / or was setup in the player UI
 	 */
-	virtual void InitializeSlot();
+	UFUNCTION(BlueprintNativeEvent, Category = "Radial Menu Slot Interface")
+	void InitializeSlot();
 };

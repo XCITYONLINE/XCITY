@@ -2,10 +2,8 @@
 
 
 #include "UI/RadialMenu/RadialMenuWidget.h"
-
-#include "Components/CanvasPanel.h"
-#include "Components/CanvasPanelSlot.h"
 #include "Libraries/XCityWidgetLibrary.h"
+#include "Interfaces/RadialMenuSlotInterface.h"
 #include "UI/RadialMenu/RadialMenuSlot.h"
 
 URadialMenuWidget::URadialMenuWidget(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
@@ -53,11 +51,11 @@ void URadialMenuWidget::InitRadialMenu()
 		URadialMenuSlot* RadialMenuSlot = CreateWidget<URadialMenuSlot>(GetOwningPlayer(), RadialMenuSlotClass);
 		FRadialMenuSlotInfo SlotInfo { FVector2D(i - OverallRadialMenuAngle / RadialMenuParts, i), RadialMenuSlot };
 		
-		if (IRadialMenuSlotInterface* RadialMenuSlotInterface = Cast<IRadialMenuSlotInterface>(RadialMenuSlot))
+		if (RadialMenuSlot->Implements<URadialMenuSlotInterface>())
 		{
 			RadialMenuSlotInfos.Add(SlotInfo);
 
-			RadialMenuSlotInterface->InitializeSlot();
+			IRadialMenuSlotInterface::Execute_InitializeSlot(RadialMenuSlot);
 		}
 	}
 }
@@ -81,12 +79,15 @@ void URadialMenuWidget::OnSelectedNewSlot(URadialMenuSlot* NewSlot)
 {
 	if (IsValid(CurrentSelectedSlot))
 	{
-		Cast<IRadialMenuSlotInterface>(CurrentSelectedSlot)->EndFocus();
+		if (CurrentSelectedSlot->Implements<URadialMenuSlotInterface>())
+		{
+			IRadialMenuSlotInterface::Execute_EndFocus(CurrentSelectedSlot);
+		}
 	}
 	
-	if (IRadialMenuSlotInterface* RadialMenuSlotInterface = Cast<IRadialMenuSlotInterface>(NewSlot))
+	if (NewSlot->Implements<URadialMenuSlotInterface>())
 	{
-		RadialMenuSlotInterface->BeginFocus();
+		IRadialMenuSlotInterface::Execute_BeginFocus(NewSlot);
 		CurrentSelectedSlot = NewSlot;
 	}
 }

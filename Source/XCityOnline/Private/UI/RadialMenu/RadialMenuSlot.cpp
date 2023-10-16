@@ -5,22 +5,22 @@
 
 #include "Components/Image.h"
 
-void URadialMenuSlot::OnSelected()
+void URadialMenuSlot::OnSelected_Implementation()
 {
 	
 }
 
-void URadialMenuSlot::BeginFocus()
+void URadialMenuSlot::BeginFocus_Implementation()
 {
 	SlotImage->SetBrushTintColor(FSlateColor(FColor::White));
 }
 
-void URadialMenuSlot::EndFocus()
+void URadialMenuSlot::EndFocus_Implementation()
 {
 	SlotImage->SetBrushTintColor(FSlateColor(FColor::Black));
 }
 
-void URadialMenuSlot::InitializeSlot()
+void URadialMenuSlot::InitializeSlot_Implementation()
 {
 	SlotImage->SetBrushTintColor(FSlateColor(FColor::Black));
 }
