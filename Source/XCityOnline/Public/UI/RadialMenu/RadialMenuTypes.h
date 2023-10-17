@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "RadialMenuTypes.generated.h"
 
+class UTexture2D;
+
 /**
  * Stores all info that we need from slot.
  */
@@ -25,4 +27,18 @@ struct XCITYONLINE_API FRadialMenuSlotInfo
 		this->AngleRange = InAngleRange;
 		this->SlotPtr = InSlot;
 	}
+};
+
+USTRUCT(Blueprintable, BlueprintType)
+struct XCITYONLINE_API FRadialMenuSlotData
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, Category = "Radial Menu Slot Data")
+	TObjectPtr<UTexture2D> IdleImage;
+
+	UPROPERTY(EditAnywhere, Category = "Radial Menu Slot Data")
+	TObjectPtr<UTexture2D> HoveredImage;
+
+	FRadialMenuSlotData() {}
 };

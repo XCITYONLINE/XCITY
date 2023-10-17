@@ -12,16 +12,31 @@ void URadialMenuSlot::OnSelected_Implementation()
 
 void URadialMenuSlot::BeginFocus_Implementation()
 {
-	SlotImage->SetBrushTintColor(FSlateColor(FColor::White));
+	if (IsValid(RadialMenuSlotData.HoveredImage))
+	{
+		SlotImage->SetBrushFromTexture(RadialMenuSlotData.HoveredImage);
+	}
 }
 
 void URadialMenuSlot::EndFocus_Implementation()
 {
-	SlotImage->SetBrushTintColor(FSlateColor(FColor::Black));
+	if (IsValid(RadialMenuSlotData.IdleImage))
+	{
+		SlotImage->SetBrushFromTexture(RadialMenuSlotData.IdleImage);
+	}
 }
 
 void URadialMenuSlot::InitializeSlot_Implementation()
 {
-	SlotImage->SetBrushTintColor(FSlateColor(FColor::Black));
+	if (IsValid(RadialMenuSlotData.IdleImage))
+	{
+		SlotImage->SetBrushFromTexture(RadialMenuSlotData.IdleImage);
+	}
+}
+
+URadialMenuSlot::URadialMenuSlot(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
+{
+	SlotImage = nullptr;
+	RadialMenuSlotData = FRadialMenuSlotData();
 }
 

@@ -29,4 +29,7 @@ public:
 	 */
 	UFUNCTION(BlueprintPure, Category = "UI|Functions")
 	static FVector2D GetScreenCenter();
+
+	UFUNCTION(BlueprintPure, Category = "UI|Functions")
+	static FVector2D ConvertAngleIntoDirectionalVector(const float& Angle);
 };

@@ -2,6 +2,9 @@
 
 
 #include "UI/RadialMenu/RadialMenuWidget.h"
+#include "Components/CanvasPanel.h"
+#include "Components/CanvasPanelSlot.h"
+#include "Components/Image.h"
 #include "Libraries/XCityWidgetLibrary.h"
 #include "Interfaces/RadialMenuSlotInterface.h"
 #include "UI/RadialMenu/RadialMenuSlot.h"
@@ -12,11 +15,13 @@ URadialMenuWidget::URadialMenuWidget(const FObjectInitializer& ObjectInitializer
 	RadialMenuParts = 4;
 	RadialMenuSlotInfos.Empty();
 	OverallRadialMenuAngle = 360;
+	SlotDistanceFromCenter = 150;
 }
 
 FReply URadialMenuWidget::NativeOnMouseMove(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
 	const float MouseAngle = UXCityWidgetLibrary::ConvertMousePositionIntoAngle(InMouseEvent.GetScreenSpacePosition());
+	UE_LOG(LogTemp, Display, TEXT("%f"), MouseAngle);
 
 	const FRadialMenuSlotInfo& SlotInfo = GetSlotByAngle(MouseAngle);
 	check(SlotInfo.SlotPtr);
@@ -27,7 +32,6 @@ FReply URadialMenuWidget::NativeOnMouseMove(const FGeometry& InGeometry, const F
 	}
 	
 	OnSelectedNewSlot(SlotInfo.SlotPtr);
-	UE_LOG(LogTemp, Display, TEXT("Found new slot with cooridantes: X: %f, Y: %f"), SlotInfo.AngleRange.X, SlotInfo.AngleRange.Y);
 	
 	return FReply::Handled();
 }
@@ -50,6 +54,9 @@ void URadialMenuWidget::InitRadialMenu()
 	{
 		URadialMenuSlot* RadialMenuSlot = CreateWidget<URadialMenuSlot>(GetOwningPlayer(), RadialMenuSlotClass);
 		FRadialMenuSlotInfo SlotInfo { FVector2D(i - OverallRadialMenuAngle / RadialMenuParts, i), RadialMenuSlot };
+
+		UE_LOG(LogTemp, Display, TEXT("Slot info: X: %f Y: %f"), SlotInfo.AngleRange.X, SlotInfo.AngleRange.Y);
+		SetupSlotVisual(SlotInfo);
 		
 		if (RadialMenuSlot->Implements<URadialMenuSlotInterface>())
 		{
@@ -66,7 +73,7 @@ const FRadialMenuSlotInfo& URadialMenuWidget::GetSlotByAngle(const float& Angle)
 	
 	for (const auto& RadialMenuSlot : RadialMenuSlotInfos)
 	{
-		if (Angle > RadialMenuSlot.AngleRange.X && Angle < RadialMenuSlot.AngleRange.Y)
+		if (Angle >= RadialMenuSlot.AngleRange.X && Angle <= RadialMenuSlot.AngleRange.Y)
 		{
 			return RadialMenuSlot;
 		}
@@ -90,4 +97,22 @@ void URadialMenuWidget::OnSelectedNewSlot(URadialMenuSlot* NewSlot)
 		IRadialMenuSlotInterface::Execute_BeginFocus(NewSlot);
 		CurrentSelectedSlot = NewSlot;
 	}
+}
+
+void URadialMenuWidget::SetupSlotVisual(const FRadialMenuSlotInfo& SlotInfo) const
+{
+	RadialMenuCanvas->AddChildToCanvas(SlotInfo.SlotPtr);
+
+	const FVector2D ScreenCenter = UXCityWidgetLibrary::GetScreenCenter();
+	const FVector2D DirectionalVector = UXCityWidgetLibrary::ConvertAngleIntoDirectionalVector(SlotInfo.AngleRange.X);
+		
+	UCanvasPanelSlot* CanvasPanelSlot = Cast<UCanvasPanelSlot>(SlotInfo.SlotPtr->Slot);
+	if (IsValid(CanvasPanelSlot))
+	{
+		CanvasPanelSlot->SetPosition(ScreenCenter + SlotDistanceFromCenter * DirectionalVector);
+		CanvasPanelSlot->SetSize(SlotInfo.SlotPtr->GetSlotImage()->GetBrush().ImageSize);
+	}
+
+	const float SlotRenderAngle = SlotInfo.AngleRange.X;
+	SlotInfo.SlotPtr->SetRenderTransformAngle(SlotRenderAngle);
 }

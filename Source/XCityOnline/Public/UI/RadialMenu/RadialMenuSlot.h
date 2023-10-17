@@ -3,9 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "RadialMenuTypes.h"
 #include "Blueprint/UserWidget.h"
 #include "Interfaces/RadialMenuSlotInterface.h"
 #include "RadialMenuSlot.generated.h"
+
+class UImage;
 
 /**
  * 
@@ -23,11 +26,15 @@ public:
 	virtual void InitializeSlot_Implementation() override;
 	// ~IRadialMenuSlotInterface end
 
+	FORCEINLINE UImage* GetSlotImage() const { return SlotImage; }
+	
 protected:
+	URadialMenuSlot(const FObjectInitializer& ObjectInitializer);
+	
 	// Just test variable, to check, is on focus work correctly
 	UPROPERTY(meta = (BindWidget))
-	class UImage* SlotImage;
-	
-private:
-	
+	UImage* SlotImage;
+
+	UPROPERTY(EditAnywhere, Category = "Radial Menu Slot")
+	FRadialMenuSlotData RadialMenuSlotData;
 };

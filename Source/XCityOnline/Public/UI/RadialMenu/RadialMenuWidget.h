@@ -37,6 +37,10 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Radial Menu")
 	int32 RadialMenuParts;
 
+	/** Relative slot distance from center */
+	UPROPERTY(EditAnywhere, Category = "Radial Menu")
+	float SlotDistanceFromCenter;
+	
 private:
 	/** Inits radial menu, spawn slots and set their position correct on the screen */
 	void InitRadialMenu();
@@ -55,6 +59,8 @@ private:
 	 */
 	void OnSelectedNewSlot(URadialMenuSlot* NewSlot);
 
+	void SetupSlotVisual(const FRadialMenuSlotInfo& SlotInfo) const;
+	
 	UPROPERTY()
 	TArray<FRadialMenuSlotInfo> RadialMenuSlotInfos;
 

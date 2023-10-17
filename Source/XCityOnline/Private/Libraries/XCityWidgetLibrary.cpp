@@ -2,7 +2,6 @@
 
 
 #include "Libraries/XCityWidgetLibrary.h"
-
 #include "Kismet/KismetMathLibrary.h"
 
 float UXCityWidgetLibrary::ConvertMousePositionIntoAngle(const FVector2D& CurrentMousePosition)
@@ -27,7 +26,7 @@ float UXCityWidgetLibrary::ConvertMousePositionIntoAngle(const FVector2D& Curren
 	}
 
 	const FVector2D ScreenCenter = ViewportSize / 2;
-	const FVector2D ScreenTopMiddle = FVector2D(ScreenCenter.X, 0);
+	const FVector2D ScreenTopMiddle { ScreenCenter.X, 0 };
 	
 	const FVector2D V1 = (ScreenTopMiddle - ScreenCenter).GetSafeNormal();
 	const FVector2D V2 = (CurrentMousePosition - ScreenCenter).GetSafeNormal();
@@ -53,4 +52,15 @@ FVector2D UXCityWidgetLibrary::GetScreenCenter()
 	}
 
 	return ViewportSize;
+}
+
+FVector2D UXCityWidgetLibrary::ConvertAngleIntoDirectionalVector(const float& Angle)
+{
+	const float AngleRadians = FMath::DegreesToRadians(Angle);
+
+	const float X = FMath::Sin(AngleRadians);
+	const float Y = FMath::Cos(AngleRadians);
+
+	const FVector2D DirectionalVector { X, Y * -1 };
+	return DirectionalVector;
 }
