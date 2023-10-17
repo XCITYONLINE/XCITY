@@ -1,0 +1,29 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\replicanpc\\intermediate\\build\\win64\\x64\\unrealgame\\development\\replicanpc\\module.replicanpc.cpp",
+        "ProvidedModule": "",
+        "PCH": "e:\\outsource\\unreal\\xcity\\xcity\\intermediate\\build\\win64\\x64\\xcityonline\\development\\engine\\sharedpch.engine.cpp20.h.pch",
+        "Includes": [
+            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\replicanpc\\intermediate\\build\\win64\\x64\\unrealgame\\development\\replicanpc\\definitions.replicanpc.h",
+            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\replicanpc\\source\\replicanpc\\private\\replicanpc.cpp",
+            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\replicanpc\\source\\replicanpc\\public\\replicanpc.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\online\\http\\public\\httpmodule.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\online\\http\\public\\interfaces\\ihttprequest.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\online\\http\\public\\interfaces\\ihttpbase.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\online\\http\\public\\http.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\online\\http\\public\\interfaces\\ihttpresponse.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\online\\http\\public\\platformhttp.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\online\\http\\public\\windows\\windowsplatformhttp.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\online\\http\\public\\genericplatform\\genericplatformhttp.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\kismet\\blueprintasyncactionbase.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealgame\\inc\\engine\\uht\\blueprintasyncactionbase.generated.h",
+            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\replicanpc\\intermediate\\build\\win64\\unrealgame\\inc\\replicanpc\\uht\\replicanpc.generated.h",
+            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\replicanpc\\source\\replicanpc\\public\\replicasettings.h",
+            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\replicanpc\\intermediate\\build\\win64\\unrealgame\\inc\\replicanpc\\uht\\replicasettings.generated.h",
+            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\replicanpc\\source\\replicanpc\\private\\replicasettings.cpp"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

@@ -7,5 +7,4 @@
 #include "E:/Outsource/Unreal/XCity/XCITY/Plugins/CommonContractsPlugin/Source/CommonContractsPlugin/Private/CommonContractsPlugin.cpp"
 #include "E:/Outsource/Unreal/XCity/XCITY/Plugins/CommonContractsPlugin/Source/CommonContractsPlugin/Private/CommonUnils/CommonUtilsBPFL.cpp"
 #include "E:/Outsource/Unreal/XCity/XCITY/Plugins/CommonContractsPlugin/Source/CommonContractsPlugin/Private/Contracts/FinderObjectsInterface.cpp"
-#include "E:/Outsource/Unreal/XCity/XCITY/Plugins/CommonContractsPlugin/Source/CommonContractsPlugin/Private/Contracts/InteractibleItemInterface.cpp"
 #include "E:/Outsource/Unreal/XCity/XCITY/Plugins/CommonContractsPlugin/Source/CommonContractsPlugin/Private/Contracts/InventorySystemInterface.cpp"

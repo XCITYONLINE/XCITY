@@ -9,5 +9,6 @@
 "E:\Outsource\Unreal\XCity\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.obj"
 "E:\Outsource\Unreal\XCity\XCITY\Plugins\InventorySystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InventorySystem\Module.InventorySystem.cpp.obj"
 "E:\Outsource\Unreal\XCity\XCITY\Plugins\InventorySystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InventorySystem\InventorySystem.cpp.obj"
+"E:\Outsource\Unreal\XCity\XCITY\Plugins\InventorySystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InventorySystem\InventoryComponentBase.cpp.obj"
 "E:\Outsource\Unreal\XCity\XCITY\Plugins\InventorySystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InventorySystem\Default.rc2.res"
 /OUT:"E:\Outsource\Unreal\XCity\XCITY\Plugins\InventorySystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InventorySystem\UnrealEditor-InventorySystem.lib"

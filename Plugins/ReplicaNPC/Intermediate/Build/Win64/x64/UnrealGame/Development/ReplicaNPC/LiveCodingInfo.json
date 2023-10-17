@@ -1,0 +1,12 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.ReplicaNPC.cpp.obj": [
+			"ReplicaNPC.cpp.obj",
+			"ReplicaSettings.cpp.obj",
+			"ReplicaNPC.gen.cpp.obj",
+			"ReplicaNPC.init.gen.cpp.obj",
+			"ReplicaSettings.gen.cpp.obj"
+		]
+	}
+}

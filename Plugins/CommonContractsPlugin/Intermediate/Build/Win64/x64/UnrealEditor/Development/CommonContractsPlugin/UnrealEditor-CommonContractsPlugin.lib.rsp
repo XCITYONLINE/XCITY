@@ -8,6 +8,5 @@
 /NODEFAULTLIB
 "E:\Outsource\Unreal\XCity\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.obj"
 "E:\Outsource\Unreal\XCity\XCITY\Plugins\CommonContractsPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\CommonContractsPlugin\Module.CommonContractsPlugin.cpp.obj"
-"E:\Outsource\Unreal\XCity\XCITY\Plugins\CommonContractsPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\CommonContractsPlugin\InteractibleItemInterface.cpp.obj"
 "E:\Outsource\Unreal\XCity\XCITY\Plugins\CommonContractsPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\CommonContractsPlugin\Default.rc2.res"
 /OUT:"E:\Outsource\Unreal\XCity\XCITY\Plugins\CommonContractsPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\CommonContractsPlugin\UnrealEditor-CommonContractsPlugin.lib"

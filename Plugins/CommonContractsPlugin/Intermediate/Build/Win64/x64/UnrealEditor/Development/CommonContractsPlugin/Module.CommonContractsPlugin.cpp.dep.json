@@ -23,6 +23,7 @@
             "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\commoncontractsplugin\\source\\commoncontractsplugin\\public\\commoncontractsplugin.h",
             "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\commoncontractsplugin\\source\\commoncontractsplugin\\private\\commonunils\\commonutilsbpfl.cpp",
             "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\commoncontractsplugin\\source\\commoncontractsplugin\\private\\contracts\\finderobjectsinterface.cpp",
+            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\commoncontractsplugin\\source\\commoncontractsplugin\\private\\contracts\\interactibleiteminterface.cpp",
             "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\commoncontractsplugin\\source\\commoncontractsplugin\\private\\contracts\\inventorysysteminterface.cpp"
         ],
         "ImportedModules": [],

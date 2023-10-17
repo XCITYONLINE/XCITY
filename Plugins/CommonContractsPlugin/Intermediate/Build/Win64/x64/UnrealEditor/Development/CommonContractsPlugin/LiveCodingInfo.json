@@ -10,8 +10,8 @@
 			"CommonContractsPlugin.cpp.obj",
 			"CommonUtilsBPFL.cpp.obj",
 			"FinderObjectsInterface.cpp.obj",
-			"InventorySystemInterface.cpp.obj",
-			"InteractibleItemInterface.cpp.obj"
+			"InteractibleItemInterface.cpp.obj",
+			"InventorySystemInterface.cpp.obj"
 		]
 	}
 }
