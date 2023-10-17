@@ -3,3 +3,5 @@
 #include "E:/Outsource/Unreal/XCity/XCITY/Plugins/InventorySystem/Intermediate/Build/Win64/UnrealEditor/Inc/InventorySystem/UHT/InventoryComponentBase.gen.cpp"
 #include "E:/Outsource/Unreal/XCity/XCITY/Plugins/InventorySystem/Intermediate/Build/Win64/UnrealEditor/Inc/InventorySystem/UHT/InventorySystem.init.gen.cpp"
 #include "E:/Outsource/Unreal/XCity/XCITY/Plugins/InventorySystem/Source/InventorySystem/Private/Conponents/FindObjectsComponent.cpp"
+#include "E:/Outsource/Unreal/XCity/XCITY/Plugins/InventorySystem/Source/InventorySystem/Private/Conponents/InventoryComponentBase.cpp"
+#include "E:/Outsource/Unreal/XCity/XCITY/Plugins/InventorySystem/Source/InventorySystem/Private/InventorySystem.cpp"

@@ -25,6 +25,10 @@
 		{
 			"Name": "CommonContractsPlugin",
 			"Enabled": true
+		},
+		{
+			"Name": "EnhancedInput",
+			"Enabled": true
 		}
 	]
 }
