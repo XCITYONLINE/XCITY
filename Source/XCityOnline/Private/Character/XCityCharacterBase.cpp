@@ -3,13 +3,17 @@
 #include "Character/XCityCharacterBase.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "CommonUnils/CommonUtilsBPFL.h"
 #include "Components/CameraManagerComponent.h"
 #include "Conponents/FindObjectsComponent.h"
 #include "Conponents/InventoryComponentBase.h"
 #include "Contracts/InteractibleItemInterface.h"
+#include "Contracts/InteractibleWeaponInterface.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "WeaponActors/InteractibleWeaponBase.h"
 
-AXCityCharacterBase::AXCityCharacterBase()
+AXCityCharacterBase::AXCityCharacterBase(const FObjectInitializer& ObjectInitializer)
+: Super(ObjectInitializer)
 {
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -143,22 +147,6 @@ void AXCityCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInput
 	if (UEnhancedInputComponent* EnhancedInput =
 		Cast<UEnhancedInputComponent>(PlayerInputComponent); IsValid(EnhancedInput))
 	{
-		if (IsValid(LookAction))
-		{
-			EnhancedInput->BindAction(LookAction, ETriggerEvent::Triggered, this, &AXCityCharacterBase::OnLookInputChanged);
-		}
-
-		if (IsValid(MoveAction))
-		{
-			EnhancedInput->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AXCityCharacterBase::OnMoveInputChanged);
-		}
-
-		if (IsValid(JumpAction))
-		{
-			EnhancedInput->BindAction(JumpAction, ETriggerEvent::Started, this, &AXCityCharacterBase::OnJumpInputChanged);
-			EnhancedInput->BindAction(JumpAction, ETriggerEvent::Completed, this, &AXCityCharacterBase::OnStopJumpInputChanged);
-		}
-
 		if (IsValid(TakeAction))
 		{
 			EnhancedInput->BindAction(TakeAction, ETriggerEvent::Triggered, this, &AXCityCharacterBase::OnTakeInputChanged);
@@ -174,42 +162,6 @@ void AXCityCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInput
 			EnhancedInput->BindAction(WheelAxisAction, ETriggerEvent::Triggered, this, &AXCityCharacterBase::OnWheelAxisInputChanged);
 		}
 	}
-}
-
-void AXCityCharacterBase::OnLookInputChanged(const FInputActionValue& Value)
-{
-	const FVector2D LookAxisVector = Value.Get<FVector2D>();
-	if (Controller != nullptr)
-	{
-		AddControllerYawInput(LookAxisVector.X);
-		AddControllerPitchInput(LookAxisVector.Y * -1.0f);
-	}
-}
-
-void AXCityCharacterBase::OnMoveInputChanged(const FInputActionValue& Value)
-{
-	const FVector2D MovementVector = Value.Get<FVector2D>();
-	if (Controller != nullptr)
-	{
-		const FRotator Rotation = Controller->GetControlRotation();
-		const FRotator YawRotation(0, Rotation.Yaw, 0);
-
-		const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-		const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
-		
-		AddMovementInput(ForwardDirection, MovementVector.Y);
-		AddMovementInput(RightDirection, MovementVector.X);
-	}
-}
-
-void AXCityCharacterBase::OnJumpInputChanged(const FInputActionValue& Value)
-{
-	K2_OnJumpChanged(true);
-}
-
-void AXCityCharacterBase::OnStopJumpInputChanged(const FInputActionValue& Value)
-{
-	K2_OnJumpChanged(false);
 }
 
 void AXCityCharacterBase::OnTakeInputChanged(const FInputActionValue& Value)
@@ -228,16 +180,25 @@ void AXCityCharacterBase::OnTakeInputChanged(const FInputActionValue& Value)
 		IFinderObjectsInterface::Execute_ResetPreviousItems(FindItemComponent.Get());
 		
 		SelectedInventoryItem = TriggeredObject;
-		
-		//For attach testing...
-		if (AActor* TriggeredActor = Cast<AActor>(TriggeredObject.GetObject()))
+		if (SelectedInventoryItem.GetObject()->Implements<UInteractibleWeaponInterface>())
 		{
-			K2_AttachTo(TriggeredActor);
+			FWeaponsDataStruct WeaponsDataStruct;
+			if (IsValid(SelectedInventoryItem.GetObject());
+				SelectedInventoryItem->GetItemSettings(SelectedInventoryItem.GetObject(), WeaponsDataStruct))
+			{
+				AttachToHand(
+				WeaponsDataStruct.WeaponStaticMesh,
+				WeaponsDataStruct.WeaponSkeletal,
+				WeaponsDataStruct.WeaponAnimInstance,
+				false,
+				WeaponsDataStruct.AttachOffset,
+				true,
+				SelectedInventoryItem.GetObject()
+				);
+
+				K2_AttachTo(SelectedInventoryItem.GetObject());
+			}
 		}
-		//~
-		
-		//ToDo:: Hide logic for selected object here...
-		//ToDo:~
 	}
 }
 

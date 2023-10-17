@@ -3,19 +3,19 @@
 	{
 		"Module.WeaponSystem.cpp.obj": [
 			"AmmoProjectileBase.gen.cpp.obj",
-			"WeaponSystemSettings.gen.cpp.obj",
-			"InteractibleWeaponInterface.cpp.obj",
-			"WeaponSystemSettings.cpp.obj",
-			"AmmoProjectileBase.cpp.obj",
-			"InteractibleWeaponBase.cpp.obj",
-			"ShootComponentBase.cpp.obj",
-			"WeaponSystem.cpp.obj",
 			"InteractibleWeaponBase.gen.cpp.obj",
 			"InteractibleWeaponInterface.gen.cpp.obj",
 			"ShootComponentBase.gen.cpp.obj",
 			"WeaponsDataStruct.gen.cpp.obj",
 			"WeaponSystem.init.gen.cpp.obj",
-			"WeaponsDataStruct.cpp.obj"
+			"WeaponSystemSettings.gen.cpp.obj",
+			"InteractibleWeaponInterface.cpp.obj",
+			"WeaponSystemSettings.cpp.obj",
+			"AmmoProjectileBase.cpp.obj",
+			"ShootComponentBase.cpp.obj",
+			"WeaponSystem.cpp.obj",
+			"WeaponsDataStruct.cpp.obj",
+			"InteractibleWeaponBase.cpp.obj"
 		]
 	}
 }

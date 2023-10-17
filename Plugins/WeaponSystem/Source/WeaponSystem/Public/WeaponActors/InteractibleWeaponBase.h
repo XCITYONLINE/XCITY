@@ -55,6 +55,7 @@ public:
 	virtual void OnTake_Implementation(AActor* OwnerActor) override;
 	virtual void OnUnselect_Implementation() override;
 	virtual void OnDrop_Implementation() override;
+	virtual bool Internal_GetItemSettings(UObject* ContextObject, UStruct* InStruct, void* OutData) override;
 	//~
 	
 public:
@@ -119,7 +120,7 @@ private:
 		TObjectPtr<UShootComponentBase>& OutShootComponent,
 		const bool bAlternative);
 
-	void AddMappingContext();
+	void AddMappingContext() const;
 	void RemoveMappingContext();
 	void BindInputActions();
 	

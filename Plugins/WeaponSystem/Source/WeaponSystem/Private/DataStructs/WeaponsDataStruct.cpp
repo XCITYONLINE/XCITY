@@ -21,7 +21,9 @@ FWeaponsDataStruct::FWeaponsDataStruct()
 	MainShootComponentClass = nullptr;
 	MainAmmoProjectileClass = nullptr;
 	WeaponIcon = nullptr;
-
+	WeaponStaticMesh = nullptr;
+	
+	AttachOffset = FVector::ZeroVector;
 	WeaponType = EWeaponType::EWT_None;
 	bUseAlternativeMode = false;
 	

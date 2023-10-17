@@ -34,9 +34,9 @@
 /NODEFAULTLIB:"LIBCD"
 /NODEFAULTLIB:"LIBCPD"
 /FUNCTIONPADMIN:6
-"D:\Progects\X_City\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.obj"
-"D:\Progects\X_City\XCITY\Plugins\ReplicaNPC\Intermediate\Build\Win64\x64\UnrealEditor\Development\ReplicaNPC\Module.ReplicaNPC.cpp.obj"
-"D:\Progects\X_City\XCITY\Plugins\ReplicaNPC\Intermediate\Build\Win64\x64\UnrealEditor\Development\ReplicaNPC\Default.rc2.res"
+"D:\Progects\X_CityOnline\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.obj"
+"D:\Progects\X_CityOnline\XCITY\Plugins\ReplicaNPC\Intermediate\Build\Win64\x64\UnrealEditor\Development\ReplicaNPC\Module.ReplicaNPC.cpp.obj"
+"D:\Progects\X_CityOnline\XCITY\Plugins\ReplicaNPC\Intermediate\Build\Win64\x64\UnrealEditor\Development\ReplicaNPC\Default.rc2.res"
 "..\Intermediate\Build\Win64\x64\UnrealEditor\Development\CoreUObject\UnrealEditor-CoreUObject.lib"
 "..\Intermediate\Build\Win64\x64\UnrealEditor\Development\Engine\UnrealEditor-Engine.lib"
 "..\Intermediate\Build\Win64\x64\UnrealEditor\Development\Slate\UnrealEditor-Slate.lib"
@@ -71,7 +71,7 @@
 "synchronization.lib"
 "dwmapi.lib"
 "imm32.lib"
-/OUT:"D:\Progects\X_City\XCITY\Plugins\ReplicaNPC\Binaries\Win64\UnrealEditor-ReplicaNPC.dll"
-/IMPLIB:"D:\Progects\X_City\XCITY\Plugins\ReplicaNPC\Intermediate\Build\Win64\x64\UnrealEditor\Development\ReplicaNPC\UnrealEditor-ReplicaNPC.sup.lib"
-/PDB:"D:\Progects\X_City\XCITY\Plugins\ReplicaNPC\Binaries\Win64\UnrealEditor-ReplicaNPC.pdb"
+/OUT:"D:\Progects\X_CityOnline\XCITY\Plugins\ReplicaNPC\Binaries\Win64\UnrealEditor-ReplicaNPC.dll"
+/IMPLIB:"D:\Progects\X_CityOnline\XCITY\Plugins\ReplicaNPC\Intermediate\Build\Win64\x64\UnrealEditor\Development\ReplicaNPC\UnrealEditor-ReplicaNPC.sup.lib"
+/PDB:"D:\Progects\X_CityOnline\XCITY\Plugins\ReplicaNPC\Binaries\Win64\UnrealEditor-ReplicaNPC.pdb"
 /ignore:4078

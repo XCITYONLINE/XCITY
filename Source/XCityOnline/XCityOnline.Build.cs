@@ -6,6 +6,11 @@ public class XCityOnline : ModuleRules
 {
 	public XCityOnline(ReadOnlyTargetRules Target) : base(Target)
 	{
+		PrivateDependencyModuleNames.AddRange(new string[]
+		{
+			"WeaponSystem"
+		});
+		
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
 		PublicDependencyModuleNames.AddRange(new string[]
@@ -16,7 +21,8 @@ public class XCityOnline : ModuleRules
 			"InputCore",
 			"EnhancedInput",
 			"InventorySystem",
-			"CommonContractsPlugin"
+			"CommonContractsPlugin",
+			"ALSV4_CPP"
 		});
 
 		// Uncomment if you are using Slate UI

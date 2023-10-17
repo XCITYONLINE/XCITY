@@ -20,6 +20,11 @@ void UInventoryComponentBase::OnInitInventorySystem_Implementation()
 
 void UInventoryComponentBase::OnForwardItemChanged_Implementation()
 {
+	if (AllInventoryItems.IsEmpty())
+	{
+		return;
+	}
+	
 	if (AllInventoryItems.Num() > ++CurrentInventoryItemIndex)
 	{
 		if (const TScriptInterface<IInteractibleItemInterface> NextInventoryItem =
@@ -46,6 +51,11 @@ void UInventoryComponentBase::OnForwardItemChanged_Implementation()
 
 void UInventoryComponentBase::OnBackwardItemChanged_Implementation()
 {
+	if (AllInventoryItems.IsEmpty())
+	{
+		return;
+	}
+	
 	const int32 NewInventoryIndex = --CurrentInventoryItemIndex;
 	if (AllInventoryItems.Num() > NewInventoryIndex && NewInventoryIndex >= 0)
 	{

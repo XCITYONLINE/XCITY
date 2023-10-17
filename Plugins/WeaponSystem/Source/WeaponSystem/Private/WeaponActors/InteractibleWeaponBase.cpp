@@ -248,17 +248,17 @@ void AInteractibleWeaponBase::OnTake_Implementation(AActor* OwnerActor)
 	BindInputActions();
 }
 
-void AInteractibleWeaponBase::AddMappingContext()
+void AInteractibleWeaponBase::AddMappingContext() const
 {
 	if (MappingContext)
 	{
-		if (APlayerController* OwnerController = UGameplayStatics::GetPlayerController(this, 0))
+		if (const APlayerController* OwnerController =
+			UGameplayStatics::GetPlayerController(this, 0))
 		{
 			if (UEnhancedInputLocalPlayerSubsystem* Subsystem =
 			ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(OwnerController->GetLocalPlayer()))
 			{
 				Subsystem->AddMappingContext(MappingContext, 0);
-				EnableInput(OwnerController);
 			}
 		}
 	}
@@ -282,7 +282,8 @@ void AInteractibleWeaponBase::RemoveMappingContext()
 {
 	if (MappingContext)
 	{
-		if (APlayerController* OwnerController = UGameplayStatics::GetPlayerController(this, 0))
+		if (const APlayerController* OwnerController =
+			UGameplayStatics::GetPlayerController(this, 0))
 		{
 			if (UEnhancedInputLocalPlayerSubsystem* Subsystem =
 			ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(OwnerController->GetLocalPlayer()))
@@ -291,12 +292,11 @@ void AInteractibleWeaponBase::RemoveMappingContext()
 				ModifyContextOptions.bIgnoreAllPressedKeysUntilRelease = true;
 				
 				Subsystem->RemoveMappingContext(MappingContext, ModifyContextOptions);
-				DisableInput(OwnerController);
 
 				UActorComponent* EnhancedComponent = OwnerController->FindComponentByClass<UEnhancedInputComponent>();
 				if (UEnhancedInputComponent* PlayerInputComponent = Cast<UEnhancedInputComponent>(EnhancedComponent))
 				{
-					PlayerInputComponent->ClearActionBindings();
+					PlayerInputComponent->ClearBindingsForObject(this);
 				}
 			}
 		}
@@ -417,4 +417,15 @@ void AInteractibleWeaponBase::OnStartHover_Implementation()
 void AInteractibleWeaponBase::OnStopHover_Implementation()
 {
 	IInteractibleItemInterface::Execute_K2_OnHover(this, false);
+}
+
+bool AInteractibleWeaponBase::Internal_GetItemSettings(UObject* ContextObject, UStruct* InStruct, void* OutData)
+{
+	if (InStruct == FWeaponsDataStruct::StaticStruct())
+	{
+		*static_cast<FWeaponsDataStruct*>(OutData) = InitialWeaponStruct;
+		return true;
+	}
+
+	return false;
 }

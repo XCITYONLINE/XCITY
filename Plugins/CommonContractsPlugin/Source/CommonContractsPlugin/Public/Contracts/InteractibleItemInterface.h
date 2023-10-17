@@ -46,6 +46,12 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Iteractible Item")
 	void OnDrop();
 
+	template<typename T>
+	bool GetItemSettings(UObject* ContextObject, T& OutData)
+	{
+		return Internal_GetItemSettings(ContextObject, T::StaticStruct(), &OutData);
+	}
+
 protected:
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Iteractible Item")
@@ -65,4 +71,6 @@ protected:
 	
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Iteractible Item")
 	void K2_OnDrop();
+
+	virtual bool Internal_GetItemSettings(UObject* ContextObject, UStruct* InStruct, void* OutData);
 };
