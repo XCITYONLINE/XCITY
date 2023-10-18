@@ -4,14 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "AIController.h"
+
 #include "XCityAIController.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class XCITYONLINE_API AXCityAIController : public AAIController
 {
 	GENERATED_BODY()
-	
 };
