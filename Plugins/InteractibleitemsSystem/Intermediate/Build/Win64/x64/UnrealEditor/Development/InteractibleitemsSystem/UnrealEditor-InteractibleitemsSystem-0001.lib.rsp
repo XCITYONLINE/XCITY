@@ -6,7 +6,7 @@
 /NAME:"UnrealEditor-InteractibleitemsSystem-0001.dll"
 /IGNORE:4221
 /NODEFAULTLIB
-"D:\Progects\X_CityOnline\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.obj"
-"D:\Progects\X_CityOnline\XCITY\Plugins\InteractibleitemsSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InteractibleitemsSystem\Module.InteractibleitemsSystem.cpp.obj"
-"D:\Progects\X_CityOnline\XCITY\Plugins\InteractibleitemsSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InteractibleitemsSystem\Default.rc2.res"
-/OUT:"D:\Progects\X_CityOnline\XCITY\Plugins\InteractibleitemsSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InteractibleitemsSystem\UnrealEditor-InteractibleitemsSystem-0001.lib"
+"D:\Progects\XCity\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.obj"
+"D:\Progects\XCity\XCITY\Plugins\InteractibleitemsSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InteractibleitemsSystem\Module.InteractibleitemsSystem.cpp.obj"
+"D:\Progects\XCity\XCITY\Plugins\InteractibleitemsSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InteractibleitemsSystem\Default.rc2.res"
+/OUT:"D:\Progects\XCity\XCITY\Plugins\InteractibleitemsSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InteractibleitemsSystem\UnrealEditor-InteractibleitemsSystem-0001.lib"

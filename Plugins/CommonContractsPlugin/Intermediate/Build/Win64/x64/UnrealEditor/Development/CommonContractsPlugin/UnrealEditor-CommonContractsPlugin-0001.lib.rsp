@@ -6,7 +6,7 @@
 /NAME:"UnrealEditor-CommonContractsPlugin-0001.dll"
 /IGNORE:4221
 /NODEFAULTLIB
-"D:\Progects\X_CityOnline\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.obj"
-"D:\Progects\X_CityOnline\XCITY\Plugins\CommonContractsPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\CommonContractsPlugin\Module.CommonContractsPlugin.cpp.obj"
-"D:\Progects\X_CityOnline\XCITY\Plugins\CommonContractsPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\CommonContractsPlugin\Default.rc2.res"
-/OUT:"D:\Progects\X_CityOnline\XCITY\Plugins\CommonContractsPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\CommonContractsPlugin\UnrealEditor-CommonContractsPlugin-0001.lib"
+"D:\Progects\XCity\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.obj"
+"D:\Progects\XCity\XCITY\Plugins\CommonContractsPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\CommonContractsPlugin\Module.CommonContractsPlugin.cpp.obj"
+"D:\Progects\XCity\XCITY\Plugins\CommonContractsPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\CommonContractsPlugin\Default.rc2.res"
+/OUT:"D:\Progects\XCity\XCITY\Plugins\CommonContractsPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\CommonContractsPlugin\UnrealEditor-CommonContractsPlugin-0001.lib"

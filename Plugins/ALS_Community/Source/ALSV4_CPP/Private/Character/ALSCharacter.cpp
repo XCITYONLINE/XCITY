@@ -57,11 +57,11 @@ void AALSCharacter::AttachToHand(
 	FName AttachBone;
 	if (bLeftHand)
 	{
-		AttachBone = TEXT("VB LHS_ik_hand_gun");
+		AttachBone = TEXT("hand_left");
 	}
 	else
 	{
-		AttachBone = TEXT("VB RHS_ik_hand_gun");
+		AttachBone = TEXT("hand_right");
 	}
 
 	HeldObjectRoot->AttachToComponent(
