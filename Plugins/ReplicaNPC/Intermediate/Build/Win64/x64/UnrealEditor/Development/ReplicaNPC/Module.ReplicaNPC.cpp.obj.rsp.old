@@ -1,11 +1,11 @@
-"D:\Progects\XCity\XCITY\Plugins\ReplicaNPC\Intermediate\Build\Win64\x64\UnrealEditor\Development\ReplicaNPC\Module.ReplicaNPC.cpp"
-/FI"D:\Progects\XCity\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h"
-/FI"D:\Progects\XCity\XCITY\Plugins\ReplicaNPC\Intermediate\Build\Win64\x64\UnrealEditor\Development\ReplicaNPC\Definitions.ReplicaNPC.h"
-/Yu"D:\Progects\XCity\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h"
-/Fp"D:\Progects\XCity\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.pch"
-/Fo"D:\Progects\XCity\XCITY\Plugins\ReplicaNPC\Intermediate\Build\Win64\x64\UnrealEditor\Development\ReplicaNPC\Module.ReplicaNPC.cpp.obj"
-/sourceDependencies "D:\Progects\XCity\XCITY\Plugins\ReplicaNPC\Intermediate\Build\Win64\x64\UnrealEditor\Development\ReplicaNPC\Module.ReplicaNPC.cpp.dep.json"
-@"D:\Progects\XCity\XCITY\Plugins\ReplicaNPC\Intermediate\Build\Win64\x64\UnrealEditor\Development\ReplicaNPC\ReplicaNPC.Shared.rsp"
+"E:\Outsource\Unreal\XCity\XCITY\Plugins\ReplicaNPC\Intermediate\Build\Win64\x64\UnrealEditor\Development\ReplicaNPC\Module.ReplicaNPC.cpp"
+/FI"E:\Outsource\Unreal\XCity\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h"
+/FI"E:\Outsource\Unreal\XCity\XCITY\Plugins\ReplicaNPC\Intermediate\Build\Win64\x64\UnrealEditor\Development\ReplicaNPC\Definitions.ReplicaNPC.h"
+/Yu"E:\Outsource\Unreal\XCity\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h"
+/Fp"E:\Outsource\Unreal\XCity\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.pch"
+/Fo"E:\Outsource\Unreal\XCity\XCITY\Plugins\ReplicaNPC\Intermediate\Build\Win64\x64\UnrealEditor\Development\ReplicaNPC\Module.ReplicaNPC.cpp.obj"
+/sourceDependencies "E:\Outsource\Unreal\XCity\XCITY\Plugins\ReplicaNPC\Intermediate\Build\Win64\x64\UnrealEditor\Development\ReplicaNPC\Module.ReplicaNPC.cpp.dep.json"
+@"E:\Outsource\Unreal\XCity\XCITY\Plugins\ReplicaNPC\Intermediate\Build\Win64\x64\UnrealEditor\Development\ReplicaNPC\ReplicaNPC.Shared.rsp"
 /Zc:inline
 /nologo
 /Oi
