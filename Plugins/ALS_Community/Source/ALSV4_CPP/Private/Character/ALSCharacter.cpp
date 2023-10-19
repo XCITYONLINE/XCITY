@@ -79,6 +79,15 @@ void AALSCharacter::AttachToHand(
 	}
 }
 
+void AALSCharacter::DetachToHand(UObject* InAttachObject)
+{
+	ClearHeldObject();
+	if (AActor* AttachActor = Cast<AActor>(InAttachObject))
+	{
+		AttachActor->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+	}
+}
+
 void AALSCharacter::RagdollStart()
 {
 	ClearHeldObject();

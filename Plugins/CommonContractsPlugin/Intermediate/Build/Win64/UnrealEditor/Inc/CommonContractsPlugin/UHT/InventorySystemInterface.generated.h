@@ -25,6 +25,7 @@ class IInteractibleItemInterface;
 	virtual void AddInventoryItem_Implementation(TScriptInterface<IInteractibleItemInterface>& InNewInventoryItem) {}; \
 	virtual void GetAllInventoryItems_Implementation(TArray<TScriptInterface<IInteractibleItemInterface> >& OutInventoryItems) {}; \
 	virtual TScriptInterface<IInteractibleItemInterface> GetSelectedItem_Implementation() { return NULL; }; \
+	virtual void UnselectAllItems_Implementation() {}; \
 	virtual void UnselectItem_Implementation() {}; \
 	virtual void OnBackwardItemChanged_Implementation() {}; \
 	virtual void OnForwardItemChanged_Implementation() {}; \
@@ -36,6 +37,7 @@ class IInteractibleItemInterface;
 	DECLARE_FUNCTION(execAddInventoryItem); \
 	DECLARE_FUNCTION(execGetAllInventoryItems); \
 	DECLARE_FUNCTION(execGetSelectedItem); \
+	DECLARE_FUNCTION(execUnselectAllItems); \
 	DECLARE_FUNCTION(execUnselectItem); \
 	DECLARE_FUNCTION(execOnBackwardItemChanged); \
 	DECLARE_FUNCTION(execOnForwardItemChanged); \
@@ -90,6 +92,7 @@ public: \
 	static void Execute_RemoveInventoryItem(UObject* O, TScriptInterface<IInteractibleItemInterface>& InInventoryItem); \
 	static void Execute_RemoveInventoryItemByIndex(UObject* O, const int32 InInventoryIndex); \
 	static void Execute_SetInventoryItem(UObject* O, TScriptInterface<IInteractibleItemInterface>& InInventoryItem, const int32 InInventoryIndex); \
+	static void Execute_UnselectAllItems(UObject* O); \
 	static void Execute_UnselectItem(UObject* O); \
 	virtual UObject* _getUObject() const { return nullptr; }
 

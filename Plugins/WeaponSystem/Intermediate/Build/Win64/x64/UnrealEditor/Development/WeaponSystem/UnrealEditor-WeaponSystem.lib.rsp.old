@@ -8,5 +8,6 @@
 /NODEFAULTLIB
 "E:\Outsource\Unreal\XCity\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.obj"
 "E:\Outsource\Unreal\XCity\XCITY\Plugins\WeaponSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\WeaponSystem\Module.WeaponSystem.cpp.obj"
+"E:\Outsource\Unreal\XCity\XCITY\Plugins\WeaponSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\WeaponSystem\InteractibleWeaponBase.cpp.obj"
 "E:\Outsource\Unreal\XCity\XCITY\Plugins\WeaponSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\WeaponSystem\Default.rc2.res"
 /OUT:"E:\Outsource\Unreal\XCity\XCITY\Plugins\WeaponSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\WeaponSystem\UnrealEditor-WeaponSystem.lib"

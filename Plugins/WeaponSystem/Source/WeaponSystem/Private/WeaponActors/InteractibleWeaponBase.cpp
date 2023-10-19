@@ -243,6 +243,15 @@ void AInteractibleWeaponBase::OnTake_Implementation(AActor* OwnerActor)
 {
 	IInteractibleItemInterface::Execute_K2_OnTake(this);
 	
+	if (UPrimitiveComponent* ActorPrimitive = Cast<UPrimitiveComponent>(RootComponent))
+	{
+		SetActorEnableCollision(false);
+
+		ActorPrimitive->BodyInstance.bGenerateWakeEvents = false;
+		ActorPrimitive->OnComponentSleep.RemoveAll(this);
+		ActorPrimitive->SetSimulatePhysics(false);
+	}
+	
 	SetOwner(OwnerActor);
 	AddMappingContext();
 	BindInputActions();
@@ -275,7 +284,36 @@ void AInteractibleWeaponBase::OnDrop_Implementation()
 	IInteractibleItemInterface::Execute_K2_OnDrop(this);
 	
 	RemoveMappingContext();
+	
+	if (UPrimitiveComponent* ActorPrimitive = Cast<UPrimitiveComponent>(RootComponent))
+	{
+		SetActorEnableCollision(true);
+		
+		ActorPrimitive->BodyInstance.bGenerateWakeEvents = true;
+		ActorPrimitive->OnComponentSleep.AddUniqueDynamic(this, &AInteractibleWeaponBase::OnItemSleep);
+		ActorPrimitive->SetSimulatePhysics(true);
+
+		if (IsValid(GetOwner()))
+		{
+			ActorPrimitive->AddRadialImpulse(
+			GetOwner()->GetActorLocation(),
+			50.0f,
+			200.0f,
+			ERadialImpulseFalloff::RIF_Constant,
+			true);
+		}
+	}
+
 	SetOwner(nullptr);
+}
+
+void AInteractibleWeaponBase::OnItemSleep_Implementation(UPrimitiveComponent* SleepingComponent, FName BoneName)
+{
+	if (UPrimitiveComponent* ActorPrimitive = Cast<UPrimitiveComponent>(RootComponent))
+	{
+		ActorPrimitive->OnComponentSleep.RemoveAll(this);
+		ActorPrimitive->SetSimulatePhysics(false);
+	}
 }
 
 void AInteractibleWeaponBase::RemoveMappingContext()

@@ -46,6 +46,9 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Iteractible Item")
 	void OnDrop();
 
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Iteractible Item")
+	void OnItemSleep(UPrimitiveComponent* SleepingComponent, FName BoneName);
+	
 	template<typename T>
 	bool GetItemSettings(UObject* ContextObject, T& OutData)
 	{

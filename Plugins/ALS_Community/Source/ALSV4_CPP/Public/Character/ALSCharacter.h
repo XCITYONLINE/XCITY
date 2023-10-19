@@ -35,6 +35,9 @@ public:
 		FVector Offset,
 		bool bAttachObject,
 		UObject* InAttachObject);
+	
+	UFUNCTION(BlueprintCallable, Category = "ALS|HeldObject")
+	void DetachToHand(UObject* InAttachObject);
 
 	virtual void RagdollStart() override;
 

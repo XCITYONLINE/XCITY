@@ -31,6 +31,9 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Inventory Item")
 	void UnselectItem();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Inventory Item")
+	void UnselectAllItems();
 	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Inventory Item")
 	TScriptInterface<IInteractibleItemInterface> GetSelectedItem();

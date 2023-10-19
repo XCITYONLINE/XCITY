@@ -169,21 +169,15 @@ void AXCityCharacterBase::OnTakeInputChanged(const FInputActionValue& Value)
 		&& IsValid(TriggeredObject.GetObject())
 		&& IsValid(FindItemComponent.Get()))
 	{
-		if (IsValid(SelectedInventoryItem.GetObject()))
-		{
-			IInteractibleItemInterface::Execute_OnUnselect(SelectedInventoryItem.GetObject());
-		}
-		
 		IInventorySystemInterface::Execute_AddInventoryItem(InventoryComponent.Get(), TriggeredObject);
 		IInteractibleItemInterface::Execute_OnTake(TriggeredObject.GetObject(), this);
 		IFinderObjectsInterface::Execute_ResetPreviousItems(FindItemComponent.Get());
 		
-		SelectedInventoryItem = TriggeredObject;
-		if (SelectedInventoryItem.GetObject()->Implements<UInteractibleWeaponInterface>())
+		if (TriggeredObject.GetObject()->Implements<UInteractibleWeaponInterface>())
 		{
 			FWeaponsDataStruct WeaponsDataStruct;
-			if (IsValid(SelectedInventoryItem.GetObject());
-				SelectedInventoryItem->GetItemSettings(SelectedInventoryItem.GetObject(), WeaponsDataStruct))
+			if (IsValid(TriggeredObject.GetObject());
+				TriggeredObject->GetItemSettings(TriggeredObject.GetObject(), WeaponsDataStruct))
 			{
 				AttachToHand(
 				WeaponsDataStruct.WeaponStaticMesh,
@@ -192,10 +186,11 @@ void AXCityCharacterBase::OnTakeInputChanged(const FInputActionValue& Value)
 				false,
 				WeaponsDataStruct.AttachOffset,
 				true,
-				SelectedInventoryItem.GetObject()
+				TriggeredObject.GetObject()
 				);
 
-				K2_AttachTo(SelectedInventoryItem.GetObject());
+				K2_AttachTo(TriggeredObject.GetObject());
+				SelectedInventoryItem = TriggeredObject;
 			}
 		}
 	}
@@ -206,6 +201,13 @@ void AXCityCharacterBase::OnDropInputChanged(const FInputActionValue& Value)
 	if (IsValid(InventoryComponent.Get()) && IsValid(SelectedInventoryItem.GetObject()))
 	{
 		IInventorySystemInterface::Execute_RemoveInventoryItem(InventoryComponent.Get(), SelectedInventoryItem);
+		
+		DetachToHand(SelectedInventoryItem.GetObject());
+		K2_DropTo(SelectedInventoryItem.GetObject());
+
+		IInteractibleItemInterface::Execute_OnUnselect(SelectedInventoryItem.GetObject());
+		IInteractibleItemInterface::Execute_OnDrop(SelectedInventoryItem.GetObject());
+		
 		SelectedInventoryItem = nullptr;
 	}
 }
@@ -217,15 +219,31 @@ void AXCityCharacterBase::OnWheelAxisInputChanged(const FInputActionValue& Value
 		return;
 	}
 
-	if (const float WheelAxis = Value.Get<float>(); WheelAxis > 0)
+	if (const float WheelAxis = Value.Get<float>(); WheelAxis == 1.0f)
 	{
 		IInventorySystemInterface::Execute_OnForwardItemChanged(InventoryComponent.Get());
-		return;
+		ReInitializeItemObject();
 	}
-
-	if (const float WheelAxis = Value.Get<float>(); WheelAxis < 0)
+	else if (WheelAxis == -1.0f)
 	{
 		IInventorySystemInterface::Execute_OnBackwardItemChanged(InventoryComponent.Get());
-		return;
+		ReInitializeItemObject();
+	}
+}
+
+void AXCityCharacterBase::ReInitializeItemObject()
+{
+	if (IsValid(InventoryComponent.Get()))
+	{
+		ClearHeldObject();
+		
+		IInventorySystemInterface::Execute_UnselectAllItems(InventoryComponent.Get());
+		SelectedInventoryItem = IInventorySystemInterface::Execute_GetSelectedItem(InventoryComponent.Get());
+		
+		if (IsValid(SelectedInventoryItem.GetObject()))
+		{
+			IInteractibleItemInterface::Execute_OnTake(SelectedInventoryItem.GetObject(), this);
+			K2_AttachTo(SelectedInventoryItem.GetObject());
+		}
 	}
 }

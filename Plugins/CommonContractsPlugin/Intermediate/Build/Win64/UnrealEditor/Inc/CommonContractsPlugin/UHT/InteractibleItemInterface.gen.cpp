@@ -13,8 +13,18 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleItemInterface() {}
 	COMMONCONTRACTSPLUGIN_API UClass* Z_Construct_UClass_UInteractibleItemInterface_NoRegister();
 	COREUOBJECT_API UClass* Z_Construct_UClass_UInterface();
 	ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
+	ENGINE_API UClass* Z_Construct_UClass_UPrimitiveComponent_NoRegister();
 	UPackage* Z_Construct_UPackage__Script_CommonContractsPlugin();
 // End Cross Module References
+	DEFINE_FUNCTION(IInteractibleItemInterface::execOnItemSleep)
+	{
+		P_GET_OBJECT(UPrimitiveComponent,Z_Param_SleepingComponent);
+		P_GET_PROPERTY(FNameProperty,Z_Param_BoneName);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->OnItemSleep_Implementation(Z_Param_SleepingComponent,Z_Param_BoneName);
+		P_NATIVE_END;
+	}
 	DEFINE_FUNCTION(IInteractibleItemInterface::execOnDrop)
 	{
 		P_FINISH;
@@ -91,6 +101,11 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleItemInterface() {}
 	{
 		bool bIsInteract;
 	};
+	struct InteractibleItemInterface_eventOnItemSleep_Parms
+	{
+		UPrimitiveComponent* SleepingComponent;
+		FName BoneName;
+	};
 	struct InteractibleItemInterface_eventOnTake_Parms
 	{
 		AActor* OwnerActor;
@@ -122,6 +137,10 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleItemInterface() {}
 	void IInteractibleItemInterface::OnDrop()
 	{
 		check(0 && "Do not directly call Event functions in Interfaces. Call Execute_OnDrop instead.");
+	}
+	void IInteractibleItemInterface::OnItemSleep(UPrimitiveComponent* SleepingComponent, FName BoneName)
+	{
+		check(0 && "Do not directly call Event functions in Interfaces. Call Execute_OnItemSleep instead.");
 	}
 	void IInteractibleItemInterface::OnStartAlternativeInteract()
 	{
@@ -160,6 +179,7 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleItemInterface() {}
 		UClass* Class = UInteractibleItemInterface::StaticClass();
 		static const FNameNativePtrPair Funcs[] = {
 			{ "OnDrop", &IInteractibleItemInterface::execOnDrop },
+			{ "OnItemSleep", &IInteractibleItemInterface::execOnItemSleep },
 			{ "OnStartAlternativeInteract", &IInteractibleItemInterface::execOnStartAlternativeInteract },
 			{ "OnStartHover", &IInteractibleItemInterface::execOnStartHover },
 			{ "OnStartMainInteract", &IInteractibleItemInterface::execOnStartMainInteract },
@@ -395,6 +415,48 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleItemInterface() {}
 		}
 		return ReturnFunction;
 	}
+	struct Z_Construct_UFunction_UInteractibleItemInterface_OnItemSleep_Statics
+	{
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_SleepingComponent_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_SleepingComponent;
+		static const UECodeGen_Private::FNamePropertyParams NewProp_BoneName;
+		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UInteractibleItemInterface_OnItemSleep_Statics::NewProp_SleepingComponent_MetaData[] = {
+		{ "EditInline", "true" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UInteractibleItemInterface_OnItemSleep_Statics::NewProp_SleepingComponent = { "SleepingComponent", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(InteractibleItemInterface_eventOnItemSleep_Parms, SleepingComponent), Z_Construct_UClass_UPrimitiveComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractibleItemInterface_OnItemSleep_Statics::NewProp_SleepingComponent_MetaData), Z_Construct_UFunction_UInteractibleItemInterface_OnItemSleep_Statics::NewProp_SleepingComponent_MetaData) };
+	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_UInteractibleItemInterface_OnItemSleep_Statics::NewProp_BoneName = { "BoneName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(InteractibleItemInterface_eventOnItemSleep_Parms, BoneName), METADATA_PARAMS(0, nullptr) };
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UInteractibleItemInterface_OnItemSleep_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UInteractibleItemInterface_OnItemSleep_Statics::NewProp_SleepingComponent,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UInteractibleItemInterface_OnItemSleep_Statics::NewProp_BoneName,
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UInteractibleItemInterface_OnItemSleep_Statics::Function_MetaDataParams[] = {
+		{ "Category", "Iteractible Item" },
+		{ "ModuleRelativePath", "Public/Contracts/InteractibleItemInterface.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UInteractibleItemInterface_OnItemSleep_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UInteractibleItemInterface, nullptr, "OnItemSleep", nullptr, nullptr, Z_Construct_UFunction_UInteractibleItemInterface_OnItemSleep_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractibleItemInterface_OnItemSleep_Statics::PropPointers), sizeof(InteractibleItemInterface_eventOnItemSleep_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x0C020C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractibleItemInterface_OnItemSleep_Statics::Function_MetaDataParams), Z_Construct_UFunction_UInteractibleItemInterface_OnItemSleep_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UInteractibleItemInterface_OnItemSleep_Statics::PropPointers) < 2048);
+	static_assert(sizeof(InteractibleItemInterface_eventOnItemSleep_Parms) < MAX_uint16);
+	UFunction* Z_Construct_UFunction_UInteractibleItemInterface_OnItemSleep()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UInteractibleItemInterface_OnItemSleep_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
 	struct Z_Construct_UFunction_UInteractibleItemInterface_OnStartAlternativeInteract_Statics
 	{
 #if WITH_METADATA
@@ -615,6 +677,7 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleItemInterface() {}
 		{ &Z_Construct_UFunction_UInteractibleItemInterface_K2_OnTake, "K2_OnTake" }, // 97462198
 		{ &Z_Construct_UFunction_UInteractibleItemInterface_K2_OnUnselect, "K2_OnUnselect" }, // 2312649067
 		{ &Z_Construct_UFunction_UInteractibleItemInterface_OnDrop, "OnDrop" }, // 1551419500
+		{ &Z_Construct_UFunction_UInteractibleItemInterface_OnItemSleep, "OnItemSleep" }, // 300256799
 		{ &Z_Construct_UFunction_UInteractibleItemInterface_OnStartAlternativeInteract, "OnStartAlternativeInteract" }, // 1209241289
 		{ &Z_Construct_UFunction_UInteractibleItemInterface_OnStartHover, "OnStartHover" }, // 1255829080
 		{ &Z_Construct_UFunction_UInteractibleItemInterface_OnStartMainInteract, "OnStartMainInteract" }, // 1450483969
@@ -750,6 +813,24 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleItemInterface() {}
 			I->OnDrop_Implementation();
 		}
 	}
+	static FName NAME_UInteractibleItemInterface_OnItemSleep = FName(TEXT("OnItemSleep"));
+	void IInteractibleItemInterface::Execute_OnItemSleep(UObject* O, UPrimitiveComponent* SleepingComponent, FName BoneName)
+	{
+		check(O != NULL);
+		check(O->GetClass()->ImplementsInterface(UInteractibleItemInterface::StaticClass()));
+		InteractibleItemInterface_eventOnItemSleep_Parms Parms;
+		UFunction* const Func = O->FindFunction(NAME_UInteractibleItemInterface_OnItemSleep);
+		if (Func)
+		{
+			Parms.SleepingComponent=SleepingComponent;
+			Parms.BoneName=BoneName;
+			O->ProcessEvent(Func, &Parms);
+		}
+		else if (auto I = (IInteractibleItemInterface*)(O->GetNativeInterfaceAddress(UInteractibleItemInterface::StaticClass())))
+		{
+			I->OnItemSleep_Implementation(SleepingComponent,BoneName);
+		}
+	}
 	static FName NAME_UInteractibleItemInterface_OnStartAlternativeInteract = FName(TEXT("OnStartAlternativeInteract"));
 	void IInteractibleItemInterface::Execute_OnStartAlternativeInteract(UObject* O)
 	{
@@ -877,9 +958,9 @@ void EmptyLinkFunctionForGeneratedCodeInteractibleItemInterface() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InteractibleItemInterface_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UInteractibleItemInterface, UInteractibleItemInterface::StaticClass, TEXT("UInteractibleItemInterface"), &Z_Registration_Info_UClass_UInteractibleItemInterface, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UInteractibleItemInterface), 3338019103U) },
+		{ Z_Construct_UClass_UInteractibleItemInterface, UInteractibleItemInterface::StaticClass, TEXT("UInteractibleItemInterface"), &Z_Registration_Info_UClass_UInteractibleItemInterface, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UInteractibleItemInterface), 1603300985U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InteractibleItemInterface_h_1693287534(TEXT("/Script/CommonContractsPlugin"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InteractibleItemInterface_h_2609523644(TEXT("/Script/CommonContractsPlugin"),
 		Z_CompiledInDeferFile_FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InteractibleItemInterface_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InteractibleItemInterface_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

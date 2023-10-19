@@ -39,6 +39,9 @@ protected:
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void K2_AttachTo(UObject* OutAttachObject);
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void K2_DropTo(UObject* OutDropObject);
 
 	virtual void FindObjectsAround(const bool bForce);
 
@@ -79,6 +82,7 @@ private:
 
 	TScriptInterface<class IInteractibleItemInterface> GetCloserObject(
 		const TArray<TScriptInterface<class IInteractibleItemInterface>>& InFoundObjects) const;
+	void ReInitializeItemObject();
 	
 	TScriptInterface<class IInteractibleItemInterface> SelectedInventoryItem;
 	TScriptInterface<class IInteractibleItemInterface> TriggeredObject;

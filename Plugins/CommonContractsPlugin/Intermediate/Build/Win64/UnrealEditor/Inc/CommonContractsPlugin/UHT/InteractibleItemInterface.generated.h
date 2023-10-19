@@ -10,6 +10,7 @@
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 class AActor;
+class UPrimitiveComponent;
 #ifdef COMMONCONTRACTSPLUGIN_InteractibleItemInterface_generated_h
 #error "InteractibleItemInterface.generated.h already included, missing '#pragma once' in InteractibleItemInterface.h"
 #endif
@@ -19,6 +20,7 @@ class AActor;
 #define FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InteractibleItemInterface_h_13_SPARSE_DATA_PROPERTY_ACCESSORS
 #define FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InteractibleItemInterface_h_13_EDITOR_ONLY_SPARSE_DATA_PROPERTY_ACCESSORS
 #define FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InteractibleItemInterface_h_13_RPC_WRAPPERS_NO_PURE_DECLS \
+	virtual void OnItemSleep_Implementation(UPrimitiveComponent* SleepingComponent, FName BoneName) {}; \
 	virtual void OnDrop_Implementation() {}; \
 	virtual void OnUnselect_Implementation() {}; \
 	virtual void OnTake_Implementation(AActor* OwnerActor) {}; \
@@ -29,6 +31,7 @@ class AActor;
 	virtual void OnStopHover_Implementation() {}; \
 	virtual void OnStartHover_Implementation() {}; \
  \
+	DECLARE_FUNCTION(execOnItemSleep); \
 	DECLARE_FUNCTION(execOnDrop); \
 	DECLARE_FUNCTION(execOnUnselect); \
 	DECLARE_FUNCTION(execOnTake); \
@@ -86,6 +89,7 @@ public: \
 	static void Execute_K2_OnTake(UObject* O); \
 	static void Execute_K2_OnUnselect(UObject* O); \
 	static void Execute_OnDrop(UObject* O); \
+	static void Execute_OnItemSleep(UObject* O, UPrimitiveComponent* SleepingComponent, FName BoneName); \
 	static void Execute_OnStartAlternativeInteract(UObject* O); \
 	static void Execute_OnStartHover(UObject* O); \
 	static void Execute_OnStartMainInteract(UObject* O); \

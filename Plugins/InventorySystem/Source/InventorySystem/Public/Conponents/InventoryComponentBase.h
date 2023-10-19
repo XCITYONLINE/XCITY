@@ -37,6 +37,7 @@ public:
 	virtual void GetAllInventoryItems_Implementation(
 		TArray<TScriptInterface<IInteractibleItemInterface>>& OutInventoryItems) override;
 	virtual void UnselectItem_Implementation() override;
+	virtual void UnselectAllItems_Implementation() override;
 	//~
 
 public:
