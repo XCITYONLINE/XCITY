@@ -6,7 +6,10 @@
 /NAME:"UnrealEditor-InventorySystem.dll"
 /IGNORE:4221
 /NODEFAULTLIB
-"D:\Progects\XCity\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.obj"
-"D:\Progects\XCity\XCITY\Plugins\InventorySystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InventorySystem\Module.InventorySystem.cpp.obj"
-"D:\Progects\XCity\XCITY\Plugins\InventorySystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InventorySystem\Default.rc2.res"
-/OUT:"D:\Progects\XCity\XCITY\Plugins\InventorySystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InventorySystem\UnrealEditor-InventorySystem.lib"
+"D:\UnrealProjects\XCityNew\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.obj"
+"D:\UnrealProjects\XCityNew\XCITY\Plugins\InventorySystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InventorySystem\Module.InventorySystem.cpp.obj"
+"D:\UnrealProjects\XCityNew\XCITY\Plugins\InventorySystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InventorySystem\FindObjectsComponent.gen.cpp.obj"
+"D:\UnrealProjects\XCityNew\XCITY\Plugins\InventorySystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InventorySystem\InventoryComponentBase.gen.cpp.obj"
+"D:\UnrealProjects\XCityNew\XCITY\Plugins\InventorySystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InventorySystem\InventorySystem.init.gen.cpp.obj"
+"D:\UnrealProjects\XCityNew\XCITY\Plugins\InventorySystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InventorySystem\Default.rc2.res"
+/OUT:"D:\UnrealProjects\XCityNew\XCITY\Plugins\InventorySystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InventorySystem\UnrealEditor-InventorySystem.lib"

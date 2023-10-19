@@ -26,14 +26,18 @@
 # OS/platform generated files.
 
 # Plugins folders temp files
-/Plugins/HelpfulFunctions/Binaries
-/Plugins/HelpfulFunctions/Intermediate
-/Plugins/JakubAnimNodes/Binaries
-/Plugins/JakubAnimNodes/Intermediate
-/Plugins/RTune/Binaries
-/Plugins/RTune/Intermediate
-/Plugins/Narrative/Binaries
-/Plugins/Narrative/Intermediate
+/Plugins/ALS_Community/Binaries
+/Plugins/ALS_Community/Intermediate
+/Plugins/CommonContractsPlugin/Binaries
+/Plugins/CommonContractsPlugin/Intermediate
+/Plugins/InteractibleitemsSystem/Binaries
+/Plugins/InteractibleitemsSystem/Intermediate
+/Plugins/InventorySystem/Binaries
+/Plugins/InventorySystem/Intermediate
+/Plugins/ReplicaNPC/Binaries
+/Plugins/ReplicaNPC/Intermediate
+/Plugins/WeaponSystem/Binaries
+/Plugins/WeaponSystem/Intermediate
 /Plugins/Developer/RiderLink
 
 

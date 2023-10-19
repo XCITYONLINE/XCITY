@@ -22,6 +22,7 @@ public class XCityOnline : ModuleRules
 			"EnhancedInput",
 			"InventorySystem",
 			"CommonContractsPlugin",
+			"UMG",
 			"ALSV4_CPP"
 		});
 

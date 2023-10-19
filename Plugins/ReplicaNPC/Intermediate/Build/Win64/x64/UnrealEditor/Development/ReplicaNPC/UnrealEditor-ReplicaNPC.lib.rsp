@@ -6,7 +6,10 @@
 /NAME:"UnrealEditor-ReplicaNPC.dll"
 /IGNORE:4221
 /NODEFAULTLIB
-"D:\Progects\XCity\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.obj"
-"D:\Progects\XCity\XCITY\Plugins\ReplicaNPC\Intermediate\Build\Win64\x64\UnrealEditor\Development\ReplicaNPC\Module.ReplicaNPC.cpp.obj"
-"D:\Progects\XCity\XCITY\Plugins\ReplicaNPC\Intermediate\Build\Win64\x64\UnrealEditor\Development\ReplicaNPC\Default.rc2.res"
-/OUT:"D:\Progects\XCity\XCITY\Plugins\ReplicaNPC\Intermediate\Build\Win64\x64\UnrealEditor\Development\ReplicaNPC\UnrealEditor-ReplicaNPC.lib"
+"D:\UnrealProjects\XCityNew\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.obj"
+"D:\UnrealProjects\XCityNew\XCITY\Plugins\ReplicaNPC\Intermediate\Build\Win64\x64\UnrealEditor\Development\ReplicaNPC\Module.ReplicaNPC.cpp.obj"
+"D:\UnrealProjects\XCityNew\XCITY\Plugins\ReplicaNPC\Intermediate\Build\Win64\x64\UnrealEditor\Development\ReplicaNPC\ReplicaNPC.gen.cpp.obj"
+"D:\UnrealProjects\XCityNew\XCITY\Plugins\ReplicaNPC\Intermediate\Build\Win64\x64\UnrealEditor\Development\ReplicaNPC\ReplicaNPC.init.gen.cpp.obj"
+"D:\UnrealProjects\XCityNew\XCITY\Plugins\ReplicaNPC\Intermediate\Build\Win64\x64\UnrealEditor\Development\ReplicaNPC\ReplicaSettings.gen.cpp.obj"
+"D:\UnrealProjects\XCityNew\XCITY\Plugins\ReplicaNPC\Intermediate\Build\Win64\x64\UnrealEditor\Development\ReplicaNPC\Default.rc2.res"
+/OUT:"D:\UnrealProjects\XCityNew\XCITY\Plugins\ReplicaNPC\Intermediate\Build\Win64\x64\UnrealEditor\Development\ReplicaNPC\UnrealEditor-ReplicaNPC.lib"

@@ -1,13 +1,13 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\intermediate\\build\\win64\\unrealeditor\\inc\\weaponsystem\\uht\\weaponsystemsettings.gen.cpp",
+        "Source": "d:\\unrealprojects\\xcitynew\\xcity\\plugins\\weaponsystem\\intermediate\\build\\win64\\unrealeditor\\inc\\weaponsystem\\uht\\weaponsystemsettings.gen.cpp",
         "ProvidedModule": "",
-        "PCH": "e:\\outsource\\unreal\\xcity\\xcity\\intermediate\\build\\win64\\x64\\xcityonlineeditor\\development\\engine\\sharedpch.engine.cpp20.h.pch",
+        "PCH": "d:\\unrealprojects\\xcitynew\\xcity\\intermediate\\build\\win64\\x64\\xcityonlineeditor\\development\\engine\\sharedpch.engine.cpp20.h.pch",
         "Includes": [
-            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\weaponsystem\\definitions.weaponsystem.h",
-            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\source\\weaponsystem\\public\\settings\\weaponsystemsettings.h",
-            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\weaponsystem\\intermediate\\build\\win64\\unrealeditor\\inc\\weaponsystem\\uht\\weaponsystemsettings.generated.h"
+            "d:\\unrealprojects\\xcitynew\\xcity\\plugins\\weaponsystem\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\weaponsystem\\definitions.weaponsystem.h",
+            "d:\\unrealprojects\\xcitynew\\xcity\\plugins\\weaponsystem\\source\\weaponsystem\\public\\settings\\weaponsystemsettings.h",
+            "d:\\unrealprojects\\xcitynew\\xcity\\plugins\\weaponsystem\\intermediate\\build\\win64\\unrealeditor\\inc\\weaponsystem\\uht\\weaponsystemsettings.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

@@ -1,6 +1,6 @@
-D:\Progects\XCity\XCITY\Plugins\WeaponSystem\Source\WeaponSystem\Public\DataStructs\WeaponsDataStruct.h
-D:\Progects\XCity\XCITY\Plugins\WeaponSystem\Source\WeaponSystem\Public\Contracts\InteractibleWeaponInterface.h
-D:\Progects\XCity\XCITY\Plugins\WeaponSystem\Source\WeaponSystem\Public\Settings\WeaponSystemSettings.h
-D:\Progects\XCity\XCITY\Plugins\WeaponSystem\Source\WeaponSystem\Public\WeaponActors\AmmoProjectileBase.h
-D:\Progects\XCity\XCITY\Plugins\WeaponSystem\Source\WeaponSystem\Public\WeaponComponents\ShootComponentBase.h
-D:\Progects\XCity\XCITY\Plugins\WeaponSystem\Source\WeaponSystem\Public\WeaponActors\InteractibleWeaponBase.h
+D:\UnrealProjects\XCityNew\XCITY\Plugins\WeaponSystem\Source\WeaponSystem\Public\Settings\WeaponSystemSettings.h
+D:\UnrealProjects\XCityNew\XCITY\Plugins\WeaponSystem\Source\WeaponSystem\Public\Contracts\InteractibleWeaponInterface.h
+D:\UnrealProjects\XCityNew\XCITY\Plugins\WeaponSystem\Source\WeaponSystem\Public\DataStructs\WeaponsDataStruct.h
+D:\UnrealProjects\XCityNew\XCITY\Plugins\WeaponSystem\Source\WeaponSystem\Public\WeaponComponents\ShootComponentBase.h
+D:\UnrealProjects\XCityNew\XCITY\Plugins\WeaponSystem\Source\WeaponSystem\Public\WeaponActors\InteractibleWeaponBase.h
+D:\UnrealProjects\XCityNew\XCITY\Plugins\WeaponSystem\Source\WeaponSystem\Public\WeaponActors\AmmoProjectileBase.h

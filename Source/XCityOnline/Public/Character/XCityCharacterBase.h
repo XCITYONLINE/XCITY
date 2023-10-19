@@ -21,6 +21,11 @@ public:
 	
 	AXCityCharacterBase(const FObjectInitializer& ObjectInitializer);
 
+	FORCEINLINE class UInventoryComponentBase* GetInventoryComponent() const
+	{
+		return InventoryComponent;
+	}
+	
 protected:
 	
 	virtual void BeginPlay() override;

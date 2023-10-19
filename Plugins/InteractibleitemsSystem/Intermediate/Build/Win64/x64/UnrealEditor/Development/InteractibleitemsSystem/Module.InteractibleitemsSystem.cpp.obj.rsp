@@ -1,11 +1,11 @@
-"D:\Progects\XCity\XCITY\Plugins\InteractibleitemsSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InteractibleitemsSystem\Module.InteractibleitemsSystem.cpp"
-/FI"D:\Progects\XCity\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h"
-/FI"D:\Progects\XCity\XCITY\Plugins\InteractibleitemsSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InteractibleitemsSystem\Definitions.InteractibleitemsSystem.h"
-/Yu"D:\Progects\XCity\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h"
-/Fp"D:\Progects\XCity\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.pch"
-/Fo"D:\Progects\XCity\XCITY\Plugins\InteractibleitemsSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InteractibleitemsSystem\Module.InteractibleitemsSystem.cpp.obj"
-/sourceDependencies "D:\Progects\XCity\XCITY\Plugins\InteractibleitemsSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InteractibleitemsSystem\Module.InteractibleitemsSystem.cpp.dep.json"
-@"D:\Progects\XCity\XCITY\Plugins\InteractibleitemsSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InteractibleitemsSystem\InteractibleitemsSystem.Shared.rsp"
+"D:\UnrealProjects\XCityNew\XCITY\Plugins\InteractibleitemsSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InteractibleitemsSystem\Module.InteractibleitemsSystem.cpp"
+/FI"D:\UnrealProjects\XCityNew\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h"
+/FI"D:\UnrealProjects\XCityNew\XCITY\Plugins\InteractibleitemsSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InteractibleitemsSystem\Definitions.InteractibleitemsSystem.h"
+/Yu"D:\UnrealProjects\XCityNew\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h"
+/Fp"D:\UnrealProjects\XCityNew\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.pch"
+/Fo"D:\UnrealProjects\XCityNew\XCITY\Plugins\InteractibleitemsSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InteractibleitemsSystem\Module.InteractibleitemsSystem.cpp.obj"
+/sourceDependencies "D:\UnrealProjects\XCityNew\XCITY\Plugins\InteractibleitemsSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InteractibleitemsSystem\Module.InteractibleitemsSystem.cpp.dep.json"
+@"D:\UnrealProjects\XCityNew\XCITY\Plugins\InteractibleitemsSystem\Intermediate\Build\Win64\x64\UnrealEditor\Development\InteractibleitemsSystem\InteractibleitemsSystem.Shared.rsp"
 /Zc:inline
 /nologo
 /Oi

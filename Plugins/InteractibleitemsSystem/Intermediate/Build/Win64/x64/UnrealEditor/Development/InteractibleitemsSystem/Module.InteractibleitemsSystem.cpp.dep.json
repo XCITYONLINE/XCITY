@@ -1,13 +1,13 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "d:\\progects\\xcity\\xcity\\plugins\\interactibleitemssystem\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\interactibleitemssystem\\module.interactibleitemssystem.cpp",
+        "Source": "d:\\unrealprojects\\xcitynew\\xcity\\plugins\\interactibleitemssystem\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\interactibleitemssystem\\module.interactibleitemssystem.cpp",
         "ProvidedModule": "",
-        "PCH": "d:\\progects\\xcity\\xcity\\intermediate\\build\\win64\\x64\\xcityonlineeditor\\development\\engine\\sharedpch.engine.cpp20.h.pch",
+        "PCH": "d:\\unrealprojects\\xcitynew\\xcity\\intermediate\\build\\win64\\x64\\xcityonlineeditor\\development\\engine\\sharedpch.engine.cpp20.h.pch",
         "Includes": [
-            "d:\\progects\\xcity\\xcity\\plugins\\interactibleitemssystem\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\interactibleitemssystem\\definitions.interactibleitemssystem.h",
-            "d:\\progects\\xcity\\xcity\\plugins\\interactibleitemssystem\\source\\interactibleitemssystem\\private\\interactibleitemssystem.cpp",
-            "d:\\progects\\xcity\\xcity\\plugins\\interactibleitemssystem\\source\\interactibleitemssystem\\public\\interactibleitemssystem.h"
+            "d:\\unrealprojects\\xcitynew\\xcity\\plugins\\interactibleitemssystem\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\interactibleitemssystem\\definitions.interactibleitemssystem.h",
+            "d:\\unrealprojects\\xcitynew\\xcity\\plugins\\interactibleitemssystem\\source\\interactibleitemssystem\\private\\interactibleitemssystem.cpp",
+            "d:\\unrealprojects\\xcitynew\\xcity\\plugins\\interactibleitemssystem\\source\\interactibleitemssystem\\public\\interactibleitemssystem.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

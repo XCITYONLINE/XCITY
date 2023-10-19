@@ -632,21 +632,21 @@ void FOnNPCRequestCompleted_DelegateWrapper(const FMulticastScriptDelegate& OnNP
 	UReplicaNPC::UReplicaNPC(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UReplicaNPC);
 	UReplicaNPC::~UReplicaNPC() {}
-	struct Z_CompiledInDeferFile_FID_XCITY_Plugins_ReplicaNPC_Source_ReplicaNPC_Public_ReplicaNPC_h_Statics
+	struct Z_CompiledInDeferFile_FID_UnrealProjects_XCityNew_XCITY_Plugins_ReplicaNPC_Source_ReplicaNPC_Public_ReplicaNPC_h_Statics
 	{
 		static const FEnumRegisterCompiledInInfo EnumInfo[];
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FEnumRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_ReplicaNPC_Source_ReplicaNPC_Public_ReplicaNPC_h_Statics::EnumInfo[] = {
+	const FEnumRegisterCompiledInInfo Z_CompiledInDeferFile_FID_UnrealProjects_XCityNew_XCITY_Plugins_ReplicaNPC_Source_ReplicaNPC_Public_ReplicaNPC_h_Statics::EnumInfo[] = {
 		{ Voices_StaticEnum, TEXT("Voices"), &Z_Registration_Info_UEnum_Voices, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 2570189179U) },
 		{ CurrentStyles_StaticEnum, TEXT("CurrentStyles"), &Z_Registration_Info_UEnum_CurrentStyles, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3149562606U) },
 		{ ELanguageModel_StaticEnum, TEXT("ELanguageModel"), &Z_Registration_Info_UEnum_ELanguageModel, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 4124066770U) },
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_ReplicaNPC_Source_ReplicaNPC_Public_ReplicaNPC_h_Statics::ClassInfo[] = {
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_UnrealProjects_XCityNew_XCITY_Plugins_ReplicaNPC_Source_ReplicaNPC_Public_ReplicaNPC_h_Statics::ClassInfo[] = {
 		{ Z_Construct_UClass_UReplicaNPC, UReplicaNPC::StaticClass, TEXT("UReplicaNPC"), &Z_Registration_Info_UClass_UReplicaNPC, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UReplicaNPC), 1259463140U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_ReplicaNPC_Source_ReplicaNPC_Public_ReplicaNPC_h_186329633(TEXT("/Script/ReplicaNPC"),
-		Z_CompiledInDeferFile_FID_XCITY_Plugins_ReplicaNPC_Source_ReplicaNPC_Public_ReplicaNPC_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_XCITY_Plugins_ReplicaNPC_Source_ReplicaNPC_Public_ReplicaNPC_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_UnrealProjects_XCityNew_XCITY_Plugins_ReplicaNPC_Source_ReplicaNPC_Public_ReplicaNPC_h_186329633(TEXT("/Script/ReplicaNPC"),
+		Z_CompiledInDeferFile_FID_UnrealProjects_XCityNew_XCITY_Plugins_ReplicaNPC_Source_ReplicaNPC_Public_ReplicaNPC_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_UnrealProjects_XCityNew_XCITY_Plugins_ReplicaNPC_Source_ReplicaNPC_Public_ReplicaNPC_h_Statics::ClassInfo),
 		nullptr, 0,
-		Z_CompiledInDeferFile_FID_XCITY_Plugins_ReplicaNPC_Source_ReplicaNPC_Public_ReplicaNPC_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_XCITY_Plugins_ReplicaNPC_Source_ReplicaNPC_Public_ReplicaNPC_h_Statics::EnumInfo));
+		Z_CompiledInDeferFile_FID_UnrealProjects_XCityNew_XCITY_Plugins_ReplicaNPC_Source_ReplicaNPC_Public_ReplicaNPC_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_UnrealProjects_XCityNew_XCITY_Plugins_ReplicaNPC_Source_ReplicaNPC_Public_ReplicaNPC_h_Statics::EnumInfo));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

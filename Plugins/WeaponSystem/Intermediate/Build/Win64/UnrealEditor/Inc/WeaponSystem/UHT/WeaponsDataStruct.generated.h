@@ -14,21 +14,21 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define WEAPONSYSTEM_WeaponsDataStruct_generated_h
 
-#define FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_DataStructs_WeaponsDataStruct_h_38_GENERATED_BODY \
+#define FID_UnrealProjects_XCityNew_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_DataStructs_WeaponsDataStruct_h_38_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FProjectileSettings_Statics; \
 	static class UScriptStruct* StaticStruct();
 
 
 template<> WEAPONSYSTEM_API UScriptStruct* StaticStruct<struct FProjectileSettings>();
 
-#define FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_DataStructs_WeaponsDataStruct_h_94_GENERATED_BODY \
+#define FID_UnrealProjects_XCityNew_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_DataStructs_WeaponsDataStruct_h_94_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FShootSettingsDesc_Statics; \
 	static class UScriptStruct* StaticStruct();
 
 
 template<> WEAPONSYSTEM_API UScriptStruct* StaticStruct<struct FShootSettingsDesc>();
 
-#define FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_DataStructs_WeaponsDataStruct_h_133_GENERATED_BODY \
+#define FID_UnrealProjects_XCityNew_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_DataStructs_WeaponsDataStruct_h_133_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FWeaponsDataStruct_Statics; \
 	static class UScriptStruct* StaticStruct(); \
 	typedef FTableRowBase Super;
@@ -37,7 +37,7 @@ template<> WEAPONSYSTEM_API UScriptStruct* StaticStruct<struct FShootSettingsDes
 template<> WEAPONSYSTEM_API UScriptStruct* StaticStruct<struct FWeaponsDataStruct>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_DataStructs_WeaponsDataStruct_h
+#define CURRENT_FILE_ID FID_UnrealProjects_XCityNew_XCITY_Plugins_WeaponSystem_Source_WeaponSystem_Public_DataStructs_WeaponsDataStruct_h
 
 
 #define FOREACH_ENUM_ESHOOTMODE(op) \
