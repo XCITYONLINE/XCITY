@@ -18,5 +18,5 @@ public:
 	// Sets default values for this component's properties
 	URadialMenuComponent();
 
-	void GetItemsByType(const EWeaponType& InWeaponType, TMap<int32, TScriptInterface<IInteractibleItemInterface>>& OutItemsByType);
+	void GetItemsByType(const EWeaponType& InWeaponType, TMap<int32, TScriptInterface<IInteractibleItemInterface>>& OutItemsByType) const;
 };
