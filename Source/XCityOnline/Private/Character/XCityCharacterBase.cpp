@@ -3,6 +3,7 @@
 #include "Character/XCityCharacterBase.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "ReplicaPlayerComponent.h"
 #include "Components/CameraManagerComponent.h"
 #include "Conponents/FindObjectsComponent.h"
 #include "Conponents/InventoryComponentBase.h"
@@ -160,6 +161,12 @@ void AXCityCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInput
 		{
 			EnhancedInput->BindAction(WheelAxisAction, ETriggerEvent::Triggered, this, &AXCityCharacterBase::OnWheelAxisInputChanged);
 		}
+
+		if (IsValid(TalkAction))
+		{
+			EnhancedInput->BindAction(TalkAction, ETriggerEvent::Started, this, &AXCityCharacterBase::OnTalkInputChanged);
+			EnhancedInput->BindAction(TalkAction, ETriggerEvent::Completed, this, &AXCityCharacterBase::OnTalkInputCompleted);
+		}
 	}
 }
 
@@ -245,5 +252,23 @@ void AXCityCharacterBase::ReInitializeItemObject()
 			IInteractibleItemInterface::Execute_OnTake(SelectedInventoryItem.GetObject(), this);
 			K2_AttachTo(SelectedInventoryItem.GetObject());
 		}
+	}
+}
+
+void AXCityCharacterBase::OnTalkInputChanged(const FInputActionValue& Value)
+{
+	UActorComponent* ActorComponent = GetComponentByClass<UReplicaPlayerComponent>();
+	if (UReplicaPlayerComponent* ReplicaComponent = Cast<UReplicaPlayerComponent>(ActorComponent))
+	{
+		ReplicaComponent->OnReplicaChange();
+	}
+}
+
+void AXCityCharacterBase::OnTalkInputCompleted(const FInputActionValue& Value)
+{
+	UActorComponent* ActorComponent = GetComponentByClass<UReplicaPlayerComponent>();
+	if (UReplicaPlayerComponent* ReplicaComponent = Cast<UReplicaPlayerComponent>(ActorComponent))
+	{
+		ReplicaComponent->OnReplicaComplete();
 	}
 }

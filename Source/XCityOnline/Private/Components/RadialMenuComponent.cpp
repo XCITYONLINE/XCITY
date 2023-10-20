@@ -1,21 +1,16 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "Components/RadialMenuComponent.h"
-
 #include <Conponents/InventoryComponentBase.h>
-
 #include "Character/XCityCharacterBase.h"
 
-
-// Sets default values for this component's properties
 URadialMenuComponent::URadialMenuComponent()
 {
 	
 }
 
 void URadialMenuComponent::GetItemsByType(const EWeaponType& InWeaponType,
-	TMap<int32, TScriptInterface<IInteractibleItemInterface>>& OutItemsByType)
+	TMap<int32, TScriptInterface<IInteractibleItemInterface>>& OutItemsByType) const
 {
 	if (!IsValid(GetOwner()))
 	{
@@ -28,7 +23,8 @@ void URadialMenuComponent::GetItemsByType(const EWeaponType& InWeaponType,
 		return;
 	}
 
-	UInventoryComponentBase* InventoryComponentBase = CharacterBase->GetInventoryComponent();
+	UActorComponent* FoundComponent = CharacterBase->FindComponentByClass<UInventoryComponentBase>();
+	UInventoryComponentBase* InventoryComponentBase =Cast<UInventoryComponentBase>(FoundComponent);
 	if (!IsValid(InventoryComponentBase))
 	{
 		return;

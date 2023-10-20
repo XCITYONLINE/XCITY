@@ -20,11 +20,6 @@ class XCITYONLINE_API AXCityCharacterBase : public AALSCharacter, public IPlayer
 public:
 	
 	AXCityCharacterBase(const FObjectInitializer& ObjectInitializer);
-
-	FORCEINLINE class UInventoryComponentBase* GetInventoryComponent() const
-	{
-		return InventoryComponent;
-	}
 	
 protected:
 	
@@ -68,6 +63,9 @@ protected:
 	TObjectPtr<UInputAction> DropAction;
 
 	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> TalkAction;
+
+	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputAction> WheelAxisAction;
 
 	UPROPERTY(EditAnywhere, Category = "Input")
@@ -78,6 +76,8 @@ private:
 	void OnTakeInputChanged(const FInputActionValue& Value);
 	void OnDropInputChanged(const FInputActionValue& Value);
 	void OnWheelAxisInputChanged(const FInputActionValue& Value);
+	void OnTalkInputChanged(const FInputActionValue& Value);
+	void OnTalkInputCompleted(const FInputActionValue& Value);
 
 private:
 

@@ -8,7 +8,8 @@ public class XCityOnline : ModuleRules
 	{
 		PrivateDependencyModuleNames.AddRange(new string[]
 		{
-			"WeaponSystem"
+			"WeaponSystem",
+			"ReplicaNPC"
 		});
 		
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
