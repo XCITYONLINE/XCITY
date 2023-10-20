@@ -26,19 +26,36 @@
 # OS/platform generated files.
 
 # Plugins folders temp files
-/Plugins/ALS_Community/Binaries
-/Plugins/ALS_Community/Intermediate
-/Plugins/CommonContractsPlugin/Binaries
-/Plugins/CommonContractsPlugin/Intermediate
-/Plugins/InteractibleitemsSystem/Binaries
-/Plugins/InteractibleitemsSystem/Intermediate
-/Plugins/InventorySystem/Binaries
-/Plugins/InventorySystem/Intermediate
-/Plugins/ReplicaNPC/Binaries
-/Plugins/ReplicaNPC/Intermediate
-/Plugins/WeaponSystem/Binaries
-/Plugins/WeaponSystem/Intermediate
-/Plugins/Developer/RiderLink
+/Plugins/ALS_Community/Binaries/
+/Plugins/ALS_Community/Intermediate/
+/Plugins/CommonContractsPlugin/Binaries/
+/Plugins/CommonContractsPlugin/Intermediate/
+/Plugins/InteractibleitemsSystem/Binaries/
+/Plugins/InteractibleitemsSystem/Intermediate/
+/Plugins/InventorySystem/Binaries/
+/Plugins/InventorySystem/Intermediate/
+/Plugins/ReplicaNPC/Binaries/
+/Plugins/ReplicaNPC/Intermediate/
+/Plugins/WeaponSystem/Binaries/
+/Plugins/WeaponSystem/Intermediate/
+/Plugins/Developer/RiderLink/
+
+# Source core directions
+Intermediate/
+Saved/
+Binaries/
+Build/
+DerivedDataCache/
+
+Plugins/**/*.pdb
+Plugins/**/*.gen.cpp
+Plugins/**/*.lib.response
+Plugins/**/*.generated.h
+Plugins/**/*.res
+Plugins/**/*.exp
+
+!Saved/Maps/**
+!Saved/Colors/**
 
 
 # Windows
@@ -65,3 +82,6 @@ Session.vim
 
 # Visual Studio
 .vs
+
+# Rider
+.idea
