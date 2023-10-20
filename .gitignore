@@ -40,6 +40,16 @@
 /Plugins/WeaponSystem/Intermediate
 /Plugins/Developer/RiderLink
 
+# Source core directions
+/Intermediate/**
+/Saved/**
+/Binaries/**
+/Build/**
+/DerivedDataCache/**
+
+!Saved/Maps/**
+!Saved/Colors/**
+
 
 # Windows
 ehthumbs.db
@@ -65,3 +75,6 @@ Session.vim
 
 # Visual Studio
 .vs
+
+# Rider
+.idea
