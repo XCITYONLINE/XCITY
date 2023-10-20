@@ -1,11 +1,11 @@
-"E:\Outsource\Unreal\XCity\XCITY\Plugins\CommonContractsPlugin\Intermediate\Build\Win64\UnrealEditor\Inc\CommonContractsPlugin\UHT\InteractibleItemInterface.gen.cpp"
-/FI"E:\Outsource\Unreal\XCity\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h"
-/FI"E:\Outsource\Unreal\XCity\XCITY\Plugins\CommonContractsPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\CommonContractsPlugin\Definitions.CommonContractsPlugin.h"
-/Yu"E:\Outsource\Unreal\XCity\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h"
-/Fp"E:\Outsource\Unreal\XCity\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.pch"
-/Fo"E:\Outsource\Unreal\XCity\XCITY\Plugins\CommonContractsPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\CommonContractsPlugin\InteractibleItemInterface.gen.cpp.obj"
-/sourceDependencies "E:\Outsource\Unreal\XCity\XCITY\Plugins\CommonContractsPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\CommonContractsPlugin\InteractibleItemInterface.gen.cpp.dep.json"
-@"E:\Outsource\Unreal\XCity\XCITY\Plugins\CommonContractsPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\CommonContractsPlugin\CommonContractsPlugin.Shared.rsp"
+"D:\UnrealProjects\XCityNew\XCITY\Plugins\CommonContractsPlugin\Intermediate\Build\Win64\UnrealEditor\Inc\CommonContractsPlugin\UHT\InteractibleItemInterface.gen.cpp"
+/FI"D:\UnrealProjects\XCityNew\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h"
+/FI"D:\UnrealProjects\XCityNew\XCITY\Plugins\CommonContractsPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\CommonContractsPlugin\Definitions.CommonContractsPlugin.h"
+/Yu"D:\UnrealProjects\XCityNew\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h"
+/Fp"D:\UnrealProjects\XCityNew\XCITY\Intermediate\Build\Win64\x64\XCityOnlineEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.pch"
+/Fo"D:\UnrealProjects\XCityNew\XCITY\Plugins\CommonContractsPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\CommonContractsPlugin\InteractibleItemInterface.gen.cpp.obj"
+/sourceDependencies "D:\UnrealProjects\XCityNew\XCITY\Plugins\CommonContractsPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\CommonContractsPlugin\InteractibleItemInterface.gen.cpp.dep.json"
+@"D:\UnrealProjects\XCityNew\XCITY\Plugins\CommonContractsPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\CommonContractsPlugin\CommonContractsPlugin.Shared.rsp"
 /Zc:inline
 /nologo
 /Oi
