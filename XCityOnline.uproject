@@ -43,7 +43,11 @@
 			"Name": "AppleARKitFaceSupport",
 			"Enabled": true,
 			"SupportedTargetPlatforms": [
-				"Win64"
+				"IOS",
+				"Win64",
+				"Mac",
+				"Linux",
+				"Android"
 			]
 		},
 		{
@@ -68,6 +72,14 @@
 		},
 		{
 			"Name": "ChaosVehiclesPlugin",
+			"Enabled": true
+		},
+		{
+			"Name": "GameplayBehaviorSmartObjects",
+			"Enabled": true
+		},
+		{
+			"Name": "GameplayStateTree",
 			"Enabled": true
 		}
 	]
