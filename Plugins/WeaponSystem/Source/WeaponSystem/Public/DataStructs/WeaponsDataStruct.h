@@ -148,7 +148,7 @@ public:
 	TSubclassOf<UAnimInstance> WeaponAnimInstance;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Visual")
-	TSoftObjectPtr<UTexture> WeaponIcon;
+	TObjectPtr<UTexture2D> WeaponIcon;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Visual")
 	TEnumAsByte<EWeaponType> WeaponType;

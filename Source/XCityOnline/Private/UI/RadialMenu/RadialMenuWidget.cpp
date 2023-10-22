@@ -5,9 +5,20 @@
 #include "Components/CanvasPanel.h"
 #include "Components/CanvasPanelSlot.h"
 #include "Components/Image.h"
+#include "Components/VerticalBox.h"
 #include "Libraries/XCityWidgetLibrary.h"
 #include "Interfaces/RadialMenuSlotInterface.h"
 #include "UI/RadialMenu/RadialMenuSlot.h"
+
+void URadialMenuWidget::RefreshRadialMenu()
+{
+	if (RadialMenuSlotInfos.Num() == 0) return;
+	
+	for (auto It = RadialMenuSlotInfos.CreateIterator(); It; ++It)
+	{
+		It->SlotPtr->RefreshSlot_Implementation();
+	}
+}
 
 URadialMenuWidget::URadialMenuWidget(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
@@ -49,7 +60,8 @@ void URadialMenuWidget::InitRadialMenu()
 	{
 		return;
 	}
-	
+
+	int32 Index = 0;
 	for (float i = OverallRadialMenuAngle / RadialMenuParts; i <= OverallRadialMenuAngle; i += OverallRadialMenuAngle / RadialMenuParts)
 	{
 		URadialMenuSlot* RadialMenuSlot = CreateWidget<URadialMenuSlot>(GetOwningPlayer(), RadialMenuSlotClass);
@@ -62,8 +74,10 @@ void URadialMenuWidget::InitRadialMenu()
 		{
 			RadialMenuSlotInfos.Add(SlotInfo);
 
-			IRadialMenuSlotInterface::Execute_InitializeSlot(RadialMenuSlot);
+			IRadialMenuSlotInterface::Execute_InitializeSlot(RadialMenuSlot, Index);
 		}
+
+		Index++;
 	}
 }
 
@@ -114,5 +128,5 @@ void URadialMenuWidget::SetupSlotVisual(const FRadialMenuSlotInfo& SlotInfo) con
 	}
 
 	const float SlotRenderAngle = SlotInfo.AngleRange.X;
-	SlotInfo.SlotPtr->SetRenderTransformAngle(SlotRenderAngle);
+	SlotInfo.SlotPtr->GetSlotVerticalBox()->SetRenderTransformAngle(SlotRenderAngle);
 }
