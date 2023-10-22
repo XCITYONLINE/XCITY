@@ -7,32 +7,19 @@
 #include "InputActionValue.h"
 #include "InputMappingContext.h"
 #include "Character/ALSCharacter.h"
-#include "Interfaces/RadialMenuInterface.h"
 
 #include "XCityCharacterBase.generated.h"
 
 class UInputAction;
 
 UCLASS()
-class XCITYONLINE_API AXCityCharacterBase : public AALSCharacter, public IPlayerCameraManagerInterface, public IRadialMenuInterface
+class XCITYONLINE_API AXCityCharacterBase : public AALSCharacter, public IPlayerCameraManagerInterface
 {
 	GENERATED_BODY()
 
 public:
 	
 	AXCityCharacterBase(const FObjectInitializer& ObjectInitializer);
-
-	//IRadialMenuInterface implements
-	virtual void GetItemsByType(const EWeaponType& InWeaponType, TMap<int32, TScriptInterface<IInteractibleItemInterface>>& OutItemsByType) override;
-	//~
-
-	void SetSelectedInventoryItem(const TScriptInterface<class IInteractibleItemInterface>& InventoryItem);
-
-	UFUNCTION(BlueprintImplementableEvent)
-	void K2_AttachTo(UObject* OutAttachObject);
-	
-	UFUNCTION(BlueprintImplementableEvent)
-	void K2_DropTo(UObject* OutDropObject);
 	
 protected:
 	
@@ -46,9 +33,15 @@ protected:
 	virtual void SetCameraManagerMode(const ECameraMode& InNewCameraMode) override;
 	virtual void UpdateCameraTransformByMode() override;
 	//~
-	
+
 	UFUNCTION(BlueprintCallable)
 	void InitInventorySystem();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void K2_AttachTo(UObject* OutAttachObject);
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void K2_DropTo(UObject* OutDropObject);
 
 	virtual void FindObjectsAround(const bool bForce);
 
@@ -77,9 +70,6 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputMappingContext> MappingContext;
-
-	UPROPERTY(EditAnywhere, Category = "Components")
-	TObjectPtr<class URadialMenuComponent> RadialMenuComponent;
 	
 private:
 	

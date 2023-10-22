@@ -44,8 +44,5 @@ public:
 	 * Calls when slot is created / or was setup in the player UI
 	 */
 	UFUNCTION(BlueprintNativeEvent, Category = "Radial Menu Slot Interface")
-	void InitializeSlot(const int32& Index);
-
-	UFUNCTION(BlueprintNativeEvent, Category = "Radial Menu Slot Interface")
-	void RefreshSlot();
+	void InitializeSlot();
 };

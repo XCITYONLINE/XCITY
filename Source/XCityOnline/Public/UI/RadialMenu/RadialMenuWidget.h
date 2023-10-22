@@ -17,14 +17,6 @@ class XCITYONLINE_API URadialMenuWidget : public UUserWidget
 {
 	GENERATED_BODY()
 
-public:
-	void RefreshRadialMenu();
-
-	FORCEINLINE URadialMenuSlot* GetSelectedRadialMenuSlot() const
-	{
-		return CurrentSelectedSlot;
-	}
-	
 protected:
 	URadialMenuWidget(const FObjectInitializer& ObjectInitializer);
 

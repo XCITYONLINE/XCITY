@@ -23,25 +23,18 @@ public:
 	virtual void OnSelected_Implementation() override;
 	virtual void BeginFocus_Implementation() override;
 	virtual void EndFocus_Implementation() override;
-	virtual void InitializeSlot_Implementation(const int32& Index) override;
-	virtual void RefreshSlot_Implementation() override;
+	virtual void InitializeSlot_Implementation() override;
 	// ~IRadialMenuSlotInterface end
 
 	FORCEINLINE UImage* GetSlotImage() const { return SlotImage; }
-	FORCEINLINE class UVerticalBox* GetSlotVerticalBox() const { return SlotVerticalBox; }
 	
 protected:
 	URadialMenuSlot(const FObjectInitializer& ObjectInitializer);
 	
+	// Just test variable, to check, is on focus work correctly
 	UPROPERTY(meta = (BindWidget))
 	UImage* SlotImage;
 
-	UPROPERTY(meta = (BindWidget), BlueprintReadOnly)
-	UVerticalBox* SlotVerticalBox;
-
-	UPROPERTY()
-	int32 SlotIndex;
-	
 	UPROPERTY(EditAnywhere, Category = "Radial Menu Slot")
 	FRadialMenuSlotData RadialMenuSlotData;
 };
