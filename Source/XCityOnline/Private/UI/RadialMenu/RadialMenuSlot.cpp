@@ -4,6 +4,7 @@
 #include "UI/RadialMenu/RadialMenuSlot.h"
 
 #include "Components/Image.h"
+#include "UI/RadialMenu/RadialMenuWidget.h"
 
 void URadialMenuSlot::OnSelected_Implementation()
 {
@@ -26,12 +27,19 @@ void URadialMenuSlot::EndFocus_Implementation()
 	}
 }
 
-void URadialMenuSlot::InitializeSlot_Implementation()
+void URadialMenuSlot::InitializeSlot_Implementation(const int32& Index)
 {
 	if (IsValid(RadialMenuSlotData.IdleImage))
 	{
 		SlotImage->SetBrushFromTexture(RadialMenuSlotData.IdleImage);
 	}
+
+	SlotIndex = Index;
+}
+
+void URadialMenuSlot::RefreshSlot_Implementation()
+{
+	IRadialMenuSlotInterface::RefreshSlot_Implementation();
 }
 
 URadialMenuSlot::URadialMenuSlot(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)

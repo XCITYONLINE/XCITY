@@ -5,6 +5,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "ReplicaPlayerComponent.h"
 #include "Components/CameraManagerComponent.h"
+#include "Components/RadialMenuComponent.h"
 #include "Conponents/FindObjectsComponent.h"
 #include "Conponents/InventoryComponentBase.h"
 #include "Contracts/InteractibleItemInterface.h"
@@ -22,6 +23,8 @@ AXCityCharacterBase::AXCityCharacterBase(const FObjectInitializer& ObjectInitial
 
 	InventoryComponent = CreateDefaultSubobject<UInventoryComponentBase>(TEXT("InventorySystemComponent"));
 	FindItemComponent = CreateDefaultSubobject<UFindObjectsComponent>(TEXT("FinderComponent"));
+
+	RadialMenuComponent = CreateDefaultSubobject<URadialMenuComponent>(TEXT("RadialMenuComponent"));
 }
 
 void AXCityCharacterBase::BeginPlay()
@@ -80,6 +83,20 @@ void AXCityCharacterBase::UpdateCameraTransformByMode()
 	{
 		CameraManagerComponent->UpdateCameraOffset();
 	}
+}
+
+void AXCityCharacterBase::GetItemsByType(const EWeaponType& InWeaponType,
+	TMap<int32, TScriptInterface<IInteractibleItemInterface>>& OutItemsByType)
+{
+	if (IsValid(RadialMenuComponent))
+	{
+		RadialMenuComponent->GetItemsByType(InWeaponType, OutItemsByType);
+	}
+}
+
+void AXCityCharacterBase::SetSelectedInventoryItem(const TScriptInterface<IInteractibleItemInterface>& InventoryItem)
+{
+	SelectedInventoryItem = InventoryItem;
 }
 
 void AXCityCharacterBase::FindObjectsAround(const bool bForce)
@@ -166,6 +183,15 @@ void AXCityCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInput
 		{
 			EnhancedInput->BindAction(TalkAction, ETriggerEvent::Started, this, &AXCityCharacterBase::OnTalkInputChanged);
 			EnhancedInput->BindAction(TalkAction, ETriggerEvent::Completed, this, &AXCityCharacterBase::OnTalkInputCompleted);
+		}
+
+		if (IsValid(RadialMenuComponent))
+		{
+			if (IsValid(RadialMenuComponent->EnableRadialMenuInput))
+			{
+				EnhancedInput->BindAction(RadialMenuComponent->EnableRadialMenuInput, ETriggerEvent::Started, RadialMenuComponent.Get(), &URadialMenuComponent::EnableRadialMenu);
+				EnhancedInput->BindAction(RadialMenuComponent->EnableRadialMenuInput, ETriggerEvent::Completed, RadialMenuComponent.Get(), &URadialMenuComponent::DisableRadialMenu);
+			}
 		}
 	}
 }
