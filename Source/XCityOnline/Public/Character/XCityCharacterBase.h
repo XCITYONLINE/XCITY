@@ -14,7 +14,9 @@
 class UInputAction;
 
 UCLASS()
-class XCITYONLINE_API AXCityCharacterBase : public AALSCharacter, public IPlayerCameraManagerInterface, public IRadialMenuInterface
+class XCITYONLINE_API AXCityCharacterBase : public AALSCharacter,
+public IPlayerCameraManagerInterface,
+public IRadialMenuInterface
 {
 	GENERATED_BODY()
 
