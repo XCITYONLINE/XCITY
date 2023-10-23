@@ -6,17 +6,17 @@
 
 AXCityAICharacter::AXCityAICharacter()
 {
-	SphereCollisionComponent = CreateDefaultSubobject<USphereComponent>(TEXT("ObstacleCillision"));
-	SphereCollisionComponent->SetupAttachment(RootComponent);
+	CapsuleCollisionComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("ObstacleCillision"));
+	CapsuleCollisionComponent->SetupAttachment(RootComponent);
 	
 	PrimaryActorTick.bCanEverTick = true;
 	
 	CheckObstacleRadius = 200.0f;
 	CollisionChannel = ECC_Vehicle;
 
-	SphereCollisionComponent->OnComponentBeginOverlap.AddUniqueDynamic(this, &AXCityAICharacter::ObstacleNotify);
-	SphereCollisionComponent->SetCollisionResponseToChannel(CollisionChannel, ECR_Block);
-	SphereCollisionComponent->SetSphereRadius(CheckObstacleRadius);
+	CapsuleCollisionComponent->OnComponentBeginOverlap.AddUniqueDynamic(this, &AXCityAICharacter::ObstacleNotify);
+	CapsuleCollisionComponent->SetCollisionResponseToChannel(CollisionChannel, ECR_Block);
+	CapsuleCollisionComponent->SetCapsuleRadius(CheckObstacleRadius);
 }
 
 void AXCityAICharacter::BeginPlay()
@@ -34,6 +34,8 @@ void AXCityAICharacter::ObstacleNotify(
 {
 	if (Cast<AWheeledVehiclePawn>(OtherActor))
 	{
+		K2_OnObstacleNotifyChanged();
+		
 		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		GetMesh()->SetCollisionObjectType(ECC_PhysicsBody);
 		GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);

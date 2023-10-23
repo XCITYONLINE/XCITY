@@ -31,11 +31,14 @@ public:
 		int32 OtherBodyIndex,
 		bool bFromSweep,
 		const FHitResult & SweepResult);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void K2_OnObstacleNotifyChanged();
 	
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	USphereComponent* SphereCollisionComponent;
+	UCapsuleComponent* CapsuleCollisionComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float CheckObstacleRadius;
