@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Components/SphereComponent.h"
 #include "GameFramework/Character.h"
 
 #include "XCityAICharacter.generated.h"
@@ -22,6 +23,23 @@ protected:
 
 public:	
 
-	virtual void Tick(float DeltaTime) override;
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	UFUNCTION()
+	void ObstacleNotify(
+		UPrimitiveComponent* OverlappedComponent,
+		AActor* OtherActor,
+		UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex,
+		bool bFromSweep,
+		const FHitResult & SweepResult);
+	
+public:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	USphereComponent* SphereCollisionComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float CheckObstacleRadius;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TEnumAsByte<ECollisionChannel> CollisionChannel;
 };
