@@ -24,11 +24,16 @@ public:
 
 	void GetItemsByType(const EWeaponType& InWeaponType, TMap<int32, TScriptInterface<IInteractibleItemInterface>>& OutItemsByType);
 
-	void EnableRadialMenu(const FInputActionValue& Value);
-	void DisableRadialMenu(const FInputActionValue& Value);
-
+	void SetupInput(class UEnhancedInputComponent* EnhancedInputComponent);
+	
 	UPROPERTY(EditAnywhere, Category = "Radial Menu|Input")
 	TObjectPtr<UInputAction> EnableRadialMenuInput;
+
+	UPROPERTY(EditAnywhere, Category = "Radial Menu|Input")
+	TObjectPtr<UInputAction> RadialMenuSlotRightInput;
+
+	UPROPERTY(EditAnywhere, Category = "Radial Menu|Input")
+	TObjectPtr<UInputAction> RadialMenuSlotLeftInput;
 	
 protected:
 	virtual void BeginPlay() override;
@@ -44,6 +49,12 @@ protected:
 	
 private:
 	void SelectItem();
+
+	void EnableRadialMenu(const FInputActionValue& Value);
+	void DisableRadialMenu(const FInputActionValue& Value);
+
+	void RadialMenuSlotRight(const FInputActionValue& Value);
+	void RadialMenuSlotLeft(const FInputActionValue& Value);
 	
 	class UInventoryComponentBase* GetInventoryComponentBase() const;
 };

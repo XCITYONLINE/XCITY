@@ -2,6 +2,8 @@
 
 #include "Components/RadialMenuComponent.h"
 #include <Conponents/InventoryComponentBase.h>
+
+#include "EnhancedInputComponent.h"
 #include "UI/RadialMenu/RadialMenuWidget.h"
 #include "Blueprint/UserWidget.h"
 #include "Character/XCityCharacterBase.h"
@@ -33,7 +35,8 @@ void URadialMenuComponent::GetItemsByType(const EWeaponType& InWeaponType,
 	{
 		return;
 	}
-	
+
+	int32 Index = 0;
 	for (int32 i = 0; i < Items.Num(); i++)
 	{
 		FWeaponsDataStruct WeaponsDataStruct;
@@ -42,7 +45,8 @@ void URadialMenuComponent::GetItemsByType(const EWeaponType& InWeaponType,
 		{
 			if (WeaponsDataStruct.WeaponType == InWeaponType)
 			{
-				OutItemsByType.Add(i, Items[i]);
+				OutItemsByType.Add(Index, Items[i]);
+				Index++;
 			}
 		}
 	}
@@ -52,7 +56,7 @@ void URadialMenuComponent::EnableRadialMenu(const FInputActionValue& Value)
 {
 	check(RadialMenuWidget);
 	
-	RadialMenuWidget->AddToViewport();
+	RadialMenuWidget->SetVisibility(ESlateVisibility::Visible);
 
 	if (Cast<ACharacter>(GetOwner()))
 	{
@@ -71,7 +75,7 @@ void URadialMenuComponent::DisableRadialMenu(const FInputActionValue& Value)
 {
 	check(RadialMenuWidget);
 	
-	RadialMenuWidget->RemoveFromParent();
+	RadialMenuWidget->SetVisibility(ESlateVisibility::Hidden);
 
 	if (Cast<ACharacter>(GetOwner()))
 	{
@@ -88,6 +92,50 @@ void URadialMenuComponent::DisableRadialMenu(const FInputActionValue& Value)
 	SelectItem();
 }
 
+void URadialMenuComponent::RadialMenuSlotRight(const FInputActionValue& Value)
+{
+	check(RadialMenuWidget);
+
+	if (RadialMenuWidget->GetSelectedRadialMenuSlot())
+	{
+		Cast<UWeaponRadialMenuSlot>(RadialMenuWidget->GetSelectedRadialMenuSlot())->SwitchWeaponIndex(true);
+	}
+}
+
+void URadialMenuComponent::RadialMenuSlotLeft(const FInputActionValue& Value)
+{
+	check(RadialMenuWidget);
+
+	if (RadialMenuWidget->GetSelectedRadialMenuSlot())
+	{
+		Cast<UWeaponRadialMenuSlot>(RadialMenuWidget->GetSelectedRadialMenuSlot())->SwitchWeaponIndex(false);
+	}
+}
+
+void URadialMenuComponent::SetupInput(UEnhancedInputComponent* EnhancedInputComponent)
+{
+	if (!IsValid(EnhancedInputComponent))
+	{
+		return;
+	}
+
+	if (IsValid(EnableRadialMenuInput))
+	{
+		EnhancedInputComponent->BindAction(EnableRadialMenuInput, ETriggerEvent::Started, this, &URadialMenuComponent::EnableRadialMenu);
+		EnhancedInputComponent->BindAction(EnableRadialMenuInput, ETriggerEvent::Completed, this, &URadialMenuComponent::DisableRadialMenu);
+	}
+
+	if (IsValid(RadialMenuSlotRightInput))
+	{
+		EnhancedInputComponent->BindAction(RadialMenuSlotRightInput, ETriggerEvent::Started, this, &URadialMenuComponent::RadialMenuSlotRight);
+	}
+
+	if (IsValid(RadialMenuSlotLeftInput))
+	{
+		EnhancedInputComponent->BindAction(RadialMenuSlotLeftInput, ETriggerEvent::Started, this, &URadialMenuComponent::RadialMenuSlotLeft);
+	}
+}
+
 void URadialMenuComponent::BeginPlay()
 {
 	Super::BeginPlay();
@@ -101,6 +149,8 @@ void URadialMenuComponent::BeginPlay()
 	if (IsValid(RadialMenuWidgetClass))
 	{
 		RadialMenuWidget = CreateWidget<URadialMenuWidget>(Cast<APlayerController>(CharacterBase->GetOwner()), RadialMenuWidgetClass);
+		RadialMenuWidget->AddToViewport();
+		RadialMenuWidget->SetVisibility(ESlateVisibility::Hidden);
 	}
 	
 	GetInventoryComponentBase()->OnInventorySizeChanged.AddUniqueDynamic(this, &URadialMenuComponent::OnInventorySizeChanged);
