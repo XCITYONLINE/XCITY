@@ -19,6 +19,9 @@ public:
 
 protected:
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Overlap")
+	bool OverlapPlayer = false;
+
 	virtual void BeginPlay() override;
 
 public:	
