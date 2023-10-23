@@ -25,8 +25,6 @@ public:
 	{
 		return SelectedWeaponIndex;
 	}
-
-	void SwitchWeaponIndex(const bool& bRight);
 	
 protected:
 	// IRadialMenuSlotInterface start
