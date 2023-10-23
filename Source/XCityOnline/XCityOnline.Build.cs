@@ -24,8 +24,10 @@ public class XCityOnline : ModuleRules
 			"InventorySystem",
 			"CommonContractsPlugin",
 			"UMG",
-			"ALSV4_CPP", "WeaponSystem"
-		});
+			"ALSV4_CPP",
+			"WeaponSystem",
+			"ChaosVehicles"
+        });
 
 		// Uncomment if you are using Slate UI
 		 PrivateDependencyModuleNames.AddRange(new string[]

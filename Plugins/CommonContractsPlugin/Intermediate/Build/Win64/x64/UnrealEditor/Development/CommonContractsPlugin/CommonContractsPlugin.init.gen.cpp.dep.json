@@ -1,11 +1,11 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "d:\\unrealprojects\\xcitynew\\xcity\\plugins\\commoncontractsplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\commoncontractsplugin\\uht\\commoncontractsplugin.init.gen.cpp",
+        "Source": "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\commoncontractsplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\commoncontractsplugin\\uht\\commoncontractsplugin.init.gen.cpp",
         "ProvidedModule": "",
-        "PCH": "d:\\unrealprojects\\xcitynew\\xcity\\intermediate\\build\\win64\\x64\\xcityonlineeditor\\development\\engine\\sharedpch.engine.cpp20.h.pch",
+        "PCH": "e:\\outsource\\unreal\\xcity\\xcity\\intermediate\\build\\win64\\x64\\xcityonlineeditor\\development\\engine\\sharedpch.engine.cpp20.h.pch",
         "Includes": [
-            "d:\\unrealprojects\\xcitynew\\xcity\\plugins\\commoncontractsplugin\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\commoncontractsplugin\\definitions.commoncontractsplugin.h"
+            "e:\\outsource\\unreal\\xcity\\xcity\\plugins\\commoncontractsplugin\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\commoncontractsplugin\\definitions.commoncontractsplugin.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []
