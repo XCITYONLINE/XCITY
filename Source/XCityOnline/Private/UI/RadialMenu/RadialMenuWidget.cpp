@@ -32,7 +32,6 @@ URadialMenuWidget::URadialMenuWidget(const FObjectInitializer& ObjectInitializer
 FReply URadialMenuWidget::NativeOnMouseMove(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
 	const float MouseAngle = UXCityWidgetLibrary::ConvertMousePositionIntoAngle(InMouseEvent.GetScreenSpacePosition());
-//	UE_LOG(LogTemp, Display, TEXT("%f"), MouseAngle);
 
 	const FRadialMenuSlotInfo& SlotInfo = GetSlotByAngle(MouseAngle);
 	check(SlotInfo.SlotPtr);
@@ -66,8 +65,7 @@ void URadialMenuWidget::InitRadialMenu()
 	{
 		URadialMenuSlot* RadialMenuSlot = CreateWidget<URadialMenuSlot>(GetOwningPlayer(), RadialMenuSlotClass);
 		FRadialMenuSlotInfo SlotInfo { FVector2D(i - OverallRadialMenuAngle / RadialMenuParts, i), RadialMenuSlot };
-
-	//	UE_LOG(LogTemp, Display, TEXT("Slot info: X: %f Y: %f"), SlotInfo.AngleRange.X, SlotInfo.AngleRange.Y);
+		
 		SetupSlotVisual(SlotInfo);
 		
 		if (RadialMenuSlot->Implements<URadialMenuSlotInterface>())

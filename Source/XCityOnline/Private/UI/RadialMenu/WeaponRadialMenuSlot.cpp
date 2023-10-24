@@ -4,6 +4,7 @@
 #include "UI/RadialMenu/WeaponRadialMenuSlot.h"
 
 #include "Components/Image.h"
+#include "Components/RadialMenuComponent.h"
 #include "Interfaces/RadialMenuInterface.h"
 
 void UWeaponRadialMenuSlot::SwitchWeaponIndex(const bool& bRight)
@@ -28,9 +29,9 @@ void UWeaponRadialMenuSlot::RefreshSlot_Implementation()
 {
 	Super::RefreshSlot_Implementation();
 
-	if (GetOwningPlayerPawn()->Implements<URadialMenuInterface>())
+	if (GetRadialMenuComponent()->Implements<URadialMenuInterface>())
 	{
-		IRadialMenuInterface* RadialMenuInterface = Cast<IRadialMenuInterface>(GetOwningPlayerPawn());
+		IRadialMenuInterface* RadialMenuInterface = Cast<IRadialMenuInterface>(GetRadialMenuComponent());
 		
 		TMap<int32, TScriptInterface<IInteractibleItemInterface>> Items;
 		RadialMenuInterface->GetItemsByType(SlotWeaponType, Items);

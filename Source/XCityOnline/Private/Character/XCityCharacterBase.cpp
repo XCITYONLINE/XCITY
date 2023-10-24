@@ -85,15 +85,6 @@ void AXCityCharacterBase::UpdateCameraTransformByMode()
 	}
 }
 
-void AXCityCharacterBase::GetItemsByType(const EWeaponType& InWeaponType,
-	TMap<int32, TScriptInterface<IInteractibleItemInterface>>& OutItemsByType)
-{
-	if (IsValid(RadialMenuComponent))
-	{
-		RadialMenuComponent->GetItemsByType(InWeaponType, OutItemsByType);
-	}
-}
-
 void AXCityCharacterBase::SetSelectedInventoryItem(const TScriptInterface<IInteractibleItemInterface>& InventoryItem)
 {
 	SelectedInventoryItem = InventoryItem;

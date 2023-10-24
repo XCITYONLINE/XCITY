@@ -7,6 +7,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "InputActionValue.h"
+#include "Interfaces/RadialMenuInterface.h"
 #include "RadialMenuComponent.generated.h"
 
 
@@ -14,7 +15,7 @@ class UInputAction;
 class URadialMenuWidget;
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
-class XCITYONLINE_API URadialMenuComponent : public UActorComponent
+class XCITYONLINE_API URadialMenuComponent : public UActorComponent, public IRadialMenuInterface
 {
 	GENERATED_BODY()
 
@@ -22,7 +23,7 @@ public:
 	// Sets default values for this component's properties
 	URadialMenuComponent();
 
-	void GetItemsByType(const EWeaponType& InWeaponType, TMap<int32, TScriptInterface<IInteractibleItemInterface>>& OutItemsByType);
+	virtual void GetItemsByType(const EWeaponType& InWeaponType, TMap<int32, TScriptInterface<IInteractibleItemInterface>>& OutItemsByType) override;
 
 	void SetupInput(class UEnhancedInputComponent* EnhancedInputComponent);
 	
@@ -43,9 +44,6 @@ protected:
 
 	UPROPERTY()
 	TObjectPtr<URadialMenuWidget> RadialMenuWidget;
-
-	UPROPERTY(EditAnywhere, Category = "Radial Menu Component")
-	TSubclassOf<URadialMenuWidget> RadialMenuWidgetClass;
 	
 private:
 	void SelectItem();
@@ -55,6 +53,7 @@ private:
 
 	void RadialMenuSlotRight(const FInputActionValue& Value);
 	void RadialMenuSlotLeft(const FInputActionValue& Value);
-	
-	class UInventoryComponentBase* GetInventoryComponentBase() const;
+
+	UPROPERTY()
+	class UInventoryComponentBase* InventoryComponentBase;
 };
