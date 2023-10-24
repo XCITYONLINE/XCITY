@@ -12,6 +12,13 @@ UInventoryComponentBase::UInventoryComponentBase()
 	SelectedItem = nullptr;
 }
 
+void UInventoryComponentBase::SelectItem_Implementation(TScriptInterface<IInteractibleItemInterface>& InNewSelectedItem)
+{
+	IInventorySystemInterface::Execute_UnselectAllItems(this);
+	
+	SelectedItem = InNewSelectedItem;
+}
+
 void UInventoryComponentBase::OnInitInventorySystem_Implementation()
 {
 	AllInventoryItems.SetNumZeroed(AllItemsValue);

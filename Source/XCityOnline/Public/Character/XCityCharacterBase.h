@@ -20,6 +20,8 @@ public IRadialMenuInterface
 {
 	GENERATED_BODY()
 
+	friend class URadialMenuComponent;
+	
 public:
 	
 	AXCityCharacterBase(const FObjectInitializer& ObjectInitializer);

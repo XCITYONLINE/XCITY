@@ -21,6 +21,9 @@ class COMMONCONTRACTSPLUGIN_API IInventorySystemInterface
 public:
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Inventory Item")
+	void SelectItem(TScriptInterface<IInteractibleItemInterface>& InNewSelectedItem);
+	
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Inventory Item")
 	void OnInitInventorySystem();
 	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Inventory Item")

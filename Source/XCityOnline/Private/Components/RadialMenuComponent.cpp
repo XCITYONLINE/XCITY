@@ -171,7 +171,7 @@ void URadialMenuComponent::SelectItem()
 		return;
 	}
 
-	UWeaponRadialMenuSlot* WeaponRadialMenuSlot = Cast<UWeaponRadialMenuSlot>(Slot);
+	const UWeaponRadialMenuSlot* WeaponRadialMenuSlot = Cast<UWeaponRadialMenuSlot>(Slot);
 	if (!IsValid(WeaponRadialMenuSlot))
 	{
 		return;
@@ -185,6 +185,7 @@ void URadialMenuComponent::SelectItem()
 
 	TMap<int32, TScriptInterface<IInteractibleItemInterface>> Items;
 	CharacterBase->GetItemsByType(WeaponRadialMenuSlot->GetWeaponType(), Items);
+	CharacterBase->ClearHeldObject();
 	if (Items.Num() > 0)
 	{
 		if (Items.Find(WeaponRadialMenuSlot->GetSelectedWeaponIndex()))
@@ -192,18 +193,9 @@ void URadialMenuComponent::SelectItem()
 			FWeaponsDataStruct WeaponsDataStruct;
 			Items[WeaponRadialMenuSlot->GetSelectedWeaponIndex()]->GetItemSettings<FWeaponsDataStruct>(Items[WeaponRadialMenuSlot->GetSelectedWeaponIndex()].GetObject(), WeaponsDataStruct);
 			
-			CharacterBase->AttachToHand(
-			WeaponsDataStruct.WeaponStaticMesh,
-			WeaponsDataStruct.WeaponSkeletal,
-			WeaponsDataStruct.WeaponAnimInstance,
-			false,
-			WeaponsDataStruct.AttachOffset,
-			true,
-			Items[WeaponRadialMenuSlot->GetSelectedWeaponIndex()].GetObject()
-				);
-
-			CharacterBase->K2_AttachTo(Items[WeaponRadialMenuSlot->GetSelectedWeaponIndex()].GetObject());
 			CharacterBase->SetSelectedInventoryItem(Items[WeaponRadialMenuSlot->GetSelectedWeaponIndex()]);
+			GetInventoryComponentBase()->SelectItem_Implementation(Items[WeaponRadialMenuSlot->GetSelectedWeaponIndex()]);
+			CharacterBase->ReInitializeItemObject();
 		}
 	}
 }

@@ -23,6 +23,7 @@ public:
 	UInventoryComponentBase();
 
 	//IInventorySystemInterface implements
+	virtual void SelectItem_Implementation(TScriptInterface<IInteractibleItemInterface>& InNewSelectedItem) override;
 	virtual void OnInitInventorySystem_Implementation() override;
 	virtual void OnForwardItemChanged_Implementation() override;
 	virtual void OnBackwardItemChanged_Implementation() override;
