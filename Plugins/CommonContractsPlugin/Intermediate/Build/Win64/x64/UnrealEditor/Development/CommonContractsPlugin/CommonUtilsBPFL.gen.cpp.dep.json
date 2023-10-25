@@ -1,0 +1,15 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "d:\\unrealprojects\\xcitynew\\xcity\\plugins\\commoncontractsplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\commoncontractsplugin\\uht\\commonutilsbpfl.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\unrealprojects\\xcitynew\\xcity\\intermediate\\build\\win64\\x64\\xcityonlineeditor\\development\\engine\\sharedpch.engine.cpp20.h.pch",
+        "Includes": [
+            "d:\\unrealprojects\\xcitynew\\xcity\\plugins\\commoncontractsplugin\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\commoncontractsplugin\\definitions.commoncontractsplugin.h",
+            "d:\\unrealprojects\\xcitynew\\xcity\\plugins\\commoncontractsplugin\\source\\commoncontractsplugin\\public\\commonunils\\commonutilsbpfl.h",
+            "d:\\unrealprojects\\xcitynew\\xcity\\plugins\\commoncontractsplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\commoncontractsplugin\\uht\\commonutilsbpfl.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

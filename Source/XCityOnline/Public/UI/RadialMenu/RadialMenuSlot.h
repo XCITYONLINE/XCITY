@@ -9,6 +9,7 @@
 #include "RadialMenuSlot.generated.h"
 
 class UImage;
+class URadialMenuComponent;
 
 /**
  * 
@@ -29,8 +30,11 @@ public:
 
 	FORCEINLINE UImage* GetSlotImage() const { return SlotImage; }
 	FORCEINLINE class UVerticalBox* GetSlotVerticalBox() const { return SlotVerticalBox; }
+	FORCEINLINE URadialMenuComponent* GetRadialMenuComponent() const { return RadialMenuComponent; }
 	
 protected:
+	virtual void NativeConstruct() override;
+	
 	URadialMenuSlot(const FObjectInitializer& ObjectInitializer);
 	
 	UPROPERTY(meta = (BindWidget))
@@ -38,6 +42,9 @@ protected:
 
 	UPROPERTY(meta = (BindWidget), BlueprintReadOnly)
 	UVerticalBox* SlotVerticalBox;
+
+	UPROPERTY()
+	URadialMenuComponent* RadialMenuComponent;
 
 	UPROPERTY()
 	int32 SlotIndex;

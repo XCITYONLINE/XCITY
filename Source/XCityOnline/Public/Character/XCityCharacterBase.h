@@ -15,18 +15,13 @@ class UInputAction;
 
 UCLASS()
 class XCITYONLINE_API AXCityCharacterBase : public AALSCharacter,
-public IPlayerCameraManagerInterface,
-public IRadialMenuInterface
+public IPlayerCameraManagerInterface
 {
 	GENERATED_BODY()
-
+	
 public:
 	
 	AXCityCharacterBase(const FObjectInitializer& ObjectInitializer);
-
-	//IRadialMenuInterface implements
-	virtual void GetItemsByType(const EWeaponType& InWeaponType, TMap<int32, TScriptInterface<IInteractibleItemInterface>>& OutItemsByType) override;
-	//~
 
 	void SetSelectedInventoryItem(const TScriptInterface<class IInteractibleItemInterface>& InventoryItem);
 
@@ -35,6 +30,8 @@ public:
 	
 	UFUNCTION(BlueprintImplementableEvent)
 	void K2_DropTo(UObject* OutDropObject);
+
+	void ReInitializeItemObject();
 	
 protected:
 	
@@ -99,7 +96,6 @@ private:
 
 	TScriptInterface<class IInteractibleItemInterface> GetCloserObject(
 		const TArray<TScriptInterface<class IInteractibleItemInterface>>& InFoundObjects) const;
-	void ReInitializeItemObject();
 	
 	TScriptInterface<class IInteractibleItemInterface> SelectedInventoryItem;
 	TScriptInterface<class IInteractibleItemInterface> TriggeredObject;

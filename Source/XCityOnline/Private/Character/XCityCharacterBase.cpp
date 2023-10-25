@@ -85,15 +85,6 @@ void AXCityCharacterBase::UpdateCameraTransformByMode()
 	}
 }
 
-void AXCityCharacterBase::GetItemsByType(const EWeaponType& InWeaponType,
-	TMap<int32, TScriptInterface<IInteractibleItemInterface>>& OutItemsByType)
-{
-	if (IsValid(RadialMenuComponent))
-	{
-		RadialMenuComponent->GetItemsByType(InWeaponType, OutItemsByType);
-	}
-}
-
 void AXCityCharacterBase::SetSelectedInventoryItem(const TScriptInterface<IInteractibleItemInterface>& InventoryItem)
 {
 	SelectedInventoryItem = InventoryItem;
@@ -187,11 +178,7 @@ void AXCityCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInput
 
 		if (IsValid(RadialMenuComponent))
 		{
-			if (IsValid(RadialMenuComponent->EnableRadialMenuInput))
-			{
-				EnhancedInput->BindAction(RadialMenuComponent->EnableRadialMenuInput, ETriggerEvent::Started, RadialMenuComponent.Get(), &URadialMenuComponent::EnableRadialMenu);
-				EnhancedInput->BindAction(RadialMenuComponent->EnableRadialMenuInput, ETriggerEvent::Completed, RadialMenuComponent.Get(), &URadialMenuComponent::DisableRadialMenu);
-			}
+			RadialMenuComponent->SetupInput(EnhancedInput);
 		}
 	}
 }

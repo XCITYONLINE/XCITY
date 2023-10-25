@@ -2,9 +2,12 @@
 
 #include "Components/RadialMenuComponent.h"
 #include <Conponents/InventoryComponentBase.h>
+
+#include "EnhancedInputComponent.h"
 #include "UI/RadialMenu/RadialMenuWidget.h"
 #include "Blueprint/UserWidget.h"
 #include "Character/XCityCharacterBase.h"
+#include "UI/XCityHUD.h"
 #include "UI/RadialMenu/RadialMenuSlot.h"
 #include "UI/RadialMenu/WeaponRadialMenuSlot.h"
 
@@ -16,13 +19,7 @@ URadialMenuComponent::URadialMenuComponent()
 void URadialMenuComponent::GetItemsByType(const EWeaponType& InWeaponType,
 	TMap<int32, TScriptInterface<IInteractibleItemInterface>>& OutItemsByType)
 {
-	if (!IsValid(GetOwner()))
-	{
-		return;
-	}
-
-	UInventoryComponentBase* InventoryComponentBase = GetInventoryComponentBase();
-	if (!IsValid(InventoryComponentBase))
+	if (!IsValid(GetOwner()) || !IsValid(InventoryComponentBase))
 	{
 		return;
 	}
@@ -33,7 +30,8 @@ void URadialMenuComponent::GetItemsByType(const EWeaponType& InWeaponType,
 	{
 		return;
 	}
-	
+
+	int32 Index = 0;
 	for (int32 i = 0; i < Items.Num(); i++)
 	{
 		FWeaponsDataStruct WeaponsDataStruct;
@@ -42,7 +40,8 @@ void URadialMenuComponent::GetItemsByType(const EWeaponType& InWeaponType,
 		{
 			if (WeaponsDataStruct.WeaponType == InWeaponType)
 			{
-				OutItemsByType.Add(i, Items[i]);
+				OutItemsByType.Add(Index, Items[i]);
+				Index++;
 			}
 		}
 	}
@@ -52,7 +51,7 @@ void URadialMenuComponent::EnableRadialMenu(const FInputActionValue& Value)
 {
 	check(RadialMenuWidget);
 	
-	RadialMenuWidget->AddToViewport();
+	RadialMenuWidget->SetVisibility(ESlateVisibility::Visible);
 
 	if (Cast<ACharacter>(GetOwner()))
 	{
@@ -71,7 +70,7 @@ void URadialMenuComponent::DisableRadialMenu(const FInputActionValue& Value)
 {
 	check(RadialMenuWidget);
 	
-	RadialMenuWidget->RemoveFromParent();
+	RadialMenuWidget->SetVisibility(ESlateVisibility::Hidden);
 
 	if (Cast<ACharacter>(GetOwner()))
 	{
@@ -88,6 +87,50 @@ void URadialMenuComponent::DisableRadialMenu(const FInputActionValue& Value)
 	SelectItem();
 }
 
+void URadialMenuComponent::RadialMenuSlotRight(const FInputActionValue& Value)
+{
+	check(RadialMenuWidget);
+
+	if (RadialMenuWidget->GetSelectedRadialMenuSlot())
+	{
+		Cast<UWeaponRadialMenuSlot>(RadialMenuWidget->GetSelectedRadialMenuSlot())->SwitchWeaponIndex(true);
+	}
+}
+
+void URadialMenuComponent::RadialMenuSlotLeft(const FInputActionValue& Value)
+{
+	check(RadialMenuWidget);
+
+	if (RadialMenuWidget->GetSelectedRadialMenuSlot())
+	{
+		Cast<UWeaponRadialMenuSlot>(RadialMenuWidget->GetSelectedRadialMenuSlot())->SwitchWeaponIndex(false);
+	}
+}
+
+void URadialMenuComponent::SetupInput(UEnhancedInputComponent* EnhancedInputComponent)
+{
+	if (!IsValid(EnhancedInputComponent))
+	{
+		return;
+	}
+
+	if (IsValid(EnableRadialMenuInput))
+	{
+		EnhancedInputComponent->BindAction(EnableRadialMenuInput, ETriggerEvent::Started, this, &URadialMenuComponent::EnableRadialMenu);
+		EnhancedInputComponent->BindAction(EnableRadialMenuInput, ETriggerEvent::Completed, this, &URadialMenuComponent::DisableRadialMenu);
+	}
+
+	if (IsValid(RadialMenuSlotRightInput))
+	{
+		EnhancedInputComponent->BindAction(RadialMenuSlotRightInput, ETriggerEvent::Started, this, &URadialMenuComponent::RadialMenuSlotRight);
+	}
+
+	if (IsValid(RadialMenuSlotLeftInput))
+	{
+		EnhancedInputComponent->BindAction(RadialMenuSlotLeftInput, ETriggerEvent::Started, this, &URadialMenuComponent::RadialMenuSlotLeft);
+	}
+}
+
 void URadialMenuComponent::BeginPlay()
 {
 	Super::BeginPlay();
@@ -98,12 +141,16 @@ void URadialMenuComponent::BeginPlay()
 		return;
 	}
 
-	if (IsValid(RadialMenuWidgetClass))
-	{
-		RadialMenuWidget = CreateWidget<URadialMenuWidget>(Cast<APlayerController>(CharacterBase->GetOwner()), RadialMenuWidgetClass);
-	}
+	UActorComponent* FoundComponent = CharacterBase->FindComponentByClass<UInventoryComponentBase>();
+	InventoryComponentBase = Cast<UInventoryComponentBase>(FoundComponent);
+	check(InventoryComponentBase);
 	
-	GetInventoryComponentBase()->OnInventorySizeChanged.AddUniqueDynamic(this, &URadialMenuComponent::OnInventorySizeChanged);
+	InventoryComponentBase->OnInventorySizeChanged.AddUniqueDynamic(this, &URadialMenuComponent::OnInventorySizeChanged);
+
+	const auto Controller = Cast<APlayerController>(CharacterBase->GetOwner());
+	const auto XCityHUD = Cast<AXCityHUD>(Controller->GetHUD());
+	check(XCityHUD);
+	RadialMenuWidget = XCityHUD->GetRadialMenuWidget();
 }
 
 void URadialMenuComponent::OnInventorySizeChanged(const TArray<TScriptInterface<IInteractibleItemInterface>>& Value)
@@ -121,7 +168,7 @@ void URadialMenuComponent::SelectItem()
 		return;
 	}
 
-	UWeaponRadialMenuSlot* WeaponRadialMenuSlot = Cast<UWeaponRadialMenuSlot>(Slot);
+	const UWeaponRadialMenuSlot* WeaponRadialMenuSlot = Cast<UWeaponRadialMenuSlot>(Slot);
 	if (!IsValid(WeaponRadialMenuSlot))
 	{
 		return;
@@ -134,7 +181,8 @@ void URadialMenuComponent::SelectItem()
 	}
 
 	TMap<int32, TScriptInterface<IInteractibleItemInterface>> Items;
-	CharacterBase->GetItemsByType(WeaponRadialMenuSlot->GetWeaponType(), Items);
+	GetItemsByType(WeaponRadialMenuSlot->GetWeaponType(), Items);
+	CharacterBase->ClearHeldObject();
 	if (Items.Num() > 0)
 	{
 		if (Items.Find(WeaponRadialMenuSlot->GetSelectedWeaponIndex()))
@@ -142,32 +190,9 @@ void URadialMenuComponent::SelectItem()
 			FWeaponsDataStruct WeaponsDataStruct;
 			Items[WeaponRadialMenuSlot->GetSelectedWeaponIndex()]->GetItemSettings<FWeaponsDataStruct>(Items[WeaponRadialMenuSlot->GetSelectedWeaponIndex()].GetObject(), WeaponsDataStruct);
 			
-			CharacterBase->AttachToHand(
-			WeaponsDataStruct.WeaponStaticMesh,
-			WeaponsDataStruct.WeaponSkeletal,
-			WeaponsDataStruct.WeaponAnimInstance,
-			false,
-			WeaponsDataStruct.AttachOffset,
-			true,
-			Items[WeaponRadialMenuSlot->GetSelectedWeaponIndex()].GetObject()
-				);
-
-			CharacterBase->K2_AttachTo(Items[WeaponRadialMenuSlot->GetSelectedWeaponIndex()].GetObject());
 			CharacterBase->SetSelectedInventoryItem(Items[WeaponRadialMenuSlot->GetSelectedWeaponIndex()]);
+			InventoryComponentBase->SelectItem_Implementation(Items[WeaponRadialMenuSlot->GetSelectedWeaponIndex()]);
+			CharacterBase->ReInitializeItemObject();
 		}
 	}
-}
-
-UInventoryComponentBase* URadialMenuComponent::GetInventoryComponentBase() const
-{
-	const AXCityCharacterBase* CharacterBase = Cast<AXCityCharacterBase>(GetOwner());
-	if (!IsValid(CharacterBase))
-	{
-		return nullptr;
-	}
-	
-	UActorComponent* FoundComponent = CharacterBase->FindComponentByClass<UInventoryComponentBase>();
-	UInventoryComponentBase* InventoryComponentBase = Cast<UInventoryComponentBase>(FoundComponent);
-
-	return InventoryComponentBase;
 }
