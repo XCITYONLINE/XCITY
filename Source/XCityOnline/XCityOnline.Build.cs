@@ -6,6 +6,12 @@ public class XCityOnline : ModuleRules
 {
 	public XCityOnline(ReadOnlyTargetRules Target) : base(Target)
 	{
+		PrivateDependencyModuleNames.AddRange(new string[]
+		{
+			"WeaponSystem",
+			"ReplicaNPC"
+		});
+		
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
 		PublicDependencyModuleNames.AddRange(new string[]
@@ -16,11 +22,19 @@ public class XCityOnline : ModuleRules
 			"InputCore",
 			"EnhancedInput",
 			"InventorySystem",
-			"CommonContractsPlugin"
-		});
+			"CommonContractsPlugin",
+			"UMG",
+			"ALSV4_CPP",
+			"WeaponSystem",
+			"ChaosVehicles"
+        });
 
 		// Uncomment if you are using Slate UI
-		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
+		 PrivateDependencyModuleNames.AddRange(new string[]
+		 {
+			 "Slate",
+			 "SlateCore"
+		 });
 		
 		// Uncomment if you are using online features
 		// PrivateDependencyModuleNames.Add("OnlineSubsystem");

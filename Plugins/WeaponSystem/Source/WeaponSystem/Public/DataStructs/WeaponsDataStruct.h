@@ -140,15 +140,21 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Visual")
 	class USkeletalMesh* WeaponSkeletal;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Visual")
+	class UStaticMesh* WeaponStaticMesh;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Visual")
 	TSubclassOf<UAnimInstance> WeaponAnimInstance;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Visual")
-	TSoftObjectPtr<UTexture> WeaponIcon;
+	TObjectPtr<UTexture2D> WeaponIcon;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Visual")
 	TEnumAsByte<EWeaponType> WeaponType;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Visual")
+	FVector AttachOffset;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shoot settings")
 	bool bUseAlternativeMode;

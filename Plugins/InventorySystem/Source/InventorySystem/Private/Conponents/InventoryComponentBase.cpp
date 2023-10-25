@@ -12,6 +12,13 @@ UInventoryComponentBase::UInventoryComponentBase()
 	SelectedItem = nullptr;
 }
 
+void UInventoryComponentBase::SelectItem_Implementation(TScriptInterface<IInteractibleItemInterface>& InNewSelectedItem)
+{
+	IInventorySystemInterface::Execute_UnselectAllItems(this);
+	
+	SelectedItem = InNewSelectedItem;
+}
+
 void UInventoryComponentBase::OnInitInventorySystem_Implementation()
 {
 	AllInventoryItems.SetNumZeroed(AllItemsValue);
@@ -20,17 +27,19 @@ void UInventoryComponentBase::OnInitInventorySystem_Implementation()
 
 void UInventoryComponentBase::OnForwardItemChanged_Implementation()
 {
+	if (AllInventoryItems.IsEmpty())
+	{
+		return;
+	}
+	
 	if (AllInventoryItems.Num() > ++CurrentInventoryItemIndex)
 	{
 		if (const TScriptInterface<IInteractibleItemInterface> NextInventoryItem =
 			AllInventoryItems[CurrentInventoryItemIndex]; IsValid(NextInventoryItem.GetObject()))
 		{
-			if (IsValid(SelectedItem.GetObject()))
-			{
-				IInteractibleItemInterface::Execute_OnUnselect(SelectedItem.GetObject());
-			}
-			
 			SelectedItem = NextInventoryItem;
+			IInventorySystemInterface::Execute_UnselectAllItems(this);
+			
 			if (OnInventoryItemSelected.IsBound())
 			{
 				OnInventoryItemSelected.Broadcast(SelectedItem);
@@ -46,18 +55,20 @@ void UInventoryComponentBase::OnForwardItemChanged_Implementation()
 
 void UInventoryComponentBase::OnBackwardItemChanged_Implementation()
 {
+	if (AllInventoryItems.IsEmpty())
+	{
+		return;
+	}
+	
 	const int32 NewInventoryIndex = --CurrentInventoryItemIndex;
 	if (AllInventoryItems.Num() > NewInventoryIndex && NewInventoryIndex >= 0)
 	{
 		if (const TScriptInterface<IInteractibleItemInterface> PreviousInventoryItem =
 			AllInventoryItems[NewInventoryIndex]; IsValid(PreviousInventoryItem.GetObject()))
 		{
-			if (IsValid(SelectedItem.GetObject()))
-			{
-				IInteractibleItemInterface::Execute_OnUnselect(SelectedItem.GetObject());
-			}
-			
 			SelectedItem = PreviousInventoryItem;
+			IInventorySystemInterface::Execute_UnselectAllItems(this);
+			
 			if (OnInventoryItemSelected.IsBound())
 			{
 				OnInventoryItemSelected.Broadcast(SelectedItem);
@@ -79,12 +90,15 @@ void UInventoryComponentBase::AddInventoryItem_Implementation(
 		return;
 	}
 	
+	IInventorySystemInterface::Execute_UnselectAllItems(this);
+	
 	if (const int32 FoundIndexItem =
 		AllInventoryItems.Find(InNewInventoryItem); FoundIndexItem == INDEX_NONE)
 	{
 		AllInventoryItems.Add(InNewInventoryItem);
 		SelectedItem = InNewInventoryItem;
-		
+		CurrentInventoryItemIndex = 0;
+
 		if (OnInventorySizeChanged.IsBound())
 		{
 			OnInventorySizeChanged.Broadcast(AllInventoryItems);
@@ -115,10 +129,16 @@ void UInventoryComponentBase::RemoveInventoryItem_Implementation(
 		return;
 	}
 
+	IInventorySystemInterface::Execute_UnselectAllItems(this);
+	
 	if (const int32 RemovedItemIndex = AllInventoryItems.Remove(InInventoryItem);
-		RemovedItemIndex != INDEX_NONE && OnInventorySizeChanged.IsBound())
+		RemovedItemIndex != INDEX_NONE)
 	{
-		OnInventorySizeChanged.Broadcast(AllInventoryItems);
+		CurrentInventoryItemIndex = 0;
+		if (OnInventorySizeChanged.IsBound())
+		{
+			OnInventorySizeChanged.Broadcast(AllInventoryItems);
+		}
 	}
 }
 
@@ -126,7 +146,10 @@ void UInventoryComponentBase::RemoveInventoryItemByIndex_Implementation(const in
 {
 	if (AllInventoryItems.Num() < InInventoryIndex && InInventoryIndex >= 0)
 	{
+		CurrentInventoryItemIndex = 0;
 		AllInventoryItems.RemoveAt(InInventoryIndex);
+		IInventorySystemInterface::Execute_UnselectAllItems(this);
+		
 		if (OnInventorySizeChanged.IsBound())
 		{
 			OnInventorySizeChanged.Broadcast(AllInventoryItems);
@@ -151,5 +174,13 @@ void UInventoryComponentBase::UnselectItem_Implementation()
 	if (OnInventoryItemSelected.IsBound())
 	{
 		OnInventoryItemSelected.Broadcast(SelectedItem);
+	}
+}
+
+void UInventoryComponentBase::UnselectAllItems_Implementation()
+{
+	for (TScriptInterface<IInteractibleItemInterface>& CurrentItem : AllInventoryItems)
+	{
+		IInteractibleItemInterface::Execute_OnUnselect(CurrentItem.GetObject());
 	}
 }

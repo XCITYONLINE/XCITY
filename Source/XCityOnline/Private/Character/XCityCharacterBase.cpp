@@ -3,13 +3,18 @@
 #include "Character/XCityCharacterBase.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "ReplicaPlayerComponent.h"
 #include "Components/CameraManagerComponent.h"
+#include "Components/RadialMenuComponent.h"
 #include "Conponents/FindObjectsComponent.h"
 #include "Conponents/InventoryComponentBase.h"
 #include "Contracts/InteractibleItemInterface.h"
+#include "Contracts/InteractibleWeaponInterface.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "WeaponActors/InteractibleWeaponBase.h"
 
-AXCityCharacterBase::AXCityCharacterBase()
+AXCityCharacterBase::AXCityCharacterBase(const FObjectInitializer& ObjectInitializer)
+: Super(ObjectInitializer)
 {
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -18,6 +23,8 @@ AXCityCharacterBase::AXCityCharacterBase()
 
 	InventoryComponent = CreateDefaultSubobject<UInventoryComponentBase>(TEXT("InventorySystemComponent"));
 	FindItemComponent = CreateDefaultSubobject<UFindObjectsComponent>(TEXT("FinderComponent"));
+
+	RadialMenuComponent = CreateDefaultSubobject<URadialMenuComponent>(TEXT("RadialMenuComponent"));
 }
 
 void AXCityCharacterBase::BeginPlay()
@@ -76,6 +83,11 @@ void AXCityCharacterBase::UpdateCameraTransformByMode()
 	{
 		CameraManagerComponent->UpdateCameraOffset();
 	}
+}
+
+void AXCityCharacterBase::SetSelectedInventoryItem(const TScriptInterface<IInteractibleItemInterface>& InventoryItem)
+{
+	SelectedInventoryItem = InventoryItem;
 }
 
 void AXCityCharacterBase::FindObjectsAround(const bool bForce)
@@ -143,22 +155,6 @@ void AXCityCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInput
 	if (UEnhancedInputComponent* EnhancedInput =
 		Cast<UEnhancedInputComponent>(PlayerInputComponent); IsValid(EnhancedInput))
 	{
-		if (IsValid(LookAction))
-		{
-			EnhancedInput->BindAction(LookAction, ETriggerEvent::Triggered, this, &AXCityCharacterBase::OnLookInputChanged);
-		}
-
-		if (IsValid(MoveAction))
-		{
-			EnhancedInput->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AXCityCharacterBase::OnMoveInputChanged);
-		}
-
-		if (IsValid(JumpAction))
-		{
-			EnhancedInput->BindAction(JumpAction, ETriggerEvent::Started, this, &AXCityCharacterBase::OnJumpInputChanged);
-			EnhancedInput->BindAction(JumpAction, ETriggerEvent::Completed, this, &AXCityCharacterBase::OnStopJumpInputChanged);
-		}
-
 		if (IsValid(TakeAction))
 		{
 			EnhancedInput->BindAction(TakeAction, ETriggerEvent::Triggered, this, &AXCityCharacterBase::OnTakeInputChanged);
@@ -173,43 +169,18 @@ void AXCityCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInput
 		{
 			EnhancedInput->BindAction(WheelAxisAction, ETriggerEvent::Triggered, this, &AXCityCharacterBase::OnWheelAxisInputChanged);
 		}
+
+		if (IsValid(TalkAction))
+		{
+			EnhancedInput->BindAction(TalkAction, ETriggerEvent::Started, this, &AXCityCharacterBase::OnTalkInputChanged);
+			EnhancedInput->BindAction(TalkAction, ETriggerEvent::Completed, this, &AXCityCharacterBase::OnTalkInputCompleted);
+		}
+
+		if (IsValid(RadialMenuComponent))
+		{
+			RadialMenuComponent->SetupInput(EnhancedInput);
+		}
 	}
-}
-
-void AXCityCharacterBase::OnLookInputChanged(const FInputActionValue& Value)
-{
-	const FVector2D LookAxisVector = Value.Get<FVector2D>();
-	if (Controller != nullptr)
-	{
-		AddControllerYawInput(LookAxisVector.X);
-		AddControllerPitchInput(LookAxisVector.Y * -1.0f);
-	}
-}
-
-void AXCityCharacterBase::OnMoveInputChanged(const FInputActionValue& Value)
-{
-	const FVector2D MovementVector = Value.Get<FVector2D>();
-	if (Controller != nullptr)
-	{
-		const FRotator Rotation = Controller->GetControlRotation();
-		const FRotator YawRotation(0, Rotation.Yaw, 0);
-
-		const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-		const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
-		
-		AddMovementInput(ForwardDirection, MovementVector.Y);
-		AddMovementInput(RightDirection, MovementVector.X);
-	}
-}
-
-void AXCityCharacterBase::OnJumpInputChanged(const FInputActionValue& Value)
-{
-	K2_OnJumpChanged(true);
-}
-
-void AXCityCharacterBase::OnStopJumpInputChanged(const FInputActionValue& Value)
-{
-	K2_OnJumpChanged(false);
 }
 
 void AXCityCharacterBase::OnTakeInputChanged(const FInputActionValue& Value)
@@ -218,26 +189,30 @@ void AXCityCharacterBase::OnTakeInputChanged(const FInputActionValue& Value)
 		&& IsValid(TriggeredObject.GetObject())
 		&& IsValid(FindItemComponent.Get()))
 	{
-		if (IsValid(SelectedInventoryItem.GetObject()))
-		{
-			IInteractibleItemInterface::Execute_OnUnselect(SelectedInventoryItem.GetObject());
-		}
-		
 		IInventorySystemInterface::Execute_AddInventoryItem(InventoryComponent.Get(), TriggeredObject);
 		IInteractibleItemInterface::Execute_OnTake(TriggeredObject.GetObject(), this);
 		IFinderObjectsInterface::Execute_ResetPreviousItems(FindItemComponent.Get());
 		
-		SelectedInventoryItem = TriggeredObject;
-		
-		//For attach testing...
-		if (AActor* TriggeredActor = Cast<AActor>(TriggeredObject.GetObject()))
+		if (TriggeredObject.GetObject()->Implements<UInteractibleWeaponInterface>())
 		{
-			K2_AttachTo(TriggeredActor);
+			FWeaponsDataStruct WeaponsDataStruct;
+			if (IsValid(TriggeredObject.GetObject());
+				TriggeredObject->GetItemSettings(TriggeredObject.GetObject(), WeaponsDataStruct))
+			{
+				AttachToHand(
+				WeaponsDataStruct.WeaponStaticMesh,
+				WeaponsDataStruct.WeaponSkeletal,
+				WeaponsDataStruct.WeaponAnimInstance,
+				false,
+				WeaponsDataStruct.AttachOffset,
+				true,
+				TriggeredObject.GetObject()
+				);
+
+				K2_AttachTo(TriggeredObject.GetObject());
+				SelectedInventoryItem = TriggeredObject;
+			}
 		}
-		//~
-		
-		//ToDo:: Hide logic for selected object here...
-		//ToDo:~
 	}
 }
 
@@ -246,6 +221,13 @@ void AXCityCharacterBase::OnDropInputChanged(const FInputActionValue& Value)
 	if (IsValid(InventoryComponent.Get()) && IsValid(SelectedInventoryItem.GetObject()))
 	{
 		IInventorySystemInterface::Execute_RemoveInventoryItem(InventoryComponent.Get(), SelectedInventoryItem);
+		
+		DetachToHand(SelectedInventoryItem.GetObject());
+		K2_DropTo(SelectedInventoryItem.GetObject());
+
+		IInteractibleItemInterface::Execute_OnUnselect(SelectedInventoryItem.GetObject());
+		IInteractibleItemInterface::Execute_OnDrop(SelectedInventoryItem.GetObject());
+		
 		SelectedInventoryItem = nullptr;
 	}
 }
@@ -257,15 +239,49 @@ void AXCityCharacterBase::OnWheelAxisInputChanged(const FInputActionValue& Value
 		return;
 	}
 
-	if (const float WheelAxis = Value.Get<float>(); WheelAxis > 0)
+	if (const float WheelAxis = Value.Get<float>(); WheelAxis == 1.0f)
 	{
 		IInventorySystemInterface::Execute_OnForwardItemChanged(InventoryComponent.Get());
-		return;
+		ReInitializeItemObject();
 	}
-
-	if (const float WheelAxis = Value.Get<float>(); WheelAxis < 0)
+	else if (WheelAxis == -1.0f)
 	{
 		IInventorySystemInterface::Execute_OnBackwardItemChanged(InventoryComponent.Get());
-		return;
+		ReInitializeItemObject();
+	}
+}
+
+void AXCityCharacterBase::ReInitializeItemObject()
+{
+	if (IsValid(InventoryComponent.Get()))
+	{
+		ClearHeldObject();
+		
+		IInventorySystemInterface::Execute_UnselectAllItems(InventoryComponent.Get());
+		SelectedInventoryItem = IInventorySystemInterface::Execute_GetSelectedItem(InventoryComponent.Get());
+		
+		if (IsValid(SelectedInventoryItem.GetObject()))
+		{
+			IInteractibleItemInterface::Execute_OnTake(SelectedInventoryItem.GetObject(), this);
+			K2_AttachTo(SelectedInventoryItem.GetObject());
+		}
+	}
+}
+
+void AXCityCharacterBase::OnTalkInputChanged(const FInputActionValue& Value)
+{
+	UActorComponent* ActorComponent = GetComponentByClass<UReplicaPlayerComponent>();
+	if (UReplicaPlayerComponent* ReplicaComponent = Cast<UReplicaPlayerComponent>(ActorComponent))
+	{
+		ReplicaComponent->OnReplicaChange();
+	}
+}
+
+void AXCityCharacterBase::OnTalkInputCompleted(const FInputActionValue& Value)
+{
+	UActorComponent* ActorComponent = GetComponentByClass<UReplicaPlayerComponent>();
+	if (UReplicaPlayerComponent* ReplicaComponent = Cast<UReplicaPlayerComponent>(ActorComponent))
+	{
+		ReplicaComponent->OnReplicaComplete();
 	}
 }

@@ -63,6 +63,13 @@ void EmptyLinkFunctionForGeneratedCodeInventorySystemInterface() {}
 		*(TScriptInterface<IInteractibleItemInterface>*)Z_Param__Result=P_THIS->GetSelectedItem_Implementation();
 		P_NATIVE_END;
 	}
+	DEFINE_FUNCTION(IInventorySystemInterface::execUnselectAllItems)
+	{
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->UnselectAllItems_Implementation();
+		P_NATIVE_END;
+	}
 	DEFINE_FUNCTION(IInventorySystemInterface::execUnselectItem)
 	{
 		P_FINISH;
@@ -91,6 +98,14 @@ void EmptyLinkFunctionForGeneratedCodeInventorySystemInterface() {}
 		P_THIS->OnInitInventorySystem_Implementation();
 		P_NATIVE_END;
 	}
+	DEFINE_FUNCTION(IInventorySystemInterface::execSelectItem)
+	{
+		P_GET_TINTERFACE_REF(IInteractibleItemInterface,Z_Param_Out_InNewSelectedItem);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->SelectItem_Implementation(Z_Param_Out_InNewSelectedItem);
+		P_NATIVE_END;
+	}
 	struct InventorySystemInterface_eventAddInventoryItem_Parms
 	{
 		TScriptInterface<IInteractibleItemInterface> InNewInventoryItem;
@@ -110,6 +125,10 @@ void EmptyLinkFunctionForGeneratedCodeInventorySystemInterface() {}
 	struct InventorySystemInterface_eventRemoveInventoryItemByIndex_Parms
 	{
 		int32 InInventoryIndex;
+	};
+	struct InventorySystemInterface_eventSelectItem_Parms
+	{
+		TScriptInterface<IInteractibleItemInterface> InNewSelectedItem;
 	};
 	struct InventorySystemInterface_eventSetInventoryItem_Parms
 	{
@@ -150,9 +169,17 @@ void EmptyLinkFunctionForGeneratedCodeInventorySystemInterface() {}
 	{
 		check(0 && "Do not directly call Event functions in Interfaces. Call Execute_RemoveInventoryItemByIndex instead.");
 	}
+	void IInventorySystemInterface::SelectItem(TScriptInterface<IInteractibleItemInterface>& InNewSelectedItem)
+	{
+		check(0 && "Do not directly call Event functions in Interfaces. Call Execute_SelectItem instead.");
+	}
 	void IInventorySystemInterface::SetInventoryItem(TScriptInterface<IInteractibleItemInterface>& InInventoryItem, const int32 InInventoryIndex)
 	{
 		check(0 && "Do not directly call Event functions in Interfaces. Call Execute_SetInventoryItem instead.");
+	}
+	void IInventorySystemInterface::UnselectAllItems()
+	{
+		check(0 && "Do not directly call Event functions in Interfaces. Call Execute_UnselectAllItems instead.");
 	}
 	void IInventorySystemInterface::UnselectItem()
 	{
@@ -170,7 +197,9 @@ void EmptyLinkFunctionForGeneratedCodeInventorySystemInterface() {}
 			{ "OnInitInventorySystem", &IInventorySystemInterface::execOnInitInventorySystem },
 			{ "RemoveInventoryItem", &IInventorySystemInterface::execRemoveInventoryItem },
 			{ "RemoveInventoryItemByIndex", &IInventorySystemInterface::execRemoveInventoryItemByIndex },
+			{ "SelectItem", &IInventorySystemInterface::execSelectItem },
 			{ "SetInventoryItem", &IInventorySystemInterface::execSetInventoryItem },
+			{ "UnselectAllItems", &IInventorySystemInterface::execUnselectAllItems },
 			{ "UnselectItem", &IInventorySystemInterface::execUnselectItem },
 		};
 		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
@@ -410,6 +439,37 @@ void EmptyLinkFunctionForGeneratedCodeInventorySystemInterface() {}
 		}
 		return ReturnFunction;
 	}
+	struct Z_Construct_UFunction_UInventorySystemInterface_SelectItem_Statics
+	{
+		static const UECodeGen_Private::FInterfacePropertyParams NewProp_InNewSelectedItem;
+		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+	const UECodeGen_Private::FInterfacePropertyParams Z_Construct_UFunction_UInventorySystemInterface_SelectItem_Statics::NewProp_InNewSelectedItem = { "InNewSelectedItem", nullptr, (EPropertyFlags)0x0014000000000180, UECodeGen_Private::EPropertyGenFlags::Interface, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(InventorySystemInterface_eventSelectItem_Parms, InNewSelectedItem), Z_Construct_UClass_UInteractibleItemInterface_NoRegister, METADATA_PARAMS(0, nullptr) };
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UInventorySystemInterface_SelectItem_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UInventorySystemInterface_SelectItem_Statics::NewProp_InNewSelectedItem,
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UInventorySystemInterface_SelectItem_Statics::Function_MetaDataParams[] = {
+		{ "Category", "Inventory Item" },
+		{ "ModuleRelativePath", "Public/Contracts/InventorySystemInterface.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UInventorySystemInterface_SelectItem_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UInventorySystemInterface, nullptr, "SelectItem", nullptr, nullptr, Z_Construct_UFunction_UInventorySystemInterface_SelectItem_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UInventorySystemInterface_SelectItem_Statics::PropPointers), sizeof(InventorySystemInterface_eventSelectItem_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x0C420C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UInventorySystemInterface_SelectItem_Statics::Function_MetaDataParams), Z_Construct_UFunction_UInventorySystemInterface_SelectItem_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UInventorySystemInterface_SelectItem_Statics::PropPointers) < 2048);
+	static_assert(sizeof(InventorySystemInterface_eventSelectItem_Parms) < MAX_uint16);
+	UFunction* Z_Construct_UFunction_UInventorySystemInterface_SelectItem()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UInventorySystemInterface_SelectItem_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
 	struct Z_Construct_UFunction_UInventorySystemInterface_SetInventoryItem_Statics
 	{
 		static const UECodeGen_Private::FInterfacePropertyParams NewProp_InInventoryItem;
@@ -449,6 +509,29 @@ void EmptyLinkFunctionForGeneratedCodeInventorySystemInterface() {}
 		if (!ReturnFunction)
 		{
 			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UInventorySystemInterface_SetInventoryItem_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UFunction_UInventorySystemInterface_UnselectAllItems_Statics
+	{
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UInventorySystemInterface_UnselectAllItems_Statics::Function_MetaDataParams[] = {
+		{ "Category", "Inventory Item" },
+		{ "ModuleRelativePath", "Public/Contracts/InventorySystemInterface.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UInventorySystemInterface_UnselectAllItems_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UInventorySystemInterface, nullptr, "UnselectAllItems", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x0C020C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UInventorySystemInterface_UnselectAllItems_Statics::Function_MetaDataParams), Z_Construct_UFunction_UInventorySystemInterface_UnselectAllItems_Statics::Function_MetaDataParams) };
+	UFunction* Z_Construct_UFunction_UInventorySystemInterface_UnselectAllItems()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UInventorySystemInterface_UnselectAllItems_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -504,7 +587,9 @@ void EmptyLinkFunctionForGeneratedCodeInventorySystemInterface() {}
 		{ &Z_Construct_UFunction_UInventorySystemInterface_OnInitInventorySystem, "OnInitInventorySystem" }, // 2872555306
 		{ &Z_Construct_UFunction_UInventorySystemInterface_RemoveInventoryItem, "RemoveInventoryItem" }, // 3128962983
 		{ &Z_Construct_UFunction_UInventorySystemInterface_RemoveInventoryItemByIndex, "RemoveInventoryItemByIndex" }, // 1754264350
+		{ &Z_Construct_UFunction_UInventorySystemInterface_SelectItem, "SelectItem" }, // 1133076486
 		{ &Z_Construct_UFunction_UInventorySystemInterface_SetInventoryItem, "SetInventoryItem" }, // 1764976191
+		{ &Z_Construct_UFunction_UInventorySystemInterface_UnselectAllItems, "UnselectAllItems" }, // 4249189897
 		{ &Z_Construct_UFunction_UInventorySystemInterface_UnselectItem, "UnselectItem" }, // 3821138125
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UInventorySystemInterface_Statics::FuncInfo) < 2048);
@@ -679,6 +764,24 @@ void EmptyLinkFunctionForGeneratedCodeInventorySystemInterface() {}
 			I->RemoveInventoryItemByIndex_Implementation(InInventoryIndex);
 		}
 	}
+	static FName NAME_UInventorySystemInterface_SelectItem = FName(TEXT("SelectItem"));
+	void IInventorySystemInterface::Execute_SelectItem(UObject* O, TScriptInterface<IInteractibleItemInterface>& InNewSelectedItem)
+	{
+		check(O != NULL);
+		check(O->GetClass()->ImplementsInterface(UInventorySystemInterface::StaticClass()));
+		InventorySystemInterface_eventSelectItem_Parms Parms;
+		UFunction* const Func = O->FindFunction(NAME_UInventorySystemInterface_SelectItem);
+		if (Func)
+		{
+			Parms.InNewSelectedItem=InNewSelectedItem;
+			O->ProcessEvent(Func, &Parms);
+			InNewSelectedItem=Parms.InNewSelectedItem;
+		}
+		else if (auto I = (IInventorySystemInterface*)(O->GetNativeInterfaceAddress(UInventorySystemInterface::StaticClass())))
+		{
+			I->SelectItem_Implementation(InNewSelectedItem);
+		}
+	}
 	static FName NAME_UInventorySystemInterface_SetInventoryItem = FName(TEXT("SetInventoryItem"));
 	void IInventorySystemInterface::Execute_SetInventoryItem(UObject* O, TScriptInterface<IInteractibleItemInterface>& InInventoryItem, const int32 InInventoryIndex)
 	{
@@ -698,6 +801,21 @@ void EmptyLinkFunctionForGeneratedCodeInventorySystemInterface() {}
 			I->SetInventoryItem_Implementation(InInventoryItem,InInventoryIndex);
 		}
 	}
+	static FName NAME_UInventorySystemInterface_UnselectAllItems = FName(TEXT("UnselectAllItems"));
+	void IInventorySystemInterface::Execute_UnselectAllItems(UObject* O)
+	{
+		check(O != NULL);
+		check(O->GetClass()->ImplementsInterface(UInventorySystemInterface::StaticClass()));
+		UFunction* const Func = O->FindFunction(NAME_UInventorySystemInterface_UnselectAllItems);
+		if (Func)
+		{
+			O->ProcessEvent(Func, NULL);
+		}
+		else if (auto I = (IInventorySystemInterface*)(O->GetNativeInterfaceAddress(UInventorySystemInterface::StaticClass())))
+		{
+			I->UnselectAllItems_Implementation();
+		}
+	}
 	static FName NAME_UInventorySystemInterface_UnselectItem = FName(TEXT("UnselectItem"));
 	void IInventorySystemInterface::Execute_UnselectItem(UObject* O)
 	{
@@ -713,15 +831,15 @@ void EmptyLinkFunctionForGeneratedCodeInventorySystemInterface() {}
 			I->UnselectItem_Implementation();
 		}
 	}
-	struct Z_CompiledInDeferFile_FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InventorySystemInterface_h_Statics
+	struct Z_CompiledInDeferFile_FID_UnrealProjects_XCityNew_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InventorySystemInterface_h_Statics
 	{
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InventorySystemInterface_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UInventorySystemInterface, UInventorySystemInterface::StaticClass, TEXT("UInventorySystemInterface"), &Z_Registration_Info_UClass_UInventorySystemInterface, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UInventorySystemInterface), 1443102744U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_UnrealProjects_XCityNew_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InventorySystemInterface_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UInventorySystemInterface, UInventorySystemInterface::StaticClass, TEXT("UInventorySystemInterface"), &Z_Registration_Info_UClass_UInventorySystemInterface, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UInventorySystemInterface), 1690354805U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InventorySystemInterface_h_511898621(TEXT("/Script/CommonContractsPlugin"),
-		Z_CompiledInDeferFile_FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InventorySystemInterface_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InventorySystemInterface_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_UnrealProjects_XCityNew_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InventorySystemInterface_h_517427658(TEXT("/Script/CommonContractsPlugin"),
+		Z_CompiledInDeferFile_FID_UnrealProjects_XCityNew_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InventorySystemInterface_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_UnrealProjects_XCityNew_XCITY_Plugins_CommonContractsPlugin_Source_CommonContractsPlugin_Public_Contracts_InventorySystemInterface_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

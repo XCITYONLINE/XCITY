@@ -3,24 +3,36 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
 #include "Interfaces/PlayerCameraManagerInterface.h"
 #include "InputActionValue.h"
 #include "InputMappingContext.h"
+#include "Character/ALSCharacter.h"
+#include "Interfaces/RadialMenuInterface.h"
 
 #include "XCityCharacterBase.generated.h"
 
 class UInputAction;
 
 UCLASS()
-class XCITYONLINE_API AXCityCharacterBase : public ACharacter, public IPlayerCameraManagerInterface
+class XCITYONLINE_API AXCityCharacterBase : public AALSCharacter,
+public IPlayerCameraManagerInterface
 {
 	GENERATED_BODY()
-
+	
 public:
 	
-	AXCityCharacterBase();
+	AXCityCharacterBase(const FObjectInitializer& ObjectInitializer);
 
+	void SetSelectedInventoryItem(const TScriptInterface<class IInteractibleItemInterface>& InventoryItem);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void K2_AttachTo(UObject* OutAttachObject);
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void K2_DropTo(UObject* OutDropObject);
+
+	void ReInitializeItemObject();
+	
 protected:
 	
 	virtual void BeginPlay() override;
@@ -33,12 +45,9 @@ protected:
 	virtual void SetCameraManagerMode(const ECameraMode& InNewCameraMode) override;
 	virtual void UpdateCameraTransformByMode() override;
 	//~
-
+	
 	UFUNCTION(BlueprintCallable)
 	void InitInventorySystem();
-
-	UFUNCTION(BlueprintImplementableEvent)
-	void K2_AttachTo(AActor* OutActor);
 
 	virtual void FindObjectsAround(const bool bForce);
 
@@ -52,15 +61,6 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Inventory System")
 	TObjectPtr<class UFindObjectsComponent> FindItemComponent;
-	
-	UPROPERTY(EditAnywhere, Category = "Input")
-	TObjectPtr<UInputAction> LookAction;
-
-	UPROPERTY(EditAnywhere, Category = "Input")
-	TObjectPtr<UInputAction> MoveAction;
-
-	UPROPERTY(EditAnywhere, Category = "Input")
-	TObjectPtr<UInputAction> JumpAction;
 
 	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputAction> TakeAction;
@@ -69,25 +69,24 @@ protected:
 	TObjectPtr<UInputAction> DropAction;
 
 	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> TalkAction;
+
+	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputAction> WheelAxisAction;
 
 	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputMappingContext> MappingContext;
 
-public:
-
-	UFUNCTION(BlueprintImplementableEvent)
-	void K2_OnJumpChanged(const bool bIsJump);
+	UPROPERTY(EditAnywhere, Category = "Components")
+	TObjectPtr<class URadialMenuComponent> RadialMenuComponent;
 	
 private:
 	
-	void OnLookInputChanged(const FInputActionValue& Value);
-	void OnMoveInputChanged(const FInputActionValue& Value);
-	void OnJumpInputChanged(const FInputActionValue& Value);
-	void OnStopJumpInputChanged(const FInputActionValue& Value);
 	void OnTakeInputChanged(const FInputActionValue& Value);
 	void OnDropInputChanged(const FInputActionValue& Value);
 	void OnWheelAxisInputChanged(const FInputActionValue& Value);
+	void OnTalkInputChanged(const FInputActionValue& Value);
+	void OnTalkInputCompleted(const FInputActionValue& Value);
 
 private:
 
