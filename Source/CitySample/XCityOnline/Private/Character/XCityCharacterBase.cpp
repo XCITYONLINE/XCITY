@@ -12,6 +12,8 @@
 #include "Contracts/InteractibleWeaponInterface.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "XCityOnline/Public/Data/CameraSystemTypes.h"
+#include "XCityOnline/Public/UI/XCityHUD.h"
+#include "XCityOnline/Public/UI/RadialMenu/RadialMenuWidget.h"
 
 AXCityCharacterBase::AXCityCharacterBase(const FObjectInitializer& ObjectInitializer)
 : Super(ObjectInitializer)
@@ -285,3 +287,4 @@ void AXCityCharacterBase::OnTalkInputCompleted(const FInputActionValue& Value)
 		ReplicaComponent->OnReplicaComplete();
 	}
 }
+

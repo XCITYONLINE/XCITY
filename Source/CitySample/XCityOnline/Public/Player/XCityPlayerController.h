@@ -5,13 +5,17 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "XCityOnline/Public/Interfaces/PlayerCameraManagerInterface.h"
+#include "InputActionValue.h"
+#include "Character/ALSPlayerController.h"
 #include "XCityPlayerController.generated.h"
+
+class UInputAction;
 
 /**
  * 
  */
 UCLASS()
-class CITYSAMPLE_API AXCityPlayerController : public APlayerController, public IPlayerCameraManagerInterface
+class CITYSAMPLE_API AXCityPlayerController : public AALSPlayerController, public IPlayerCameraManagerInterface
 {
 	GENERATED_BODY()
 	
@@ -21,6 +25,15 @@ public:
 
 protected:
 	AXCityPlayerController();
-
+	
 	virtual void BeginPlay() override;
+
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> MouseMovedAxisAction;
+
+	virtual void SetupInputComponent() override;
+
+private:
+	void OnMousePositionChanged(const FInputActionValue& Value);
+	
 };

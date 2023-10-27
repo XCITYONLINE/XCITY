@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "RadialMenuTypes.h"
 #include "Blueprint/UserWidget.h"
+#include "Public/XCityOnline/Public/Interfaces/PlayerWidgetInterface.h"
 
 #include "RadialMenuWidget.generated.h"
 
@@ -68,6 +69,11 @@ private:
 	void OnSelectedNewSlot(URadialMenuSlot* NewSlot);
 
 	void SetupSlotVisual(const FRadialMenuSlotInfo& SlotInfo) const;
+
+	/**
+	 * @return angle between widget screen position and mouse
+	 */
+	float GetAngle(const FGeometry& InGeometry, const FVector2D& MousePosition) const;
 	
 	UPROPERTY()
 	TArray<FRadialMenuSlotInfo> RadialMenuSlotInfos;

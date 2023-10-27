@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Public/XCityOnline/Public/Interfaces/PlayerWidgetInterface.h"
 
 #include "MainMenuWidget.generated.h"
 
@@ -13,7 +14,7 @@ class CITYSAMPLE_API UMainMenuWidget : public UUserWidget
 	GENERATED_BODY()
 
 public:
-
+	
 	UFUNCTION(BlueprintImplementableEvent)
 	UUserWidget* K2_GetRadialMenuWidget();
 };

@@ -1,10 +1,13 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 #include "XCityOnline/Public/UI/RadialMenu/RadialMenuWidget.h"
+
+#include "Blueprint/SlateBlueprintLibrary.h"
 #include "Components/CanvasPanel.h"
 #include "Components/CanvasPanelSlot.h"
 #include "Components/Image.h"
 #include "Components/VerticalBox.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "XCityOnline/Public/Libraries/XCityWidgetLibrary.h"
 #include "XCityOnline/Public/Interfaces/RadialMenuSlotInterface.h"
 #include "XCityOnline/Public/UI/RadialMenu/RadialMenuSlot.h"
@@ -30,7 +33,8 @@ URadialMenuWidget::URadialMenuWidget(const FObjectInitializer& ObjectInitializer
 
 FReply URadialMenuWidget::NativeOnMouseMove(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
-	const float MouseAngle = UXCityWidgetLibrary::ConvertMousePositionIntoAngle(InMouseEvent.GetScreenSpacePosition());
+	const float MouseAngle = GetAngle(InGeometry, InMouseEvent.GetScreenSpacePosition());
+	UE_LOG(LogTemp, Display, TEXT("%f"), MouseAngle);
 
 	const FRadialMenuSlotInfo& SlotInfo = GetSlotByAngle(MouseAngle);
 	check(SlotInfo.SlotPtr);
@@ -41,7 +45,7 @@ FReply URadialMenuWidget::NativeOnMouseMove(const FGeometry& InGeometry, const F
 	}
 	
 	OnSelectedNewSlot(SlotInfo.SlotPtr);
-	return FReply::Handled();
+	return FReply::Handled(); 
 }
 
 void URadialMenuWidget::NativeConstruct()
@@ -130,4 +134,25 @@ void URadialMenuWidget::SetupSlotVisual(const FRadialMenuSlotInfo& SlotInfo) con
 		const float SlotRenderAngle = SlotInfo.AngleRange.X;
 		SlotInfo.SlotPtr->GetSlotVerticalBox()->SetRenderTransformAngle(SlotRenderAngle);
 	}
+}
+
+float URadialMenuWidget::GetAngle(const FGeometry& InGeometry, const FVector2D& MousePosition) const
+{
+	FVector2D PixelPosition;
+	FVector2D ViewportPosition;
+	
+	USlateBlueprintLibrary::LocalToViewport(GetWorld(), InGeometry, FVector2D(0, 0), PixelPosition, ViewportPosition);
+
+	const FVector2D WidgetCenter = ViewportPosition;
+	const FVector2D WidgetTopMiddle { WidgetCenter.X, 0 };
+
+	const FVector2D V1 = (WidgetTopMiddle - WidgetCenter).GetSafeNormal();
+	const FVector2D V2 = (MousePosition - WidgetCenter).GetSafeNormal();
+
+	float AngleInDegrees = UKismetMathLibrary::DegAtan2(V2.Y, V2.X) - UKismetMathLibrary::DegAtan2(V1.Y, V1.X);
+	if (AngleInDegrees < 0)
+	{
+		AngleInDegrees = AngleInDegrees + 360;
+	}
+	return AngleInDegrees;
 }
