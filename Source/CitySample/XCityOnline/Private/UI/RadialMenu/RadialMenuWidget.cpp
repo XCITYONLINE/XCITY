@@ -3,6 +3,7 @@
 #include "XCityOnline/Public/UI/RadialMenu/RadialMenuWidget.h"
 
 #include "Blueprint/SlateBlueprintLibrary.h"
+#include "Blueprint/WidgetLayoutLibrary.h"
 #include "Components/CanvasPanel.h"
 #include "Components/CanvasPanelSlot.h"
 #include "Components/Image.h"
@@ -29,11 +30,12 @@ URadialMenuWidget::URadialMenuWidget(const FObjectInitializer& ObjectInitializer
 	RadialMenuSlotInfos.Empty();
 	OverallRadialMenuAngle = 360;
 	SlotDistanceFromCenter = 150;
+	bIsInitialized = false;
 }
 
 FReply URadialMenuWidget::NativeOnMouseMove(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
-	const float MouseAngle = GetAngle(InGeometry, InMouseEvent.GetScreenSpacePosition());
+/**	const float MouseAngle = GetAngle(InGeometry, InMouseEvent.GetScreenSpacePosition());
 	UE_LOG(LogTemp, Display, TEXT("%f"), MouseAngle);
 
 	const FRadialMenuSlotInfo& SlotInfo = GetSlotByAngle(MouseAngle);
@@ -44,7 +46,7 @@ FReply URadialMenuWidget::NativeOnMouseMove(const FGeometry& InGeometry, const F
 		return FReply::Handled();
 	}
 	
-	OnSelectedNewSlot(SlotInfo.SlotPtr);
+	OnSelectedNewSlot(SlotInfo.SlotPtr);*/
 	return FReply::Handled(); 
 }
 
@@ -52,6 +54,16 @@ void URadialMenuWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 	InitRadialMenu();
+}
+
+void URadialMenuWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
+{
+	Super::NativeTick(MyGeometry, InDeltaTime);
+
+	if (IsVisible() && bIsInitialized)
+	{
+		UpdateRadialMenuState();
+	}
 }
 
 void URadialMenuWidget::InitRadialMenu()
@@ -81,6 +93,8 @@ void URadialMenuWidget::InitRadialMenu()
 
 		Index++;
 	}
+
+	bIsInitialized = true;
 }
 
 const FRadialMenuSlotInfo& URadialMenuWidget::GetSlotByAngle(const float& Angle) const
@@ -155,4 +169,21 @@ float URadialMenuWidget::GetAngle(const FGeometry& InGeometry, const FVector2D& 
 		AngleInDegrees = AngleInDegrees + 360;
 	}
 	return AngleInDegrees;
+}
+
+void URadialMenuWidget::UpdateRadialMenuState()
+{
+	const float MouseAngle = GetAngle(GetCachedGeometry(), UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld()));
+	UE_LOG(LogTemp, Display, TEXT("%f"), MouseAngle);
+
+	const FRadialMenuSlotInfo& SlotInfo = GetSlotByAngle(MouseAngle);
+	check(SlotInfo.SlotPtr);
+
+	if (SlotInfo.SlotPtr == CurrentSelectedSlot)
+	{
+		return;
+	}
+	
+	OnSelectedNewSlot(SlotInfo.SlotPtr);
+	return;
 }

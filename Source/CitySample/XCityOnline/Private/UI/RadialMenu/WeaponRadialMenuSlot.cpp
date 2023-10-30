@@ -20,6 +20,7 @@ void UWeaponRadialMenuSlot::InitializeSlot_Implementation(const int32& Index)
 	// SlotWeaponType = static_cast<EWeaponType>(Index);
 	SetWeaponTypeByIndex();
 
+	WeaponIconImage->SetVisibility(ESlateVisibility::Hidden);
 	RefreshSlot_Implementation();
 }
 
@@ -53,7 +54,13 @@ void UWeaponRadialMenuSlot::RefreshSlot_Implementation()
 
 			if (IsValid(WeaponsDataStruct.WeaponIcon))
 			{
+				WeaponIconImage->SetVisibility(ESlateVisibility::Visible);
 				WeaponIconImage->SetBrushFromTexture(WeaponsDataStruct.WeaponIcon.Get()); 
+			}
+
+			else
+			{
+				WeaponIconImage->SetVisibility(ESlateVisibility::Hidden);
 			}
 		}
 	}

@@ -32,6 +32,7 @@ protected:
 	// UUserWidget start
 	virtual FReply NativeOnMouseMove(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
 	virtual void NativeConstruct() override;
+	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
 	// ~UUserWidget end
 
 	/** Canvas to store widget visual */
@@ -74,6 +75,8 @@ private:
 	 * @return angle between widget screen position and mouse
 	 */
 	float GetAngle(const FGeometry& InGeometry, const FVector2D& MousePosition) const;
+
+	void UpdateRadialMenuState();
 	
 	UPROPERTY()
 	TArray<FRadialMenuSlotInfo> RadialMenuSlotInfos;
@@ -82,4 +85,6 @@ private:
 	TObjectPtr<URadialMenuSlot> CurrentSelectedSlot;
 
 	float OverallRadialMenuAngle;
+
+	bool bIsInitialized;
 };
