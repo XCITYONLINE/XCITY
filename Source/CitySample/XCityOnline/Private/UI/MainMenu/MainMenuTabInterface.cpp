@@ -20,7 +20,16 @@ void IMainMenuTabInterface::OnTabDisabled()
 	bIsTabActive = false;
 }
 
+void IMainMenuTabInterface::InitializeTab()
+{
+}
+
 bool IMainMenuTabInterface::IsTabActive() const
 {
 	return bIsTabActive;
+}
+
+bool IMainMenuTabInterface::IsInitialized() const
+{
+	return bIsInitialized;
 }

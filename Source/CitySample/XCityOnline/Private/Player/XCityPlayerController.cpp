@@ -4,10 +4,8 @@
 
 #include "EnhancedInputComponent.h"
 #include "InputActionValue.h"
-#include "Public/XCityOnline/Public/Interfaces/PlayerWidgetInterface.h"
 #include "XCityOnline/Public/Interfaces/PlayerCameraManagerInterface.h"
 #include "XCityOnline/Public/UI/XCityHUD.h"
-#include "XCityOnline/Public/UI/RadialMenu/RadialMenuWidget.h"
 
 class URadialMenuWidget;
 
@@ -49,11 +47,5 @@ void AXCityPlayerController::OnMousePositionChanged(const FInputActionValue& Val
 	if (!IsValid(HUD))
 	{
 		return;
-	}
-
-	URadialMenuWidget* RadialMenuWidget = HUD->GetRadialMenuWidget();
-	if (RadialMenuWidget && RadialMenuWidget->Implements<UPlayerWidgetInterface>())
-	{
-		IPlayerWidgetInterface::Execute_OnMouseMovedOnViewport(RadialMenuWidget, MousePosition);
 	}
 }

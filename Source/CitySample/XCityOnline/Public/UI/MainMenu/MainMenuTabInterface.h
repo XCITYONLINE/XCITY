@@ -26,8 +26,12 @@ public:
 	
 	virtual void OnTabEnabled();
 	virtual void OnTabDisabled();
+	virtual void InitializeTab();
+	
 	bool IsTabActive() const;
+	bool IsInitialized() const;
 	
 private:
 	bool bIsTabActive;
+	bool bIsInitialized;
 };
