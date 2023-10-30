@@ -3,12 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "MainMenuWidget.h"
 #include "GameFramework/HUD.h"
 
 #include "XCityHUD.generated.h"
 
 class URadialMenuWidget;
+class UMainMenuWidget;
 
 UCLASS()
 class CITYSAMPLE_API AXCityHUD : public AHUD

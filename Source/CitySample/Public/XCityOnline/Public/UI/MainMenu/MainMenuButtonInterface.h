@@ -33,6 +33,5 @@ public:
 	TScriptInterface<IMainMenuTabInterface> GetChildTab() const;
 	
 private:
-	UPROPERTY()
 	TScriptInterface<IMainMenuTabInterface> ChildTabPtr;
 };
