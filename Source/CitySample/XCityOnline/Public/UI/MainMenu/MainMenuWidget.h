@@ -17,4 +17,8 @@ public:
 	
 	UFUNCTION(BlueprintImplementableEvent)
 	UUserWidget* K2_GetRadialMenuWidget();
+
+protected:
+	UPROPERTY(meta = (BindWidget))
+	class UWidgetSwitcher* TabSwitcher;
 };

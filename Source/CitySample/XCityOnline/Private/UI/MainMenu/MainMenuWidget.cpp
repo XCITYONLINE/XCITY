@@ -1,3 +1,3 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "XCityOnline/Public/UI/MainMenuWidget.h"
+#include "XCityOnline/Public/UI/MainMenu/MainMenuWidget.h"
