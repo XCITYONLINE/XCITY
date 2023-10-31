@@ -3,34 +3,49 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "MainMenuButtonInterface.h"
 #include "Blueprint/UserWidget.h"
+#include "MainMenuTypes.h"
 #include "MainMenuButtonBase.generated.h"
+
+class UMainMenuTabBase;
 
 /**
  * 
  */
 UCLASS(Abstract)
-class CITYSAMPLE_API UMainMenuButtonBase : public UUserWidget, public IMainMenuButtonInterface
+class CITYSAMPLE_API UMainMenuButtonBase : public UUserWidget
 {
 	GENERATED_BODY()
 
-protected:
-	virtual void NativeConstruct() override;
+public:
+	FORCEINLINE const ETabType& GetTabType() const { return ButtonTabType; }
 	
 	//~ Begin IMainMenuButtonInterface
-	virtual void InitializeTabButton() override;
-	virtual void OnDisabled() override;
-	virtual void OnSelected() override;
-	virtual void OnHovered() override;
-	virtual void OnUnhovered() override;
+	virtual void InitializeTabButton(UMainMenuTabBase* ChildTab);
+	virtual void OnDisabled();
+	virtual void OnSelected();
+	virtual void OnHovered();
+	virtual void OnUnhovered();
 	//~ End IMainMenuButtonInterface
+
+	FORCEINLINE UMainMenuTabBase* GetChildTab() const { return ChildTabPtr; }
+	
+protected:
+	virtual void NativeConstruct() override;
+
+	virtual void InitializeVisual();
+	
+	UPROPERTY(EditAnywhere, Category = "Main Menu Button Info")
+	FSlateColor HoveredTextColor;
+
+	UPROPERTY(EditAnywhere, Category = "Main Menu Button Info")
+	FSlateColor UnhoveredTextColor;
 
 	/*
 	 * ############################ BLUEPRINT EVENTS #######################
 	 */
 	UFUNCTION(BlueprintImplementableEvent, Category = "Main Menu Button", DisplayName = "InitializeTabButton")
-	void K2_InitializeTabButton();
+	void K2_InitializeTabButton(UMainMenuTabBase* ChildTab);
 	
 	UFUNCTION(BlueprintImplementableEvent, Category = "Main Menu Button", DisplayName = "OnDisabled")
 	void K2_OnDisabled();
@@ -46,4 +61,25 @@ protected:
 	
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<class UButton> ButtonPtr;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<class UTextBlock> ButtonTextPtr;
+
+	UPROPERTY(EditAnywhere)
+	ETabType ButtonTabType;
+
+private:
+
+	// Just internal functions to handle button events
+	UFUNCTION()
+	void OnSelected_Internal();
+
+	UFUNCTION()
+	void OnHovered_Internal();
+
+	UFUNCTION()
+	void OnUnhovered_Internal();
+
+	UPROPERTY()
+	TObjectPtr<UMainMenuTabBase> ChildTabPtr;
 };

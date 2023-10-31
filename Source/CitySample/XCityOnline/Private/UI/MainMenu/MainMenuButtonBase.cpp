@@ -4,55 +4,83 @@
 #include "XCityOnline/Public/UI/MainMenu/MainMenuButtonBase.h"
 
 #include "Components/Button.h"
-#include "XCityOnline/Public/UI/MainMenu/MainMenuTabInterface.h"
+#include "Components/TextBlock.h"
+#include "Components/WidgetSwitcher.h"
+#include "XCityOnline/Public/UI/MainMenu/MainMenuTabBase.h"
+#include "XCityOnline/Public/UI/MainMenu/MainMenuWidget.h"
 
 void UMainMenuButtonBase::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	ButtonPtr->OnClicked.AddUniqueDynamic(this, &UMainMenuButtonBase::OnSelected);
-	ButtonPtr->OnHovered.AddUniqueDynamic(this, &UMainMenuButtonBase::OnHovered);
-	ButtonPtr->OnUnhovered.AddUniqueDynamic(this, &UMainMenuButtonBase::OnUnhovered);
+	ButtonPtr->OnClicked.AddUniqueDynamic(this, &UMainMenuButtonBase::OnSelected_Internal);
+	ButtonPtr->OnHovered.AddUniqueDynamic(this, &UMainMenuButtonBase::OnHovered_Internal);
+	ButtonPtr->OnUnhovered.AddUniqueDynamic(this, &UMainMenuButtonBase::OnUnhovered_Internal);
 }
 
-void UMainMenuButtonBase::InitializeTabButton()
+void UMainMenuButtonBase::InitializeTabButton(UMainMenuTabBase* ChildTab)
 {
-	IMainMenuButtonInterface::InitializeTabButton();
-
-	K2_InitializeTabButton();
+	ChildTabPtr = ChildTab;
+	InitializeVisual();
+	
+	K2_InitializeTabButton(ChildTabPtr);
 }
 
 void UMainMenuButtonBase::OnDisabled()
 {
-	IMainMenuButtonInterface::OnDisabled();
-
 	K2_OnDisabled();
 }
 
 void UMainMenuButtonBase::OnUnhovered()
 {
-	IMainMenuButtonInterface::OnUnhovered();
-
 	K2_OnHovered();
+
+	ButtonTextPtr->SetColorAndOpacity(UnhoveredTextColor);
+}
+
+void UMainMenuButtonBase::InitializeVisual()
+{
+	ButtonTextPtr->SetColorAndOpacity(UnhoveredTextColor);
+}
+
+void UMainMenuButtonBase::OnSelected_Internal()
+{
+	OnSelected();
+}
+
+void UMainMenuButtonBase::OnHovered_Internal()
+{
+	OnHovered();
+}
+
+void UMainMenuButtonBase::OnUnhovered_Internal()
+{
+	OnUnhovered();
 }
 
 void UMainMenuButtonBase::OnSelected()
 {
-	IMainMenuButtonInterface::OnSelected();
-
-	const TScriptInterface<IMainMenuTabInterface> ChildInterfaceTab = GetChildTab();
-	if (ChildInterfaceTab.GetInterface())
+	if (!IsValid(ChildTabPtr))
 	{
-		ChildInterfaceTab->OnTabEnabled();
+		return;
 	}
+
+	UMainMenuWidget* MainMenuWidget = ChildTabPtr->GetMainMenuWidget();
+	if (!IsValid(MainMenuWidget))
+	{
+		return;
+	}
+
+	MainMenuWidget->GetWidgetSwitcher()->SetActiveWidgetIndex(ChildTabPtr->GetIndex());
+	ChildTabPtr->OnTabEnabled();
 
 	K2_OnSelected();
 }
 
 void UMainMenuButtonBase::OnHovered()
 {
-	IMainMenuButtonInterface::OnHovered();
-
 	K2_OnHovered();
+	
 	// Here will be UI hover visualization logic, like enabling the strip
+	ButtonTextPtr->SetColorAndOpacity(HoveredTextColor);
 }

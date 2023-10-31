@@ -3,12 +3,25 @@
 
 #include "XCityOnline/Public/UI/MainMenu/MainMenuTabBase.h"
 
+UMainMenuTabBase::UMainMenuTabBase(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
+{
+	TabType = ETabType::ETT_Play;
+}
+
 void UMainMenuTabBase::OnTabEnabled()
 {
-	IMainMenuTabInterface::OnTabEnabled();
+	K2_OnTabEnabled();
+}
+
+void UMainMenuTabBase::InitializeTab(const int32& Index, UMainMenuWidget* Widget)
+{
+	TabIndex = Index;
+	MainMenuWidgetPtr = Widget;
+	
+	K2_InitializeTab(Index, Widget);
 }
 
 void UMainMenuTabBase::OnTabDisabled()
 {
-	IMainMenuTabInterface::OnTabDisabled();
+	K2_OnTabDisabled();
 }

@@ -39,7 +39,8 @@ public class CitySample : ModuleRules
 			"WeaponSystem",
 			"InventorySystem",
 			"CommonContractsPlugin",
-			"ReplicaNPC"
+			"ReplicaNPC",
+			"SlateCore"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[]
