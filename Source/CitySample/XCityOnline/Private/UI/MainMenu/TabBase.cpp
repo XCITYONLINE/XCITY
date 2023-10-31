@@ -8,7 +8,7 @@ void UTabBase::OnTabEnabled()
 	K2_OnTabEnabled();
 }
 
-void UTabBase::InitializeTab(const int32& Index, UMainMenuWidget* Widget)
+void UTabBase::InitializeTab(const int32& Index, UWidget* ParentWidget)
 {
 	TabIndex = Index;
 

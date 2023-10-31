@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "MainMenuTypes.h"
 #include "TabBase.h"
 #include "MainMenuTabBase.generated.h"
 
@@ -22,7 +21,7 @@ public:
 
 	//~ Begin UTabBase interface
 	virtual void OnTabEnabled() override;
-	virtual void InitializeTab(const int32& Index, UMainMenuWidget* Widget) override;
+	virtual void InitializeTab(const int32& Index, UWidget* ParentWidget) override;
 	virtual void OnTabDisabled() override;
 	//~ End UTabBase interface
 	

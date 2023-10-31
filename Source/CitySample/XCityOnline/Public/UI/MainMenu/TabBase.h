@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "MainMenuTypes.h"
 #include "TabBase.generated.h"
 
 /**
@@ -16,7 +17,7 @@ class CITYSAMPLE_API UTabBase : public UUserWidget
 
 public:
 	virtual void OnTabEnabled();
-	virtual void InitializeTab(const int32& Index, UMainMenuWidget* Widget);
+	virtual void InitializeTab(const int32& Index, UWidget* ParentWidget);
 	virtual void OnTabDisabled();
 
 	FORCEINLINE const int32& GetIndex() const { return TabIndex; }
@@ -28,7 +29,7 @@ protected:
 	void K2_OnTabEnabled();
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Main Menu Tab", DisplayName = "InitializeTab")
-	void K2_InitializeTab(const int32& Index, UMainMenuWidget* Widget);
+	void K2_InitializeTab(const int32& Index, UWidget* ParentWidget);
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Main Menu Tab", DisplayName = "OnTabDisabled")
 	void K2_OnTabDisabled();

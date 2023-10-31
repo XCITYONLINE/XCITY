@@ -3,6 +3,8 @@
 
 #include "XCityOnline/Public/UI/MainMenu/MainMenuTabBase.h"
 
+#include "XCityOnline/Public/UI/MainMenu/MainMenuWidget.h"
+
 UMainMenuTabBase::UMainMenuTabBase(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
 	TabType = ETabType::ETT_Play;
@@ -13,11 +15,11 @@ void UMainMenuTabBase::OnTabEnabled()
 	Super::OnTabEnabled();
 }
 
-void UMainMenuTabBase::InitializeTab(const int32& Index, UMainMenuWidget* Widget)
+void UMainMenuTabBase::InitializeTab(const int32& Index, UWidget* ParentWidget)
 {
-	Super::InitializeTab(Index, Widget);
+	Super::InitializeTab(Index, ParentWidget);
 	
-	MainMenuWidgetPtr = Widget;
+	MainMenuWidgetPtr = Cast<UMainMenuWidget>(ParentWidget);
 }
 
 void UMainMenuTabBase::OnTabDisabled()

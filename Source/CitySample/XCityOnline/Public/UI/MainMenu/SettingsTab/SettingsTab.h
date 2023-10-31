@@ -6,6 +6,8 @@
 #include "XCityOnline/Public/UI/MainMenu/TabBase.h"
 #include "SettingsTab.generated.h"
 
+class USettingsWidget;
+
 /**
  * 
  */
@@ -14,7 +16,15 @@ class CITYSAMPLE_API USettingsTab : public UTabBase
 {
 	GENERATED_BODY()
 
-protected:
+public:
 	virtual void OnSettingsConfirmed();
 	virtual void OnSettingsDeclined();
+
+	FORCEINLINE USettingsWidget* GetSettingsWidget() const { return SettingsWidgetPtr; }
+
+	virtual void InitializeTab(const int32& Index, UWidget* ParentWidget) override;
+
+private:
+	UPROPERTY()
+	TObjectPtr<class USettingsWidget> SettingsWidgetPtr;
 };

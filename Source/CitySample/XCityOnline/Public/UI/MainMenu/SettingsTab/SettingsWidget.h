@@ -6,6 +6,8 @@
 #include "Blueprint/UserWidget.h"
 #include "SettingsWidget.generated.h"
 
+class UButton;
+
 /**
  * 
  */
@@ -13,4 +15,10 @@ UCLASS()
 class CITYSAMPLE_API USettingsWidget : public UUserWidget
 {
 	GENERATED_BODY()
+
+protected:
+	UPROPERTY(meta = (BindWidget))
+	
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UButton> ApplySettingsButton;
 };
