@@ -65,15 +65,13 @@ void UMainMenuButtonBase::OnSelected()
 		return;
 	}
 
-	UMainMenuWidget* MainMenuWidget = ChildTabPtr->GetMainMenuWidget();
+	const UMainMenuWidget* MainMenuWidget = ChildTabPtr->GetMainMenuWidget();
 	if (!IsValid(MainMenuWidget))
 	{
 		return;
 	}
 
-	MainMenuWidget->GetWidgetSwitcher()->SetActiveWidgetIndex(ChildTabPtr->GetIndex());
-	ChildTabPtr->OnTabEnabled();
-
+	MainMenuWidget->SelectNewTab(ChildTabPtr->GetIndex());
 	K2_OnSelected();
 }
 

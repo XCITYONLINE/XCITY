@@ -26,6 +26,8 @@ public:
 
 	UWidgetSwitcher* GetWidgetSwitcher() const;
 
+	void SelectNewTab(const int32& Index) const;
+
 protected:
 	UMainMenuWidget(const FObjectInitializer& ObjectInitializer);
 	

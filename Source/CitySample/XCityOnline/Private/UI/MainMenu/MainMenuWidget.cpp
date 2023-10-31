@@ -10,6 +10,21 @@ UWidgetSwitcher* UMainMenuWidget::GetWidgetSwitcher() const
 	return TabSwitcher;
 }
 
+void UMainMenuWidget::SelectNewTab(const int32& Index) const
+{
+	if (GetWidgetSwitcher()->GetActiveWidgetIndex() == Index)
+	{
+		return;
+	}
+	
+	UMainMenuTabBase* CurrentTab = Cast<UMainMenuTabBase>(GetWidgetSwitcher()->GetActiveWidget());
+	CurrentTab->OnTabDisabled();
+
+	GetWidgetSwitcher()->SetActiveWidgetIndex(Index);
+	UMainMenuTabBase* NewTab = Cast<UMainMenuTabBase>(GetWidgetSwitcher()->GetWidgetAtIndex(Index));
+	NewTab->OnTabEnabled();
+}
+
 UMainMenuWidget::UMainMenuWidget(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
 	bIsInitialized = false;
