@@ -3,18 +3,18 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "XCityOnline/Public/UI/MainMenu/MainMenuTabBase.h"
-#include "USettingsTab.generated.h"
+#include "XCityOnline/Public/UI/MainMenu/TabBase.h"
+#include "SettingsTab.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class CITYSAMPLE_API UUSettingsTab : public UMainMenuTabBase
+class CITYSAMPLE_API USettingsTab : public UTabBase
 {
 	GENERATED_BODY()
 
 protected:
 	virtual void OnSettingsConfirmed();
-	virtual void OnSettingsCanceled();
+	virtual void OnSettingsDeclined();
 };
