@@ -88,6 +88,8 @@ void USettingsVideoTab::InitializeTab(const int32& Index, UWidget* ParentWidget)
 
 	PostProcessingQualitySettingLeftButton->OnClicked.AddUniqueDynamic(this, &USettingsVideoTab::OnPostProcessingSettingLeftButtonClicked);
 	PostProcessingQualitySettingRightButton->OnClicked.AddUniqueDynamic(this, &USettingsVideoTab::OnPostProcessingSettingRightButtonClicked);
+
+	ReloadWidget();
 }
 
 USettingsVideoTab::USettingsVideoTab(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
@@ -133,6 +135,8 @@ void USettingsVideoTab::ReloadWidget()
 			ResolutionIndex = It.GetIndex();
 		}
 	}
+
+	ResolutionSettingText->SetText(FText::FromString(FString::FromInt(Resolutions[ResolutionIndex].X) + FString("x") + FString::FromInt(Resolutions[ResolutionIndex].Y)));
 	
 	bVSyncEnabled = GameUserSettings->bUseVSync;
 	VSyncSettingText->SetText(VSyncDisplayInfos[bVSyncEnabled]);
@@ -198,7 +202,7 @@ void USettingsVideoTab::OnResolutionSettingLeftButtonClicked()
 		ResolutionIndex = Resolutions.Num() - 1;
 	}
 
-	ResolutionSettingText->SetText(FText::FromString(Resolutions[ResolutionIndex].X + "X" + Resolutions[ResolutionIndex].Y));
+	ResolutionSettingText->SetText(FText::FromString(FString::FromInt(Resolutions[ResolutionIndex].X) + FString("x") + FString::FromInt(Resolutions[ResolutionIndex].Y)));
 }
 
 void USettingsVideoTab::OnResolutionSettingRightButtonClicked()
@@ -210,7 +214,7 @@ void USettingsVideoTab::OnResolutionSettingRightButtonClicked()
 		ResolutionIndex = 0;
 	}
 
-	ResolutionSettingText->SetText(FText::FromString(Resolutions[ResolutionIndex].X + "X" + Resolutions[ResolutionIndex].Y));
+	ResolutionSettingText->SetText(FText::FromString(FString::FromInt(Resolutions[ResolutionIndex].X) + FString("x") + FString::FromInt(Resolutions[ResolutionIndex].Y)));
 }
 
 void USettingsVideoTab::OnVSyncSettingButtonClicked()
