@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "XCityOnline/Public/UI/MainMenu/MainMenuButtonBase.h"
+#include "XCityOnline/Public/UI/MainMenu/TabButtonBase.h"
 #include "SettingButton.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class CITYSAMPLE_API USettingButton : public UMainMenuButtonBase
+class CITYSAMPLE_API USettingButton : public UTabButtonBase
 {
 	GENERATED_BODY()
 

@@ -2,33 +2,15 @@
 
 
 #include "XCityOnline/Public/UI/MainMenu/MainMenuButtonBase.h"
-
-#include "Components/Button.h"
 #include "Components/TextBlock.h"
-#include "Components/WidgetSwitcher.h"
 #include "XCityOnline/Public/UI/MainMenu/MainMenuTabBase.h"
 #include "XCityOnline/Public/UI/MainMenu/MainMenuWidget.h"
 
-void UMainMenuButtonBase::NativeConstruct()
+void UMainMenuButtonBase::InitializeTabButton(UTabBase* ChildTab)
 {
-	Super::NativeConstruct();
-
-	ButtonPtr->OnClicked.AddUniqueDynamic(this, &UMainMenuButtonBase::OnSelected_Internal);
-	ButtonPtr->OnHovered.AddUniqueDynamic(this, &UMainMenuButtonBase::OnHovered_Internal);
-	ButtonPtr->OnUnhovered.AddUniqueDynamic(this, &UMainMenuButtonBase::OnUnhovered_Internal);
-}
-
-void UMainMenuButtonBase::InitializeTabButton(UMainMenuTabBase* ChildTab)
-{
-	ChildTabPtr = ChildTab;
-	InitializeVisual();
+	Super::InitializeTabButton(ChildTab);
 	
-	K2_InitializeTabButton(ChildTabPtr);
-}
-
-void UMainMenuButtonBase::OnDisabled()
-{
-	K2_OnDisabled();
+	InitializeVisual();
 }
 
 void UMainMenuButtonBase::OnUnhovered()
@@ -43,42 +25,29 @@ void UMainMenuButtonBase::InitializeVisual()
 	ButtonTextPtr->SetColorAndOpacity(UnhoveredTextColor);
 }
 
-void UMainMenuButtonBase::OnSelected_Internal()
-{
-	OnSelected();
-}
-
-void UMainMenuButtonBase::OnHovered_Internal()
-{
-	OnHovered();
-}
-
-void UMainMenuButtonBase::OnUnhovered_Internal()
-{
-	OnUnhovered();
-}
-
 void UMainMenuButtonBase::OnSelected()
 {
-	if (!IsValid(ChildTabPtr))
+	const UMainMenuTabBase* MainMenuTabBase = GetChildTab<UMainMenuTabBase>();
+	if (!IsValid(MainMenuTabBase))
 	{
 		return;
 	}
-
-	const UMainMenuWidget* MainMenuWidget = ChildTabPtr->GetMainMenuWidget();
+	
+	const UMainMenuWidget* MainMenuWidget = MainMenuTabBase->GetMainMenuWidget();
 	if (!IsValid(MainMenuWidget))
 	{
 		return;
 	}
 
-	MainMenuWidget->SelectNewTab(ChildTabPtr->GetIndex());
+	MainMenuWidget->SelectNewTab(GetChildTab()->GetIndex());
+	
 	K2_OnSelected();
 }
 
 void UMainMenuButtonBase::OnHovered()
 {
-	K2_OnHovered();
-	
 	// Here will be UI hover visualization logic, like enabling the strip
 	ButtonTextPtr->SetColorAndOpacity(HoveredTextColor);
+
+	Super::OnHovered();
 }

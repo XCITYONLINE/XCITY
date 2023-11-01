@@ -12,7 +12,7 @@ void UTabBase::InitializeTab(const int32& Index, UWidget* ParentWidget)
 {
 	TabIndex = Index;
 
-	K2_InitializeTab(Index, Widget);
+	K2_InitializeTab(Index, ParentWidget);
 }
 
 void UTabBase::OnTabDisabled()

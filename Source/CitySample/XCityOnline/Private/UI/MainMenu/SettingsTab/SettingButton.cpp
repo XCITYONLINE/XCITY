@@ -2,10 +2,19 @@
 
 
 #include "XCityOnline/Public/UI/MainMenu/SettingsTab/SettingButton.h"
+#include "XCityOnline/Public/UI/MainMenu/SettingsTab/SettingsTab.h"
+#include "XCityOnline/Public/UI/MainMenu/SettingsTab/SettingsWidget.h"
 
 void USettingButton::OnSelected()
 {
-	Super::OnSelected();
+	const USettingsTab* SettingsTab = GetChildTab<USettingsTab>();
+	if (!IsValid(SettingsTab))
+	{
+		return;
+	}
+	
+	USettingsWidget* SettingsWidget = SettingsTab->GetSettingsWidget();
+	SettingsWidget->SelectNewTab(SettingsTab->GetIndex());
 
 	// ToDo: logic to show confirm or cancel message
 }
