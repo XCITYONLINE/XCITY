@@ -24,10 +24,10 @@ void USettingsControlsTab::RedrawWidget() const
 {
 	InputsBox->ClearChildren();
 	
-	for (auto Mapping : InputMappingContext->GetMappings())
+	for (auto It = InputMappingContext->GetMappings().CreateConstIterator(); It; ++It)
 	{
 		USettingControlsLine* SettingControlsLine = CreateWidget<USettingControlsLine>(GetWorld(), ControlsLineClass);
-		SettingControlsLine->InitializeLine(Mapping, this);
+		SettingControlsLine->InitializeLine(It.GetIndex(), GetMappingContext());
 
 		InputsBox->AddChild(SettingControlsLine);
 	}

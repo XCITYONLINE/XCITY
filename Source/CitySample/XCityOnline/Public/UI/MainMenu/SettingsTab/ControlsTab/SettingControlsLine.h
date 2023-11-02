@@ -16,7 +16,7 @@ class CITYSAMPLE_API USettingControlsLine : public UUserWidget
 	GENERATED_BODY()
 
 public:
-	void InitializeLine(const FEnhancedActionKeyMapping& Mapping, const class USettingsControlsTab* ControlsTab);
+	void InitializeLine(const int32& MappingIndex, UInputMappingContext* InputMappingContext);
 	
 protected:
 	UPROPERTY(meta = (BindWidget))
@@ -30,8 +30,8 @@ private:
 	void OnKeySelected(FInputChord InputChord);
 
 	UPROPERTY()
-	FEnhancedActionKeyMapping CurrentMapping;
-
+	int32 InputMappingIndex;
+	
 	UPROPERTY()
 	TObjectPtr<class UInputMappingContext> CurrentMappingContext;
 };
