@@ -21,7 +21,7 @@ class CITYSAMPLE_API USettingsWidget : public UMainMenuTabBase
 public:
 	FORCEINLINE UWidgetSwitcher* GetWidgetSwitcher() const { return SettingsWidgetSwitcher; }
 
-	void SelectNewTab(const int32& Index);
+	void SelectNewTab(const int32& Index, USettingButton* SettingButton);
 
 	virtual void InitializeTab(const int32& Index, UWidget* ParentWidget) override;
 	
@@ -40,6 +40,12 @@ protected:
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<USettingButton> VideoTabButton;
 
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<USettingsTab> ControlsTab;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<USettingButton> ControlsTabButton;
+
 private:
 	void InitializeSettingsWidget();
 	void InitializeButtons();
@@ -47,6 +53,9 @@ private:
 
 	UFUNCTION()
 	void OnApplySettingsButtonClicked();
+
+	UPROPERTY()
+	TObjectPtr<USettingButton> CurrentSelectedButton;
 
 	bool bInitialized;
 };

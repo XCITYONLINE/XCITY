@@ -7,8 +7,14 @@
 #include "Components/WidgetSwitcher.h"
 #include "XCityOnline/Public/UI/MainMenu/SettingsTab/SettingsTab.h"
 
-void USettingsWidget::SelectNewTab(const int32& Index)
+void USettingsWidget::SelectNewTab(const int32& Index, USettingButton* SettingButton)
 {
+	if (IsValid(CurrentSelectedButton))
+	{
+		CurrentSelectedButton->OnDisabled();
+	}
+	CurrentSelectedButton = SettingButton;
+	
 	if (GetWidgetSwitcher()->GetActiveWidgetIndex() == Index)
 	{
 		return;
@@ -48,13 +54,16 @@ void USettingsWidget::InitializeSettingsWidget()
 	}
 
 	InitializeButtons();
-
+	
+	VideoTabButton->OnSelected();
+	
 	bInitialized = true;
 }
 
 void USettingsWidget::InitializeButtons()
 {
 	InitializeButton(VideoTab, VideoTabButton);
+	InitializeButton(ControlsTab, ControlsTabButton);
 }
 
 void USettingsWidget::InitializeButton(USettingsTab* SettingsTab, USettingButton* SettingsButton)

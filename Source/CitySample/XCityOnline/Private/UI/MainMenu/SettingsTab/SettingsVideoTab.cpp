@@ -1,7 +1,7 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "SettingsVideoTab.h"
+#include "XCityOnline/Public/UI/MainMenu/SettingsTab/SettingsVideoTab.h"
 
 #include "Components/Button.h"
 #include "GameFramework/GameUserSettings.h"
