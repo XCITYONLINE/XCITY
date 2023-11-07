@@ -2,6 +2,8 @@
 
 
 #include "XCityOnline/Public/UI/MainMenu/MainMenuButtonBase.h"
+
+#include "Components/Image.h"
 #include "Components/TextBlock.h"
 #include "XCityOnline/Public/UI/MainMenu/MainMenuTabBase.h"
 #include "XCityOnline/Public/UI/MainMenu/MainMenuWidget.h"
@@ -15,9 +17,11 @@ void UMainMenuButtonBase::InitializeTabButton(UTabBase* ChildTab)
 
 void UMainMenuButtonBase::OnUnhovered()
 {
-	K2_OnHovered();
+	const FSlateColor NewButtonColor = IsButtonSelected() ? HoveredTextColor : UnhoveredTextColor;
+	
+	K2_OnUnhovered();
 
-	ButtonTextPtr->SetColorAndOpacity(UnhoveredTextColor);
+	ButtonTextPtr->SetColorAndOpacity(NewButtonColor);
 }
 
 void UMainMenuButtonBase::InitializeVisual()
@@ -27,27 +31,42 @@ void UMainMenuButtonBase::InitializeVisual()
 
 void UMainMenuButtonBase::OnSelected()
 {
+	Super::OnSelected();
+	
 	const UMainMenuTabBase* MainMenuTabBase = GetChildTab<UMainMenuTabBase>();
 	if (!IsValid(MainMenuTabBase))
 	{
 		return;
 	}
 	
-	const UMainMenuWidget* MainMenuWidget = MainMenuTabBase->GetMainMenuWidget();
+	UMainMenuWidget* MainMenuWidget = MainMenuTabBase->GetMainMenuWidget();
 	if (!IsValid(MainMenuWidget))
 	{
 		return;
 	}
 
-	MainMenuWidget->SelectNewTab(GetChildTab()->GetIndex());
+	ButtonTextPtr->SetColorAndOpacity(HoveredTextColor);
+	MainMenuWidget->SelectNewTab(GetChildTab()->GetIndex(), this);
+	SelectedImage->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
 	
 	K2_OnSelected();
 }
 
+void UMainMenuButtonBase::OnDisabled()
+{
+	Super::OnDisabled();
+
+	ButtonTextPtr->SetColorAndOpacity(UnhoveredTextColor);
+
+	SelectedImage->SetVisibility(ESlateVisibility::Hidden);
+}
+
 void UMainMenuButtonBase::OnHovered()
 {
+	const FSlateColor NewButtonColor = IsButtonSelected() ? UnhoveredTextColor : HoveredTextColor;
+	
 	// Here will be UI hover visualization logic, like enabling the strip
-	ButtonTextPtr->SetColorAndOpacity(HoveredTextColor);
+	ButtonTextPtr->SetColorAndOpacity(NewButtonColor);
 
 	Super::OnHovered();
 }

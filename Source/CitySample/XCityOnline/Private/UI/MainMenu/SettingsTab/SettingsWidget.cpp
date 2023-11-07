@@ -64,6 +64,7 @@ void USettingsWidget::InitializeButtons()
 {
 	InitializeButton(VideoTab, VideoTabButton);
 	InitializeButton(ControlsTab, ControlsTabButton);
+	InitializeButton(AudioTab, AudioTabButton);
 }
 
 void USettingsWidget::InitializeButton(USettingsTab* SettingsTab, USettingButton* SettingsButton)

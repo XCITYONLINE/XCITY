@@ -7,12 +7,7 @@
 
 URadialMenuWidget* AXCityHUD::GetRadialMenuWidget() const
 {
-	if (IsValid(MainMenuWidgetRef.Get()))
-	{
-		return Cast<URadialMenuWidget>(MainMenuWidgetRef->K2_GetRadialMenuWidget());
-	}
-
-	return nullptr;
+	return RadialMenuWidgetRef;
 }
 
 void AXCityHUD::BeginPlay()
@@ -21,4 +16,8 @@ void AXCityHUD::BeginPlay()
 
 	MainMenuWidgetRef = CreateWidget<UMainMenuWidget>(GetOwningPlayerController(), MainMenuWidgetClass);
 	MainMenuWidgetRef->AddToViewport();
+
+	RadialMenuWidgetRef = CreateWidget<URadialMenuWidget>(GetOwningPlayerController(), RadialMenuWidgetClass);
+	RadialMenuWidgetRef->AddToViewport();
 }
+

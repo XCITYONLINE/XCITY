@@ -25,6 +25,7 @@ public:
 
 	FORCEINLINE const ETabType& GetTabType() const { return ButtonTabType; }
 	FORCEINLINE UTabBase* GetChildTab() const { return ChildTabPtr; }
+	FORCEINLINE bool IsButtonSelected() const { return bIsSelected; }
 
 	template <class T>
 	T* GetChildTab() const
@@ -67,6 +68,8 @@ protected:
 	TObjectPtr<class UTextBlock> ButtonTextPtr;
 	
 private:
+	bool bIsSelected;
+	
 	UPROPERTY()
 	ETabType ButtonTabType;
 	

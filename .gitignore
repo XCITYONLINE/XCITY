@@ -39,6 +39,12 @@
 /Plugins/WeaponSystem/Binaries/
 /Plugins/WeaponSystem/Intermediate/
 /Plugins/Developer/RiderLink/
+/Plugins/AzSpeech/Binaries/
+/Plugins/AzSpeech/Intermediate/
+/Plugins/OpenAIAPI/Binaries/
+/Plugins/OpenAIAPI/Intermediate/
+/Plugins/DigitalHumanAnimation/Binaries/
+/Plugins/DigitalHumanAnimation/Intermediate/
 
 # Source core directions
 Intermediate/

@@ -15,15 +15,14 @@ void UTabButtonBase::InitializeTabButton(UTabBase* ChildTab)
 
 void UTabButtonBase::OnDisabled()
 {
+	bIsSelected = false;
+	
 	K2_OnDisabled();
 }
 
 void UTabButtonBase::OnSelected()
 {
-	if (IsValid(ChildTabPtr))
-	{
-		ChildTabPtr->OnTabEnabled();
-	}
+	bIsSelected = true;
 
 	K2_OnSelected();
 }

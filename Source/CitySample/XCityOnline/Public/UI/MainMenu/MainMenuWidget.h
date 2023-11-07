@@ -17,16 +17,13 @@ class CITYSAMPLE_API UMainMenuWidget : public UUserWidget
 	GENERATED_BODY()
 
 public:
-	
-	UFUNCTION(BlueprintImplementableEvent)
-	UUserWidget* K2_GetRadialMenuWidget();
 
 	UFUNCTION(BlueprintPure)
 	FORCEINLINE bool IsInitialized() const { return bIsInitialized; }
 
 	UWidgetSwitcher* GetWidgetSwitcher() const;
 
-	void SelectNewTab(const int32& Index) const;
+	void SelectNewTab(const int32& Index, UMainMenuButtonBase* MainMenuButton);
 
 protected:
 	UMainMenuWidget(const FObjectInitializer& ObjectInitializer);
@@ -63,6 +60,9 @@ protected:
 	TObjectPtr<UMainMenuButtonBase> StoreTabButton;
 
 private:
+	UPROPERTY()
+	TObjectPtr<UMainMenuButtonBase> CurrentSelectedButton;
+	
 	void InitializeMainMenu();
 	void InitializeButtons();
 	void InitializeButton(UMainMenuButtonBase* Button, UMainMenuTabBase* Tab);

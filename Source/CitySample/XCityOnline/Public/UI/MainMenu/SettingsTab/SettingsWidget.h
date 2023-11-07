@@ -46,6 +46,12 @@ protected:
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<USettingButton> ControlsTabButton;
 
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<USettingsTab> AudioTab;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<USettingButton> AudioTabButton;
+
 private:
 	void InitializeSettingsWidget();
 	void InitializeButtons();

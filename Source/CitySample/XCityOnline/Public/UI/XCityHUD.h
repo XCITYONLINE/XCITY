@@ -29,8 +29,14 @@ public:
 	UPROPERTY(EditAnywhere, Category = "UI|Radial Menu")
 	TSubclassOf<UMainMenuWidget> MainMenuWidgetClass;
 
+	UPROPERTY(EditAnywhere, Category = "UI|Radial Menu")
+	TSubclassOf<URadialMenuWidget> RadialMenuWidgetClass;
+
 private:
 
+	UPROPERTY()
+	TObjectPtr<URadialMenuWidget> RadialMenuWidgetRef;
+	
 	UPROPERTY()
 	TObjectPtr<UMainMenuWidget> MainMenuWidgetRef;
 };

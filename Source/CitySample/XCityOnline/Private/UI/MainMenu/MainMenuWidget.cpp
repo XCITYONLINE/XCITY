@@ -10,8 +10,15 @@ UWidgetSwitcher* UMainMenuWidget::GetWidgetSwitcher() const
 	return TabSwitcher;
 }
 
-void UMainMenuWidget::SelectNewTab(const int32& Index) const
+void UMainMenuWidget::SelectNewTab(const int32& Index, UMainMenuButtonBase* MainMenuButton)
 {
+	if (IsValid(CurrentSelectedButton))
+	{
+		CurrentSelectedButton->OnDisabled();
+	}
+
+	CurrentSelectedButton = MainMenuButton;
+	
 	if (GetWidgetSwitcher()->GetActiveWidgetIndex() == Index)
 	{
 		return;

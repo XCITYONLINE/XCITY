@@ -18,9 +18,13 @@ public:
 	virtual void InitializeTabButton(UTabBase* ChildTab) override;
 	virtual void OnUnhovered() override;
 	virtual void OnSelected() override;
+	virtual void OnDisabled() override;
 	virtual void OnHovered() override;
 	
 protected:
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<class UImage> SelectedImage;
+	
 	virtual void InitializeVisual();
 	
 	UPROPERTY(EditAnywhere, Category = "Main Menu Button Info")
