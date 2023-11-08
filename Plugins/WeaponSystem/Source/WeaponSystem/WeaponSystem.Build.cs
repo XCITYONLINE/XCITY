@@ -29,7 +29,8 @@ public class WeaponSystem : ModuleRules
 				"Slate",
 				"SlateCore",
 				"DeveloperSettings", 
-				"EnhancedInput"
+				"EnhancedInput",
+				"UMG"
 			}
 			);
 	}
