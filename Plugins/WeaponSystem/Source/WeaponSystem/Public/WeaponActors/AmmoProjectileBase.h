@@ -9,6 +9,9 @@
 
 #include "AmmoProjectileBase.generated.h"
 
+class USphereComponent;
+class UXCityWeaponFXComponent;
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnProjectileHit, const FHitResult&, Value);
 
 UCLASS()
@@ -24,6 +27,10 @@ public:
 	virtual void TickActor(float DeltaTime, ELevelTick TickType, FActorTickFunction& ThisTickFunction) override;
 
 	virtual bool TryInitializeProjectile(const FProjectileSettings& InInitialProjectileSettings);
+
+protected:
+	UPROPERTY(VisibleAnywhere, Category = "VFX")
+	UXCityWeaponFXComponent* WeaponFXComponent;
 
 public:
 
@@ -41,17 +48,25 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess))
 	UProjectileMovementComponent* ProjectileMovementComponent;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess))
-	UStaticMeshComponent* StaticMeshComponent;
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess))
+	//UStaticMeshComponent* StaticMeshComponent;
+
+	UPROPERTY(VisibleAnywhere, Category = "Projectile")
+	USphereComponent* CollisionComponent;
 
 private:
 
 	void CheckHitProcess();
 
 private:
-	
 	FVector PreviousLocation;
 	FProjectileSettings InitialProjectileSettings;
 
 	static const float LifeSpanTime;
+
+	UFUNCTION()
+	void OnBulletHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse,
+		const FHitResult& Hit);
+
+	AController* GetController() const;
 };

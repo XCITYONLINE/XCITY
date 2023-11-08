@@ -13,7 +13,8 @@
 				"AIModule",
 				"ChaosVehicles",
 				"UMG",
-				"MovieScene"
+				"MovieScene",
+				"ALS"
 			]
 		},
 		{

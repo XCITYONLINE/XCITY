@@ -10,6 +10,9 @@
 #include "Kismet/GameplayStatics.h"
 #include "Settings/WeaponSystemSettings.h"
 #include "WeaponComponents/ShootComponentBase.h"
+#include "XCityWeaponFXComponent.h"
+#include "NiagaraFunctionLibrary.h"
+#include "NiagaraComponent.h"
 
 AInteractibleWeaponBase::AInteractibleWeaponBase()
 {
@@ -26,12 +29,16 @@ AInteractibleWeaponBase::AInteractibleWeaponBase()
 	AlternativeShootComponentObject = nullptr;
 	SelectedShootComponent = nullptr;
 	InitialWeaponStruct = FWeaponsDataStruct();
+
+	WeaponFXComponent = CreateDefaultSubobject<UXCityWeaponFXComponent>("WeaponFXComponent");
 }
 
 void AInteractibleWeaponBase::BeginPlay()
 {
 	Super::BeginPlay();
 	IInteractibleWeaponInterface::Execute_InitializeWeapon(this);
+
+	check(WeaponFXComponent);
 }
 
 void AInteractibleWeaponBase::InitializeWeapon_Implementation()
@@ -346,7 +353,9 @@ void AInteractibleWeaponBase::OnFireStart_Implementation()
 	if (IsValid(SelectedShootComponent.Get()))
 	{
 		IInteractibleWeaponInterface::Execute_OnFireStart(SelectedShootComponent.Get());
+		
 	}
+	InitMuzzleFX();
 }
 
 void AInteractibleWeaponBase::OnFireStop_Implementation()
@@ -354,6 +363,7 @@ void AInteractibleWeaponBase::OnFireStop_Implementation()
 	if (IsValid(SelectedShootComponent.Get()))
 	{
 		IInteractibleWeaponInterface::Execute_OnFireStop(SelectedShootComponent.Get());
+		SetMuzzleFXVisibility(false);
 	}
 }
 
@@ -466,4 +476,32 @@ bool AInteractibleWeaponBase::Internal_GetItemSettings(UObject* ContextObject, U
 	}
 
 	return false;
+}
+
+UNiagaraComponent* AInteractibleWeaponBase::SpawnMuzzleFX()
+{
+	return UNiagaraFunctionLibrary::SpawnSystemAttached(MuzzleFX,  //
+		WeaponSkeletalMeshComponent,                               //
+		MuzzleSocketName,                                          //
+		FVector::ZeroVector,                                       //
+		FRotator::ZeroRotator,                                     //
+		EAttachLocation::SnapToTarget, true);
+}
+
+void AInteractibleWeaponBase::InitMuzzleFX() 
+{
+	if (!MuzzleFXComponent)
+	{
+		MuzzleFXComponent = SpawnMuzzleFX();
+	}
+	SetMuzzleFXVisibility(true);
+}
+
+void AInteractibleWeaponBase::SetMuzzleFXVisibility(bool Visible)
+{
+	if (MuzzleFXComponent)
+	{
+		MuzzleFXComponent->SetPaused(!Visible);
+		MuzzleFXComponent->SetVisibility(Visible, true);
+	}
 }

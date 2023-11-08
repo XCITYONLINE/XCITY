@@ -2,19 +2,29 @@
 
 #include "WeaponActors/AmmoProjectileBase.h"
 #include "Kismet/GameplayStatics.h"
+#include "Components/SphereComponent.h"
+#include "XCityWeaponFXComponent.h"
 
 const float AAmmoProjectileBase::LifeSpanTime = 60.0f;
 
 AAmmoProjectileBase::AAmmoProjectileBase()
 {
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>("ProjectileMovementComp");
-	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>("AmmoMesh");
-	RootComponent = StaticMeshComponent;
-	
+	//StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>("AmmoMesh");
+	//RootComponent = StaticMeshComponent;
+	CollisionComponent = CreateDefaultSubobject<USphereComponent>("SphereComponent");
+	CollisionComponent->InitSphereRadius(5.0f);
+	CollisionComponent->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	CollisionComponent->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Block);
+	CollisionComponent->bReturnMaterialOnMove = true;
+	SetRootComponent(CollisionComponent);
+
 	PrimaryActorTick.bCanEverTick = true;
 	
 	PreviousLocation = FVector::ZeroVector;
 	InitialProjectileSettings = FProjectileSettings();
+
+	WeaponFXComponent = CreateDefaultSubobject<UXCityWeaponFXComponent>("WeaponFXComponent");
 }
 
 bool AAmmoProjectileBase::TryInitializeProjectile(const FProjectileSettings& InInitialProjectileSettings)
@@ -39,9 +49,14 @@ bool AAmmoProjectileBase::TryInitializeProjectile(const FProjectileSettings& InI
 void AAmmoProjectileBase::BeginPlay()
 {
 	Super::BeginPlay();
+
+	check(WeaponFXComponent);
+
 	K2_StartFly();
 
 	PreviousLocation = GetActorLocation();
+
+	CollisionComponent->OnComponentHit.AddDynamic(this, &AAmmoProjectileBase::OnBulletHit);
 }
 
 void AAmmoProjectileBase::TickActor(float DeltaTime, ELevelTick TickType, FActorTickFunction& ThisTickFunction)
@@ -59,6 +74,10 @@ void AAmmoProjectileBase::CheckHitProcess()
 	{
 		return;
 	}
+
+	FCollisionQueryParams CollisionParams;
+	CollisionParams.AddIgnoredActor(GetOwner());
+	CollisionParams.bReturnPhysicalMaterial = true;
 	
 	FHitResult HitResult;
 	const FVector& CurrentProjectileLocation = GetActorLocation();
@@ -80,21 +99,48 @@ void AAmmoProjectileBase::CheckHitProcess()
 		return;
 	}
 
-	if (AActor* HitActor = HitResult.GetActor(); IsValid(HitActor))
-	{
-		UGameplayStatics::ApplyDamage(
-			HitActor,
-			InitialProjectileSettings.Damage,
-			PlayerController,
-			this,
-			UDamageType::StaticClass());
+	//if (AActor* HitActor = HitResult.GetActor(); IsValid(HitActor))
+	//{
+	//	UGameplayStatics::ApplyDamage(
+	//		HitActor,
+	//		InitialProjectileSettings.Damage,
+	//		PlayerController,
+	//		this,
+	//		UDamageType::StaticClass());
 
-		if (OnProjectileHit.IsBound())
-		{
-			OnProjectileHit.Broadcast(HitResult);
-		}
+		//if (OnProjectileHit.IsBound())
+		//{
+		//	OnProjectileHit.Broadcast(HitResult);
+		//}
 		
-		K2_HitNotify(HitResult);
-		Destroy();
-	}
+		//K2_HitNotify(HitResult);
+		//WeaponFXComponent->PlayImpactFX(HitResult);
+		//Destroy();
+	//}
+}
+
+void AAmmoProjectileBase::OnBulletHit(
+	UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+{
+	if (!GetWorld()) return;
+
+	ProjectileMovementComponent->StopMovementImmediately();
+
+	UGameplayStatics::ApplyDamage(                 //
+		OtherActor,                                 //
+		InitialProjectileSettings.Damage,           //
+		GetController(),                            //
+		this,
+		UDamageType::StaticClass());                 //
+		
+
+	K2_HitNotify(Hit);
+	WeaponFXComponent->PlayImpactFX(Hit);
+	Destroy();
+}
+
+AController* AAmmoProjectileBase::GetController() const
+{
+	const auto Pawn = Cast<APawn>(GetOwner());
+	return Pawn ? Pawn->GetController() : nullptr;
 }

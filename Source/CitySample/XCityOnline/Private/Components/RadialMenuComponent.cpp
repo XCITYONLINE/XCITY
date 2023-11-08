@@ -181,7 +181,7 @@ void URadialMenuComponent::SelectItem()
 
 	TMap<int32, TScriptInterface<IInteractibleItemInterface>> Items;
 	GetItemsByType(WeaponRadialMenuSlot->GetWeaponType(), Items);
-	CharacterBase->ClearHeldObject();
+	CharacterBase->ReInitializeItemObject();
 	if (Items.Num() > 0)
 	{
 		if (Items.Find(WeaponRadialMenuSlot->GetSelectedWeaponIndex()))

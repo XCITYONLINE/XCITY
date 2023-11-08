@@ -12,7 +12,12 @@
 
 #include "InteractibleWeaponBase.generated.h"
 
+class UXCityWeaponFXComponent;
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAlternativeFireChanged, bool, Value);
+
+class UNiagaraSystem;
+class UNiagaraComponent;
 
 UCLASS()
 class WEAPONSYSTEM_API AInteractibleWeaponBase : public AActor,
@@ -70,6 +75,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<USkeletalMeshComponent> WeaponSkeletalMeshComponent;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
+	FName MuzzleSocketName = "MuzzleSocket";
+
 	UPROPERTY(BlueprintAssignable, BlueprintCallable)
 	FOnAlternativeFireChanged OnAlternativeFireChanged;
 
@@ -109,9 +117,20 @@ public:
 	
 protected:
 
+	UPROPERTY(VisibleAnywhere, Category = "VFX")
+	UXCityWeaponFXComponent* WeaponFXComponent;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "VFX")
+	UNiagaraSystem* MuzzleFX;
+
 	virtual void BeginPlay() override;
 
+	UNiagaraComponent* SpawnMuzzleFX();
+
 private:
+
+	UPROPERTY()
+	UNiagaraComponent* MuzzleFXComponent;
 	
 	UFUNCTION()
 	void OnLoadComplete();
@@ -124,6 +143,8 @@ private:
 	void AddMappingContext() const;
 	void RemoveMappingContext();
 	void BindInputActions();
+	void InitMuzzleFX();
+	void SetMuzzleFXVisibility(bool Visible);
 	
 	TObjectPtr<UShootComponentBase> MainShootComponentObject;
 	TObjectPtr<UShootComponentBase> AlternativeShootComponentObject;

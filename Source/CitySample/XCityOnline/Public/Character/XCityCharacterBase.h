@@ -6,7 +6,7 @@
 #include "XCityOnline/Public/Interfaces/PlayerCameraManagerInterface.h"
 #include "InputActionValue.h"
 #include "InputMappingContext.h"
-#include "Character/ALSCharacter.h"
+#include "ALSExtras/Public/AlsCharacterExample.h"
 #include "XCityOnline/Public/Interfaces/RadialMenuInterface.h"
 
 #include "XCityCharacterBase.generated.h"
@@ -14,14 +14,14 @@
 class UInputAction;
 
 UCLASS()
-class CITYSAMPLE_API AXCityCharacterBase : public AALSCharacter,
+class CITYSAMPLE_API AXCityCharacterBase : public AAlsCharacterExample,
 public IPlayerCameraManagerInterface
 {
 	GENERATED_BODY()
 	
 public:
 	
-	AXCityCharacterBase(const FObjectInitializer& ObjectInitializer);
+	AXCityCharacterBase();
 
 	void SetSelectedInventoryItem(const TScriptInterface<class IInteractibleItemInterface>& InventoryItem);
 
@@ -38,7 +38,7 @@ protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
 
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void SetupPlayerInputComponent(class UInputComponent* Input) override;
 
 	//IPlayerCameraManagerInterface implements
 	virtual void InitCameraManager() override;

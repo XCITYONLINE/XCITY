@@ -14,7 +14,9 @@ public class WeaponSystem : ModuleRules
 				"Core",
 				"Engine", 
 				"CommonContractsPlugin", 
-				"EnhancedInput"
+				"EnhancedInput",
+				"Niagara",
+				"PhysicsCore"
 			}
 			);
 			
