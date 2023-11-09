@@ -14,6 +14,8 @@ class UXCityWeaponFXComponent;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnProjectileHit, const FHitResult&, Value);
 
+class UNiagaraSystem;
+
 UCLASS()
 class WEAPONSYSTEM_API AAmmoProjectileBase : public AActor
 {
@@ -32,6 +34,12 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "VFX")
 	UXCityWeaponFXComponent* WeaponFXComponent;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "VFX")
+	UNiagaraSystem* TraceFX;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "VFX")
+	FString TraceTargetName = "TraceTarget";
+
 public:
 
 	UPROPERTY(BlueprintAssignable, BlueprintCallable)
@@ -48,8 +56,8 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess))
 	UProjectileMovementComponent* ProjectileMovementComponent;
 
-	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess))
-	//UStaticMeshComponent* StaticMeshComponent;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess))
+	UStaticMeshComponent* StaticMeshComponent;
 
 	UPROPERTY(VisibleAnywhere, Category = "Projectile")
 	USphereComponent* CollisionComponent;
@@ -57,6 +65,7 @@ private:
 private:
 
 	void CheckHitProcess();
+	void SpawnTraceFX(const FVector& TraceStart, const FVector& TraceEnd);
 
 private:
 	FVector PreviousLocation;

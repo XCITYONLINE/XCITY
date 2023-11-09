@@ -4,13 +4,15 @@
 #include "Kismet/GameplayStatics.h"
 #include "Components/SphereComponent.h"
 #include "XCityWeaponFXComponent.h"
+#include "NiagaraComponent.h"
+#include "NiagaraFunctionLibrary.h"
 
 const float AAmmoProjectileBase::LifeSpanTime = 60.0f;
 
 AAmmoProjectileBase::AAmmoProjectileBase()
 {
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>("ProjectileMovementComp");
-	//StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>("AmmoMesh");
+	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>("AmmoMesh");
 	//RootComponent = StaticMeshComponent;
 	CollisionComponent = CreateDefaultSubobject<USphereComponent>("SphereComponent");
 	CollisionComponent->InitSphereRadius(5.0f);
@@ -125,7 +127,8 @@ void AAmmoProjectileBase::OnBulletHit(
 	if (!GetWorld()) return;
 
 	ProjectileMovementComponent->StopMovementImmediately();
-
+	
+	FVector TraceFXEnd = Hit.Location;
 	UGameplayStatics::ApplyDamage(                 //
 		OtherActor,                                 //
 		InitialProjectileSettings.Damage,           //
@@ -133,8 +136,10 @@ void AAmmoProjectileBase::OnBulletHit(
 		this,
 		UDamageType::StaticClass());                 //
 		
+	TraceFXEnd = Hit.ImpactPoint;
 
 	K2_HitNotify(Hit);
+	SpawnTraceFX(PreviousLocation, TraceFXEnd);
 	WeaponFXComponent->PlayImpactFX(Hit);
 	Destroy();
 }
@@ -143,4 +148,13 @@ AController* AAmmoProjectileBase::GetController() const
 {
 	const auto Pawn = Cast<APawn>(GetOwner());
 	return Pawn ? Pawn->GetController() : nullptr;
+}
+
+void AAmmoProjectileBase::SpawnTraceFX(const FVector& TraceStart, const FVector& TraceEnd)
+{
+	const auto TraceFXComponent = UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), TraceFX, PreviousLocation);
+	if (TraceFXComponent)
+	{
+		TraceFXComponent->SetNiagaraVariableVec3(TraceTargetName, TraceEnd);
+	}
 }
