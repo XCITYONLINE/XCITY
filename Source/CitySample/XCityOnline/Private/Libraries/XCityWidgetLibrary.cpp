@@ -63,3 +63,9 @@ FVector2D UXCityWidgetLibrary::ConvertAngleIntoDirectionalVector(const float& An
 	const FVector2D DirectionalVector { X, Y * -1 };
 	return DirectionalVector;
 }
+
+void UXCityWidgetLibrary::StartLoadingScreen(APlayerController* Controller,
+	TSubclassOf<UUserWidget> LoadingScreenOverrideClass)
+{
+	//FXCityLoadingScreenModule::Get().StartInGameLoadingScreen();
+}

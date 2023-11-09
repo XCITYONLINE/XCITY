@@ -14,10 +14,16 @@ void AXCityHUD::BeginPlay()
 {
 	Super::BeginPlay();
 
-	MainMenuWidgetRef = CreateWidget<UMainMenuWidget>(GetOwningPlayerController(), MainMenuWidgetClass);
-	MainMenuWidgetRef->AddToViewport();
+	if (IsValid(MainMenuWidgetClass))
+	{
+		MainMenuWidgetRef = CreateWidget<UMainMenuWidget>(GetOwningPlayerController(), MainMenuWidgetClass);
+		MainMenuWidgetRef->AddToViewport();
+	}
 
-	RadialMenuWidgetRef = CreateWidget<URadialMenuWidget>(GetOwningPlayerController(), RadialMenuWidgetClass);
-	RadialMenuWidgetRef->AddToViewport();
+	if (IsValid(RadialMenuWidgetClass))
+	{
+		RadialMenuWidgetRef = CreateWidget<URadialMenuWidget>(GetOwningPlayerController(), RadialMenuWidgetClass);
+		RadialMenuWidgetRef->AddToViewport();
+	}
 }
 

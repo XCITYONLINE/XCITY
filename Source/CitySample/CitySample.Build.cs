@@ -88,7 +88,7 @@ public class CitySample : ModuleRules
 			"MassReplication",
 			"MassSpawner",
 			"MassSimulation",
-			"MassSignals",
+			"MassSignals"
 		});
         
 
