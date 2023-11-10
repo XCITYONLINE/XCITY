@@ -30,7 +30,4 @@ public:
 
 	UFUNCTION(BlueprintPure, Category = "UI|Functions")
 	static FVector2D ConvertAngleIntoDirectionalVector(const float& Angle);
-
-	UFUNCTION(BlueprintCallable, Category = "UI|Functions")
-	static void StartLoadingScreen(APlayerController* Controller, TSubclassOf<UUserWidget> LoadingScreenOverrideClass);
 };

@@ -8,16 +8,6 @@
 #include "Engine/GameEngine.h"
 #include "XCityOnline/Public/UI/XCityMainMenuHUD.h"
 
-void ULoadingScreenSubsystem::Initialize(FSubsystemCollectionBase& Collection)
-{
-	Super::Initialize(Collection);
-
-	if (GetWorld())
-	{
-		FCoreUObjectDelegates::PreLoadMap.AddUObject(this, &ULoadingScreenSubsystem::StartInGameLoadingScreen);
-	}
-}
-
 void ULoadingScreenSubsystem::StartInGameLoadingScreen(const FString& MapName)
 {
 	APlayerController* Controller = GetWorld()->GetFirstPlayerController();
@@ -38,8 +28,10 @@ void ULoadingScreenSubsystem::StartInGameLoadingScreen(const FString& MapName)
 	if (!MainMenuHUD) return;
 	
 	FLoadingScreenAttributes LoadingScreenAttributes;
-	LoadingScreenAttributes.bAutoCompleteWhenLoadingCompletes = true;
 	LoadingScreenAttributes.WidgetLoadingScreen = MainMenuHUD->GetLoadingScreenWidget()->TakeWidget();
+	LoadingScreenAttributes.MinimumLoadingScreenDisplayTime = 10.0f;
+	LoadingScreenAttributes.bMoviesAreSkippable = false;
+	LoadingScreenAttributes.bAutoCompleteWhenLoadingCompletes = false;
 	
 	GetMoviePlayer()->SetupLoadingScreen(LoadingScreenAttributes);
 	GetMoviePlayer()->PlayMovie();

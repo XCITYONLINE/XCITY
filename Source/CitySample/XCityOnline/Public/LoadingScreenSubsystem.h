@@ -15,9 +15,6 @@ class CITYSAMPLE_API ULoadingScreenSubsystem : public UGameInstanceSubsystem
 	GENERATED_BODY()
 
 public:
-	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
-	
-protected:
 	virtual void StartInGameLoadingScreen(const FString& MapName);
 	virtual void StopInGameLoadingScreen();
 };
