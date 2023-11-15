@@ -29,4 +29,6 @@ FWeaponsDataStruct::FWeaponsDataStruct()
 	
 	MainShootSettings = FShootSettingsDesc();
 	AlternativeShootSettings = FShootSettingsDesc();
+
+	OverlayMode = FGameplayTag();
 }

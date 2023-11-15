@@ -14,6 +14,8 @@
 #include "Utility/AlsConstants.h"
 #include "Utility/AlsMacros.h"
 #include "Utility/AlsUtility.h"
+//using namespace UAlsConstants;
+//using namespace UAlsConstants;
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(AlsCharacter)
 

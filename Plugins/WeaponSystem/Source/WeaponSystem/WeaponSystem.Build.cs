@@ -16,8 +16,9 @@ public class WeaponSystem : ModuleRules
 				"CommonContractsPlugin", 
 				"EnhancedInput",
 				"Niagara",
-				"PhysicsCore"
-			}
+				"PhysicsCore",
+				"GameplayTags"
+            }
 			);
 			
 		
@@ -31,7 +32,7 @@ public class WeaponSystem : ModuleRules
 				"DeveloperSettings", 
 				"EnhancedInput",
 				"UMG"
-			}
+            }
 			);
 	}
 }

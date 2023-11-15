@@ -79,7 +79,7 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Components")
 	TObjectPtr<class URadialMenuComponent> RadialMenuComponent;
-	
+
 private:
 	
 	void OnTakeInputChanged(const FInputActionValue& Value);

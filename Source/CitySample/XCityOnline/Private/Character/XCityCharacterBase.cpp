@@ -202,8 +202,8 @@ void AXCityCharacterBase::OnTakeInputChanged(const FInputActionValue& Value)
 			if (IsValid(TriggeredObject.GetObject());
 				TriggeredObject->GetItemSettings(TriggeredObject.GetObject(), WeaponsDataStruct))
 			{
-				SetOverlayMode(OverlayMode);
-				
+				SetOverlayMode(WeaponsDataStruct.OverlayMode);
+			
 				K2_AttachTo(TriggeredObject.GetObject());
 				SelectedInventoryItem = TriggeredObject;
 			}
@@ -217,8 +217,9 @@ void AXCityCharacterBase::OnDropInputChanged(const FInputActionValue& Value)
 	{
 		IInventorySystemInterface::Execute_RemoveInventoryItem(InventoryComponent.Get(), SelectedInventoryItem);
 		
-		//DetachToHand(SelectedInventoryItem.GetObject());
 		K2_DropTo(SelectedInventoryItem.GetObject());
+
+		SetOverlayMode(AlsOverlayModeTags::Default);
 
 		IInteractibleItemInterface::Execute_OnUnselect(SelectedInventoryItem.GetObject());
 		IInteractibleItemInterface::Execute_OnDrop(SelectedInventoryItem.GetObject());
