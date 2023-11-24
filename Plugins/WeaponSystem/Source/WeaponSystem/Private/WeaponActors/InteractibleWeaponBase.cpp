@@ -13,6 +13,11 @@
 #include "XCityWeaponFXComponent.h"
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraComponent.h"
+#include "GameFramework/Character.h"
+#include "GameFramework/Controller.h"
+
+#include "DrawDebugHelpers.h"
+#include "Engine/World.h"
 
 AInteractibleWeaponBase::AInteractibleWeaponBase()
 {
@@ -50,6 +55,27 @@ void AInteractibleWeaponBase::InitializeWeapon_Implementation()
 	Streamable.RequestAsyncLoad(
 	WeaponsTablePath,
 	FStreamableDelegate::CreateUObject(this, &AInteractibleWeaponBase::OnLoadComplete));
+}
+
+void AInteractibleWeaponBase::MakeShot()
+{
+	if (!GetWorld()) return;
+
+	FVector TraceStart, TraceEnd;
+	if (!GetTraceData(TraceStart, TraceEnd)) return;
+
+	FHitResult HitResult;
+	MakeHit(HitResult, TraceStart, TraceEnd);
+
+	if (HitResult.bBlockingHit)
+	{
+		DrawDebugLine(GetWorld(), GetMuzzleWorldLocation(), HitResult.ImpactPoint, FColor::Red, false, 3.0f, 0, 3.0f);
+		DrawDebugSphere(GetWorld(), HitResult.ImpactPoint, 10.0f, 24, FColor::Red, false, 5.0f);
+	}
+	else
+	{
+		DrawDebugLine(GetWorld(), GetMuzzleWorldLocation(), TraceEnd, FColor::Red, false, 3.0f, 0, 3.0f);
+	}
 }
 
 void AInteractibleWeaponBase::OnLoadComplete()
@@ -213,6 +239,9 @@ void AInteractibleWeaponBase::OnStartMainInteract_Implementation()
 {
 	IInteractibleItemInterface::Execute_K2_OnMainInteract(this, true);
 	IInteractibleWeaponInterface::Execute_OnFireStart(this);
+
+	MakeShot();
+	InitMuzzleFX();
 }
 
 void AInteractibleWeaponBase::OnStopMainInteract_Implementation()
@@ -268,11 +297,13 @@ void AInteractibleWeaponBase::AddMappingContext() const
 {
 	if (MappingContext)
 	{
-		if (const APlayerController* OwnerController =
-			UGameplayStatics::GetPlayerController(this, 0))
+		const auto Controller = GetPlayerController();
+		if (!Controller) return;
+		//if(const APlayerController* OwnerController =
+			//UGameplayStatics::GetPlayerController(this, 0))
 		{
 			if (UEnhancedInputLocalPlayerSubsystem* Subsystem =
-			ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(OwnerController->GetLocalPlayer()))
+			ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(Controller->GetLocalPlayer()))
 			{
 				Subsystem->AddMappingContext(MappingContext, 0);
 			}
@@ -327,18 +358,21 @@ void AInteractibleWeaponBase::RemoveMappingContext()
 {
 	if (MappingContext)
 	{
-		if (const APlayerController* OwnerController =
-			UGameplayStatics::GetPlayerController(this, 0))
+		const auto Controller = GetPlayerController();
+		if (!Controller) return;
+
+		//if (const APlayerController* OwnerController =
+			//UGameplayStatics::GetPlayerController(this, 0))
 		{
 			if (UEnhancedInputLocalPlayerSubsystem* Subsystem =
-			ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(OwnerController->GetLocalPlayer()))
+			ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(Controller->GetLocalPlayer()))
 			{
 				FModifyContextOptions ModifyContextOptions;
 				ModifyContextOptions.bIgnoreAllPressedKeysUntilRelease = true;
 				
 				Subsystem->RemoveMappingContext(MappingContext, ModifyContextOptions);
 
-				UActorComponent* EnhancedComponent = OwnerController->FindComponentByClass<UEnhancedInputComponent>();
+				UActorComponent* EnhancedComponent = Controller->FindComponentByClass<UEnhancedInputComponent>();
 				if (UEnhancedInputComponent* PlayerInputComponent = Cast<UEnhancedInputComponent>(EnhancedComponent))
 				{
 					PlayerInputComponent->ClearBindingsForObject(this);
@@ -355,7 +389,7 @@ void AInteractibleWeaponBase::OnFireStart_Implementation()
 		IInteractibleWeaponInterface::Execute_OnFireStart(SelectedShootComponent.Get());
 		
 	}
-	InitMuzzleFX();
+	//InitMuzzleFX();
 }
 
 void AInteractibleWeaponBase::OnFireStop_Implementation()
@@ -476,6 +510,50 @@ bool AInteractibleWeaponBase::Internal_GetItemSettings(UObject* ContextObject, U
 	}
 
 	return false;
+}
+
+APlayerController* AInteractibleWeaponBase::GetPlayerController() const
+{
+	const auto Player = Cast<ACharacter>(GetOwner());
+	if (!Player) return nullptr;
+
+	return Player->GetController<APlayerController>();
+}
+
+bool AInteractibleWeaponBase::GetPlayerViewPoint(FVector& ViewLocation, FRotator& ViewRotation) const
+{
+	const auto Controller = GetPlayerController();
+	if (!Controller) return false;
+
+	Controller->GetPlayerViewPoint(ViewLocation, ViewRotation);
+	return true;
+}
+
+FVector AInteractibleWeaponBase::GetMuzzleWorldLocation() const
+{
+	return WeaponSkeletalMeshComponent->GetSocketLocation(MuzzleSocketName);
+}
+
+bool AInteractibleWeaponBase::GetTraceData(FVector& TraceStart, FVector& TraceEnd) const
+{
+	FVector ViewLocation;
+	FRotator ViewRotation;
+	if(!GetPlayerViewPoint(ViewLocation, ViewRotation)) return false;
+
+	TraceStart = ViewLocation;
+	const FVector ShootDirection = ViewRotation.Vector();
+	TraceEnd = TraceStart + ShootDirection * TraceMaxDistance;
+	return true;
+}
+
+void AInteractibleWeaponBase::MakeHit(FHitResult& HitResult, const FVector& TraceStart, const FVector& TraceEnd)
+{
+	if (!GetWorld()) return;
+
+	FCollisionQueryParams CollisionParams;
+	CollisionParams.AddIgnoredActor(GetOwner());
+
+	GetWorld()->LineTraceSingleByChannel(HitResult, TraceStart, TraceEnd, ECollisionChannel::ECC_Visibility);
 }
 
 UNiagaraComponent* AInteractibleWeaponBase::SpawnMuzzleFX()

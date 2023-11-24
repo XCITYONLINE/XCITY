@@ -6,6 +6,8 @@
 #include "XCityWeaponFXComponent.h"
 #include "NiagaraComponent.h"
 #include "NiagaraFunctionLibrary.h"
+#include "GameFramework/Character.h"
+#include "GameFramework/Controller.h"
 
 const float AAmmoProjectileBase::LifeSpanTime = 60.0f;
 

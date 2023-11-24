@@ -78,6 +78,9 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
 	FName MuzzleSocketName = "MuzzleSocket";
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Weapon")
+	float TraceMaxDistance = 35000.0f;
+
 	UPROPERTY(BlueprintAssignable, BlueprintCallable)
 	FOnAlternativeFireChanged OnAlternativeFireChanged;
 
@@ -117,6 +120,9 @@ public:
 	
 protected:
 
+	//UPROPERTY(VisibleAnywhere, Category = "Weapon")
+	//FName MuzzleSocketName = "MuzzleSocket";
+
 	UPROPERTY(VisibleAnywhere, Category = "VFX")
 	UXCityWeaponFXComponent* WeaponFXComponent;
 
@@ -124,6 +130,8 @@ protected:
 	UNiagaraSystem* MuzzleFX;
 
 	virtual void BeginPlay() override;
+
+	void MakeShot();
 
 	UNiagaraComponent* SpawnMuzzleFX();
 
@@ -139,6 +147,12 @@ private:
 		const FWeaponsDataStruct& InInitialWeaponStruct,
 		TObjectPtr<UShootComponentBase>& OutShootComponent,
 		const bool bAlternative);
+
+	APlayerController* GetPlayerController() const;
+	bool GetPlayerViewPoint(FVector& ViewLocation, FRotator& ViewRotation) const;
+	FVector GetMuzzleWorldLocation() const;
+	bool GetTraceData(FVector& TraceStart, FVector& TraceEnd) const;
+	void MakeHit(FHitResult& HitResult, const FVector& TraceStart, const FVector& TraceEnd);
 
 	void AddMappingContext() const;
 	void RemoveMappingContext();

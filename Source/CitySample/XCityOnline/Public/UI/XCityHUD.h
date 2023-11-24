@@ -24,7 +24,11 @@ public:
 
 	virtual void BeginPlay() override;
 
+	virtual void DrawHUD() override;
+
 public:
+
+	void DrawCrosshair();
 	
 	UPROPERTY(EditAnywhere, Category = "UI|Radial Menu")
 	TSubclassOf<UMainMenuWidget> MainMenuWidgetClass;
