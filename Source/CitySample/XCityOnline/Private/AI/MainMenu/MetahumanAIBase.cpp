@@ -127,6 +127,7 @@ void AMetahumanAIBase::OnCreateChatCompletionCompleted(const FChatCompletionResp
 	}
 
 	LastViseme = 9999;
+	CurrentAudioTime = 0.0f;
 	
 	AsyncTask = USSMLToSpeechAsync::SSMLToSpeech_CustomOptions(this,
 		UAzSpeechSettings::GetDefaultOptions().SubscriptionOptions,
@@ -163,6 +164,9 @@ void AMetahumanAIBase::OnSynthesisCompleted(const bool bSuccess)
 void AMetahumanAIBase::OnVisemeReceived(const FAzSpeechVisemeData VisemeData)
 {
 	VisemeDatas.Add(VisemeData);
+
+	CurrentAudioTime = 0.0f;
+	LastAudioOffset = 0.0f;
 }
 
 void AMetahumanAIBase::AddNewMessage(const FMessage& Message)
