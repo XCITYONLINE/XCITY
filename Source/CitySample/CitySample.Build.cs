@@ -40,7 +40,10 @@ public class CitySample : ModuleRules
 			"InventorySystem",
 			"CommonContractsPlugin",
 			"ReplicaNPC",
-			"SlateCore"
+			"SlateCore",
+			"OpenAI",
+			"AudioCapture",
+			"AzSpeech"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[]
@@ -88,7 +91,7 @@ public class CitySample : ModuleRules
 			"MassReplication",
 			"MassSpawner",
 			"MassSimulation",
-			"MassSignals"
+			"MassSignals", "AzSpeech"
 		});
         
 

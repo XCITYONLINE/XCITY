@@ -18,6 +18,7 @@ void AXCityHUD::BeginPlay()
 	{
 		MainMenuWidgetRef = CreateWidget<UMainMenuWidget>(GetOwningPlayerController(), MainMenuWidgetClass);
 		MainMenuWidgetRef->AddToViewport();
+		MainMenuWidgetRef->SetUserFocus(GetOwningPlayerController());
 	}
 
 	if (IsValid(RadialMenuWidgetClass))

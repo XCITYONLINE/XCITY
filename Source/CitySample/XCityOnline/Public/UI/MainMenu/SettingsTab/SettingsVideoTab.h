@@ -8,6 +8,7 @@
 
 class UTextBlock;
 class UButton;
+class UBorder;
 
 #define LOCTEXT_NAMESPACE "SettingsVideoTab"
 
@@ -17,6 +18,8 @@ class CITYSAMPLE_API USettingsVideoTab : public USettingsTab
 	GENERATED_BODY()
 
 public:
+	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
+	
 	virtual void OnSettingsConfirmed() override;
 	virtual void OnSettingsDeclined() override;
 	virtual void OnTabEnabled() override;
@@ -210,7 +213,46 @@ protected:
 	UPROPERTY()
 	int32 PostProcessingQualityIndex;
 	
+protected:
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UBorder> FullscreenModeBorder;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UBorder> ResolutionBorder;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UBorder> VSyncBorder;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UBorder> ReflectionQualityBorder;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UBorder> ShadowQualityBorder;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UBorder> ShadingQualityBorder;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UBorder> TextureQualityBorder;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UBorder> FolliageQualityBorder;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UBorder> AntiAlliasingBorder;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UBorder> GlobalIlluminationBorder;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UBorder> ViewDistanceBorder;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UBorder> PostProcessingBorder;
+	
 private:
+	void CheckBorders();
+	
 	void ReloadWidget();
 	
 	UFUNCTION()
@@ -281,6 +323,17 @@ private:
 
 	UFUNCTION()
 	void OnPostProcessingSettingRightButtonClicked();
+
+protected:
+	void OnBorderHovered(class UBorder* HoveredBorder);
+	void CheckIsBorderHovered(class UBorder* Border);
+	void DeactivateBorders(UBorder* ActiveBorder);
+
+	UPROPERTY(EditAnywhere)
+	FSlateBrush SlateBrush;
+	
+	UPROPERTY()
+	TArray<class UBorder*> Borders;
 };
 
 #undef LOCTEXT_NAMESPACE

@@ -4,8 +4,8 @@
 
 #include "CoreMinimal.h"
 
-UENUM()
-enum class ETabType
+UENUM(Blueprintable, BlueprintType)
+enum class ETabType : uint8
 {
 	ETT_Play UMETA(DisplayName = "Play"),
 	ETT_Settings UMETA(DisplayName = "Settings"),

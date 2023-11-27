@@ -5,6 +5,7 @@
 
 #include "Components/Border.h"
 #include "Components/Image.h"
+#include "Components/TextBlock.h"
 #include "XCityOnline/Public/UI/MainMenu/SettingsTab/SettingsTab.h"
 #include "XCityOnline/Public/UI/MainMenu/SettingsTab/SettingsWidget.h"
 
@@ -17,10 +18,12 @@ void USettingButton::OnSelected()
 	}
 	
 	USettingsWidget* SettingsWidget = SettingsTab->GetSettingsWidget();
-	SettingsWidget->SelectNewTab(SettingsTab->GetIndex(), this);
+	SettingsWidget->SelectNewTab(SettingsTab->GetIndex(), this, bIsSubButton);
 
-	BackgroundBorder->SetBrushColor(SelectedColor);
+	BackgroundBorder->SetBrush(SelectedBrush);
 	SelectedImage->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
+
+	ButtonTextPtr->SetColorAndOpacity(SelectedTextColor);
 	
 	// ToDo: logic to show confirm or cancel message
 }
@@ -29,14 +32,16 @@ void USettingButton::OnDisabled()
 {
 	Super::OnDisabled();
 
-	BackgroundBorder->SetBrushColor(DisabledColor);
+	BackgroundBorder->SetBrush(DisabledBrush);
 	SelectedImage->SetVisibility(ESlateVisibility::Hidden);
+
+	ButtonTextPtr->SetColorAndOpacity(DisabledTextColor);
 }
 
 void USettingButton::InitializeTabButton(UTabBase* ChildTab)
 {
 	Super::InitializeTabButton(ChildTab);
 
-	BackgroundBorder->SetBrushColor(DisabledColor);
+	BackgroundBorder->SetBrush(DisabledBrush);
 	SelectedImage->SetVisibility(ESlateVisibility::Hidden);
 }

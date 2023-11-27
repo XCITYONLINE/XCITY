@@ -21,10 +21,19 @@ public:
 
 protected:
 	UPROPERTY(EditAnywhere, Category = "Setting Button")
-	FLinearColor SelectedColor;
+	bool bIsSubButton;
+	
+	UPROPERTY(EditAnywhere, Category = "Setting Button")
+	FSlateBrush SelectedBrush;
 
 	UPROPERTY(EditAnywhere, Category = "Setting Button")
-	FLinearColor DisabledColor;
+	FSlateBrush DisabledBrush;
+
+	UPROPERTY(EditAnywhere, Category = "Setting Button")
+	FLinearColor SelectedTextColor;
+
+	UPROPERTY(EditAnywhere, Category = "Setting Button")
+	FLinearColor DisabledTextColor;
 	
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<class UBorder> BackgroundBorder;

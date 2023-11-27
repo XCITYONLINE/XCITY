@@ -4,6 +4,7 @@
 
 #include "Components/WidgetSwitcher.h"
 #include "XCityOnline/Public/UI/MainMenu/MainMenuButtonBase.h"
+#include "XCityOnline/Public/UI/MainMenu/SettingsTab/SettingsWidget.h"
 
 UWidgetSwitcher* UMainMenuWidget::GetWidgetSwitcher() const
 {
@@ -30,11 +31,39 @@ void UMainMenuWidget::SelectNewTab(const int32& Index, UMainMenuButtonBase* Main
 	GetWidgetSwitcher()->SetActiveWidgetIndex(Index);
 	UMainMenuTabBase* NewTab = Cast<UMainMenuTabBase>(GetWidgetSwitcher()->GetWidgetAtIndex(Index));
 	NewTab->OnTabEnabled();
+	//NewTab->SetUserFocus(GetOwningPlayer());
+}
+
+UMainMenuTabBase* UMainMenuWidget::GetTab(ETabType TabType)
+{
+	switch (TabType)
+	{
+	case ETabType::ETT_Club:
+		return ClubTab;
+	case ETabType::ETT_Play:
+		return PlayTab;
+	case ETabType::ETT_Settings:
+		return SettingsTab;
+	case ETabType::ETT_Store:
+		return StoreTab;
+	}
+
+	return PlayTab;
 }
 
 UMainMenuWidget::UMainMenuWidget(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
 	bIsInitialized = false;
+}
+
+FReply UMainMenuWidget::NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent)
+{
+	USettingsWidget* SettingsWidget = Cast<USettingsWidget>(SettingsTab);
+	
+	if (InKeyEvent.GetKey() == SettingsWidget->ApplyKey) SettingsWidget->OnApplySettingsButtonClicked();
+	UE_LOG(LogTemp, Display, TEXT("Key down"));
+	
+	return Super::NativeOnKeyDown(InGeometry, InKeyEvent);
 }
 
 void UMainMenuWidget::NativeConstruct()

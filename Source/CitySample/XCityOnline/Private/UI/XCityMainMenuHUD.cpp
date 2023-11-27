@@ -9,5 +9,14 @@ void AXCityMainMenuHUD::BeginPlay()
 {
 	Super::BeginPlay();
 
-	LoadingScreenWidget = CreateWidget(GetOwningPlayerController(), LoadingScreenWidgetClass);
+	if (IsValid(LoadingScreenWidgetClass))
+	{
+		LoadingScreenWidget = CreateWidget(GetOwningPlayerController(), LoadingScreenWidgetClass);
+	}
+
+	if (IsValid(MainMenuWidgetClass))
+	{
+		MainMenuWidget = CreateWidget(GetOwningPlayerController(), MainMenuWidgetClass);
+		MainMenuWidget->AddToViewport();
+	}
 }

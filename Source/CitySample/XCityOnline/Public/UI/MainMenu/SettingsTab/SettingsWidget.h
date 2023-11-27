@@ -20,12 +20,21 @@ class CITYSAMPLE_API USettingsWidget : public UMainMenuTabBase
 
 public:
 	FORCEINLINE UWidgetSwitcher* GetWidgetSwitcher() const { return SettingsWidgetSwitcher; }
+	FORCEINLINE UWidgetSwitcher* GetSubWidgetSwitcher() const { return SubWidgetSwitcher; }
 
-	void SelectNewTab(const int32& Index, USettingButton* SettingButton);
+	void SelectNewTab(const int32& Index, USettingButton* SettingButton, bool bIsSubTab);
 
 	virtual void InitializeTab(const int32& Index, UWidget* ParentWidget) override;
+
+	UFUNCTION()
+	void OnApplySettingsButtonClicked();
+
+	UPROPERTY(EditAnywhere)
+	FKey ApplyKey;
 	
 protected:
+	virtual FReply NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent) override;
+	
 	USettingsWidget(const FObjectInitializer& ObjectInitializer);
 	
 	UPROPERTY(meta = (BindWidget))
@@ -52,13 +61,38 @@ protected:
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<USettingButton> AudioTabButton;
 
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<USettingButton> DisplayTabButton;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<USettingButton> NotificationsTabButton;
+
+protected:
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<class UWidgetSwitcher> SubWidgetSwitcher;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<USettingButton> SettingsMainButton;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<USettingButton> GameButton;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<USettingButton> MapButton;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<USettingButton> StatsButton;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<USettingButton> BriefButton;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<USettingButton> OnlineButton;
+
 private:
 	void InitializeSettingsWidget();
 	void InitializeButtons();
 	void InitializeButton(USettingsTab* SettingsTab, USettingButton* SettingsButton);
-
-	UFUNCTION()
-	void OnApplySettingsButtonClicked();
 
 	UPROPERTY()
 	TObjectPtr<USettingButton> CurrentSelectedButton;

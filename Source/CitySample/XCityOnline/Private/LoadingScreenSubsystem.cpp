@@ -5,7 +5,6 @@
 
 #include "MoviePlayer.h"
 #include "Blueprint/UserWidget.h"
-#include "Engine/GameEngine.h"
 #include "XCityOnline/Public/UI/XCityMainMenuHUD.h"
 
 void ULoadingScreenSubsystem::StartInGameLoadingScreen(const FString& MapName)
@@ -29,7 +28,7 @@ void ULoadingScreenSubsystem::StartInGameLoadingScreen(const FString& MapName)
 	
 	FLoadingScreenAttributes LoadingScreenAttributes;
 	LoadingScreenAttributes.WidgetLoadingScreen = MainMenuHUD->GetLoadingScreenWidget()->TakeWidget();
-	LoadingScreenAttributes.MinimumLoadingScreenDisplayTime = 10.0f;
+	LoadingScreenAttributes.MinimumLoadingScreenDisplayTime = 35.0f;
 	LoadingScreenAttributes.bMoviesAreSkippable = false;
 	LoadingScreenAttributes.bAutoCompleteWhenLoadingCompletes = false;
 	

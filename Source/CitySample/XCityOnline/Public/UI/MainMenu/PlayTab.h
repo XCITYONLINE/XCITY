@@ -7,6 +7,7 @@
 #include "PlayTab.generated.h"
 
 class UButton;
+class URichTextBlock;
 
 /**
  * 
@@ -16,6 +17,13 @@ class CITYSAMPLE_API UPlayTab : public UMainMenuTabBase
 {
 	GENERATED_BODY()
 
+public:
+	UFUNCTION(BlueprintCallable)
+	void OnNewAIMessageReceived(const FMessage& Message);
+
+	inline static const FString UserRole = "user";
+	inline static const FString AssistantRole = "assistant";
+	
 protected:
 	virtual void NativeConstruct() override;
 	
@@ -27,6 +35,18 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Play Tab")
 	TSoftObjectPtr<class UWorld> NextLevelInstance;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<URichTextBlock> AIChatText;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<URichTextBlock> PlayerChatText;
+
+	UPROPERTY(meta = (BindWidgetAnim), Transient)
+	TObjectPtr<UWidgetAnimation> PlayerBorderAnimIn;
+
+	UPROPERTY(meta = (BindWidgetAnim), Transient)
+	TObjectPtr<UWidgetAnimation> AIBorderAnimIn;
 
 private:
 	UFUNCTION()

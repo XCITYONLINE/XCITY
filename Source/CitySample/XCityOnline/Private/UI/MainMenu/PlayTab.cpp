@@ -3,9 +3,36 @@
 
 #include "XCityOnline/Public/UI/MainMenu/PlayTab.h"
 
+#include "../../../../../../Plugins/OpenAILifeExe/Source/OpenAI/Public/Provider/CommonTypes.h"
 #include "Components/Button.h"
+#include "Components/RichTextBlock.h"
 #include "XCityOnline/Public/LoadingScreenSubsystem.h"
-#include "XCityOnline/Public/MainMenu/MainMenuPlayerController.h"
+
+const FString UserRole = UPlayTab::UserRole;
+const FString AssistantRole = UPlayTab::AssistantRole;
+
+void UPlayTab::OnNewAIMessageReceived(const FMessage& Message)
+{
+	if (Message.Role == UserRole)
+	{
+		FString BaseString = "<FiraCode.Regular.Purple>You: </>";
+		BaseString.Append(Message.Content);
+		
+		PlayerChatText->SetText(FText::FromString(BaseString));
+
+		PlayAnimation(PlayerBorderAnimIn);
+	}
+
+	else if (Message.Role == AssistantRole)
+	{
+		FString BaseString = "<FiraCode.Regular.Orange>Sara: </>";
+		BaseString.Append(Message.Content);
+		
+		AIChatText->SetText(FText::FromString(BaseString));
+
+		PlayAnimation(AIBorderAnimIn);
+	}
+}
 
 void UPlayTab::NativeConstruct()
 {

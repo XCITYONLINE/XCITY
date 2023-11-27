@@ -3,15 +3,30 @@
 
 #include "XCityOnline/Public/UI/MainMenu/SettingsTab/SettingsVideoTab.h"
 
+#include "Components/Border.h"
 #include "Components/Button.h"
 #include "GameFramework/GameUserSettings.h"
 #include "Components/TextBlock.h"
+#include "Components/WidgetSwitcher.h"
+#include "XCityOnline/Public/UI/MainMenu/SettingsTab/SettingsWidget.h"
 
 const TMap<int32, EWindowMode::Type> FullscreenTypes = USettingsVideoTab::FullscreenTypes;
 const TMap<int32, FText> FullscreenDisplayInfos = USettingsVideoTab::FullscreenDisplayInfos;
 const TMap<int32, FIntPoint> Resolutions = USettingsVideoTab::Resolutions;
 const TMap<bool, FText> VSyncDisplayInfos = USettingsVideoTab::VSyncDisplayInfos;
 const TMap<int32, FText> QualityDisplayInfos = USettingsVideoTab::QualityDisplayInfos;
+
+void USettingsVideoTab::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
+{
+	Super::NativeTick(MyGeometry, InDeltaTime);
+
+	if (GetSettingsWidget()->GetWidgetSwitcher()->GetActiveWidget() != this)
+	{
+		return;
+	}
+
+	CheckBorders();
+}
 
 void USettingsVideoTab::OnSettingsConfirmed()
 {
@@ -108,6 +123,14 @@ USettingsVideoTab::USettingsVideoTab(const FObjectInitializer& ObjectInitializer
 	PostProcessingQualityIndex = 0;
 }
 
+void USettingsVideoTab::CheckBorders()
+{
+	for (const auto Border : Borders)
+	{
+		CheckIsBorderHovered(Border);
+	}
+}
+
 void USettingsVideoTab::ReloadWidget()
 {
 	const UGameUserSettings* GameUserSettings = UGameUserSettings::GetGameUserSettings();
@@ -167,6 +190,19 @@ void USettingsVideoTab::ReloadWidget()
 
 	PostProcessingQualityIndex = GameUserSettings->GetPostProcessingQuality();
 	PostProcessingQualitySettingText->SetText(QualityDisplayInfos[PostProcessingQualityIndex]);
+
+	Borders.Add(FullscreenModeBorder);
+	Borders.Add(ResolutionBorder);
+	Borders.Add(VSyncBorder);
+	Borders.Add(ReflectionQualityBorder);
+	Borders.Add(ShadowQualityBorder);
+	Borders.Add(ShadingQualityBorder);
+	Borders.Add(TextureQualityBorder);
+	Borders.Add(FolliageQualityBorder);
+	Borders.Add(AntiAlliasingBorder);
+	Borders.Add(GlobalIlluminationBorder);
+	Borders.Add(ViewDistanceBorder);
+	Borders.Add(PostProcessingBorder);
 }
 
 void USettingsVideoTab::OnFullscreenSettingLeftButtonClicked()
@@ -438,4 +474,37 @@ void USettingsVideoTab::OnPostProcessingSettingRightButtonClicked()
 	}
 
 	PostProcessingQualitySettingText->SetText(QualityDisplayInfos[PostProcessingQualityIndex]);
+}
+
+void USettingsVideoTab::OnBorderHovered(UBorder* HoveredBorder)
+{
+	HoveredBorder->SetBrush(SlateBrush);
+
+	FLinearColor WhiteColor = FLinearColor::White;
+	WhiteColor.A = 1;
+	
+	HoveredBorder->SetBrushColor(WhiteColor);
+
+	DeactivateBorders(HoveredBorder);
+}
+
+void USettingsVideoTab::CheckIsBorderHovered(UBorder* Border)
+{
+	if (Border->IsHovered())
+	{
+		OnBorderHovered(Border);
+	}
+}
+
+void USettingsVideoTab::DeactivateBorders(UBorder* ActiveBorder)
+{
+	for (const auto Border : Borders)
+	{
+		if (Border != ActiveBorder)
+		{
+			FLinearColor WhiteColor = FLinearColor::White;
+			WhiteColor.A = 0;
+			Border->SetBrushColor(WhiteColor);
+		}
+	}
 }

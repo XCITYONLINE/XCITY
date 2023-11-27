@@ -16,14 +16,28 @@ class CITYSAMPLE_API USettingControlsLine : public UUserWidget
 	GENERATED_BODY()
 
 public:
-	void InitializeLine(const int32& MappingIndex, UInputMappingContext* InputMappingContext);
+	void InitializeLine(const int32& MappingIndex, UInputMappingContext* InputMappingContext, const int32& InLineIndex);
+
+	FORCEINLINE const int32& GetLineIndex() const { return LineIndex; }
+
+	void OnHovered();
+	void OnUnhovered();
 	
 protected:
+	virtual void NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
+	virtual void NativeOnMouseLeave(const FPointerEvent& InMouseEvent) override;
+	
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<class UBorder> BackgroundBorder;
+	
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<class UTextBlock> ControlKeyTextBlock;
 
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<class UInputKeySelector> ControlKeySelector;
+
+	UPROPERTY(EditAnywhere)
+	FSlateBrush SlateBrush;
 
 private:
 	UFUNCTION()
@@ -31,6 +45,9 @@ private:
 
 	UPROPERTY()
 	int32 InputMappingIndex;
+
+	UPROPERTY()
+	int32 LineIndex;
 	
 	UPROPERTY()
 	TObjectPtr<class UInputMappingContext> CurrentMappingContext;

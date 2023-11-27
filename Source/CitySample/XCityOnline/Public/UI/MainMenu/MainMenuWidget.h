@@ -25,8 +25,13 @@ public:
 
 	void SelectNewTab(const int32& Index, UMainMenuButtonBase* MainMenuButton);
 
+	UFUNCTION(BlueprintCallable)
+	UMainMenuTabBase* GetTab(ETabType TabType);
+	
 protected:
 	UMainMenuWidget(const FObjectInitializer& ObjectInitializer);
+
+	virtual FReply NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent) override;
 	
 	//~ Begin UUserWidget Interface
 	virtual void NativeConstruct() override;

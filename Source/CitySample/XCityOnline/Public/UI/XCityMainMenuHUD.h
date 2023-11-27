@@ -17,16 +17,29 @@ class CITYSAMPLE_API AXCityMainMenuHUD : public AHUD
 public:
 	virtual void BeginPlay() override;
 
+	UFUNCTION(BlueprintPure, Category = "UI")
 	FORCEINLINE UUserWidget* GetLoadingScreenWidget() const
 	{
 		return LoadingScreenWidget;
+	}
+
+	UFUNCTION(BlueprintPure, Category = "UI")
+	FORCEINLINE UUserWidget* GetMainMenuWidget() const
+	{
+		return MainMenuWidget;
 	}
 	
 protected:
 	UPROPERTY(EditAnywhere, Category = "UI|Loading Screen")
 	TSubclassOf<UUserWidget> LoadingScreenWidgetClass;
 
+	UPROPERTY(EditAnywhere, Category = "UI|Loading Screen")
+	TSubclassOf<UUserWidget> MainMenuWidgetClass;
+
 private:
 	UPROPERTY()
 	TObjectPtr<UUserWidget> LoadingScreenWidget;
+
+	UPROPERTY()
+	TObjectPtr<UUserWidget> MainMenuWidget;
 };
