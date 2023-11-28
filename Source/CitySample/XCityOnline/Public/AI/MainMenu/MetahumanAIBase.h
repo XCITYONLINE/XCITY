@@ -16,6 +16,8 @@ class CITYSAMPLE_API AMetahumanAIBase : public APawn
 {
 	GENERATED_BODY()
 
+	friend class FWaitForViseme;
+	
 public:
 	// Sets default values for this pawn's properties
 	AMetahumanAIBase();
@@ -25,18 +27,13 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "AI")
 	void FinishRecording();
-
-	UFUNCTION(BlueprintPure, Category = "AI")
-	int32 GetCurrentViseme();
 	
 	inline static const FString FileName = "voiceRecorded";
 
 	UPROPERTY(BlueprintAssignable)
 	FOnNewVisemeReceived OnNewVisemeReceived;
-	
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+
+	int64 GetCurrentAudioOffset();
 
 private:
 	void OnCreateAudioTranscriptionCompleted(const FAudioTranscriptionResponse& Response);
@@ -83,4 +80,5 @@ private:
 	TArray<FAzSpeechVisemeData> VisemeDatas;
 
 	int32 LastViseme;
+	int32 VisemeIndex;
 };

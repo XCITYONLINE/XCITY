@@ -54,32 +54,19 @@ void AMetahumanAIBase::FinishRecording()
 	GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &ThisClass::AfterRecordCompletedWork, 1.0f);
 }
 
-int32 AMetahumanAIBase::GetCurrentViseme()
+int64 AMetahumanAIBase::GetCurrentAudioOffset()
 {
-	if (VisemeDatas.Num() == 0)
+	if (VisemeIndex == 0)
 	{
-		return 0;
+		return VisemeDatas[0].AudioOffsetMilliseconds;
 	}
-
-	for (auto It = VisemeDatas.CreateIterator(); It; ++It)
+	
+	if (VisemeDatas.IsValidIndex(VisemeIndex))
 	{
-		if (CurrentAudioTime >= It->AudioOffsetMilliseconds && It->AudioOffsetMilliseconds >= LastAudioOffset && It->VisemeID != LastViseme)
-		{
-			LastAudioOffset = It->AudioOffsetMilliseconds;
-			LastViseme = It->VisemeID;
-			OnNewVisemeReceived.Broadcast(It->VisemeID);
-			return It->VisemeID;
-		}
+		return VisemeDatas[VisemeIndex].AudioOffsetMilliseconds - LastAudioOffset;
 	}
 
 	return 0;
-}
-
-// Called when the game starts or when spawned
-void AMetahumanAIBase::BeginPlay()
-{
-	Super::BeginPlay();
-	
 }
 
 void AMetahumanAIBase::OnCreateAudioTranscriptionCompleted(const FAudioTranscriptionResponse& Response)
@@ -128,6 +115,7 @@ void AMetahumanAIBase::OnCreateChatCompletionCompleted(const FChatCompletionResp
 
 	LastViseme = 9999;
 	CurrentAudioTime = 0.0f;
+	VisemeIndex = 0;
 	
 	AsyncTask = USSMLToSpeechAsync::SSMLToSpeech_CustomOptions(this,
 		UAzSpeechSettings::GetDefaultOptions().SubscriptionOptions,
@@ -143,7 +131,15 @@ void AMetahumanAIBase::OnAudioPlaybackPercent(const USoundWave* PlayingSoundWave
 {
 	CurrentAudioTime = PlayingSoundWave->GetDuration() * PlaybackPercent;
 	CurrentAudioTime *= 1000; // converting seconds to milliseconds
-	UE_LOG(LogTemp, Display, TEXT("%f"), CurrentAudioTime);
+
+	for (auto It = VisemeDatas.CreateConstIterator(); It; ++It)
+	{
+		if (FMath::IsNearlyEqual(CurrentAudioTime, It->AudioOffsetMilliseconds, 25.0f))
+		{
+			OnNewVisemeReceived.Broadcast(It->VisemeID);
+			break;
+		}
+	}
 }
 
 void AMetahumanAIBase::OnSynthesisCompleted(const bool bSuccess)
@@ -155,7 +151,7 @@ void AMetahumanAIBase::OnSynthesisCompleted(const bool bSuccess)
 
 	USoundWave* FinalSound = UAzSpeechHelper::ConvertAudioDataToSoundWave(AsyncTask->GetAudioData());
 	UAudioComponent* AudioComponent = UGameplayStatics::CreateSound2D(this, FinalSound);
-
+	
 	CurrentAudioTime = 0.0f;
 	AudioComponent->OnAudioPlaybackPercent.AddUniqueDynamic(this, &ThisClass::OnAudioPlaybackPercent);
 	AudioComponent->Play();
