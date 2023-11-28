@@ -26,9 +26,14 @@ public:
 
 	virtual void DrawHUD() override;
 
-public:
+protected:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
+	TSubclassOf<UUserWidget> PlayerHUDWidgetClass;
 
-	void DrawCrosshair();
+
+public:
+	//Debug Crosshair Position
+	//void DrawCrosshair();
 	
 	UPROPERTY(EditAnywhere, Category = "UI|Radial Menu")
 	TSubclassOf<UMainMenuWidget> MainMenuWidgetClass;

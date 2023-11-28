@@ -14,8 +14,7 @@ const float AAmmoProjectileBase::LifeSpanTime = 60.0f;
 AAmmoProjectileBase::AAmmoProjectileBase()
 {
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>("ProjectileMovementComp");
-	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>("AmmoMesh");
-	//RootComponent = StaticMeshComponent;
+	
 	CollisionComponent = CreateDefaultSubobject<USphereComponent>("SphereComponent");
 	CollisionComponent->InitSphereRadius(5.0f);
 	CollisionComponent->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
@@ -54,7 +53,10 @@ void AAmmoProjectileBase::BeginPlay()
 {
 	Super::BeginPlay();
 
+	check(ProjectileMovementComponent);
 	check(WeaponFXComponent);
+
+	//ProjectileMovementComponent->Velocity = ShotDirection * ProjectileMovementComponent->InitialSpeed;
 
 	K2_StartFly();
 
@@ -82,9 +84,20 @@ void AAmmoProjectileBase::CheckHitProcess()
 	FCollisionQueryParams CollisionParams;
 	CollisionParams.AddIgnoredActor(GetOwner());
 	CollisionParams.bReturnPhysicalMaterial = true;
-	
+
 	FHitResult HitResult;
 	const FVector& CurrentProjectileLocation = GetActorLocation();
+
+	//FVector ViewLocation, TraceStart, TraceEnd;
+	//FRotator ViewRotation;
+
+	//PlayerController->GetPlayerViewPoint(ViewLocation, ViewRotation);
+
+	//TraceStart = ViewLocation;
+	//const FVector ShootDirection = ViewRotation.Vector();
+	//TraceEnd = TraceStart + ShootDirection * TraceMaxDistance;
+
+	//ProjectileMovementComponent->Velocity = ShootDirection * ProjectileMovementComponent->InitialSpeed;
 
 	const bool WasBlocked = UKismetSystemLibrary::LineTraceSingle(
 		this,
@@ -93,7 +106,7 @@ void AAmmoProjectileBase::CheckHitProcess()
 		ETraceTypeQuery { InitialProjectileSettings.CollisionChannel.GetValue() },
 		true,
 		{ GetOwner(), this },
-		EDrawDebugTrace::None,
+		EDrawDebugTrace::ForDuration,
 		HitResult,
 		true
 		);
@@ -102,25 +115,6 @@ void AAmmoProjectileBase::CheckHitProcess()
 	{
 		return;
 	}
-
-	//if (AActor* HitActor = HitResult.GetActor(); IsValid(HitActor))
-	//{
-	//	UGameplayStatics::ApplyDamage(
-	//		HitActor,
-	//		InitialProjectileSettings.Damage,
-	//		PlayerController,
-	//		this,
-	//		UDamageType::StaticClass());
-
-		//if (OnProjectileHit.IsBound())
-		//{
-		//	OnProjectileHit.Broadcast(HitResult);
-		//}
-		
-		//K2_HitNotify(HitResult);
-		//WeaponFXComponent->PlayImpactFX(HitResult);
-		//Destroy();
-	//}
 }
 
 void AAmmoProjectileBase::OnBulletHit(
@@ -129,14 +123,14 @@ void AAmmoProjectileBase::OnBulletHit(
 	if (!GetWorld()) return;
 
 	ProjectileMovementComponent->StopMovementImmediately();
-	
+
 	FVector TraceFXEnd = Hit.Location;
-	UGameplayStatics::ApplyDamage(                 //
+	UGameplayStatics::ApplyDamage(                  //
 		OtherActor,                                 //
 		InitialProjectileSettings.Damage,           //
-		GetController(),                            //
+		GetPlayerController(),                      //
 		this,
-		UDamageType::StaticClass());                 //
+		UDamageType::StaticClass());                //
 		
 	TraceFXEnd = Hit.ImpactPoint;
 
@@ -146,10 +140,33 @@ void AAmmoProjectileBase::OnBulletHit(
 	Destroy();
 }
 
-AController* AAmmoProjectileBase::GetController() const
+AController* AAmmoProjectileBase::GetPlayerController() const
 {
-	const auto Pawn = Cast<APawn>(GetOwner());
-	return Pawn ? Pawn->GetController() : nullptr;
+	const auto Player = Cast<ACharacter>(GetOwner());
+	if (!Player) return nullptr;
+
+	return Player->GetController<APlayerController>();
+}
+
+bool AAmmoProjectileBase::GetPlayerViewPoint(FVector& ViewLocation, FRotator& ViewRotation) const
+{
+	const auto Controller = GetPlayerController();
+	if (!Controller) return false;
+
+	Controller->GetPlayerViewPoint(ViewLocation, ViewRotation);
+	return true;
+}
+
+bool AAmmoProjectileBase::GetTraceData(FVector& TraceStart, FVector& TraceEnd) const
+{
+	FVector ViewLocation;
+	FRotator ViewRotation;
+	if (!GetPlayerViewPoint(ViewLocation, ViewRotation)) return false;
+
+	TraceStart = ViewLocation;
+	const FVector ShootDirection = ViewRotation.Vector();
+	TraceEnd = TraceStart + ShootDirection * TraceMaxDistance;
+	return true;
 }
 
 void AAmmoProjectileBase::SpawnTraceFX(const FVector& TraceStart, const FVector& TraceEnd)

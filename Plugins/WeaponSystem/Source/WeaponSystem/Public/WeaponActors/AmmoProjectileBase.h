@@ -30,6 +30,8 @@ public:
 
 	virtual bool TryInitializeProjectile(const FProjectileSettings& InInitialProjectileSettings);
 
+	void SetShotDirection(const FVector Direction) { ShotDirection = Direction; }
+
 protected:
 	UPROPERTY(VisibleAnywhere, Category = "VFX")
 	UXCityWeaponFXComponent* WeaponFXComponent;
@@ -45,19 +47,22 @@ public:
 	UPROPERTY(BlueprintAssignable, BlueprintCallable)
 	FOnProjectileHit OnProjectileHit;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Weapon")
+	float TraceMaxDistance = 35000.0f;
+
 	UFUNCTION(BlueprintImplementableEvent)
 	void K2_StartFly();
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void K2_HitNotify(const FHitResult& OutImpactResult);
 
+	bool GetPlayerViewPoint(FVector& ViewLocation, FRotator& ViewRotation) const;
+	bool GetTraceData(FVector& TraceStart, FVector& TraceEnd) const;
+
 private:
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess), Category = "Projectile")
 	UProjectileMovementComponent* ProjectileMovementComponent;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess))
-	UStaticMeshComponent* StaticMeshComponent;
 
 	UPROPERTY(VisibleAnywhere, Category = "Projectile")
 	USphereComponent* CollisionComponent;
@@ -70,6 +75,7 @@ private:
 private:
 	FVector PreviousLocation;
 	FProjectileSettings InitialProjectileSettings;
+	FVector ShotDirection;
 
 	static const float LifeSpanTime;
 
@@ -77,5 +83,5 @@ private:
 	void OnBulletHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse,
 		const FHitResult& Hit);
 
-	AController* GetController() const;
+	AController* GetPlayerController() const;
 };

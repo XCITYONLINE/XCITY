@@ -119,6 +119,8 @@ public:
 	void K2_OnAimModeChanged(const bool bIsAim);
 	
 protected:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Projectile")
+	TSubclassOf<AAmmoProjectileBase> ProjectileClass;
 
 	//UPROPERTY(VisibleAnywhere, Category = "Weapon")
 	//FName MuzzleSocketName = "MuzzleSocket";

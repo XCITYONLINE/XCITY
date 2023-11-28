@@ -15,6 +15,7 @@
 #include "NiagaraComponent.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/Controller.h"
+#include "WeaponActors/AmmoProjectileBase.h"
 
 #include "DrawDebugHelpers.h"
 #include "Engine/World.h"
@@ -66,6 +67,17 @@ void AInteractibleWeaponBase::MakeShot()
 
 	FHitResult HitResult;
 	MakeHit(HitResult, TraceStart, TraceEnd);
+
+	const FVector EndPoint = HitResult.bBlockingHit ? HitResult.ImpactPoint : TraceEnd;
+	const FVector Direction = (EndPoint - GetMuzzleWorldLocation().GetSafeNormal());
+
+	const FTransform SpawnTransform(FRotator::ZeroRotator, GetMuzzleWorldLocation());
+	AAmmoProjectileBase* Projectile = GetWorld()->SpawnActorDeferred<AAmmoProjectileBase>(ProjectileClass, SpawnTransform);
+	if (Projectile)
+	{
+		Projectile->SetShotDirection(Direction);
+		Projectile->FinishSpawning(SpawnTransform);
+	}
 
 	if (HitResult.bBlockingHit)
 	{

@@ -263,13 +263,13 @@ inline const FName& UAlsConstants::HandRightGunVirtualBoneName()
 
 inline const FName& UAlsConstants::FootLeftIkBoneName()
 {
-	static const FName Name{TEXTVIEW("VB ik_foot_l")};
+	static const FName Name{TEXTVIEW("ik_foot_l")};
 	return Name;
 }
 
 inline const FName& UAlsConstants::FootRightIkBoneName()
 {
-	static const FName Name{TEXTVIEW("VB ik_foot_r")};
+	static const FName Name{TEXTVIEW("ik_foot_r")};
 	return Name;
 }
 
