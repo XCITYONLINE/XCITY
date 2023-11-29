@@ -85,7 +85,9 @@ void AMetahumanAIBase::OnCreateAudioTranscriptionCompleted(const FAudioTranscrip
 	ChatCompletion.Model = "gpt-3.5-turbo";
 	ChatCompletion.Max_Tokens = 999;
 	
-	const FOpenAIAuth OpenAIAuth = UOpenAIFuncLib::LoadAPITokensFromFileOnce(UKismetSystemLibrary::GetProjectDirectory().Append("OpenAIAuth.ini"));
+	FOpenAIAuth OpenAIAuth { };
+	OpenAIAuth.OrganizationID = "";
+	OpenAIAuth.APIKey = "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";
 
 	Provider->OnCreateChatCompletionCompleted().AddUObject(this, &ThisClass::OnCreateChatCompletionCompleted);
 	Provider->CreateChatCompletion(ChatCompletion, OpenAIAuth);
@@ -193,7 +195,9 @@ void AMetahumanAIBase::AfterRecordCompletedWork()
 	AudioTranscription.Language = FString("en");
 	AudioTranscription.File = UKismetSystemLibrary::GetProjectDirectory() + "/Saved/BouncedWavFiles/" + FileName + ".wav";
 	
-	const FOpenAIAuth OpenAIAuth = UOpenAIFuncLib::LoadAPITokensFromFileOnce(UKismetSystemLibrary::GetProjectDirectory().Append("OpenAIAuth.ini"));
+	FOpenAIAuth OpenAIAuth { };
+	OpenAIAuth.OrganizationID = "";
+	OpenAIAuth.APIKey = "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";
 
 	if (IsValid(Provider))
 	{

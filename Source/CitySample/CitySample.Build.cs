@@ -6,6 +6,8 @@ public class CitySample : ModuleRules
 {
 	public CitySample(ReadOnlyTargetRules Target) : base(Target)
 	{
+		bEnableExceptions = true;
+		
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
 		PublicDependencyModuleNames.AddRange(new string[]
