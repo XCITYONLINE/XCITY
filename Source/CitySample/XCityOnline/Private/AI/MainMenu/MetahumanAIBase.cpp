@@ -87,7 +87,7 @@ void AMetahumanAIBase::OnCreateAudioTranscriptionCompleted(const FAudioTranscrip
 	
 	FOpenAIAuth OpenAIAuth { };
 	OpenAIAuth.OrganizationID = "";
-	OpenAIAuth.APIKey = "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";
+	OpenAIAuth.APIKey = OpenAIKey;
 
 	Provider->OnCreateChatCompletionCompleted().AddUObject(this, &ThisClass::OnCreateChatCompletionCompleted);
 	Provider->CreateChatCompletion(ChatCompletion, OpenAIAuth);
@@ -197,7 +197,7 @@ void AMetahumanAIBase::AfterRecordCompletedWork()
 	
 	FOpenAIAuth OpenAIAuth { };
 	OpenAIAuth.OrganizationID = "";
-	OpenAIAuth.APIKey = "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";
+	OpenAIAuth.APIKey = OpenAIKey;
 
 	if (IsValid(Provider))
 	{

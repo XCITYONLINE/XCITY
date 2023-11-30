@@ -35,6 +35,13 @@ public:
 
 	int64 GetCurrentAudioOffset();
 
+protected:
+	/**
+	Paste your OpenAI key here.You can find your API key at https://platform.openai.com/account/api-keys.
+	*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "OpenAI")
+	FString OpenAIKey = "";
+
 private:
 	void OnCreateAudioTranscriptionCompleted(const FAudioTranscriptionResponse& Response);
 	void OnCreateChatCompletionCompleted(const FChatCompletionResponse& Response);
