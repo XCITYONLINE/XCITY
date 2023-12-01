@@ -23,31 +23,31 @@ AMetahumanAIBase::AMetahumanAIBase()
 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	AudioCaptureComponent = CreateDefaultSubobject<UAudioCaptureComponent>(TEXT("AudioCapture"));
-	AudioCaptureComponent->SetupAttachment(GetRootComponent());
+	AudioCaptureComp = CreateDefaultSubobject<UAudioCaptureComponent>(TEXT("AudioCaptureComp"));
+	AudioCaptureComp->SetupAttachment(GetRootComponent());
 
 	LastViseme = 9999;
 }
 
 void AMetahumanAIBase::StartRecording()
 {
-	if (!IsValid(AudioCaptureComponent) || !IsValid(SoundSubmixToRecord))
+	if (!IsValid(AudioCaptureComp) || !IsValid(SoundSubmixToRecord))
 	{
 		return;
 	}
 	
-	AudioCaptureComponent->Start();
+	AudioCaptureComp->Start();
 	UAudioMixerBlueprintLibrary::StartRecordingOutput(this, 60.0f, SoundSubmixToRecord);
 }
 
 void AMetahumanAIBase::FinishRecording()
 {
-	if (!IsValid(AudioCaptureComponent) || !IsValid(SoundSubmixToRecord))
+	if (!IsValid(AudioCaptureComp) || !IsValid(SoundSubmixToRecord))
 	{
 		return;
 	}
 
-	AudioCaptureComponent->Stop();
+	AudioCaptureComp->Stop();
 	UAudioMixerBlueprintLibrary::StopRecordingOutput(this, EAudioRecordingExportType::WavFile, FileName, FString(), SoundSubmixToRecord);
 	
 	FTimerHandle TimerHandle;
@@ -67,6 +67,38 @@ int64 AMetahumanAIBase::GetCurrentAudioOffset()
 	}
 
 	return 0;
+}
+
+EAnswerAnimation AMetahumanAIBase::GetAnswerAnimationForWord(const FString& Word)
+{
+	if (Word.IsEmpty()) return EAA_Idle;
+	
+	TArray<FString> Keys;
+	GetAnswerAnimations().GetKeys(Keys);
+	
+	if (Keys.Num() == 0) return EAA_Idle;
+
+	for (auto It = Keys.CreateIterator(); It; ++It)
+	{
+		if (Word.Contains(Keys[It.GetIndex()]))
+		{
+			return GetAnswerAnimations()[Keys[It.GetIndex()]];
+		}
+	}
+
+	return EAA_Idle;
+}
+
+void AMetahumanAIBase::BeginPlay()
+{
+	Super::BeginPlay();
+
+	Messages.Append(PromtMessages);
+}
+
+TMap<FString, TEnumAsByte<EAnswerAnimation>>& AMetahumanAIBase::GetAnswerAnimations()
+{
+	return AnswerAnimations;
 }
 
 void AMetahumanAIBase::OnCreateAudioTranscriptionCompleted(const FAudioTranscriptionResponse& Response)
@@ -150,13 +182,21 @@ void AMetahumanAIBase::OnSynthesisCompleted(const bool bSuccess)
 	{
 		return;
 	}
-
+	
 	USoundWave* FinalSound = UAzSpeechHelper::ConvertAudioDataToSoundWave(AsyncTask->GetAudioData());
 	UAudioComponent* AudioComponent = UGameplayStatics::CreateSound2D(this, FinalSound);
 	
 	CurrentAudioTime = 0.0f;
 	AudioComponent->OnAudioPlaybackPercent.AddUniqueDynamic(this, &ThisClass::OnAudioPlaybackPercent);
 	AudioComponent->Play();
+
+	if (const EAnswerAnimation AnswerAnimation = GetAnswerAnimationForWord(CurrentPlayerMessage); AnswerAnimation != EAA_None)
+	{
+		if (OnNewExpressionReceived.IsBound())
+		{
+			OnNewExpressionReceived.Broadcast(AnswerAnimation);
+		}
+	}
 }
 
 void AMetahumanAIBase::OnVisemeReceived(const FAzSpeechVisemeData VisemeData)
@@ -169,6 +209,16 @@ void AMetahumanAIBase::OnVisemeReceived(const FAzSpeechVisemeData VisemeData)
 
 void AMetahumanAIBase::AddNewMessage(const FMessage& Message)
 {
+	if (Message.Role == "assistant")
+	{
+		CurrentBotMessage = Message.Content;
+	}
+
+	else
+	{
+		CurrentPlayerMessage = Message.Content;
+	}
+	
 	Messages.Add(Message);
 	
 	const APlayerController* PlayerController = GetController<APlayerController>();
