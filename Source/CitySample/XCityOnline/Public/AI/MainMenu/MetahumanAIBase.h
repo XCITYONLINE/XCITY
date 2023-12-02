@@ -27,7 +27,27 @@ enum EAnswerAnimation : uint8
 	EAA_MAX = 2 << 2				UMETA(Hidden)
 };
 
+USTRUCT(Blueprintable, BlueprintType)
+struct FAnswerData
+{
+	GENERATED_BODY()
+
+	FAnswerData() : AnswerAnimation(EAA_Idle), TemperatureDelta(0.25f) {}
+	FAnswerData(TEnumAsByte<EAnswerAnimation> InAnswerAnimation, float InTemperatureDelta)
+	{
+		AnswerAnimation = InAnswerAnimation;
+		TemperatureDelta = InTemperatureDelta;
+	}
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Answer Data")
+	TEnumAsByte<EAnswerAnimation> AnswerAnimation;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Answer Data")
+	float TemperatureDelta;
+};
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnNewExpressionReceived, const EAnswerAnimation&, Expression);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnTemperatureChanged, const float&, NewTemperature);
 
 UCLASS()
 class CITYSAMPLE_API AMetahumanAIBase : public APawn
@@ -54,16 +74,22 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FOnNewExpressionReceived OnNewExpressionReceived;
 
+	UPROPERTY(BlueprintAssignable)
+	FOnTemperatureChanged OnTemperatureChanged;
+
 	int64 GetCurrentAudioOffset();
 
 	UFUNCTION(BlueprintPure, Category = "AI")
-	virtual EAnswerAnimation GetAnswerAnimationForWord(const FString& Word);
+	virtual FAnswerData GetAnswerAnimationForWord(const FString& Word);
+
+	UFUNCTION(BlueprintPure, Category = "AI")
+	FORCEINLINE float GetTemperature() const { return CurrentMoodTemperature; }
 	
 protected:
 	virtual void BeginPlay() override;
 	
 	UFUNCTION(BlueprintPure, Category = "AI")
-	virtual TMap<FString, TEnumAsByte<EAnswerAnimation>>& GetAnswerAnimations();
+	virtual TMap<FString, FAnswerData>& GetAnswerAnimations();
 	
 	/**
 	Paste your OpenAI key here.You can find your API key at https://platform.openai.com/account/api-keys.
@@ -87,6 +113,8 @@ private:
 	void AddNewMessage(const FMessage& Message);
 
 	void AfterRecordCompletedWork();
+
+	void ApplyExpression(const FAnswerData& AnswerData);
 	
 	UPROPERTY(meta = (AllowPrivateAccess = true), EditAnywhere, Category = "AI")
 	TObjectPtr<class UAudioCaptureComponent> AudioCaptureComp;
@@ -98,11 +126,14 @@ private:
 	FText SSMLQueryBase;
 
 	UPROPERTY(meta = (AllowPrivateAccess = true), EditAnywhere, Category = "AI")
-	TMap<FString, TEnumAsByte<EAnswerAnimation>> AnswerAnimations;
+	TMap<FString, FAnswerData> AnswerAnimations;
 
 	UPROPERTY(meta = (AllowPrivateAccess = true), EditAnywhere, Category = "AI")
 	TArray<FMessage> PromtMessages;
 
+	UPROPERTY(meta = (AllowPrivateAccess = true), EditAnywhere, Category = "AI")
+	TMap<float, FMessage> PromptTemperatures;
+	
 	UPROPERTY()
 	TObjectPtr<class UOpenAIProvider> Provider;
 
@@ -117,6 +148,8 @@ private:
 
 	float CurrentAudioTime;
 	int64 LastAudioOffset;
+
+	float CurrentMoodTemperature;
 
 	UPROPERTY()
 	TArray<FAzSpeechVisemeData> VisemeDatas;

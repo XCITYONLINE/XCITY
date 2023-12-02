@@ -69,14 +69,14 @@ int64 AMetahumanAIBase::GetCurrentAudioOffset()
 	return 0;
 }
 
-EAnswerAnimation AMetahumanAIBase::GetAnswerAnimationForWord(const FString& Word)
+FAnswerData AMetahumanAIBase::GetAnswerAnimationForWord(const FString& Word)
 {
-	if (Word.IsEmpty()) return EAA_Idle;
+	if (Word.IsEmpty()) return FAnswerData();
 	
 	TArray<FString> Keys;
 	GetAnswerAnimations().GetKeys(Keys);
 	
-	if (Keys.Num() == 0) return EAA_Idle;
+	if (Keys.Num() == 0) return FAnswerData();
 
 	for (auto It = Keys.CreateIterator(); It; ++It)
 	{
@@ -86,7 +86,7 @@ EAnswerAnimation AMetahumanAIBase::GetAnswerAnimationForWord(const FString& Word
 		}
 	}
 
-	return EAA_Idle;
+	return FAnswerData();
 }
 
 void AMetahumanAIBase::BeginPlay()
@@ -96,7 +96,7 @@ void AMetahumanAIBase::BeginPlay()
 	Messages.Append(PromtMessages);
 }
 
-TMap<FString, TEnumAsByte<EAnswerAnimation>>& AMetahumanAIBase::GetAnswerAnimations()
+TMap<FString, FAnswerData>& AMetahumanAIBase::GetAnswerAnimations()
 {
 	return AnswerAnimations;
 }
@@ -123,6 +123,14 @@ void AMetahumanAIBase::OnCreateAudioTranscriptionCompleted(const FAudioTranscrip
 
 	Provider->OnCreateChatCompletionCompleted().AddUObject(this, &ThisClass::OnCreateChatCompletionCompleted);
 	Provider->CreateChatCompletion(ChatCompletion, OpenAIAuth);
+
+	if (const FAnswerData AnswerData = GetAnswerAnimationForWord(Response.Text); AnswerData.AnswerAnimation != EAA_None)
+	{
+
+		OnNewExpressionReceived.Broadcast(AnswerData.AnswerAnimation);
+
+		ApplyExpression(AnswerData);
+	}
 }
 
 void AMetahumanAIBase::OnCreateChatCompletionCompleted(const FChatCompletionResponse& Response)
@@ -189,14 +197,6 @@ void AMetahumanAIBase::OnSynthesisCompleted(const bool bSuccess)
 	CurrentAudioTime = 0.0f;
 	AudioComponent->OnAudioPlaybackPercent.AddUniqueDynamic(this, &ThisClass::OnAudioPlaybackPercent);
 	AudioComponent->Play();
-
-	if (const EAnswerAnimation AnswerAnimation = GetAnswerAnimationForWord(CurrentPlayerMessage); AnswerAnimation != EAA_None)
-	{
-		if (OnNewExpressionReceived.IsBound())
-		{
-			OnNewExpressionReceived.Broadcast(AnswerAnimation);
-		}
-	}
 }
 
 void AMetahumanAIBase::OnVisemeReceived(const FAzSpeechVisemeData VisemeData)
@@ -259,4 +259,26 @@ void AMetahumanAIBase::AfterRecordCompletedWork()
 	Provider = NewObject<UOpenAIProvider>(this);
 	Provider->OnCreateAudioTranscriptionCompleted().AddUObject(this, &ThisClass::OnCreateAudioTranscriptionCompleted);
 	Provider->CreateAudioTranscription(AudioTranscription, OpenAIAuth);
+}
+
+void AMetahumanAIBase::ApplyExpression(const FAnswerData& AnswerData)
+{
+	if (FMath::IsNearlyEqual(AnswerData.TemperatureDelta, 0.f))
+	{
+		return;
+	}
+
+	CurrentMoodTemperature = FMath::Clamp(CurrentMoodTemperature + AnswerData.TemperatureDelta, -1, 1);
+	OnTemperatureChanged.Broadcast(CurrentMoodTemperature);
+
+	TArray<float> Keys;
+	PromptTemperatures.GetKeys(Keys);
+	
+	for (const auto Key : Keys)
+	{
+		if (FMath::IsNearlyEqual(Key, CurrentMoodTemperature))
+		{
+			Messages[0] = PromptTemperatures[Key];
+		}
+	}
 }

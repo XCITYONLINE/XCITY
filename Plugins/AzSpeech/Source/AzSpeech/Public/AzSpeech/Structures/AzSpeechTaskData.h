@@ -16,8 +16,8 @@ struct AZSPEECH_API FAzSpeechTaskData
     FAzSpeechTaskData(const int64 InID, UClass* const InClass) : UniqueID(InID), Class(InClass) {}
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AzSpeech")
-    int64 UniqueID;
+    int64 UniqueID = 0;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AzSpeech")
-    UClass* Class;
+    UClass* Class = UClass::StaticClass();
 };
