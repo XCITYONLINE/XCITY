@@ -681,7 +681,7 @@ FString UOpenAIFuncLib::CleanUpFunctionsObject(const FString& Input)
 
     Output = Output.Replace(*StartMarker, TEXT(""));
     Output = Output.Replace(*EndMarker, TEXT(""));
-
+    
     return ToLowerExceptBase64URL(Output);
 }
 

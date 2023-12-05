@@ -5,6 +5,7 @@
 
 #include "Components/Border.h"
 #include "Components/Button.h"
+#include "Components/ScrollBox.h"
 #include "GameFramework/GameUserSettings.h"
 #include "Components/TextBlock.h"
 #include "Components/WidgetSwitcher.h"
@@ -62,6 +63,8 @@ void USettingsVideoTab::OnTabEnabled()
 	Super::OnTabEnabled();
 
 	ReloadWidget();
+
+	VideoTabScrollBox->ScrollToStart();
 }
 
 void USettingsVideoTab::InitializeTab(const int32& Index, UWidget* ParentWidget)
@@ -133,6 +136,8 @@ void USettingsVideoTab::CheckBorders()
 
 void USettingsVideoTab::ReloadWidget()
 {
+	VideoTabScrollBox->ScrollToStart();
+	
 	const UGameUserSettings* GameUserSettings = UGameUserSettings::GetGameUserSettings();
 
 	const EWindowMode::Type FullscreenType = GameUserSettings->GetFullscreenMode();

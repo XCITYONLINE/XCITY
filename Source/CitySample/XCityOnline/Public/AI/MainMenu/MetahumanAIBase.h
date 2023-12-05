@@ -67,6 +67,7 @@ public:
 	void FinishRecording();
 	
 	inline static const FString FileName = "voiceRecorded";
+	inline static const FString FineTunedModelName = "ft:gpt-3.5-turbo-0613:binetex-llc:eva-bot:8SS9QVgw";
 
 	UPROPERTY(BlueprintAssignable)
 	FOnNewVisemeReceived OnNewVisemeReceived;

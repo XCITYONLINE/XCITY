@@ -804,12 +804,14 @@ FHttpRequestRef UOpenAIProvider::MakeRequest(
     HttpRequest->SetVerb(Method);
 
     TSharedPtr<FJsonObject> Json = FJsonObjectConverter::UStructToJsonObject(ChatCompletion);
+    
     CleanChatCompletionFieldsThatCantBeEmpty(ChatCompletion, Json);
 
     FString RequestBodyStr;
     UOpenAIFuncLib::JsonToString(Json, RequestBodyStr);
     RequestBodyStr = UOpenAIFuncLib::CleanUpFunctionsObject(RequestBodyStr);
-
+    
+    RequestBodyStr = RequestBodyStr.Replace(*ChatCompletion.Model.ToLower(), *ChatCompletion.Model);
     HttpRequest->SetContentAsString(RequestBodyStr);
     return HttpRequest;
 }

@@ -22,6 +22,8 @@ void USettingControlsLine::InitializeLine(const int32& MappingIndex, UInputMappi
 	LineIndex = InLineIndex;
 	
 	ControlKeySelector->OnKeySelected.AddUniqueDynamic(this, &USettingControlsLine::OnKeySelected);
+
+	SelectedKeyText->SetText(ControlKeySelector->GetSelectedKey().GetInputText());
 }
 
 void USettingControlsLine::OnHovered()
@@ -57,6 +59,7 @@ void USettingControlsLine::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
 
 void USettingControlsLine::OnKeySelected(FInputChord InputChord)
 {
+	SelectedKeyText->SetText(InputChord.GetInputText());
 	FEnhancedActionKeyMapping& KeyMapping = CurrentMappingContext->GetMapping(InputMappingIndex);
 	
 	KeyMapping.Key = InputChord.Key;

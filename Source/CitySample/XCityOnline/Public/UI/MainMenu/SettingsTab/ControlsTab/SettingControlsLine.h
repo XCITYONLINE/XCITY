@@ -7,9 +7,8 @@
 #include "Blueprint/UserWidget.h"
 #include "SettingControlsLine.generated.h"
 
-/**
- * 
- */
+class UTextBlock;
+
 UCLASS()
 class CITYSAMPLE_API USettingControlsLine : public UUserWidget
 {
@@ -31,10 +30,13 @@ protected:
 	TObjectPtr<class UBorder> BackgroundBorder;
 	
 	UPROPERTY(meta = (BindWidget))
-	TObjectPtr<class UTextBlock> ControlKeyTextBlock;
+	TObjectPtr<UTextBlock> ControlKeyTextBlock;
 
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<class UInputKeySelector> ControlKeySelector;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UTextBlock> SelectedKeyText;
 
 	UPROPERTY(EditAnywhere)
 	FSlateBrush SlateBrush;

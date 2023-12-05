@@ -16,6 +16,7 @@
 #include "XCityOnline/Public/UI/MainMenu/PlayTab.h"
 
 const FString FileName = AMetahumanAIBase::FileName;
+const FString FineTunedModelName = AMetahumanAIBase::FineTunedModelName;
 
 // Sets default values
 AMetahumanAIBase::AMetahumanAIBase()
@@ -114,7 +115,7 @@ void AMetahumanAIBase::OnCreateAudioTranscriptionCompleted(const FAudioTranscrip
 	}
 
 	FChatCompletion ChatCompletion { Messages };
-	ChatCompletion.Model = "gpt-3.5-turbo";
+	ChatCompletion.Model = FineTunedModelName;
 	ChatCompletion.Max_Tokens = 999;
 	
 	FOpenAIAuth OpenAIAuth { };
@@ -126,7 +127,6 @@ void AMetahumanAIBase::OnCreateAudioTranscriptionCompleted(const FAudioTranscrip
 
 	if (const FAnswerData AnswerData = GetAnswerAnimationForWord(Response.Text); AnswerData.AnswerAnimation != EAA_None)
 	{
-
 		OnNewExpressionReceived.Broadcast(AnswerData.AnswerAnimation);
 
 		ApplyExpression(AnswerData);

@@ -57,6 +57,9 @@ public:
 	
 protected:
 	USettingsVideoTab(const FObjectInitializer& ObjectInitializer);
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<class UScrollBox> VideoTabScrollBox;
 	
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UButton> FullscreenSettingLeftButton;

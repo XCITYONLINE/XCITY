@@ -22,6 +22,8 @@ void USettingsControlsTab::InitializeTab(const int32& Index, UWidget* ParentWidg
 
 void USettingsControlsTab::RedrawWidget() const
 {
+	InputsBox->ScrollToStart();
+	
 	InputsBox->ClearChildren();
 	
 	for (auto It = InputMappingContext->GetMappings().CreateConstIterator(); It; ++It)
