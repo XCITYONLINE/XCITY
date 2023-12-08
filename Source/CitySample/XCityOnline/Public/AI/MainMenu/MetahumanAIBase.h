@@ -10,6 +10,8 @@
 #include "MetahumanAIBase.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnNewVisemeReceived, const int32&, VisemeID);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnConversationStarted);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnConversationEnded);
 
 UENUM(Blueprintable, BlueprintType)
 enum EAnswerAnimation : uint8
@@ -78,6 +80,12 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FOnTemperatureChanged OnTemperatureChanged;
 
+	UPROPERTY(BlueprintAssignable)
+	FOnConversationStarted OnConversationStarted;
+
+	UPROPERTY(BlueprintAssignable)
+	FOnConversationEnded OnConversationEnded;
+
 	int64 GetCurrentAudioOffset();
 
 	UFUNCTION(BlueprintPure, Category = "AI")
@@ -107,6 +115,9 @@ private:
 
 	UFUNCTION()
 	void OnSynthesisCompleted(const bool bSuccess);
+
+	UFUNCTION()
+	void OnAudioFinished();
 
 	UFUNCTION()
 	void OnVisemeReceived(const FAzSpeechVisemeData VisemeData);

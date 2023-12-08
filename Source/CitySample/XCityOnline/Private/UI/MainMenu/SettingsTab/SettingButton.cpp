@@ -11,6 +11,8 @@
 
 void USettingButton::OnSelected()
 {
+	Super::OnSelected();
+
 	const USettingsTab* SettingsTab = GetChildTab<USettingsTab>();
 	if (!IsValid(SettingsTab))
 	{
@@ -24,8 +26,6 @@ void USettingButton::OnSelected()
 	SelectedImage->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
 
 	ButtonTextPtr->SetColorAndOpacity(SelectedTextColor);
-	
-	// ToDo: logic to show confirm or cancel message
 }
 
 void USettingButton::OnDisabled()
@@ -44,4 +44,42 @@ void USettingButton::InitializeTabButton(UTabBase* ChildTab)
 
 	BackgroundBorder->SetBrush(DisabledBrush);
 	SelectedImage->SetVisibility(ESlateVisibility::Hidden);
+}
+
+void USettingButton::OnHovered()
+{
+	Super::OnHovered();
+
+	if (IsButtonSelected()) return;
+	
+	BackgroundBorder->SetBrush(HoveredBrush);
+	SelectedImage->SetVisibility(ESlateVisibility::Hidden);
+
+	ButtonTextPtr->SetColorAndOpacity(SelectedTextColor);
+}
+
+void USettingButton::OnUnhovered()
+{
+	Super::OnUnhovered();
+
+	const FSlateBrush Brush = IsButtonSelected() ? SelectedBrush : DisabledBrush;
+	
+	BackgroundBorder->SetBrush(Brush);
+	SelectedImage->SetVisibility(ESlateVisibility::Hidden);
+
+	if (!IsButtonSelected()) ButtonTextPtr->SetColorAndOpacity(DisabledTextColor);
+}
+
+void USettingButton::OnPressed()
+{
+	Super::OnPressed();
+
+	BackgroundBorder->SetBrush(SelectedBrush);
+}
+
+void USettingButton::OnReleased()
+{
+	Super::OnReleased();
+
+	BackgroundBorder->SetBrush(DisabledBrush);
 }

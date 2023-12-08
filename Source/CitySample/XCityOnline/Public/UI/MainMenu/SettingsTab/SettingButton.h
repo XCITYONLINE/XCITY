@@ -20,11 +20,19 @@ public:
 	virtual void InitializeTabButton(UTabBase* ChildTab) override;
 
 protected:
+	virtual void OnHovered() override;
+	virtual void OnUnhovered() override;
+	virtual void OnPressed() override;
+	virtual void OnReleased() override;
+	
 	UPROPERTY(EditAnywhere, Category = "Setting Button")
 	bool bIsSubButton;
 	
 	UPROPERTY(EditAnywhere, Category = "Setting Button")
 	FSlateBrush SelectedBrush;
+
+	UPROPERTY(EditAnywhere, Category = "Setting Button")
+	FSlateBrush HoveredBrush;
 
 	UPROPERTY(EditAnywhere, Category = "Setting Button")
 	FSlateBrush DisabledBrush;

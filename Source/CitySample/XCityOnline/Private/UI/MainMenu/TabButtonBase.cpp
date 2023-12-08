@@ -37,13 +37,25 @@ void UTabButtonBase::OnUnhovered()
 	K2_OnUnhovered();
 }
 
+void UTabButtonBase::OnPressed()
+{
+	K2_OnPressed();
+}
+
+void UTabButtonBase::OnReleased()
+{
+	K2_OnReleased();
+}
+
 void UTabButtonBase::NativeConstruct()
 {
 	Super::NativeConstruct();
 	
-	ButtonPtr->OnClicked.AddUniqueDynamic(this, &UTabButtonBase::OnSelected_Internal);
-	ButtonPtr->OnHovered.AddUniqueDynamic(this, &UTabButtonBase::OnHovered_Internal);
-	ButtonPtr->OnUnhovered.AddUniqueDynamic(this, &UTabButtonBase::OnUnhovered_Internal);
+	ButtonPtr->OnClicked.AddUniqueDynamic(this, &ThisClass::OnSelected_Internal);
+	ButtonPtr->OnHovered.AddUniqueDynamic(this, &ThisClass::OnHovered_Internal);
+	ButtonPtr->OnUnhovered.AddUniqueDynamic(this, &ThisClass::OnUnhovered_Internal);
+	ButtonPtr->OnPressed.AddUniqueDynamic(this, &ThisClass::OnPressed_Internal);
+	ButtonPtr->OnReleased.AddUniqueDynamic(this, &ThisClass::OnReleased_Internal);
 }
 
 void UTabButtonBase::OnSelected_Internal()
@@ -59,4 +71,14 @@ void UTabButtonBase::OnHovered_Internal()
 void UTabButtonBase::OnUnhovered_Internal()
 {
 	OnUnhovered();
+}
+
+void UTabButtonBase::OnPressed_Internal()
+{
+	OnPressed();
+}
+
+void UTabButtonBase::OnReleased_Internal()
+{
+	OnReleased();
 }

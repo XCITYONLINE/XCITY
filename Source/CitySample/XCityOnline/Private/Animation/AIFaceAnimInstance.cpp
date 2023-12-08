@@ -6,19 +6,7 @@
 
 static TMap<int32, FVisemeAnimationInfo> AnimationInfo = UAIFaceAnimInstance::VisemeInfos;
 static TMap<int32, FName> Moods = UAIFaceAnimInstance::MoodNames;
-
-UBlendSpace* UAIFaceAnimInstance::GetCurrentMoodBlendSpace() const
-{
-	if (FacialBlendSpaces.Num() == 0)
-	{
-		return nullptr;
-	}
-
-	UBlendSpace* CurrentBS = *FacialBlendSpaces.Find(CurrentExpressionName);
-	if (!CurrentBS) return nullptr;
-	
-	return CurrentBS;
-}
+static TMap<FName, EMood> MoodEnums = UAIFaceAnimInstance::MoodsInfo;
 
 UAIFaceAnimInstance::UAIFaceAnimInstance(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
@@ -36,6 +24,8 @@ UAIFaceAnimInstance::UAIFaceAnimInstance(const FObjectInitializer& ObjectInitial
 	CurrentExpressionName = FName("Neutral");
 
 	CurrentMoodID = 0;
+
+	CurrentMood = EMood::EM_Neutral;
 }
 
 void UAIFaceAnimInstance::NativeBeginPlay()
@@ -50,6 +40,12 @@ void UAIFaceAnimInstance::NativeBeginPlay()
 	}
 
 	SubscribeToEvents();
+	UpdateRandomSequence();
+}
+
+int32 UAIFaceAnimInstance::GetCurrentIndexForAnimation()
+{
+	return CurrentMoodAnimIndex;
 }
 
 void UAIFaceAnimInstance::SubscribeToEvents()
@@ -61,6 +57,8 @@ void UAIFaceAnimInstance::SubscribeToEvents()
 
 	BotRef->OnNewVisemeReceived.AddUniqueDynamic(this, &ThisClass::OnNewVisemeReceived);
 	BotRef->OnTemperatureChanged.AddUniqueDynamic(this, &ThisClass::OnTemperatureChanged);
+	BotRef->OnConversationStarted.AddUniqueDynamic(this, &ThisClass::OnConversationStarted);
+	BotRef->OnConversationEnded.AddUniqueDynamic(this, &ThisClass::OnConversationEnded);
 }
 
 void UAIFaceAnimInstance::OnNewVisemeReceived(const int32& VisemeID)
@@ -88,6 +86,8 @@ void UAIFaceAnimInstance::DelayedVisemeOperations()
 
 void UAIFaceAnimInstance::OnTemperatureChanged(const float& NewTemperature)
 {
+	UpdateRandomSequence();
+	
 	TemperatureInternal = NewTemperature;
 
 	bIsJoy = TemperatureInternal >= 0 ? true : false;
@@ -96,4 +96,41 @@ void UAIFaceAnimInstance::OnTemperatureChanged(const float& NewTemperature)
 	CurrentMoodID = TemperatureInternal == 0 ? 0 : static_cast<int32>(TemperatureInternal / .25f);
 	
 	CurrentExpressionName = Moods[CurrentMoodID];
+	CurrentMood = MoodEnums[CurrentExpressionName];
+}
+
+void UAIFaceAnimInstance::OnConversationStarted()
+{
+	K2_OnConversationStarted();
+}
+
+void UAIFaceAnimInstance::OnConversationEnded()
+{
+	K2_OnConversationEnded();
+}
+
+void UAIFaceAnimInstance::UpdateRandomSequence()
+{
+	if (CurrentMood == EMood::EM_None || CurrentMood == EMood::EM_Max) return;
+	
+	if (GetWorld()->GetTimerManager().IsTimerActive(RandomSequenceTimer))
+	{
+		GetWorld()->GetTimerManager().ClearTimer(RandomSequenceTimer);
+	}
+
+	GetWorld()->GetTimerManager().SetTimer(RandomSequenceTimer, this, &ThisClass::RandomSequenceTick, RandomPosesInfo[CurrentMood].UpdateTimeForEverySequence[GetCurrentIndexForAnimation()], true);
+}
+
+void UAIFaceAnimInstance::RandomSequenceTick()
+{
+	const float RandomNum = FMath::RandRange(0, 1);
+
+	for (int32 i = 1; i < RandomPosesInfo[CurrentMood].ChanceForEverySequence.Num(); i++)
+	{
+		if (1 - RandomNum > RandomPosesInfo[CurrentMood].ChanceForEverySequence[i - 1] && 1 - RandomNum < RandomPosesInfo[CurrentMood].ChanceForEverySequence[i])
+		{
+			CurrentMoodAnimIndex = i;
+			return;
+		}
+	}
 }

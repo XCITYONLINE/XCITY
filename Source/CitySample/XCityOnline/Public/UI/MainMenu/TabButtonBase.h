@@ -22,6 +22,8 @@ public:
 	virtual void OnSelected();
 	virtual void OnHovered();
 	virtual void OnUnhovered();
+	virtual void OnPressed();
+	virtual void OnReleased();
 
 	FORCEINLINE const ETabType& GetTabType() const { return ButtonTabType; }
 	FORCEINLINE UTabBase* GetChildTab() const { return ChildTabPtr; }
@@ -61,6 +63,12 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent, Category = "Main Menu Button", DisplayName = "OnUnhovered")
 	void K2_OnUnhovered();
 
+	UFUNCTION(BlueprintImplementableEvent, Category = "Main Menu Button", DisplayName = "OnPressed")
+	void K2_OnPressed();
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Main Menu Button", DisplayName = "OnReleased")
+	void K2_OnReleased();
+
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<class UButton> ButtonPtr;
 
@@ -85,4 +93,10 @@ private:
 
 	UFUNCTION()
 	void OnUnhovered_Internal();
+	
+	UFUNCTION()
+	void OnPressed_Internal();
+
+	UFUNCTION()
+	void OnReleased_Internal();
 };

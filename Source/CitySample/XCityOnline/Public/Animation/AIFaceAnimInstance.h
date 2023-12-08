@@ -8,6 +8,22 @@
 
 class AMetahumanAIBase;
 
+UENUM(Blueprintable, BlueprintType)
+enum class EMood : uint8
+{
+	EM_None						UMETA(Hidden),
+	EM_SmallAnger				UMETA(DisplayName = "Small Anger"),
+	EM_MediumAnger				UMETA(DisplayName = "Medium Anger"),
+	EM_VeryAnger				UMETA(DisplayName = "Very Anger"),
+	EM_SuperAnger				UMETA(DisplayName = "Super Anger"),
+	EM_Neutral					UMETA(DisplayName = "Neutral"),
+	EM_SmallJoy					UMETA(DisplayName = "Small Joy"),
+	EM_MediumJoy				UMETA(DisplayName = "Medium Joy"),
+	EM_VeryJoy					UMETA(DisplayName = "Very Joy"),
+	EM_SuperJoy					UMETA(DisplayName = "Super Joy"),
+	EM_Max						UMETA(Hidden)
+};
+
 USTRUCT(Blueprintable, BlueprintType)
 struct FVisemeAnimationInfo
 {
@@ -27,6 +43,26 @@ struct FVisemeAnimationInfo
 	float Open = 0.f;
 };
 
+/** Because random sequence player anim graph node in Unreal is broken at this moment. I'm writing this small shit.
+ *  NumOfSequences is a number of sequence you will use in Blend Poses by int node.
+ *  ChanceForEverySequence is a map where int is an index of animation in list and float is a current chance from 0 to 1.
+ *  UpdateTimeForEverySequence is a time when i'm trying to calculate new index for random animation.
+ */
+USTRUCT(Blueprintable, BlueprintType)
+struct FSequenceRandomPlayInfo
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Sequence Random Play Info")
+	int32 NumOfSequences;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Sequence Random Play Info")
+	TMap<int32, float> ChanceForEverySequence;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Sequence Random Play Info")
+	TMap<int32, float> UpdateTimeForEverySequence;
+};
+
 UCLASS()
 class CITYSAMPLE_API UAIFaceAnimInstance : public UAnimInstance
 {
@@ -39,11 +75,8 @@ public:
 	UFUNCTION(BlueprintPure, Category = "FaceAnim|Getters")
 	FORCEINLINE bool IsJoy() const { return bIsJoy; }
 
-	UFUNCTION(BlueprintPure, Category = "FaceAnim|Getters")
+	UFUNCTION(BlueprintPure, Category = "FaceAnim|Getters", meta = (BlueprintThreadSafe))
 	FORCEINLINE float GetTemperatureAnimationAlpha() const { return AnimationTemperatureAlpha; }
-
-	UFUNCTION(BlueprintPure, Category = "FaceAnim|Getters")
-	UBlendSpace* GetCurrentMoodBlendSpace() const;
 
 	inline static TMap<int32, FVisemeAnimationInfo> VisemeInfos = {
 		{ 0, FVisemeAnimationInfo(0, 0) },
@@ -81,6 +114,18 @@ public:
 		{ 3, FName("Very Joy") },
 		{ 4, FName("Super Joy") }
 	};
+
+	inline static TMap<FName, EMood> MoodsInfo = {
+		{ FName("Small Anger"), EMood::EM_SmallAnger },
+		{ FName("Medium Anger"), EMood::EM_MediumAnger },
+		{ FName("Very Anger"), EMood::EM_VeryAnger },
+		{ FName("Super Anger"), EMood::EM_SuperAnger },
+		{ FName("Neutral"), EMood::EM_Neutral },
+		{ FName("Small Joy"), EMood::EM_SmallJoy },
+		{ FName("Medium Joy"), EMood::EM_MediumJoy },
+		{ FName("Very Joy"), EMood::EM_VeryJoy },
+		{ FName("Super Joy"), EMood::EM_SuperJoy },
+	};
 	
 protected:
 	UAIFaceAnimInstance(const FObjectInitializer& ObjectInitializer);
@@ -93,6 +138,15 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent, Category = "FaceAnim|Events", meta = (DisplayName = "OnTemperatureChanged"))
 	void K2_OnTemperatureChanged(const float& NewTemperature);
 
+	UFUNCTION(BlueprintImplementableEvent, Category = "FaceAnim|Events", meta = (DisplayName = "OnConversationStarted"))
+	void K2_OnConversationStarted();
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "FaceAnim|Events", meta = (DisplayName = "OnConversationEnded"))
+	void K2_OnConversationEnded();
+
+	UFUNCTION(BlueprintPure, Category = "FaceAnim|Helpers", meta = (BlueprintThreadSafe))
+	int32 GetCurrentIndexForAnimation();
+	
 	UPROPERTY(BlueprintReadOnly, Category = "FaceAnim|Static Info")
 	float VisemeDelayTime;
 	
@@ -104,11 +158,14 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, Category = "FaceAnim|Runtime Info")
 	int32 CurrentVisemeID;
+
+	UPROPERTY(BlueprintReadOnly, Category = "FaceAnim|Runtime Info")
+	EMood CurrentMood;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "FaceAnim|Runtime Info")
+	TMap<EMood, FSequenceRandomPlayInfo> RandomPosesInfo;
 	
 private:
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "FaceAnim|Static Info", meta = (AllowPrivateAccess = true))
-	TMap<FName, class UBlendSpace*> FacialBlendSpaces; 
-	
 	UPROPERTY()
 	TObjectPtr<AMetahumanAIBase> BotRef;
 
@@ -122,9 +179,22 @@ private:
 	UFUNCTION()
 	void OnTemperatureChanged(const float& NewTemperature);
 
+	UFUNCTION()
+	void OnConversationStarted();
+
+	UFUNCTION()
+	void OnConversationEnded();
+
+	void UpdateRandomSequence();
+	void RandomSequenceTick();
+
+	FTimerHandle RandomSequenceTimer;
+
 	float TemperatureInternal;
 	float AnimationTemperatureAlpha;
 	bool bIsJoy;
 	FName CurrentExpressionName;
 	int32 CurrentMoodID;
+	int32 CurrentMoodAnimIndex;
+	int32 CurrentSequenceIndex;
 };

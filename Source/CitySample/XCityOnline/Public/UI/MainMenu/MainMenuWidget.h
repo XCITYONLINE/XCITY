@@ -26,7 +26,16 @@ public:
 	void SelectNewTab(const int32& Index, UMainMenuButtonBase* MainMenuButton);
 
 	UFUNCTION(BlueprintCallable)
+	void SelectTabByType(ETabType TabType);
+
+	UFUNCTION(BlueprintCallable)
 	UMainMenuTabBase* GetTab(ETabType TabType);
+
+	UFUNCTION(BlueprintCallable)
+	UMainMenuButtonBase* GetButton(ETabType TabType);
+
+	UFUNCTION(BlueprintPure)
+	UMainMenuTabBase* GetCurrentTab() const;
 	
 protected:
 	UMainMenuWidget(const FObjectInitializer& ObjectInitializer);
@@ -64,9 +73,18 @@ protected:
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UMainMenuButtonBase> StoreTabButton;
 
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UMainMenuTabBase> GirlTab;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UMainMenuButtonBase> GirlTabButton;
+
 private:
 	UPROPERTY()
 	TObjectPtr<UMainMenuButtonBase> CurrentSelectedButton;
+	
+	UPROPERTY()
+	TObjectPtr<UMainMenuTabBase> CurrentTab;
 	
 	void InitializeMainMenu();
 	void InitializeButtons();

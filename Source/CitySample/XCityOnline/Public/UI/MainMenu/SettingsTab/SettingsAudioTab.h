@@ -17,6 +17,10 @@ class CITYSAMPLE_API USettingsAudioTab : public USettingsTab
 	GENERATED_BODY()
 
 protected:
+	USettingsAudioTab(const FObjectInitializer& ObjectInitializer);
+	
+	virtual void NativeConstruct() override;
+	
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<USlider> OverallVolumeSlider;
 
@@ -25,4 +29,13 @@ protected:
 
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<USlider> CharacterVoiceVolumeSlider;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Audio Static Info")
+	TObjectPtr<USoundClass> MasterSoundClass;
+
+private:
+	UFUNCTION()
+	void OnOverallVolumeChanged(float NewValue);
+
+	float OverallVolume;
 };

@@ -196,7 +196,15 @@ void AMetahumanAIBase::OnSynthesisCompleted(const bool bSuccess)
 	
 	CurrentAudioTime = 0.0f;
 	AudioComponent->OnAudioPlaybackPercent.AddUniqueDynamic(this, &ThisClass::OnAudioPlaybackPercent);
+	AudioComponent->OnAudioFinished.AddUniqueDynamic(this, &ThisClass::OnAudioFinished);
 	AudioComponent->Play();
+
+	OnConversationStarted.Broadcast();
+}
+
+void AMetahumanAIBase::OnAudioFinished()
+{
+	OnConversationEnded.Broadcast();
 }
 
 void AMetahumanAIBase::OnVisemeReceived(const FAzSpeechVisemeData VisemeData)

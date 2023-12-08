@@ -7,6 +7,7 @@
 UENUM(Blueprintable, BlueprintType)
 enum class ETabType : uint8
 {
+	ETT_Girl UMETA(DisplayName = "Girl"),
 	ETT_Play UMETA(DisplayName = "Play"),
 	ETT_Settings UMETA(DisplayName = "Settings"),
 	ETT_Store UMETA(DisplayName = "Store"),

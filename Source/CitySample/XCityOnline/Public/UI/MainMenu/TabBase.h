@@ -22,7 +22,8 @@ public:
 
 	FORCEINLINE const int32& GetIndex() const { return TabIndex; }
 
-	FORCEINLINE const ETabType& GetTabType() const { return TabType; }
+	UFUNCTION(BlueprintPure)
+	FORCEINLINE ETabType GetTabType() const { return TabType; }
 	
 protected:
 	UFUNCTION(BlueprintImplementableEvent, Category = "Main Menu Tab", DisplayName = "OnTabEnabled")

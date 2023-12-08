@@ -25,13 +25,38 @@ void UMainMenuWidget::SelectNewTab(const int32& Index, UMainMenuButtonBase* Main
 		return;
 	}
 	
-	UMainMenuTabBase* CurrentTab = Cast<UMainMenuTabBase>(GetWidgetSwitcher()->GetActiveWidget());
-	CurrentTab->OnTabDisabled();
+	UMainMenuTabBase* CurrentTempTab = Cast<UMainMenuTabBase>(GetWidgetSwitcher()->GetActiveWidget());
+	CurrentTempTab->OnTabDisabled();
 
 	GetWidgetSwitcher()->SetActiveWidgetIndex(Index);
 	UMainMenuTabBase* NewTab = Cast<UMainMenuTabBase>(GetWidgetSwitcher()->GetWidgetAtIndex(Index));
 	NewTab->OnTabEnabled();
+	CurrentTab = NewTab;
 	//NewTab->SetUserFocus(GetOwningPlayer());
+}
+
+void UMainMenuWidget::SelectTabByType(ETabType TabType)
+{
+	const UMainMenuTabBase* TempTab = GetTab(TabType);
+	if (IsValid(CurrentSelectedButton))
+	{
+		CurrentSelectedButton->OnDisabled();
+	}
+
+	CurrentSelectedButton = GetButton(TabType);
+
+	if (GetWidgetSwitcher()->GetActiveWidgetIndex() == TempTab->GetIndex())
+	{
+		return;
+	}
+
+	UMainMenuTabBase* CurrentTempTab = Cast<UMainMenuTabBase>(GetWidgetSwitcher()->GetActiveWidget());
+	CurrentTempTab->OnTabDisabled();
+
+	GetWidgetSwitcher()->SetActiveWidgetIndex(TempTab->GetIndex());
+	UMainMenuTabBase* NewTab = Cast<UMainMenuTabBase>(GetWidgetSwitcher()->GetWidgetAtIndex(TempTab->GetIndex()));
+	NewTab->OnTabEnabled();
+	CurrentTab = NewTab;
 }
 
 UMainMenuTabBase* UMainMenuWidget::GetTab(ETabType TabType)
@@ -49,6 +74,28 @@ UMainMenuTabBase* UMainMenuWidget::GetTab(ETabType TabType)
 	}
 
 	return PlayTab;
+}
+
+UMainMenuButtonBase* UMainMenuWidget::GetButton(ETabType TabType)
+{
+	switch (TabType)
+	{
+	case ETabType::ETT_Club:
+		return ClubTabButton;
+	case ETabType::ETT_Play:
+		return PlayTabButton;
+	case ETabType::ETT_Settings:
+		return SettingTabButton;
+	case ETabType::ETT_Store:
+		return StoreTabButton;
+	}
+
+	return PlayTabButton;
+}
+
+UMainMenuTabBase* UMainMenuWidget::GetCurrentTab() const
+{
+	return CurrentTab;
 }
 
 UMainMenuWidget::UMainMenuWidget(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
@@ -94,6 +141,7 @@ void UMainMenuWidget::InitializeButtons()
 	InitializeButton(SettingTabButton, SettingsTab);
 	InitializeButton(ClubTabButton, ClubTab);
 	InitializeButton(StoreTabButton, StoreTab);
+	InitializeButton(GirlTabButton, GirlTab);
 }
 
 void UMainMenuWidget::InitializeButton(UMainMenuButtonBase* Button, UMainMenuTabBase* Tab)

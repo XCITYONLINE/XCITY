@@ -38,16 +38,6 @@ void USettingsWidget::InitializeTab(const int32& Index, UWidget* ParentWidget)
 	InitializeSettingsWidget();
 }
 
-FReply USettingsWidget::NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent)
-{
-	if (InKeyEvent.GetKey() == ApplyKey)
-	{
-		OnApplySettingsButtonClicked();
-	}
-	
-	return Super::NativeOnKeyDown(InGeometry, InKeyEvent);
-}
-
 USettingsWidget::USettingsWidget(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
 	bInitialized = false;

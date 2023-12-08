@@ -31,7 +31,7 @@ void UMainMenuButtonBase::InitializeVisual()
 
 void UMainMenuButtonBase::OnSelected()
 {
-	Super::OnSelected();
+	if (IsButtonSelected()) return;
 	
 	const UMainMenuTabBase* MainMenuTabBase = GetChildTab<UMainMenuTabBase>();
 	if (!IsValid(MainMenuTabBase))
@@ -50,6 +50,8 @@ void UMainMenuButtonBase::OnSelected()
 	SelectedImage->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
 	
 	K2_OnSelected();
+
+	Super::OnSelected();
 }
 
 void UMainMenuButtonBase::OnDisabled()
@@ -57,7 +59,6 @@ void UMainMenuButtonBase::OnDisabled()
 	Super::OnDisabled();
 
 	ButtonTextPtr->SetColorAndOpacity(UnhoveredTextColor);
-
 	SelectedImage->SetVisibility(ESlateVisibility::Hidden);
 }
 

@@ -26,15 +26,13 @@ public:
 
 	virtual void InitializeTab(const int32& Index, UWidget* ParentWidget) override;
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void OnApplySettingsButtonClicked();
 
 	UPROPERTY(EditAnywhere)
 	FKey ApplyKey;
 	
 protected:
-	virtual FReply NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent) override;
-	
 	USettingsWidget(const FObjectInitializer& ObjectInitializer);
 	
 	UPROPERTY(meta = (BindWidget))
