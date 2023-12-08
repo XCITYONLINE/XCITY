@@ -3,12 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "MainMenuWidget.h"
 #include "GameFramework/HUD.h"
 
 #include "XCityHUD.generated.h"
 
 class URadialMenuWidget;
-class UMainMenuWidget;
 
 UCLASS()
 class CITYSAMPLE_API AXCityHUD : public AHUD
@@ -38,14 +38,8 @@ public:
 	UPROPERTY(EditAnywhere, Category = "UI|Radial Menu")
 	TSubclassOf<UMainMenuWidget> MainMenuWidgetClass;
 
-	UPROPERTY(EditAnywhere, Category = "UI|Radial Menu")
-	TSubclassOf<URadialMenuWidget> RadialMenuWidgetClass;
-
 private:
 
-	UPROPERTY()
-	TObjectPtr<URadialMenuWidget> RadialMenuWidgetRef;
-	
 	UPROPERTY()
 	TObjectPtr<UMainMenuWidget> MainMenuWidgetRef;
 };

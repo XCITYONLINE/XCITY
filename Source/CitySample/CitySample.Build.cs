@@ -6,8 +6,6 @@ public class CitySample : ModuleRules
 {
 	public CitySample(ReadOnlyTargetRules Target) : base(Target)
 	{
-		bEnableExceptions = true;
-		
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
 		PublicDependencyModuleNames.AddRange(new string[]
@@ -43,11 +41,7 @@ public class CitySample : ModuleRules
 			"WeaponSystem",
 			"InventorySystem",
 			"CommonContractsPlugin",
-			"ReplicaNPC",
-			"SlateCore",
-			"OpenAI",
-			"AudioCapture",
-			"AzSpeech"
+			"ReplicaNPC"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[]
@@ -95,7 +89,7 @@ public class CitySample : ModuleRules
 			"MassReplication",
 			"MassSpawner",
 			"MassSimulation",
-			"MassSignals", "AzSpeech"
+			"MassSignals",
 		});
         
 

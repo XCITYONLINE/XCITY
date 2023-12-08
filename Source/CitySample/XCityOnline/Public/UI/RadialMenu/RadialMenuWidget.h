@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "RadialMenuTypes.h"
 #include "Blueprint/UserWidget.h"
+#include "Public/XCityOnline/Public/Interfaces/PlayerWidgetInterface.h"
 
 #include "RadialMenuWidget.generated.h"
 
