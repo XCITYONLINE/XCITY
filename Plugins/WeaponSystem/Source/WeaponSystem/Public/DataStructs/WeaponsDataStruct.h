@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataTable.h"
+#include "GameplayTagContainer.h"
 
 #include "WeaponsDataStruct.generated.h"
 
@@ -153,8 +154,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Visual")
 	TEnumAsByte<EWeaponType> WeaponType;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Crosshair")
+	TObjectPtr<UTexture2D> CrosshairIcon;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Visual")
 	FVector AttachOffset;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gameplay Tag")     
+	FGameplayTag OverlayMode;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shoot settings")
 	bool bUseAlternativeMode;

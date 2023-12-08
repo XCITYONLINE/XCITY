@@ -12,7 +12,12 @@
 
 #include "InteractibleWeaponBase.generated.h"
 
+class UXCityWeaponFXComponent;
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAlternativeFireChanged, bool, Value);
+
+class UNiagaraSystem;
+class UNiagaraComponent;
 
 UCLASS()
 class WEAPONSYSTEM_API AInteractibleWeaponBase : public AActor,
@@ -70,6 +75,12 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<USkeletalMeshComponent> WeaponSkeletalMeshComponent;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
+	FName MuzzleSocketName = "MuzzleSocket";
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Weapon")
+	float TraceMaxDistance = 35000.0f;
+
 	UPROPERTY(BlueprintAssignable, BlueprintCallable)
 	FOnAlternativeFireChanged OnAlternativeFireChanged;
 
@@ -108,10 +119,28 @@ public:
 	void K2_OnAimModeChanged(const bool bIsAim);
 	
 protected:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Projectile")
+	TSubclassOf<AAmmoProjectileBase> ProjectileClass;
+
+	//UPROPERTY(VisibleAnywhere, Category = "Weapon")
+	//FName MuzzleSocketName = "MuzzleSocket";
+
+	UPROPERTY(VisibleAnywhere, Category = "VFX")
+	UXCityWeaponFXComponent* WeaponFXComponent;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "VFX")
+	UNiagaraSystem* MuzzleFX;
 
 	virtual void BeginPlay() override;
 
+	void MakeShot();
+
+	UNiagaraComponent* SpawnMuzzleFX();
+
 private:
+
+	UPROPERTY()
+	UNiagaraComponent* MuzzleFXComponent;
 	
 	UFUNCTION()
 	void OnLoadComplete();
@@ -121,9 +150,17 @@ private:
 		TObjectPtr<UShootComponentBase>& OutShootComponent,
 		const bool bAlternative);
 
+	APlayerController* GetPlayerController() const;
+	bool GetPlayerViewPoint(FVector& ViewLocation, FRotator& ViewRotation) const;
+	FVector GetMuzzleWorldLocation() const;
+	bool GetTraceData(FVector& TraceStart, FVector& TraceEnd) const;
+	void MakeHit(FHitResult& HitResult, const FVector& TraceStart, const FVector& TraceEnd);
+
 	void AddMappingContext() const;
 	void RemoveMappingContext();
 	void BindInputActions();
+	void InitMuzzleFX();
+	void SetMuzzleFXVisibility(bool Visible);
 	
 	TObjectPtr<UShootComponentBase> MainShootComponentObject;
 	TObjectPtr<UShootComponentBase> AlternativeShootComponentObject;

@@ -2,19 +2,32 @@
 
 #include "WeaponActors/AmmoProjectileBase.h"
 #include "Kismet/GameplayStatics.h"
+#include "Components/SphereComponent.h"
+#include "XCityWeaponFXComponent.h"
+#include "NiagaraComponent.h"
+#include "NiagaraFunctionLibrary.h"
+#include "GameFramework/Character.h"
+#include "GameFramework/Controller.h"
 
 const float AAmmoProjectileBase::LifeSpanTime = 60.0f;
 
 AAmmoProjectileBase::AAmmoProjectileBase()
 {
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>("ProjectileMovementComp");
-	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>("AmmoMesh");
-	RootComponent = StaticMeshComponent;
 	
+	CollisionComponent = CreateDefaultSubobject<USphereComponent>("SphereComponent");
+	CollisionComponent->InitSphereRadius(5.0f);
+	CollisionComponent->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	CollisionComponent->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Block);
+	CollisionComponent->bReturnMaterialOnMove = true;
+	SetRootComponent(CollisionComponent);
+
 	PrimaryActorTick.bCanEverTick = true;
 	
 	PreviousLocation = FVector::ZeroVector;
 	InitialProjectileSettings = FProjectileSettings();
+
+	WeaponFXComponent = CreateDefaultSubobject<UXCityWeaponFXComponent>("WeaponFXComponent");
 }
 
 bool AAmmoProjectileBase::TryInitializeProjectile(const FProjectileSettings& InInitialProjectileSettings)
@@ -39,9 +52,17 @@ bool AAmmoProjectileBase::TryInitializeProjectile(const FProjectileSettings& InI
 void AAmmoProjectileBase::BeginPlay()
 {
 	Super::BeginPlay();
+
+	check(ProjectileMovementComponent);
+	check(WeaponFXComponent);
+
+	//ProjectileMovementComponent->Velocity = ShotDirection * ProjectileMovementComponent->InitialSpeed;
+
 	K2_StartFly();
 
 	PreviousLocation = GetActorLocation();
+
+	CollisionComponent->OnComponentHit.AddDynamic(this, &AAmmoProjectileBase::OnBulletHit);
 }
 
 void AAmmoProjectileBase::TickActor(float DeltaTime, ELevelTick TickType, FActorTickFunction& ThisTickFunction)
@@ -59,9 +80,24 @@ void AAmmoProjectileBase::CheckHitProcess()
 	{
 		return;
 	}
-	
+
+	FCollisionQueryParams CollisionParams;
+	CollisionParams.AddIgnoredActor(GetOwner());
+	CollisionParams.bReturnPhysicalMaterial = true;
+
 	FHitResult HitResult;
 	const FVector& CurrentProjectileLocation = GetActorLocation();
+
+	//FVector ViewLocation, TraceStart, TraceEnd;
+	//FRotator ViewRotation;
+
+	//PlayerController->GetPlayerViewPoint(ViewLocation, ViewRotation);
+
+	//TraceStart = ViewLocation;
+	//const FVector ShootDirection = ViewRotation.Vector();
+	//TraceEnd = TraceStart + ShootDirection * TraceMaxDistance;
+
+	//ProjectileMovementComponent->Velocity = ShootDirection * ProjectileMovementComponent->InitialSpeed;
 
 	const bool WasBlocked = UKismetSystemLibrary::LineTraceSingle(
 		this,
@@ -70,7 +106,7 @@ void AAmmoProjectileBase::CheckHitProcess()
 		ETraceTypeQuery { InitialProjectileSettings.CollisionChannel.GetValue() },
 		true,
 		{ GetOwner(), this },
-		EDrawDebugTrace::None,
+		EDrawDebugTrace::ForDuration,
 		HitResult,
 		true
 		);
@@ -79,22 +115,65 @@ void AAmmoProjectileBase::CheckHitProcess()
 	{
 		return;
 	}
+}
 
-	if (AActor* HitActor = HitResult.GetActor(); IsValid(HitActor))
-	{
-		UGameplayStatics::ApplyDamage(
-			HitActor,
-			InitialProjectileSettings.Damage,
-			PlayerController,
-			this,
-			UDamageType::StaticClass());
+void AAmmoProjectileBase::OnBulletHit(
+	UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+{
+	if (!GetWorld()) return;
 
-		if (OnProjectileHit.IsBound())
-		{
-			OnProjectileHit.Broadcast(HitResult);
-		}
+	ProjectileMovementComponent->StopMovementImmediately();
+
+	FVector TraceFXEnd = Hit.Location;
+	UGameplayStatics::ApplyDamage(                  //
+		OtherActor,                                 //
+		InitialProjectileSettings.Damage,           //
+		GetPlayerController(),                      //
+		this,
+		UDamageType::StaticClass());                //
 		
-		K2_HitNotify(HitResult);
-		Destroy();
+	TraceFXEnd = Hit.ImpactPoint;
+
+	K2_HitNotify(Hit);
+	SpawnTraceFX(PreviousLocation, TraceFXEnd);
+	WeaponFXComponent->PlayImpactFX(Hit);
+	Destroy();
+}
+
+AController* AAmmoProjectileBase::GetPlayerController() const
+{
+	const auto Player = Cast<ACharacter>(GetOwner());
+	if (!Player) return nullptr;
+
+	return Player->GetController<APlayerController>();
+}
+
+bool AAmmoProjectileBase::GetPlayerViewPoint(FVector& ViewLocation, FRotator& ViewRotation) const
+{
+	const auto Controller = GetPlayerController();
+	if (!Controller) return false;
+
+	Controller->GetPlayerViewPoint(ViewLocation, ViewRotation);
+	return true;
+}
+
+bool AAmmoProjectileBase::GetTraceData(FVector& TraceStart, FVector& TraceEnd) const
+{
+	FVector ViewLocation;
+	FRotator ViewRotation;
+	if (!GetPlayerViewPoint(ViewLocation, ViewRotation)) return false;
+
+	TraceStart = ViewLocation;
+	const FVector ShootDirection = ViewRotation.Vector();
+	TraceEnd = TraceStart + ShootDirection * TraceMaxDistance;
+	return true;
+}
+
+void AAmmoProjectileBase::SpawnTraceFX(const FVector& TraceStart, const FVector& TraceEnd)
+{
+	const auto TraceFXComponent = UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), TraceFX, PreviousLocation);
+	if (TraceFXComponent)
+	{
+		TraceFXComponent->SetNiagaraVariableVec3(TraceTargetName, TraceEnd);
 	}
 }

@@ -6,7 +6,7 @@
 #include "GameFramework/PlayerController.h"
 #include "XCityOnline/Public/Interfaces/PlayerCameraManagerInterface.h"
 #include "InputActionValue.h"
-#include "Character/ALSPlayerController.h"
+
 #include "XCityPlayerController.generated.h"
 
 class UInputAction;
@@ -15,7 +15,7 @@ class UInputAction;
  * 
  */
 UCLASS()
-class CITYSAMPLE_API AXCityPlayerController : public AALSPlayerController, public IPlayerCameraManagerInterface
+class CITYSAMPLE_API AXCityPlayerController : public APlayerController, public IPlayerCameraManagerInterface
 {
 	GENERATED_BODY()
 	

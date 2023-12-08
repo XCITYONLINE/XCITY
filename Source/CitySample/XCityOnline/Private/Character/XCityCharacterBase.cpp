@@ -15,8 +15,7 @@
 #include "XCityOnline/Public/UI/XCityHUD.h"
 #include "XCityOnline/Public/UI/RadialMenu/RadialMenuWidget.h"
 
-AXCityCharacterBase::AXCityCharacterBase(const FObjectInitializer& ObjectInitializer)
-: Super(ObjectInitializer)
+AXCityCharacterBase::AXCityCharacterBase()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -140,9 +139,9 @@ TScriptInterface<IInteractibleItemInterface> AXCityCharacterBase::GetCloserObjec
 	return InFoundObjects[IndexOfMinValue];
 }
 
-void AXCityCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void AXCityCharacterBase::SetupPlayerInputComponent(UInputComponent* Input)
 {
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	Super::SetupPlayerInputComponent(Input);
 
 	if (const APlayerController* PlayerController = Cast<APlayerController>(Controller))
 	{
@@ -153,15 +152,17 @@ void AXCityCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInput
 			Subsystem->AddMappingContext(MappingContext, 0);
 		}
 	}
+
+	Super::NotifyControllerChanged();
 	
 	if (UEnhancedInputComponent* EnhancedInput =
-		Cast<UEnhancedInputComponent>(PlayerInputComponent); IsValid(EnhancedInput))
+		Cast<UEnhancedInputComponent>(Input); IsValid(EnhancedInput))
 	{
 		if (IsValid(TakeAction))
 		{
 			EnhancedInput->BindAction(TakeAction, ETriggerEvent::Triggered, this, &AXCityCharacterBase::OnTakeInputChanged);
 		}
-
+		
 		if (IsValid(DropAction))
 		{
 			EnhancedInput->BindAction(DropAction, ETriggerEvent::Triggered, this, &AXCityCharacterBase::OnDropInputChanged);
@@ -201,16 +202,8 @@ void AXCityCharacterBase::OnTakeInputChanged(const FInputActionValue& Value)
 			if (IsValid(TriggeredObject.GetObject());
 				TriggeredObject->GetItemSettings(TriggeredObject.GetObject(), WeaponsDataStruct))
 			{
-				AttachToHand(
-				WeaponsDataStruct.WeaponStaticMesh,
-				WeaponsDataStruct.WeaponSkeletal,
-				WeaponsDataStruct.WeaponAnimInstance,
-				false,
-				WeaponsDataStruct.AttachOffset,
-				true,
-				TriggeredObject.GetObject()
-				);
-
+				SetOverlayMode(WeaponsDataStruct.OverlayMode);
+			
 				K2_AttachTo(TriggeredObject.GetObject());
 				SelectedInventoryItem = TriggeredObject;
 			}
@@ -224,8 +217,9 @@ void AXCityCharacterBase::OnDropInputChanged(const FInputActionValue& Value)
 	{
 		IInventorySystemInterface::Execute_RemoveInventoryItem(InventoryComponent.Get(), SelectedInventoryItem);
 		
-		DetachToHand(SelectedInventoryItem.GetObject());
 		K2_DropTo(SelectedInventoryItem.GetObject());
+
+		SetOverlayMode(AlsOverlayModeTags::Default);
 
 		IInteractibleItemInterface::Execute_OnUnselect(SelectedInventoryItem.GetObject());
 		IInteractibleItemInterface::Execute_OnDrop(SelectedInventoryItem.GetObject());
@@ -257,7 +251,7 @@ void AXCityCharacterBase::ReInitializeItemObject()
 {
 	if (IsValid(InventoryComponent.Get()))
 	{
-		ClearHeldObject();
+		//ClearHeldObject();
 		
 		IInventorySystemInterface::Execute_UnselectAllItems(InventoryComponent.Get());
 		SelectedInventoryItem = IInventorySystemInterface::Execute_GetSelectedItem(InventoryComponent.Get());
