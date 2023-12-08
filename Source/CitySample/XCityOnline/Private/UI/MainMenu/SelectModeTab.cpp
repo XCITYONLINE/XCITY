@@ -6,6 +6,7 @@
 #include "Components/Button.h"
 #include "Components/Image.h"
 #include "Components/TextBlock.h"
+#include "XCityOnline/Public/LoadingScreenSubsystem.h"
 #include "XCityOnline/Public/UI/MainMenu/SelectModeTabButton.h"
 
 void USelectModeTab::SelectNewMode(const FModeInfo& ModeInfo)
@@ -15,7 +16,7 @@ void USelectModeTab::SelectNewMode(const FModeInfo& ModeInfo)
 		return;
 	}
 	
-	BGImage->SetBrushFromTexture(ModeInfo.BGImageAsset);
+	if (IsValid(ModeInfo.BGImageAsset)) BGImage->SetBrushFromTexture(ModeInfo.BGImageAsset);
 	LabelText->SetText(ModeInfo.LabelText);
 	DescriptionText->SetText(ModeInfo.DescriptionText);
 
@@ -42,5 +43,28 @@ void USelectModeTab::InitButtons()
 
 void USelectModeTab::OnPlayButtonClicked()
 {
-	// Here will be load new map logic
+//	if (!CurrentModeInfo.LevelInstance.IsValid())
+//	{
+	//	return;
+//	}
+	
+	ULoadingScreenSubsystem* LoadingScreenSubsystem = GetGameInstance()->GetSubsystem<ULoadingScreenSubsystem>();
+	LoadingScreenSubsystem->StartInGameLoadingScreen("Default");
+	
+	const FSoftObjectPath& LevelInstancePath = CurrentModeInfo.LevelInstance.ToSoftObjectPath();
+	UObject* LevelAsset = LevelInstancePath.TryLoad();
+	if (!LevelAsset)
+	{
+		UE_LOG(LogTemp, Display, TEXT("Level is null"));
+		return;
+	}
+
+	if (!LevelAsset->IsA(UWorld::StaticClass()))
+	{
+		UE_LOG(LogTemp, Display, TEXT("Level asset should derive from UWorld"));
+		return;
+	}
+
+	const UWorld* WorldAsset = Cast<UWorld>(LevelAsset);
+	GetWorld()->ServerTravel("/Game/XCityOnline/Maps/Default");
 }

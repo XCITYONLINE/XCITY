@@ -97,3 +97,16 @@ void USettingsWidget::OnApplySettingsButtonClicked()
 		}
 	}
 }
+
+bool USettingsWidget::IsDirty() const
+{
+	for (const auto Widget : GetWidgetSwitcher()->GetAllChildren())
+	{
+		if (const auto SettingsTab = Cast<USettingsTab>(Widget))
+		{
+			if (SettingsTab->IsDirty()) return true;
+		}
+	}
+
+	return false;
+}

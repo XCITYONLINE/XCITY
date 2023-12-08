@@ -220,6 +220,8 @@ void USettingsVideoTab::OnFullscreenSettingLeftButtonClicked()
 	}
 
 	FullscreenSettingText->SetText(FullscreenDisplayInfos[FullscreenTypeIndex]);
+
+	MarkAsDirty();
 }
 
 void USettingsVideoTab::OnFullscreenSettingRightButtonClicked()
@@ -232,6 +234,8 @@ void USettingsVideoTab::OnFullscreenSettingRightButtonClicked()
 	}
 
 	FullscreenSettingText->SetText(FullscreenDisplayInfos[FullscreenTypeIndex]);
+
+	MarkAsDirty();
 }
 
 void USettingsVideoTab::OnResolutionSettingLeftButtonClicked()
@@ -244,6 +248,8 @@ void USettingsVideoTab::OnResolutionSettingLeftButtonClicked()
 	}
 
 	ResolutionSettingText->SetText(FText::FromString(FString::FromInt(Resolutions[ResolutionIndex].X) + FString("x") + FString::FromInt(Resolutions[ResolutionIndex].Y)));
+
+	MarkAsDirty();
 }
 
 void USettingsVideoTab::OnResolutionSettingRightButtonClicked()
@@ -256,6 +262,8 @@ void USettingsVideoTab::OnResolutionSettingRightButtonClicked()
 	}
 
 	ResolutionSettingText->SetText(FText::FromString(FString::FromInt(Resolutions[ResolutionIndex].X) + FString("x") + FString::FromInt(Resolutions[ResolutionIndex].Y)));
+
+	MarkAsDirty();
 }
 
 void USettingsVideoTab::OnVSyncSettingButtonClicked()
@@ -263,6 +271,8 @@ void USettingsVideoTab::OnVSyncSettingButtonClicked()
 	bVSyncEnabled = !bVSyncEnabled;
 
 	VSyncSettingText->SetText(VSyncDisplayInfos[bVSyncEnabled]);
+
+	MarkAsDirty();
 }
 
 void USettingsVideoTab::OnReflectionQualitySettingLeftButtonClicked()
@@ -275,6 +285,8 @@ void USettingsVideoTab::OnReflectionQualitySettingLeftButtonClicked()
 	}
 
 	ReflectionQualitySettingText->SetText(QualityDisplayInfos[ReflectionQualityIndex]);
+
+	MarkAsDirty();
 }
 
 void USettingsVideoTab::OnReflectionQualitySettingRightButtonClicked()
@@ -287,6 +299,8 @@ void USettingsVideoTab::OnReflectionQualitySettingRightButtonClicked()
 	}
 
 	ReflectionQualitySettingText->SetText(QualityDisplayInfos[ReflectionQualityIndex]);
+
+	MarkAsDirty();
 }
 
 void USettingsVideoTab::OnShadowQualitySettingLeftButtonClicked()
@@ -299,6 +313,8 @@ void USettingsVideoTab::OnShadowQualitySettingLeftButtonClicked()
 	}
 
 	ShadowQualitySettingText->SetText(QualityDisplayInfos[ShadowQualityIndex]);
+
+	MarkAsDirty();
 }
 
 void USettingsVideoTab::OnShadowQualitySettingRightButtonClicked()
@@ -311,6 +327,8 @@ void USettingsVideoTab::OnShadowQualitySettingRightButtonClicked()
 	}
 
 	ShadowQualitySettingText->SetText(QualityDisplayInfos[ShadowQualityIndex]);
+
+	MarkAsDirty();
 }
 
 void USettingsVideoTab::OnShadingQualitySettingLeftButtonClicked()
@@ -323,6 +341,8 @@ void USettingsVideoTab::OnShadingQualitySettingLeftButtonClicked()
 	}
 
 	ShadingQualitySettingText->SetText(QualityDisplayInfos[ShadingQualityIndex]);
+
+	MarkAsDirty();
 }
 
 void USettingsVideoTab::OnShadingQualitySettingRightButtonClicked()
@@ -335,6 +355,8 @@ void USettingsVideoTab::OnShadingQualitySettingRightButtonClicked()
 	}
 
 	ShadingQualitySettingText->SetText(QualityDisplayInfos[ShadingQualityIndex]);
+
+	MarkAsDirty();
 }
 
 void USettingsVideoTab::OnTextureQualitySettingLeftButtonClicked()
@@ -347,6 +369,8 @@ void USettingsVideoTab::OnTextureQualitySettingLeftButtonClicked()
 	}
 
 	TextureQualitySettingText->SetText(QualityDisplayInfos[TextureQualityIndex]);
+	
+	MarkAsDirty();
 }
 
 void USettingsVideoTab::OnTextureQualitySettingRightButtonClicked()
@@ -359,6 +383,8 @@ void USettingsVideoTab::OnTextureQualitySettingRightButtonClicked()
 	}
 
 	TextureQualitySettingText->SetText(QualityDisplayInfos[TextureQualityIndex]);
+
+	MarkAsDirty();
 }
 
 void USettingsVideoTab::OnFoliageQualitySettingLeftButtonClicked()
@@ -371,6 +397,8 @@ void USettingsVideoTab::OnFoliageQualitySettingLeftButtonClicked()
 	}
 
 	FoliageQualitySettingText->SetText(QualityDisplayInfos[FoliageQualityIndex]);
+
+	MarkAsDirty();
 }
 
 void USettingsVideoTab::OnFoliageQualitySettingRightButtonClicked()
@@ -383,6 +411,8 @@ void USettingsVideoTab::OnFoliageQualitySettingRightButtonClicked()
 	}
 
 	FoliageQualitySettingText->SetText(QualityDisplayInfos[FoliageQualityIndex]);
+
+	MarkAsDirty();
 }
 
 void USettingsVideoTab::OnAntiAliasingQualitySettingLeftButtonClicked()
@@ -395,6 +425,8 @@ void USettingsVideoTab::OnAntiAliasingQualitySettingLeftButtonClicked()
 	}
 
 	AntiAliasingQualitySettingText->SetText(QualityDisplayInfos[AntiAliasingQualityIndex]);
+
+	MarkAsDirty();
 }
 
 void USettingsVideoTab::OnAntiAliasingQualitySettingRightButtonClicked()
@@ -407,6 +439,8 @@ void USettingsVideoTab::OnAntiAliasingQualitySettingRightButtonClicked()
 	}
 
 	AntiAliasingQualitySettingText->SetText(QualityDisplayInfos[AntiAliasingQualityIndex]);
+	
+	MarkAsDirty();
 }
 
 void USettingsVideoTab::OnGlobalIlluminationSettingLeftButtonClicked()
@@ -419,6 +453,8 @@ void USettingsVideoTab::OnGlobalIlluminationSettingLeftButtonClicked()
 	}
 
 	GlobalIlluminationQualitySettingText->SetText(QualityDisplayInfos[GlobalIlluminationQualityIndex]);
+
+	MarkAsDirty();
 }
 
 void USettingsVideoTab::OnGlobalIlluminationSettingRightButtonClicked()
@@ -431,6 +467,8 @@ void USettingsVideoTab::OnGlobalIlluminationSettingRightButtonClicked()
 	}
 
 	GlobalIlluminationQualitySettingText->SetText(QualityDisplayInfos[GlobalIlluminationQualityIndex]);
+
+	MarkAsDirty();
 }
 
 void USettingsVideoTab::OnViewDistanceSettingLeftButtonClicked()
@@ -443,6 +481,8 @@ void USettingsVideoTab::OnViewDistanceSettingLeftButtonClicked()
 	}
 
 	ViewDistanceQualitySettingText->SetText(QualityDisplayInfos[ViewDistanceQualityIndex]);
+
+	MarkAsDirty();
 }
 
 void USettingsVideoTab::OnViewDistanceSettingRightButtonClicked()
@@ -455,6 +495,8 @@ void USettingsVideoTab::OnViewDistanceSettingRightButtonClicked()
 	}
 
 	ViewDistanceQualitySettingText->SetText(QualityDisplayInfos[ViewDistanceQualityIndex]);
+
+	MarkAsDirty();
 }
 
 void USettingsVideoTab::OnPostProcessingSettingLeftButtonClicked()
@@ -467,6 +509,8 @@ void USettingsVideoTab::OnPostProcessingSettingLeftButtonClicked()
 	}
 
 	PostProcessingQualitySettingText->SetText(QualityDisplayInfos[PostProcessingQualityIndex]);
+
+	MarkAsDirty();
 }
 
 void USettingsVideoTab::OnPostProcessingSettingRightButtonClicked()
@@ -479,6 +523,8 @@ void USettingsVideoTab::OnPostProcessingSettingRightButtonClicked()
 	}
 
 	PostProcessingQualitySettingText->SetText(QualityDisplayInfos[PostProcessingQualityIndex]);
+
+	MarkAsDirty();
 }
 
 void USettingsVideoTab::OnBorderHovered(UBorder* HoveredBorder)

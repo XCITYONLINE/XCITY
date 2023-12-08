@@ -24,7 +24,16 @@ public:
 
 	virtual void InitializeTab(const int32& Index, UWidget* ParentWidget) override;
 
+	UFUNCTION(BlueprintPure, Category = "Settings Tab")
+	FORCEINLINE bool IsDirty() const { return bIsDirty; }
+
+protected:
+	void MarkAsDirty();
+
 private:
 	UPROPERTY()
 	TObjectPtr<class USettingsWidget> SettingsWidgetPtr;
+
+	/** Tab is dirty when something in settings was changed. This used to show message to user. */
+	bool bIsDirty;
 };

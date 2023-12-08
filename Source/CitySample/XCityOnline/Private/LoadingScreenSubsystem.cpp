@@ -31,6 +31,7 @@ void ULoadingScreenSubsystem::StartInGameLoadingScreen(const FString& MapName)
 	LoadingScreenAttributes.MinimumLoadingScreenDisplayTime = 35.0f;
 	LoadingScreenAttributes.bMoviesAreSkippable = false;
 	LoadingScreenAttributes.bAutoCompleteWhenLoadingCompletes = false;
+	LoadingScreenAttributes.bAllowEngineTick = true;
 	
 	GetMoviePlayer()->SetupLoadingScreen(LoadingScreenAttributes);
 	GetMoviePlayer()->PlayMovie();

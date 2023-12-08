@@ -29,6 +29,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void OnApplySettingsButtonClicked();
 
+	UFUNCTION(BlueprintPure, Category = "Settings Widget")
+	bool IsDirty() const;
+	
 	UPROPERTY(EditAnywhere)
 	FKey ApplyKey;
 	

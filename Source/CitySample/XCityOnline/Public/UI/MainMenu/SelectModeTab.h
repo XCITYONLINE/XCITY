@@ -49,11 +49,11 @@ protected:
 
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<USelectModeTabButton> TeamDeathMatchTabButton;
-
-private:
+	
 	UPROPERTY(BlueprintReadOnly, Category = "Select Mode Tab")
 	FModeInfo CurrentModeInfo;
-	
+
+private:
 	void InitButtons();
 
 	UFUNCTION()

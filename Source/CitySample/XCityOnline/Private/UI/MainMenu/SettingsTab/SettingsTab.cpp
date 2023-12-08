@@ -18,3 +18,8 @@ void USettingsTab::InitializeTab(const int32& Index, UWidget* ParentWidget)
 
 	SettingsWidgetPtr = Cast<USettingsWidget>(ParentWidget);
 }
+
+void USettingsTab::MarkAsDirty()
+{
+	bIsDirty = true;
+}

@@ -2,6 +2,7 @@
 
 #include "XCityOnline/Public/UI/MainMenu/MainMenuWidget.h"
 
+#include "Components/Border.h"
 #include "Components/WidgetSwitcher.h"
 #include "XCityOnline/Public/UI/MainMenu/MainMenuButtonBase.h"
 #include "XCityOnline/Public/UI/MainMenu/SettingsTab/SettingsWidget.h"
@@ -32,6 +33,12 @@ void UMainMenuWidget::SelectNewTab(const int32& Index, UMainMenuButtonBase* Main
 	UMainMenuTabBase* NewTab = Cast<UMainMenuTabBase>(GetWidgetSwitcher()->GetWidgetAtIndex(Index));
 	NewTab->OnTabEnabled();
 	CurrentTab = NewTab;
+
+	if (CurrentTab->bNeedToBeInFullscreen)
+	{
+		SideBarBorder->SetVisibility(ESlateVisibility::Hidden);
+	}
+	
 	//NewTab->SetUserFocus(GetOwningPlayer());
 }
 
@@ -57,6 +64,16 @@ void UMainMenuWidget::SelectTabByType(ETabType TabType)
 	UMainMenuTabBase* NewTab = Cast<UMainMenuTabBase>(GetWidgetSwitcher()->GetWidgetAtIndex(TempTab->GetIndex()));
 	NewTab->OnTabEnabled();
 	CurrentTab = NewTab;
+
+	if (CurrentTab->bNeedToBeInFullscreen)
+	{
+		SideBarBorder->SetVisibility(ESlateVisibility::Hidden);
+	}
+
+	else
+	{
+		SideBarBorder->SetVisibility(ESlateVisibility::Visible);
+	}
 }
 
 UMainMenuTabBase* UMainMenuWidget::GetTab(ETabType TabType)
@@ -71,6 +88,8 @@ UMainMenuTabBase* UMainMenuWidget::GetTab(ETabType TabType)
 		return SettingsTab;
 	case ETabType::ETT_Store:
 		return StoreTab;
+	case ETabType::ETT_Girl:
+		return GirlTab;
 	}
 
 	return PlayTab;
@@ -88,6 +107,8 @@ UMainMenuButtonBase* UMainMenuWidget::GetButton(ETabType TabType)
 		return SettingTabButton;
 	case ETabType::ETT_Store:
 		return StoreTabButton;
+	case ETabType::ETT_Girl:
+		return GirlTabButton;
 	}
 
 	return PlayTabButton;

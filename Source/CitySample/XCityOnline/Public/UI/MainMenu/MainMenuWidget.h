@@ -79,6 +79,9 @@ protected:
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UMainMenuButtonBase> GirlTabButton;
 
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<class UBorder> SideBarBorder;
+
 private:
 	UPROPERTY()
 	TObjectPtr<UMainMenuButtonBase> CurrentSelectedButton;
