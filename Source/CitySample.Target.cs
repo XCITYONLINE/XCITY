@@ -7,6 +7,8 @@ public class CitySampleTarget : TargetRules
 {
 	public CitySampleTarget(TargetInfo Target) : base(Target)
 	{
+		bForceEnableExceptions = true;
+		
 		Type = TargetType.Game;
 		DefaultBuildSettings = BuildSettingsVersion.V4;
 		ExtraModuleNames.Add("CitySample");

@@ -15,7 +15,7 @@ public class CitySampleEditorTarget : TargetRules
 
 		if (Type == TargetType.Editor && Platform == UnrealTargetPlatform.Linux && LinuxPlatform.bEnableThreadSanitizer)
 		{
-			string[] TSanDisabledPlugins = 
+			string[] TSanDisabledPlugins =
 			{
 				"NeuralNetworkInference",
 				"RemoteControl",
