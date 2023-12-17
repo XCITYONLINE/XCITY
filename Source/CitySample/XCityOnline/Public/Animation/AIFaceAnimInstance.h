@@ -60,7 +60,7 @@ struct FSequenceRandomPlayInfo
 	TMap<int32, float> ChanceForEverySequence;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Sequence Random Play Info")
-	TMap<int32, float> UpdateTimeForEverySequence;
+	TMap<int32, UAnimSequence*> Sequences;
 };
 
 UCLASS()
@@ -197,4 +197,6 @@ private:
 	int32 CurrentMoodID;
 	int32 CurrentMoodAnimIndex;
 	int32 CurrentSequenceIndex;
+
+	bool bCanShowNextEmotion;
 };

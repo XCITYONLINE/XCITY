@@ -28,6 +28,9 @@ void USettingsControlsTab::RedrawWidget() const
 	
 	for (auto It = InputMappingContext->GetMappings().CreateConstIterator(); It; ++It)
 	{
+		const FEnhancedActionKeyMapping& KeyMapping = GetMappingContext()->GetMapping(It.GetIndex());
+		if (KeyMapping.GetDisplayName().IsEmpty()) continue;
+		
 		USettingControlsLine* SettingControlsLine = CreateWidget<USettingControlsLine>(GetWorld(), ControlsLineClass);
 		SettingControlsLine->InitializeLine(It.GetIndex(), GetMappingContext(), It.GetIndex());
 

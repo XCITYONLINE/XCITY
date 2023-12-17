@@ -34,6 +34,9 @@ public:
 	
 	UPROPERTY(EditAnywhere)
 	FKey ApplyKey;
+
+	UFUNCTION(BlueprintNativeEvent)
+	void OnTryingToChange();
 	
 protected:
 	USettingsWidget(const FObjectInitializer& ObjectInitializer);

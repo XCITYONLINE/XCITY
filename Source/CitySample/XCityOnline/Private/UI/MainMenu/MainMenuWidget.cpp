@@ -5,6 +5,7 @@
 #include "Components/Border.h"
 #include "Components/WidgetSwitcher.h"
 #include "XCityOnline/Public/UI/MainMenu/MainMenuButtonBase.h"
+#include "XCityOnline/Public/UI/MainMenu/SettingsTab/SettingsTab.h"
 #include "XCityOnline/Public/UI/MainMenu/SettingsTab/SettingsWidget.h"
 
 UWidgetSwitcher* UMainMenuWidget::GetWidgetSwitcher() const
@@ -14,6 +15,12 @@ UWidgetSwitcher* UMainMenuWidget::GetWidgetSwitcher() const
 
 void UMainMenuWidget::SelectNewTab(const int32& Index, UMainMenuButtonBase* MainMenuButton)
 {
+	if (GetWidgetSwitcher()->GetActiveWidget() == SettingsTab)
+	{
+		Cast<USettingsWidget>(SettingsTab)->OnTryingToChange();
+		return;
+	}
+	
 	if (IsValid(CurrentSelectedButton))
 	{
 		CurrentSelectedButton->OnDisabled();

@@ -9,11 +9,28 @@
 #include "XCityOnline/Public/LoadingScreenSubsystem.h"
 #include "XCityOnline/Public/UI/MainMenu/SelectModeTabButton.h"
 
-void USelectModeTab::SelectNewMode(const FModeInfo& ModeInfo)
+void USelectModeTab::SelectNewMode(USelectModeTabButton* Button, const FModeInfo& ModeInfo)
 {
 	if (CurrentModeInfo == ModeInfo)
 	{
 		return;
+	}
+
+	if (IsValid(CurrentSelectedButton))
+	{
+		if (CurrentSelectedButton != Button)
+		{
+			CurrentSelectedButton->DisableSelection();
+			Button->EnableSelection();
+
+			CurrentSelectedButton = Button;
+		}
+	}
+
+	else
+	{
+		Button->EnableSelection();
+		CurrentSelectedButton = Button;
 	}
 	
 	if (IsValid(ModeInfo.BGImageAsset)) BGImage->SetBrushFromTexture(ModeInfo.BGImageAsset);

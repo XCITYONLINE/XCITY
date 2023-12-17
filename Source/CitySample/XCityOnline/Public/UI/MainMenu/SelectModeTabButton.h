@@ -43,9 +43,15 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Select Mode Tab Button")
 	FModeInfo ModeInfo;
 
+	void DisableSelection();
+	void EnableSelection();
+
 protected:
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<class UButton> SelectModeButton;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<class UBorder> SelectModeBorder;
 	
 private:
 	UPROPERTY()

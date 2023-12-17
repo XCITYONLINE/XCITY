@@ -242,7 +242,7 @@ void AMetahumanAIBase::AddNewMessage(const FMessage& Message)
 	}
 
 	UMainMenuWidget* MainMenuWidget = Cast<UMainMenuWidget>(HUD->GetMainMenuWidget());
-	UPlayTab* PlayTab = Cast<UPlayTab>(MainMenuWidget->GetTab(ETabType::ETT_Play));
+	UPlayTab* PlayTab = Cast<UPlayTab>(MainMenuWidget->GetTab(ETabType::ETT_Girl));
 
 	PlayTab->OnNewAIMessageReceived(Message);
 }

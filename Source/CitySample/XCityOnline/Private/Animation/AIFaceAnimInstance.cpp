@@ -26,6 +26,8 @@ UAIFaceAnimInstance::UAIFaceAnimInstance(const FObjectInitializer& ObjectInitial
 	CurrentMoodID = 0;
 
 	CurrentMood = EMood::EM_Neutral;
+
+	bCanShowNextEmotion = true;
 }
 
 void UAIFaceAnimInstance::NativeBeginPlay()
@@ -113,24 +115,38 @@ void UAIFaceAnimInstance::UpdateRandomSequence()
 {
 	if (CurrentMood == EMood::EM_None || CurrentMood == EMood::EM_Max) return;
 	
-	if (GetWorld()->GetTimerManager().IsTimerActive(RandomSequenceTimer))
+	if (!bCanShowNextEmotion)
 	{
-		GetWorld()->GetTimerManager().ClearTimer(RandomSequenceTimer);
+		return;
 	}
 
-	GetWorld()->GetTimerManager().SetTimer(RandomSequenceTimer, this, &ThisClass::RandomSequenceTick, RandomPosesInfo[CurrentMood].UpdateTimeForEverySequence[GetCurrentIndexForAnimation()], true);
+	int32 RandomNum = FMath::RandRange(0, RandomPosesInfo[CurrentMood].NumOfSequences - 1);
+	while (CurrentMoodAnimIndex == RandomNum)
+	{
+		RandomNum = FMath::RandRange(0, RandomPosesInfo[CurrentMood].NumOfSequences - 1);
+	}
+	
+	CurrentMoodAnimIndex = RandomNum;
+	UE_LOG(LogTemp, Display, TEXT("RandomNum %i"), RandomNum);
+
+	if (GetCurrentIndexForAnimation() >= RandomPosesInfo[CurrentMood].NumOfSequences)
+	{
+		CurrentMoodAnimIndex = 0;
+	}
+	
+	const UAnimSequence* Sequence = *RandomPosesInfo[CurrentMood].Sequences.Find(GetCurrentIndexForAnimation());
+	if (!Sequence) return;
+	
+	const float PlayLength = (Sequence->GetPlayLength() / Sequence->RateScale) - 1.0f;
+
+	UE_LOG(LogTemp, Display, TEXT("Play Length: %f"), PlayLength);
+	
+	bCanShowNextEmotion = false;
+	GetWorld()->GetTimerManager().SetTimer(RandomSequenceTimer, this, &ThisClass::RandomSequenceTick, PlayLength, false);
 }
 
 void UAIFaceAnimInstance::RandomSequenceTick()
 {
-	const float RandomNum = FMath::RandRange(0, 1);
-
-	for (int32 i = 1; i < RandomPosesInfo[CurrentMood].ChanceForEverySequence.Num(); i++)
-	{
-		if (1 - RandomNum > RandomPosesInfo[CurrentMood].ChanceForEverySequence[i - 1] && 1 - RandomNum < RandomPosesInfo[CurrentMood].ChanceForEverySequence[i])
-		{
-			CurrentMoodAnimIndex = i;
-			return;
-		}
-	}
+	bCanShowNextEmotion = true;
+	UpdateRandomSequence();
 }

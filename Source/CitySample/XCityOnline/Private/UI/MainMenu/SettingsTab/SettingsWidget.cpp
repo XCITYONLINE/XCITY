@@ -38,6 +38,10 @@ void USettingsWidget::InitializeTab(const int32& Index, UWidget* ParentWidget)
 	InitializeSettingsWidget();
 }
 
+void USettingsWidget::OnTryingToChange_Implementation()
+{
+}
+
 USettingsWidget::USettingsWidget(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
 	bInitialized = false;

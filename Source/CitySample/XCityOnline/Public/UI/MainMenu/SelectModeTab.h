@@ -18,7 +18,7 @@ class CITYSAMPLE_API USelectModeTab : public UMainMenuTabBase
 	GENERATED_BODY()
 
 public:
-	void SelectNewMode(const FModeInfo& ModeInfo);
+	void SelectNewMode(class USelectModeTabButton* Button, const FModeInfo& ModeInfo);
 	
 protected:
 	virtual void NativeConstruct() override;
@@ -54,6 +54,9 @@ protected:
 	FModeInfo CurrentModeInfo;
 
 private:
+	UPROPERTY()
+	TObjectPtr<USelectModeTabButton> CurrentSelectedButton;
+	
 	void InitButtons();
 
 	UFUNCTION()
