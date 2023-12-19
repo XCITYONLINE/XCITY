@@ -39,6 +39,7 @@
 /Plugins/WeaponSystem/Binaries/
 /Plugins/WeaponSystem/Intermediate/
 /Plugins/Developer/RiderLink/
+Plugins/AzSpeech/Source/ThirdParty/AzureWrapper/libs/iOS/
 
 # Source core directions
 Intermediate/

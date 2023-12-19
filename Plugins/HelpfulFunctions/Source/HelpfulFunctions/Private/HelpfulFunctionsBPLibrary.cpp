@@ -32,8 +32,8 @@
 #include "CollisionQueryParams.h"
 
 #include "Animation/AnimInstance.h"
-#include "PhysicsCore/Public/CollisionShape.h"
-#include "Engine/Public/KismetTraceUtils.h"
+#include "CollisionShape.h"//"PhysicsCore/Public/CollisionShape.h"
+#include "KismetTraceUtils.h"//"Engine/Public/KismetTraceUtils.h"
 
 //Include Navigation
 #include "NavigationSystem.h"

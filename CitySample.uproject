@@ -275,6 +275,16 @@
 			]
 		},
 		{
+			"Name": "OpenAI",
+			"Enabled": true,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/97eaf1e101ab4f29b5acbf7dacbd4d16"
+		},
+		{
+			"Name": "AzSpeech",
+			"Enabled": true,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/94ad3e51c6f443718cdb312b48742bb3"
+		},
+		{
 			"Name": "VisualStudioTools",
 			"Enabled": true,
 			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/362651520df94e4fa65492dbcba44ae2",
