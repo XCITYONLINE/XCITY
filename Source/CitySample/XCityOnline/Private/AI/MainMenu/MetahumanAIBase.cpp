@@ -4,10 +4,12 @@
 #include "XCityOnline/Public/AI/MainMenu/MetahumanAIBase.h"
 #include "AudioCaptureComponent.h"
 #include "AudioMixerBlueprintLibrary.h"
+#include "MetahumanSDKAPIManager.h"
 #include "AzSpeech/AzSpeechHelper.h"
 #include "AzSpeech/AzSpeechSettings.h"
 #include "AzSpeech/Tasks/Synthesis/SSMLToSpeechAsync.h"
 #include "FuncLib/OpenAIFuncLib.h"
+#include "Helpers/SystemUtilityLibrary.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Provider/OpenAIProvider.h"
@@ -194,17 +196,11 @@ void AMetahumanAIBase::OnSynthesisCompleted(const bool bSuccess)
 	USoundWave* FinalSound = UAzSpeechHelper::ConvertAudioDataToSoundWave(AsyncTask->GetAudioData());
 	UAudioComponent* AudioComponent = UGameplayStatics::CreateSound2D(this, FinalSound);
 	
-	CurrentAudioTime = 0.0f;
-	AudioComponent->OnAudioPlaybackPercent.AddUniqueDynamic(this, &ThisClass::OnAudioPlaybackPercent);
-	AudioComponent->OnAudioFinished.AddUniqueDynamic(this, &ThisClass::OnAudioFinished);
-	AudioComponent->Play();
-
-	OnConversationStarted.Broadcast();
+	StartMetahumanSDK(FinalSound);
 }
 
 void AMetahumanAIBase::OnAudioFinished()
 {
-	OnConversationEnded.Broadcast();
 }
 
 void AMetahumanAIBase::OnVisemeReceived(const FAzSpeechVisemeData VisemeData)

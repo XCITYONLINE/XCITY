@@ -7,7 +7,7 @@
 #include "Types/AudioTypes.h"
 
 // C++ delegates
-DECLARE_MULTICAST_DELEGATE_TwoParams(FOnRequestCompleted, const FString& /* URL */, const FString& /* Response content */);
+DECLARE_MULTICAST_DELEGATE_TwoParams(FOnMetahumanSDKRequestCompleted, const FString& /* URL */, const FString& /* Response content */);
 DECLARE_MULTICAST_DELEGATE_TwoParams(FOnRequestProgresses, const FString& /* URL */, const FString& /* Response content */);
 DECLARE_MULTICAST_DELEGATE_TwoParams(FOnRequestError, const FString& /* URL */, const FString& /* Response content */);
 

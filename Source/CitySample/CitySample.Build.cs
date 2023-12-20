@@ -93,11 +93,9 @@ public class CitySample : ModuleRules
 			"MassReplication",
 			"MassSpawner",
 			"MassSimulation",
-			"MassSignals",
-            "AzSpeech"
-        });
+			"MassSignals", "AzSpeech", "MetahumanSDK"
+		});
         
-
 		PrivateIncludePaths.AddRange(new string[]
 		{
 			"CitySample"

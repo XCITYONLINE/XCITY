@@ -27,6 +27,8 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Settings Tab")
 	FORCEINLINE bool IsDirty() const { return bIsDirty; }
 
+	void CleanDirtyInformation();
+
 protected:
 	void MarkAsDirty();
 

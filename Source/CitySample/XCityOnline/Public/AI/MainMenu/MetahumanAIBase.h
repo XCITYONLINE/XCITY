@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "MetahumanSDKAPIOutput.h"
 #include "GameFramework/Pawn.h"
 
 #include "Provider/CommonTypes.h"
@@ -81,10 +82,10 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FOnTemperatureChanged OnTemperatureChanged;
 
-	UPROPERTY(BlueprintAssignable)
+	UPROPERTY(BlueprintCallable, BlueprintAssignable)
 	FOnConversationStarted OnConversationStarted;
 
-	UPROPERTY(BlueprintAssignable)
+	UPROPERTY(BlueprintCallable, BlueprintAssignable)
 	FOnConversationEnded OnConversationEnded;
 
 	int64 GetCurrentAudioOffset();
@@ -106,6 +107,15 @@ protected:
 	*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "OpenAI")
 	FString OpenAIKey = "";
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MetahumanSDK")
+	USkeleton* MeshSkeleton;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MetahumanSDK")
+	UPoseAsset* PoseAsset;
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "MetahumanSDK")
+	void StartMetahumanSDK(USoundWave* Sound);
 
 private:
 	void OnCreateAudioTranscriptionCompleted(const FAudioTranscriptionResponse& Response);
@@ -172,4 +182,7 @@ private:
 
 	FString CurrentPlayerMessage;
 	FString CurrentBotMessage;
+
+	FMetahumanSDKATLOutput ATLOutput;
+	FString Error;
 };

@@ -91,6 +91,17 @@ void USettingsWidget::InitializeButton(USettingsTab* SettingsTab, USettingButton
 	SettingsButton->InitializeTabButton(SettingsTab);
 }
 
+void USettingsWidget::CleanDirty()
+{
+	for (const auto Widget : GetWidgetSwitcher()->GetAllChildren())
+	{
+		if (USettingsTab* SettingsTab = Cast<USettingsTab>(Widget))
+		{
+			SettingsTab->CleanDirtyInformation();
+		}
+	}
+}
+
 void USettingsWidget::OnApplySettingsButtonClicked()
 {
 	for (const auto Widget : GetWidgetSwitcher()->GetAllChildren())
@@ -98,6 +109,7 @@ void USettingsWidget::OnApplySettingsButtonClicked()
 		if (USettingsTab* SettingsTab = Cast<USettingsTab>(Widget))
 		{
 			SettingsTab->OnSettingsConfirmed();
+			CleanDirty();
 		}
 	}
 }
