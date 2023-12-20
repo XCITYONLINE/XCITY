@@ -41,9 +41,15 @@ protected:
 	UPROPERTY(EditAnywhere)
 	FSlateBrush SlateBrush;
 
+	UPROPERTY(EditAnywhere)
+	FText SelectingText;
+
 private:
 	UFUNCTION()
 	void OnKeySelected(FInputChord InputChord);
+
+	UFUNCTION()
+	void OnIsSelectingKeyChanged();
 
 	UPROPERTY()
 	int32 InputMappingIndex;

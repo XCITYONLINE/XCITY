@@ -98,6 +98,8 @@ private:
 	void InitializeButtons();
 	void InitializeButton(USettingsTab* SettingsTab, USettingButton* SettingsButton);
 
+	void CleanDirty();
+
 	UPROPERTY()
 	TObjectPtr<USettingButton> CurrentSelectedButton;
 
