@@ -115,7 +115,7 @@ protected:
 	UPoseAsset* PoseAsset;
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "MetahumanSDK")
-	void StartMetahumanSDK(USoundWave* Sound);
+	void StartMetahumanSDK(const TArray<uint8>& FinalSound);
 
 private:
 	void OnCreateAudioTranscriptionCompleted(const FAudioTranscriptionResponse& Response);

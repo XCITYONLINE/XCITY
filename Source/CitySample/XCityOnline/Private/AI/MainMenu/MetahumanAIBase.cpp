@@ -5,11 +5,9 @@
 #include "AudioCaptureComponent.h"
 #include "AudioMixerBlueprintLibrary.h"
 #include "MetahumanSDKAPIManager.h"
-#include "AzSpeech/AzSpeechHelper.h"
 #include "AzSpeech/AzSpeechSettings.h"
 #include "AzSpeech/Tasks/Synthesis/SSMLToSpeechAsync.h"
 #include "FuncLib/OpenAIFuncLib.h"
-#include "Helpers/SystemUtilityLibrary.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Provider/OpenAIProvider.h"
@@ -166,7 +164,7 @@ void AMetahumanAIBase::OnCreateChatCompletionCompleted(const FChatCompletionResp
 		AzSpeechSynthesisOptions,
 		NewString);
 
-	AsyncTask->VisemeReceived.AddUniqueDynamic(this, &ThisClass::OnVisemeReceived);
+//	AsyncTask->VisemeReceived.AddUniqueDynamic(this, &ThisClass::OnVisemeReceived);
 	AsyncTask->SynthesisCompleted.AddUniqueDynamic(this, &ThisClass::OnSynthesisCompleted);
 	AsyncTask->Activate();
 }
@@ -193,10 +191,7 @@ void AMetahumanAIBase::OnSynthesisCompleted(const bool bSuccess)
 		return;
 	}
 	
-	USoundWave* FinalSound = UAzSpeechHelper::ConvertAudioDataToSoundWave(AsyncTask->GetAudioData());
-	UAudioComponent* AudioComponent = UGameplayStatics::CreateSound2D(this, FinalSound);
-	
-	StartMetahumanSDK(FinalSound);
+	StartMetahumanSDK(AsyncTask->GetAudioData());
 }
 
 void AMetahumanAIBase::OnAudioFinished()

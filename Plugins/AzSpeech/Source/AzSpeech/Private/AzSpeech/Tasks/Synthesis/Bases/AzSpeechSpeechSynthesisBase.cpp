@@ -59,7 +59,7 @@ void UAzSpeechSpeechSynthesisBase::BroadcastFinalResult()
         {
             if (bAutoPlayAudio)
             {
-                PlayAudio();
+          //      PlayAudio();
             }
 
             SynthesisCompleted.Broadcast(IsLastResultValid());
