@@ -197,13 +197,10 @@ void AMetahumanAIBase::OnSynthesisCompleted(const bool bSuccess)
 	UAudioComponent* AudioComponent = UGameplayStatics::CreateSound2D(this, FinalSound);
 	
 	StartMetahumanSDK(FinalSound);
-
-	OnConversationStarted.Broadcast();
 }
 
 void AMetahumanAIBase::OnAudioFinished()
 {
-	OnConversationEnded.Broadcast();
 }
 
 void AMetahumanAIBase::OnVisemeReceived(const FAzSpeechVisemeData VisemeData)

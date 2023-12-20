@@ -42,7 +42,7 @@ void UAIFaceAnimInstance::NativeBeginPlay()
 	}
 
 	SubscribeToEvents();
-	UpdateRandomSequence();
+//	UpdateRandomSequence();
 }
 
 int32 UAIFaceAnimInstance::GetCurrentIndexForAnimation()
@@ -88,7 +88,7 @@ void UAIFaceAnimInstance::DelayedVisemeOperations()
 
 void UAIFaceAnimInstance::OnTemperatureChanged(const float& NewTemperature)
 {
-	UpdateRandomSequence();
+	//UpdateRandomSequence();
 	
 	TemperatureInternal = NewTemperature;
 
@@ -148,5 +148,5 @@ void UAIFaceAnimInstance::UpdateRandomSequence()
 void UAIFaceAnimInstance::RandomSequenceTick()
 {
 	bCanShowNextEmotion = true;
-	UpdateRandomSequence();
+	//UpdateRandomSequence();
 }
