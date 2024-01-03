@@ -14,12 +14,17 @@ struct CITYSAMPLE_API FRadialMenuSlotInfo
 	GENERATED_BODY();
 	
 	UPROPERTY()
-	FVector2D AngleRange;
+	FVector2D AngleRange = FVector2D();
 
 	UPROPERTY()
 	TObjectPtr<class URadialMenuSlot> SlotPtr;
 
-	FRadialMenuSlotInfo() {}
+	FRadialMenuSlotInfo()
+	{
+		AngleRange = FVector2D();
+		SlotPtr = nullptr;
+	}
+
 	FRadialMenuSlotInfo(const FVector2D& InAngleRange, URadialMenuSlot* InSlot)
 	{
 		this->AngleRange = InAngleRange;

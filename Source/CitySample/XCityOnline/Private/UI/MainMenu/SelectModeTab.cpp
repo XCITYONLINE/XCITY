@@ -83,5 +83,5 @@ void USelectModeTab::OnPlayButtonClicked()
 	}
 
 	const UWorld* WorldAsset = Cast<UWorld>(LevelAsset);
-	GetWorld()->ServerTravel("/Game//Map/Small_City_LVL");
+	GetWorld()->ServerTravel("/Game/Map/Small_City_LVL");
 }

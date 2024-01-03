@@ -13,14 +13,10 @@ enum class EMood : uint8
 {
 	EM_None						UMETA(Hidden),
 	EM_SmallAnger				UMETA(DisplayName = "Small Anger"),
-	EM_MediumAnger				UMETA(DisplayName = "Medium Anger"),
 	EM_VeryAnger				UMETA(DisplayName = "Very Anger"),
-	EM_SuperAnger				UMETA(DisplayName = "Super Anger"),
 	EM_Neutral					UMETA(DisplayName = "Neutral"),
 	EM_SmallJoy					UMETA(DisplayName = "Small Joy"),
-	EM_MediumJoy				UMETA(DisplayName = "Medium Joy"),
 	EM_VeryJoy					UMETA(DisplayName = "Very Joy"),
-	EM_SuperJoy					UMETA(DisplayName = "Super Joy"),
 	EM_Max						UMETA(Hidden)
 };
 
@@ -54,7 +50,7 @@ struct FSequenceRandomPlayInfo
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Sequence Random Play Info")
-	int32 NumOfSequences;
+	int32 NumOfSequences = 0;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Sequence Random Play Info")
 	TMap<int32, float> ChanceForEverySequence;
@@ -103,28 +99,20 @@ public:
 		{ 21, FVisemeAnimationInfo(0.0f, 0.03f) }
 	};
 
-	inline static TMap<int32, FName> MoodNames = {
-		{ -1, FName("Small Anger") },
-		{ -2, FName("Medium Anger") },
-		{ -3, FName("Very Anger") },
-		{ -4, FName("Super Anger") },
-		{ 0, FName("Neutral") },
-		{ 1, FName("Small Joy") },
-		{ 2, FName("Medium Joy") },
-		{ 3, FName("Very Joy") },
-		{ 4, FName("Super Joy") }
+	inline static TMap<float, FName> MoodNames = {
+		{ -10.0f, FName("Small Anger") },
+		{ -30.0f, FName("Very Anger") },
+		{ 0.0f, FName("Neutral") },
+		{ 5.0f, FName("Small Joy") },
+		{ 10.0f, FName("Very Joy") }
 	};
 
 	inline static TMap<FName, EMood> MoodsInfo = {
 		{ FName("Small Anger"), EMood::EM_SmallAnger },
-		{ FName("Medium Anger"), EMood::EM_MediumAnger },
 		{ FName("Very Anger"), EMood::EM_VeryAnger },
-		{ FName("Super Anger"), EMood::EM_SuperAnger },
 		{ FName("Neutral"), EMood::EM_Neutral },
 		{ FName("Small Joy"), EMood::EM_SmallJoy },
-		{ FName("Medium Joy"), EMood::EM_MediumJoy },
-		{ FName("Very Joy"), EMood::EM_VeryJoy },
-		{ FName("Super Joy"), EMood::EM_SuperJoy },
+		{ FName("Very Joy"), EMood::EM_VeryJoy }
 	};
 	
 protected:
@@ -194,7 +182,7 @@ private:
 	float AnimationTemperatureAlpha;
 	bool bIsJoy;
 	FName CurrentExpressionName;
-	int32 CurrentMoodID;
+	float CurrentMoodID;
 	int32 CurrentMoodAnimIndex;
 	int32 CurrentSequenceIndex;
 

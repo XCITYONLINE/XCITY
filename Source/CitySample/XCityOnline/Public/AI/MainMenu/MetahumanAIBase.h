@@ -32,16 +32,19 @@ enum EAnswerAnimation : uint8
 };
 
 USTRUCT(Blueprintable, BlueprintType)
-struct FAnswerData
+struct FAnswerData : public FTableRowBase
 {
 	GENERATED_BODY()
 
-	FAnswerData() : AnswerAnimation(EAA_Idle), TemperatureDelta(0.25f) {}
+	FAnswerData() : Word("Empty"), AnswerAnimation(EAA_Idle), TemperatureDelta(0.25f) {}
 	FAnswerData(TEnumAsByte<EAnswerAnimation> InAnswerAnimation, float InTemperatureDelta)
 	{
 		AnswerAnimation = InAnswerAnimation;
 		TemperatureDelta = InTemperatureDelta;
 	}
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Answer Data")
+	FString Word = FString();
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Answer Data")
 	TEnumAsByte<EAnswerAnimation> AnswerAnimation;
@@ -100,7 +103,7 @@ protected:
 	virtual void BeginPlay() override;
 	
 	UFUNCTION(BlueprintPure, Category = "AI")
-	virtual TMap<FString, FAnswerData>& GetAnswerAnimations();
+	virtual TArray<FAnswerData> GetAnswerAnimations();
 	
 	/**
 	Paste your OpenAI key here.You can find your API key at https://platform.openai.com/account/api-keys.
@@ -138,6 +141,8 @@ private:
 	void AfterRecordCompletedWork();
 
 	void ApplyExpression(const FAnswerData& AnswerData);
+
+	void LoadWords();
 	
 	UPROPERTY(meta = (AllowPrivateAccess = true), EditAnywhere, Category = "AI")
 	TObjectPtr<class UAudioCaptureComponent> AudioCaptureComp;
@@ -149,7 +154,7 @@ private:
 	FText SSMLQueryBase;
 
 	UPROPERTY(meta = (AllowPrivateAccess = true), EditAnywhere, Category = "AI")
-	TMap<FString, FAnswerData> AnswerAnimations;
+	TArray<FAnswerData> AnswerAnimations;
 
 	UPROPERTY(meta = (AllowPrivateAccess = true), EditAnywhere, Category = "AI")
 	TArray<FMessage> PromtMessages;
