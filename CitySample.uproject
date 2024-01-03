@@ -1,6 +1,6 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "{81B44F6A-45D7-9B85-791B-39B7F371B543}",
+	"EngineAssociation": "{659E2D23-44CC-C17E-5CC1-C3B2ECEA3CDD}",
 	"Category": "Samples",
 	"Description": "",
 	"Modules": [
@@ -296,6 +296,11 @@
 			"Name": "Narrative",
 			"Enabled": true,
 			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/b03174e0a1cc4de4b17dcfb2a0ba6884"
+		},
+		{
+			"Name": "MetaHumanSDK",
+			"Enabled": true,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/bdea302c21ad4664a7d28a2a93d40b3f"
 		}
 	],
 	"TargetPlatforms": [
