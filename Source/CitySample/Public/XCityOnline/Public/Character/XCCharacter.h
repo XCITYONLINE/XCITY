@@ -63,8 +63,14 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputAction> TalkAction;
 
+	//UPROPERTY(EditAnywhere, Category = "Input")
+	//TObjectPtr<UInputAction> RadialMenuOpen;
+
 	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputMappingContext> MappingContext;
+
+	UPROPERTY(EditAnywhere, Category = "Components")
+	TObjectPtr<class URadialMenuComponent> RadialMenuComponent;
 
 	/** Reference to owned motion warping component */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Physics")

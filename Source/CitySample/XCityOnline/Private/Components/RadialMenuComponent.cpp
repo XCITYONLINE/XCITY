@@ -5,7 +5,7 @@
 #include "Blueprint/UserWidget.h"
 #include "Conponents/InventoryComponentBase.h"
 #include "GameFramework/Character.h"
-#include "XCityOnline/Public/Character/XCityCharacterBase.h"
+#include "CitySample/Public/XCityOnline/Public/Character/XCCharacter.h"
 #include "XCityOnline/Public/UI/XCityHUD.h"
 #include "XCityOnline/Public/UI/RadialMenu/RadialMenuWidget.h"
 #include "XCityOnline/Public/UI/RadialMenu/WeaponRadialMenuSlot.h"
@@ -134,17 +134,17 @@ void URadialMenuComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	const AXCityCharacterBase* CharacterBase = Cast<AXCityCharacterBase>(GetOwner());
+	const AXCCharacter* CharacterBase = Cast<AXCCharacter>(GetOwner());
 	if (!IsValid(CharacterBase))
 	{
 		return;
 	}
 
-	UActorComponent* FoundComponent = CharacterBase->FindComponentByClass<UInventoryComponentBase>();
-	InventoryComponentBase = Cast<UInventoryComponentBase>(FoundComponent);
-	check(InventoryComponentBase);
+	//UActorComponent* FoundComponent = CharacterBase->FindComponentByClass<UInventoryComponentBase>();
+	//InventoryComponentBase = Cast<UInventoryComponentBase>(FoundComponent);
+	//check(InventoryComponentBase);
 	
-	InventoryComponentBase->OnInventorySizeChanged.AddUniqueDynamic(this, &URadialMenuComponent::OnInventorySizeChanged);
+	//InventoryComponentBase->OnInventorySizeChanged.AddUniqueDynamic(this, &URadialMenuComponent::OnInventorySizeChanged);
 
 	const auto Controller = Cast<APlayerController>(CharacterBase->GetOwner());
 	const auto XCityHUD = Cast<AXCityHUD>(Controller->GetHUD());
@@ -173,7 +173,7 @@ void URadialMenuComponent::SelectItem()
 		return;
 	}
 
-	AXCityCharacterBase* CharacterBase = Cast<AXCityCharacterBase>(GetOwner());
+	AXCCharacter* CharacterBase = Cast<AXCCharacter>(GetOwner());
 	if (!IsValid(CharacterBase))
 	{
 		return;
@@ -181,17 +181,17 @@ void URadialMenuComponent::SelectItem()
 
 	TMap<int32, TScriptInterface<IInteractibleItemInterface>> Items;
 	GetItemsByType(WeaponRadialMenuSlot->GetWeaponType(), Items);
-	CharacterBase->ReInitializeItemObject();
-	if (Items.Num() > 0)
-	{
-		if (Items.Find(WeaponRadialMenuSlot->GetSelectedWeaponIndex()))
-		{
-			FWeaponsDataStruct WeaponsDataStruct;
-			Items[WeaponRadialMenuSlot->GetSelectedWeaponIndex()]->GetItemSettings<FWeaponsDataStruct>(Items[WeaponRadialMenuSlot->GetSelectedWeaponIndex()].GetObject(), WeaponsDataStruct);
+	//CharacterBase->ReInitializeItemObject();
+	//if (Items.Num() > 0)
+	//{
+	//	if (Items.Find(WeaponRadialMenuSlot->GetSelectedWeaponIndex()))
+	//	{
+	//		FWeaponsDataStruct WeaponsDataStruct;
+	//		Items[WeaponRadialMenuSlot->GetSelectedWeaponIndex()]->GetItemSettings<FWeaponsDataStruct>(Items[WeaponRadialMenuSlot->GetSelectedWeaponIndex()].GetObject(), WeaponsDataStruct);
 			
-			CharacterBase->SetSelectedInventoryItem(Items[WeaponRadialMenuSlot->GetSelectedWeaponIndex()]);
-			InventoryComponentBase->SelectItem_Implementation(Items[WeaponRadialMenuSlot->GetSelectedWeaponIndex()]);
-			CharacterBase->ReInitializeItemObject();
-		}
-	}
+	//		CharacterBase->SetSelectedInventoryItem(Items[WeaponRadialMenuSlot->GetSelectedWeaponIndex()]);
+	//		InventoryComponentBase->SelectItem_Implementation(Items[WeaponRadialMenuSlot->GetSelectedWeaponIndex()]);
+	//		CharacterBase->ReInitializeItemObject();
+	//	}
+	//}
 }
