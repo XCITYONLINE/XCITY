@@ -96,12 +96,17 @@ void AXCCharacter::SetupPlayerInputComponent(UInputComponent* Input)
 	if (UEnhancedInputComponent* EnhancedInput =
 		Cast<UEnhancedInputComponent>(Input); IsValid(EnhancedInput))
 	{
+	
 		if (IsValid(TalkAction))
 		{
 			EnhancedInput->BindAction(TalkAction, ETriggerEvent::Started, this, &AXCCharacter::OnTalkInputChanged);
 			EnhancedInput->BindAction(TalkAction, ETriggerEvent::Completed, this, &AXCCharacter::OnTalkInputCompleted);
 		}
 
+		if (IsValid(RadialMenuComponent))
+		{
+			RadialMenuComponent->SetupInput(EnhancedInput);
+		}
 	}
 }
 

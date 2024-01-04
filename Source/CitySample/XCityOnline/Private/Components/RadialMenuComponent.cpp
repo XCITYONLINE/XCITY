@@ -18,32 +18,32 @@ URadialMenuComponent::URadialMenuComponent()
 void URadialMenuComponent::GetItemsByType(const EWeaponType& InWeaponType,
 	TMap<int32, TScriptInterface<IInteractibleItemInterface>>& OutItemsByType)
 {
-	if (!IsValid(GetOwner()) || !IsValid(InventoryComponentBase))
+	if (!IsValid(GetOwner()))
 	{
 		return;
 	}
 
-	TArray<TScriptInterface<IInteractibleItemInterface>> Items;
-	InventoryComponentBase->GetAllInventoryItems_Implementation(Items);
-	if (Items.IsEmpty())
-	{
-		return;
-	}
+	//TArray<TScriptInterface<IInteractibleItemInterface>> Items;
+	//InventoryComponentBase->GetAllInventoryItems_Implementation(Items);
+	//if (Items.IsEmpty())
+	//{
+		//return;
+	//}
 
-	int32 Index = 0;
-	for (int32 i = 0; i < Items.Num(); i++)
-	{
-		FWeaponsDataStruct WeaponsDataStruct;
+	//int32 Index = 0;
+	//for (int32 i = 0; i < Items.Num(); i++)
+	//{
+	//	FWeaponsDataStruct WeaponsDataStruct;
 		
-		if (Items[i]->GetItemSettings<FWeaponsDataStruct>(this, WeaponsDataStruct))
-		{
-			if (WeaponsDataStruct.WeaponType == InWeaponType)
-			{
-				OutItemsByType.Add(Index, Items[i]);
-				Index++;
-			}
-		}
-	}
+	//	if (Items[i]->GetItemSettings<FWeaponsDataStruct>(this, WeaponsDataStruct))
+	//	{
+	//		if (WeaponsDataStruct.WeaponType == InWeaponType)
+	//		{
+	//			OutItemsByType.Add(Index, Items[i]);
+	//			Index++;
+	//		}
+	//	}
+	//}
 }
 
 void URadialMenuComponent::EnableRadialMenu(const FInputActionValue& Value)
