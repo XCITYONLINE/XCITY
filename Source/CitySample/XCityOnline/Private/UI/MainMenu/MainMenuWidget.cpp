@@ -15,6 +15,8 @@ UWidgetSwitcher* UMainMenuWidget::GetWidgetSwitcher() const
 
 void UMainMenuWidget::SelectNewTab(const int32& Index, UMainMenuButtonBase* MainMenuButton)
 {
+	UMainMenuTabBase* SettingsTab = GetTab(ETabType::ETT_Settings);
+	
 	if (GetWidgetSwitcher()->GetActiveWidget() == SettingsTab)
 	{
 		Cast<USettingsWidget>(SettingsTab)->OnTryingToChange();
@@ -85,40 +87,25 @@ void UMainMenuWidget::SelectTabByType(ETabType TabType)
 
 UMainMenuTabBase* UMainMenuWidget::GetTab(ETabType TabType)
 {
-	switch (TabType)
+	for (auto It = GetWidgetSwitcher()->GetAllChildren().CreateIterator(); It; ++It)
 	{
-	case ETabType::ETT_Club:
-		return ClubTab;
-	case ETabType::ETT_Play:
-		return PlayTab;
-	case ETabType::ETT_Settings:
-		return SettingsTab;
-	case ETabType::ETT_Store:
-		return StoreTab;
-	case ETabType::ETT_Girl:
-		return GirlTab;
+		if (UMainMenuTabBase* MainMenuTabBase = Cast<UMainMenuTabBase>(GetWidgetSwitcher()->GetAllChildren()[It.GetIndex()]))
+		{
+			if (MainMenuTabBase->GetTabType() == TabType) return MainMenuTabBase;
+		}
 	}
 
-	return PlayTab;
+	return nullptr;
 }
 
 UMainMenuButtonBase* UMainMenuWidget::GetButton(ETabType TabType)
 {
-	switch (TabType)
+	for (auto It = ButtonsArray.CreateIterator(); It; ++It)
 	{
-	case ETabType::ETT_Club:
-		return ClubTabButton;
-	case ETabType::ETT_Play:
-		return PlayTabButton;
-	case ETabType::ETT_Settings:
-		return SettingTabButton;
-	case ETabType::ETT_Store:
-		return StoreTabButton;
-	case ETabType::ETT_Girl:
-		return GirlTabButton;
+		if (ButtonsArray[It.GetIndex()]->GetTabType() == TabType) return ButtonsArray[It.GetIndex()];
 	}
 
-	return PlayTabButton;
+	return nullptr;
 }
 
 UMainMenuTabBase* UMainMenuWidget::GetCurrentTab() const
@@ -133,7 +120,7 @@ UMainMenuWidget::UMainMenuWidget(const FObjectInitializer& ObjectInitializer) : 
 
 FReply UMainMenuWidget::NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent)
 {
-	USettingsWidget* SettingsWidget = Cast<USettingsWidget>(SettingsTab);
+	USettingsWidget* SettingsWidget = Cast<USettingsWidget>(GetTab(ETabType::ETT_Settings));
 	
 	if (InKeyEvent.GetKey() == SettingsWidget->ApplyKey) SettingsWidget->OnApplySettingsButtonClicked();
 	UE_LOG(LogTemp, Display, TEXT("Key down"));
@@ -158,18 +145,7 @@ void UMainMenuWidget::InitializeMainMenu()
 		}
 	}
 	
-	InitializeButtons();
-	
 	bIsInitialized = true;
-}
-
-void UMainMenuWidget::InitializeButtons()
-{
-	InitializeButton(PlayTabButton, PlayTab);
-	InitializeButton(SettingTabButton, SettingsTab);
-	InitializeButton(ClubTabButton, ClubTab);
-	InitializeButton(StoreTabButton, StoreTab);
-	InitializeButton(GirlTabButton, GirlTab);
 }
 
 void UMainMenuWidget::InitializeButton(UMainMenuButtonBase* Button, UMainMenuTabBase* Tab)
@@ -180,4 +156,5 @@ void UMainMenuWidget::InitializeButton(UMainMenuButtonBase* Button, UMainMenuTab
 	}
 
 	Button->InitializeTabButton(Tab);
+	ButtonsArray.Add(Button);
 }

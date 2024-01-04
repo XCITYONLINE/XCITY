@@ -50,37 +50,13 @@ protected:
 	TObjectPtr<UWidgetSwitcher> TabSwitcher;
 
 	UPROPERTY(meta = (BindWidget))
-	TObjectPtr<UMainMenuTabBase> PlayTab;
-
-	UPROPERTY(meta = (BindWidget))
-	TObjectPtr<UMainMenuButtonBase> PlayTabButton;
-
-	UPROPERTY(meta = (BindWidget))
-	TObjectPtr<UMainMenuTabBase> SettingsTab;
-
-	UPROPERTY(meta = (BindWidget))
-	TObjectPtr<UMainMenuButtonBase> SettingTabButton;
-
-	UPROPERTY(meta = (BindWidget))
-	TObjectPtr<UMainMenuTabBase> ClubTab;
-	
-	UPROPERTY(meta = (BindWidget))
-	TObjectPtr<UMainMenuButtonBase> ClubTabButton;
-
-	UPROPERTY(meta = (BindWidget))
-	TObjectPtr<UMainMenuTabBase> StoreTab;
-
-	UPROPERTY(meta = (BindWidget))
-	TObjectPtr<UMainMenuButtonBase> StoreTabButton;
-
-	UPROPERTY(meta = (BindWidget))
-	TObjectPtr<UMainMenuTabBase> GirlTab;
-
-	UPROPERTY(meta = (BindWidget))
-	TObjectPtr<UMainMenuButtonBase> GirlTabButton;
-
-	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<class UBorder> SideBarBorder;
+
+	UFUNCTION(BlueprintCallable)
+	void InitializeMainMenu();
+
+	UFUNCTION(BlueprintCallable)
+	void InitializeButton(UMainMenuButtonBase* Button, UMainMenuTabBase* Tab);
 
 private:
 	UPROPERTY()
@@ -88,10 +64,9 @@ private:
 	
 	UPROPERTY()
 	TObjectPtr<UMainMenuTabBase> CurrentTab;
-	
-	void InitializeMainMenu();
-	void InitializeButtons();
-	void InitializeButton(UMainMenuButtonBase* Button, UMainMenuTabBase* Tab);
+
+	UPROPERTY()
+	TArray<UMainMenuButtonBase*> ButtonsArray;
 	
 	bool bIsInitialized;
 };

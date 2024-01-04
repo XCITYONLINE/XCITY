@@ -8,6 +8,7 @@
 UMainMenuTabBase::UMainMenuTabBase(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
 	TabType = ETabType::ETT_Play;
+	MainMenuWidgetPtr = nullptr;
 }
 
 void UMainMenuTabBase::OnTabEnabled()

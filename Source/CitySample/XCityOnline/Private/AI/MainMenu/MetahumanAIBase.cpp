@@ -11,6 +11,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Provider/OpenAIProvider.h"
+#include "XCityOnline/Public/Settings/AISettings.h"
 #include "XCityOnline/Public/UI/XCityMainMenuHUD.h"
 #include "XCityOnline/Public/UI/MainMenu/MainMenuWidget.h"
 #include "XCityOnline/Public/UI/MainMenu/PlayTab.h"
@@ -74,16 +75,15 @@ FAnswerData AMetahumanAIBase::GetAnswerAnimationForWord(const FString& Word)
 {
 	if (Word.IsEmpty()) return FAnswerData();
 	
-	TArray<FString> Keys;
-	GetAnswerAnimations().GetKeys(Keys);
+	auto Animations = GetAnswerAnimations();
 	
-	if (Keys.Num() == 0) return FAnswerData();
+	if (Animations.Num() == 0) return FAnswerData();
 
-	for (auto It = Keys.CreateIterator(); It; ++It)
+	for (auto It = Animations.CreateIterator(); It; ++It)
 	{
-		if (Word.Contains(Keys[It.GetIndex()]))
+		if (Word.Contains(Animations[It.GetIndex()].Word))
 		{
-			return GetAnswerAnimations()[Keys[It.GetIndex()]];
+			return Animations[It.GetIndex()];
 		}
 	}
 
@@ -94,10 +94,12 @@ void AMetahumanAIBase::BeginPlay()
 {
 	Super::BeginPlay();
 
+	LoadWords();
+	
 	Messages.Append(PromtMessages);
 }
 
-TMap<FString, FAnswerData>& AMetahumanAIBase::GetAnswerAnimations()
+TArray<FAnswerData> AMetahumanAIBase::GetAnswerAnimations()
 {
 	return AnswerAnimations;
 }
@@ -267,7 +269,7 @@ void AMetahumanAIBase::ApplyExpression(const FAnswerData& AnswerData)
 		return;
 	}
 
-	CurrentMoodTemperature = FMath::Clamp(CurrentMoodTemperature + AnswerData.TemperatureDelta, -1, 1);
+	CurrentMoodTemperature = FMath::Clamp(CurrentMoodTemperature + AnswerData.TemperatureDelta, -30, 10);
 	OnTemperatureChanged.Broadcast(CurrentMoodTemperature);
 
 	TArray<float> Keys;
@@ -279,5 +281,27 @@ void AMetahumanAIBase::ApplyExpression(const FAnswerData& AnswerData)
 		{
 			Messages[0] = PromptTemperatures[Key];
 		}
+	}
+}
+
+void AMetahumanAIBase::LoadWords()
+{
+	AnswerAnimations.Empty();
+	
+	const UAISettings* AISettings = UAISettings::GetAISystemSettings();
+	if (!IsValid(AISettings))
+	{
+		return;
+	}
+
+	UDataTable* WordsData = AISettings->WordsData;
+	if (!IsValid(WordsData)) return;
+
+	TArray<FAnswerData*> AnswerDatas;
+	WordsData->GetAllRows("Context", AnswerDatas);
+
+	for (const auto Answer : AnswerDatas)
+	{
+		AnswerAnimations.Add(*Answer);
 	}
 }
