@@ -22,28 +22,6 @@ void URadialMenuComponent::GetItemsByType(const EWeaponType& InWeaponType,
 	{
 		return;
 	}
-
-	//TArray<TScriptInterface<IInteractibleItemInterface>> Items;
-	//InventoryComponentBase->GetAllInventoryItems_Implementation(Items);
-	//if (Items.IsEmpty())
-	//{
-		//return;
-	//}
-
-	//int32 Index = 0;
-	//for (int32 i = 0; i < Items.Num(); i++)
-	//{
-	//	FWeaponsDataStruct WeaponsDataStruct;
-		
-	//	if (Items[i]->GetItemSettings<FWeaponsDataStruct>(this, WeaponsDataStruct))
-	//	{
-	//		if (WeaponsDataStruct.WeaponType == InWeaponType)
-	//		{
-	//			OutItemsByType.Add(Index, Items[i]);
-	//			Index++;
-	//		}
-	//	}
-	//}
 }
 
 void URadialMenuComponent::EnableRadialMenu(const FInputActionValue& Value)
@@ -139,12 +117,6 @@ void URadialMenuComponent::BeginPlay()
 	{
 		return;
 	}
-
-	//UActorComponent* FoundComponent = CharacterBase->FindComponentByClass<UInventoryComponentBase>();
-	//InventoryComponentBase = Cast<UInventoryComponentBase>(FoundComponent);
-	//check(InventoryComponentBase);
-	
-	//InventoryComponentBase->OnInventorySizeChanged.AddUniqueDynamic(this, &URadialMenuComponent::OnInventorySizeChanged);
 
 	const auto Controller = Cast<APlayerController>(CharacterBase->GetOwner());
 	const auto XCityHUD = Cast<AXCityHUD>(Controller->GetHUD());
