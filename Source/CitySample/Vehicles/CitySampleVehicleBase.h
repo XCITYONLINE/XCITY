@@ -531,6 +531,7 @@ protected:
 	bool bIsPossessableByPlayer = true;
 
 	/** Whether the vehicle is currently possessed by a player */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Driving")
 	bool bIsPossessedByPlayer = false;
 
 	/** Max wheel angular velocity need to hit the max blur wheel angle */
@@ -855,7 +856,7 @@ private:
 	void OnExitPhotomode();
 
 	/** When entering the vehicle, this function starts the timer the blocks the player from driving until done */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable, Category = "StartDirving")
 	void StartParkingReleaseTimer();
 
 	/** When entering a vehicle, we need to give time for the ignition sfx to play, so we block the player from driving with these timer members */
